@@ -1,0 +1,12 @@
+# 'brew tap'
+tap "homebrew/cask"
+
+# 'brew install --cask'
+cask "alt-tab"
+cask "espanso"
+cask "karabiner-elements"
+cask "raycast"
+cask "yesplaymusic"
+cask "zotero"
+
+# 'mas install'
