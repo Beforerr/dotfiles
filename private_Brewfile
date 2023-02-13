@@ -3,9 +3,12 @@ tap "homebrew/cask"
 
 # 'brew install'
 brew "mackup"
+brew "mas"
+brew "goku"
 
 # 'brew install --cask'
 cask "alt-tab"
+cask "appcleaner"
 cask "espanso"
 cask "karabiner-elements"
 cask "raycast"
@@ -13,3 +16,5 @@ cask "yesplaymusic"
 cask "zotero"
 
 # 'mas install'
+mas "DwellClick", id: 402414007
+mas "Flow", id: 1423210932
