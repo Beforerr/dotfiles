@@ -1,6 +1,9 @@
 # 'brew tap'
 tap "homebrew/cask"
 
+# 'brew install'
+brew "mackup"
+
 # 'brew install --cask'
 cask "alt-tab"
 cask "espanso"
