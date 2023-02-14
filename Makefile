@@ -1,5 +1,25 @@
-
 BREW_BIN := /opt/homebrew/bin/brew
 
-brew-packages:
-	$(BREW_BIN) bundle --file=$(HOME)/install/Brewfile || true
+all: macos
+
+macos: brew nix python
+
+brew:
+	which brew || curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | NONINTERACTIVE=1 bash
+
+brew-packages: brew
+	$(BREW_BIN) bundle || true
+
+nix:
+	which nix || curl -L https://nixos.org/nix/install | sh
+
+home-manager: nix
+	which home-manager || (nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager && nix-channel --update && nix-shell '<home-manager>' -A install)
+
+mamba:
+	which micromamba || curl micro.mamba.pm/install.sh | zsh
+
+python: mamba
+
+version:
+	nix --version && brew --version && micromamba --version

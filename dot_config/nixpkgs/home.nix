@@ -9,9 +9,10 @@
   # Packages that should be installed to the user profile.
   home.packages = [
     pkgs.bat
+    pkgs.git
+    pkgs.gdu
     pkgs.htop
     pkgs.ugrep
-    pkgs.ncdu
   ];
 
   # This value determines the Home Manager release that your
@@ -26,4 +27,7 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+  programs.zsh.enable = true;
+  programs.zoxide.enable = true;
+  programs.direnv.enable = true;
 }

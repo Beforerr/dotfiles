@@ -1,33 +1,45 @@
 # 'brew tap'
 tap "homebrew/cask"
+tap "yqrashawn/goku"
+tap "lencx/chatgpt"
 
 # 'brew install'
 brew "mackup"
 brew "mas"
-brew "goku"
+brew "goku", restart_service: true
 
 # 'brew install --cask'
 cask "alt-tab"
 cask "appcleaner"
-cask "calibre"
-cask "chatgpt"
+# cask "calibre"
+cask "chatgpt", args: { "no-quarantine": true }
 cask "digikam"
 cask "espanso"
 cask "finicky"
+cask "flux"
 cask "google-drive"
 cask "hazeover"
+cask "iina"
+cask "itsycal"
 cask "karabiner-elements"
 cask "raycast"
 cask "rectangle"
-cask "slack"
 cask "siyuan"
+cask "slack"
+cask "shortcat"
 cask "snipaste"
 cask "sogouinput"
+cask "sublime-text"
+cask "syncthing"
+cask "telegram"
+cask "vivaldi"
+cask "visual-studio-code"
 cask "warp"
-cask "yesplaymusic"
+cask "yesplaymusic", args: { "no-quarantine": true }
 cask "zoom"
 cask "zotero"
 
 # 'mas install'
 mas "DwellClick", id: 402414007
 mas "Flow", id: 1423210932
+
