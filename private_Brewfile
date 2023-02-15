@@ -11,6 +11,7 @@ brew "goku", restart_service: true
 # 'brew install --cask'
 cask "alt-tab"
 cask "appcleaner"
+cask "bitwarden"
 # cask "calibre"
 cask "chatgpt", args: { "no-quarantine": true }
 cask "digikam"
