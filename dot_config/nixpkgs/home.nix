@@ -11,6 +11,8 @@
     pkgs.bat
     pkgs.gdu
     pkgs.htop
+    pkgs.gnumake
+    pkgs.wget
     pkgs.ugrep
   ];
 
@@ -26,7 +28,11 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-  programs.zsh.enable = true;
+  programs.zsh = {
+    enable = true;
+    enableAutosuggestions = true;
+    enableSyntaxHighlighting = true;
+  };
   programs.zoxide.enable = true;
   programs.direnv.enable = true;
   programs.git = {

@@ -2,27 +2,31 @@
 tap "homebrew/cask"
 tap "yqrashawn/goku"
 tap "lencx/chatgpt"
+tap "buo/cask-upgrade"
 
 # 'brew install'
 brew "mackup"
 brew "mas"
-brew "goku", restart_service: true
+brew "goku"
 
 # 'brew install --cask'
 cask "alt-tab"
 cask "appcleaner"
 cask "bitwarden"
-# cask "calibre"
+cask "calibre"
 cask "chatgpt", args: { "no-quarantine": true }
 cask "digikam"
 cask "espanso"
+cask "eudic"
 cask "finicky"
 cask "flux"
 cask "google-drive"
 cask "hazeover"
+cask "hiddenbar", args: { "no-quarantine": true }
 cask "iina"
 cask "itsycal"
 cask "karabiner-elements"
+cask "keka"
 cask "raycast"
 cask "rectangle"
 cask "siyuan"
