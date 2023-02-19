@@ -41,6 +41,7 @@ cask "vivaldi"
 cask "visual-studio-code"
 cask "warp"
 cask "yesplaymusic", args: { "no-quarantine": true }
+cask "qlmarkdown", args: { "no-quarantine": true }
 cask "zoom"
 cask "zotero"
 

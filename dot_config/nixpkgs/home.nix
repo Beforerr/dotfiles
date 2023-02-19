@@ -9,6 +9,7 @@
   # Packages that should be installed to the user profile.
   home.packages = [
     pkgs.bat
+    pkgs.fish
     pkgs.gdu
     pkgs.htop
     pkgs.gnumake
@@ -32,6 +33,7 @@
     enable = true;
     enableAutosuggestions = true;
     enableSyntaxHighlighting = true;
+    autocd = true;
   };
   programs.zoxide.enable = true;
   programs.direnv.enable = true;

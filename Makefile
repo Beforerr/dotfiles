@@ -23,3 +23,11 @@ python: mamba
 
 version:
 	nix --version && brew --version && micromamba --version
+
+popclip:
+	curl https://pilotmoon.com/popclip/extensions/ext/DOI.popclipextz
+
+cheatsheet:
+	mkdir -p "$(HOME)/bin"
+	curl https://cht.sh/:cht.sh > "$(HOME)/bin/cht.sh"
+	chmod +x "$(HOME)/bin/cht.sh"
