@@ -29,15 +29,17 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
   programs.zsh = {
     enable = true;
     enableAutosuggestions = true;
     enableSyntaxHighlighting = true;
     autocd = true;
   };
-  programs.zoxide.enable = true;
-  programs.direnv.enable = true;
   programs.git = {
     enable = true;
   };
+  programs.direnv.enable = true;
+  programs.zoxide.enable = true;
+  programs.starship.enable = true;
 }
