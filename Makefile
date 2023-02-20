@@ -26,6 +26,7 @@ version:
 
 popclip:
 	curl https://pilotmoon.com/popclip/extensions/ext/DOI.popclipextz -o "DOI.popclipextz"
+	open "DOI.popclipextz"
 
 cheatsheet:
 	mkdir -p "$(HOME)/bin"
