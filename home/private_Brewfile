@@ -44,6 +44,7 @@ cask "yesplaymusic", args: { "no-quarantine": true }
 cask "qlmarkdown", args: { "no-quarantine": true }
 cask "zoom"
 cask "zotero"
+cask "the-unarchiver"
 
 # 'mas install'
 mas "DwellClick", id: 402414007
