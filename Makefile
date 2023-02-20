@@ -28,11 +28,3 @@ popclip:
 	curl https://pilotmoon.com/popclip/extensions/ext/DOI.popclipextz -o "DOI.popclipextz"
 	open "DOI.popclipextz"
 
-cheatsheet:
-	mkdir -p "$(HOME)/bin"
-	curl https://cht.sh/:cht.sh > "$(HOME)/bin/cht.sh"
-	chmod +x "$(HOME)/bin/cht.sh"
-
-cheatsheet-uninstall:
-	rm "$(HOME)/bin/cht.sh"
-

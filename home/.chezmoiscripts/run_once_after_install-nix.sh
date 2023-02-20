@@ -1,8 +1,11 @@
 #!/bin/bash
+
+echo "Installing 'nix' package manager..."
 if ! command -v nix; then
 	curl -L https://nixos.org/nix/install | sh
 fi
 
+echo "Installing 'home manager'..."
 if ! command -v home-manager; then
 	nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
 	nix-channel --update 
