@@ -8,6 +8,7 @@
 
   # Packages that should be installed to the user profile.
   home.packages = [
+    pkgs.ansible
     pkgs.bat
     pkgs.fish
     pkgs.gdu
