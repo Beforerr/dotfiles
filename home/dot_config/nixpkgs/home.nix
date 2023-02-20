@@ -8,14 +8,15 @@
 
   # Packages that should be installed to the user profile.
   home.packages = [
-    pkgs.ansible
     pkgs.bat
+    pkgs.cht-sh
     pkgs.fish
     pkgs.gdu
     pkgs.htop
     pkgs.gnumake
     pkgs.wget
     pkgs.ugrep
+    pkgs.ripgrep
   ];
 
   # This value determines the Home Manager release that your
