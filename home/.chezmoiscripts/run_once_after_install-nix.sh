@@ -10,7 +10,7 @@ if ! command -v home-manager; then
 	nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
 	nix-channel --update 
 	nix-shell '<home-manager>' -A install
-fi
+else
 
 echo "Installing packages with 'home manager'..."
 if command -v home-manager; then
