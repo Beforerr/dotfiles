@@ -13,7 +13,7 @@ if ! command -v home-manager; then
 fi
 
 echo "Installing packages with 'home manager'..."
-if ! command -v home-manager; then
+if command -v home-manager; then
 	home-manager switch
 else
 	echo "Home manager is not installed. Please install it first."
