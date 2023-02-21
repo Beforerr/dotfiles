@@ -18,6 +18,7 @@
     pkgs.ugrep
     pkgs.ripgrep
     pkgs.rclone
+    pkgs.micromamba
   ];
 
   # This value determines the Home Manager release that your
