@@ -18,6 +18,9 @@ alias p="cd ~/projects"
 # Recursively delete `.DS_Store` files
 alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
 
+# Homebrew
+alias bb="brew bundle"
+
 # Home manager
 alias hm="home-manager"
 alias hms="home-manager switch"

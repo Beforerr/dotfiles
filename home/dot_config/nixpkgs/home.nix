@@ -38,17 +38,11 @@
     enableAutosuggestions = true;
     enableSyntaxHighlighting = true;
     autocd = true;
-    shellAliases = {
-      "hm"="home-manager";
-      "hms"="home-manager switch";
-      "hme"="home-manager edit";
-    };
     zplug = {
       enable = true;
       plugins = [
         { name = "plugins/brew"; tags = ["from:oh-my-zsh"];}
-        # { name = "plugins/git"; tags = ["from:oh-my-zsh"];}
-        # { name = "modules/utility"; tags = ["from:prezto"];}
+        { name = "plugins/git"; tags = ["from:oh-my-zsh"];}
         { name = "~/.config/zsh"; tags = ["from:local"];}
       ];
     };
