@@ -2,6 +2,7 @@
 
 set -e # -e: exit on error
 
+echo "Installing chezmoi..."
 if [ ! "$(command -v chezmoi)" ]; then
   bin_dir="$HOME/.local/bin"
   if [ "$(command -v curl)" ]; then
