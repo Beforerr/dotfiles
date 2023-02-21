@@ -31,4 +31,5 @@ alias cm="chezmoi"
 alias cma="chezmoi apply"
 alias cmr="chezmoi re-add"
 alias cme="chezmoi edit"
+alias cmcd="chezmoi cd"
 
