@@ -6,3 +6,11 @@
 - Use Nix for packages & command line tools;
 - Use Homebrew exclusively for casks (applications);
 - Sync application settings with [mackup](https://github.com/lra/mackup).
+
+## Installation
+
+One-line install:
+
+```bash
+curl https://raw.githubusercontent.com/Beforerr/dotfiles/main/install.sh | bash
+```
