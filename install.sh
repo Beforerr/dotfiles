@@ -12,3 +12,5 @@ if [ ! "$(command -v chezmoi)" ]; then
     exit 1
   fi
 fi
+echo "Done."
+echo "Running post-installation scripts..."
