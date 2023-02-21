@@ -11,3 +11,10 @@ if ! command -v home-manager; then
 	nix-channel --update 
 	nix-shell '<home-manager>' -A install
 fi
+
+echo "Installing packages with 'home manager'..."
+if ! command -v home-manager; then
+	home-manager switch
+else
+	echo "Home manager is not installed. Please install it first."
+fi
