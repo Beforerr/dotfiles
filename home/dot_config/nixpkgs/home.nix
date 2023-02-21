@@ -38,6 +38,7 @@
     enableAutosuggestions = true;
     enableSyntaxHighlighting = true;
     autocd = true;
+    initExtra = "export PATH=/home/david/pear/bin:$PATH";
     zplug = {
       enable = true;
       plugins = [
