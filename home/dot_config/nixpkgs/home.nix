@@ -10,6 +10,7 @@
   home.packages = [
     pkgs.bat
     pkgs.cht-sh
+    # pkgs.chezmoi
     pkgs.fish
     pkgs.gdu
     pkgs.htop
