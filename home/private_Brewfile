@@ -5,9 +5,7 @@ tap "lencx/chatgpt"
 tap "buo/cask-upgrade"
 
 # 'brew install'
-brew "mackup"
 brew "mas"
-brew "goku"
 
 # 'brew install --cask'
 cask "alt-tab"
