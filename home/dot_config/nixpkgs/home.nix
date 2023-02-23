@@ -19,6 +19,7 @@
     pkgs.ugrep
     pkgs.ripgrep
     pkgs.rclone
+    pkgs.pipx
     pkgs.micromamba
   ];
 
