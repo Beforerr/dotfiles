@@ -13,7 +13,7 @@
     # pkgs.chezmoi
     pkgs.fish
     pkgs.gdu
-    pkgs.goku
+    pkgs.julia
     pkgs.htop
     pkgs.gnumake
     pkgs.wget
