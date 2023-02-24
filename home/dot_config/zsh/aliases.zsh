@@ -33,3 +33,7 @@ alias cmr="chezmoi re-add"
 alias cme="chezmoi edit"
 alias cmcd="chezmoi cd"
 
+# Micromamba
+alias m="micromamba"
+alias mamba="micromamba"
+alias conda="micromamba"
