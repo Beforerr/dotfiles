@@ -1,4 +1,4 @@
 #!/bin/bash
 
-# science.yml hash: {{ include ".conda/science.yml" | sha256sum }}
+# science.yml hash: {{ include "dot_conda/science.yml" | sha256sum }}
 micromamba create -f $(chezmoi source-path)/.conda/science.yml -y
