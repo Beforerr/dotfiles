@@ -1,0 +1,11 @@
+# micromamba create -f env.yml -y
+name: science
+channels:
+  - conda-forge
+dependencies:
+  - scipy
+  - sympy
+  - astropy
+  - plasmapy
+# ------------------------------
+  - jupyter
