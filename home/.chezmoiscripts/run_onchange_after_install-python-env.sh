@@ -1,3 +1,3 @@
 #!/bin/bash
 
-micromamba create -f ../env.yml -y
+micromamba create -f $(chezmoi source-path)/env.yml -y
