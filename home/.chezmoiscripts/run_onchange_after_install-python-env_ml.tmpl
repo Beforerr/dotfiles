@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# ml.yml hash: {{ include "dot_conda/ml.yml" | sha256sum }}
+micromamba create -f $HOME/.conda/ml.yml -y

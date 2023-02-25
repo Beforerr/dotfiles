@@ -1,8 +1,6 @@
-# micromamba create -f env.yml -y
-name: machine learning
+# micromamba create -f ml.yml -y
+name: ml
 channels:
   - conda-forge
 dependencies:
-  - pip
-  - pip:
-    - pycaret
+  - scikit-learn
