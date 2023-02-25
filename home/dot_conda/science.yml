@@ -7,5 +7,6 @@ dependencies:
   - sympy
   - astropy
   - plasmapy
+  - pint
 # ------------------------------
   - jupyter
