@@ -40,6 +40,7 @@
     enable = true;
     enableAutosuggestions = true;
     enableSyntaxHighlighting = true;
+    dotDir = ".config/zsh";
     autocd = true;
     zplug = {
       enable = true;
