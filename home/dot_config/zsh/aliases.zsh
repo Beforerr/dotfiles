@@ -18,6 +18,9 @@ alias p="cd ~/projects"
 # Recursively delete `.DS_Store` files
 alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
 
+# Sublime
+alias s="subl"
+
 # Homebrew
 alias bb="brew bundle"
 

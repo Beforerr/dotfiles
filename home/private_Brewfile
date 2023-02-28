@@ -48,8 +48,6 @@ cask "zoom"
 cask "zotero"
 cask "glance-chamburr", args: { "no-quarantine": true }
 
-cask "jabref", args: { "no-quarantine": true }
-
 # 'mas install'
 mas "DwellClick", id: 402414007
 mas "Flow", id: 1423210932
