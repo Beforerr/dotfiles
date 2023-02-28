@@ -22,6 +22,7 @@ alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
 alias s="subl"
 
 # Homebrew
+alias b="brew"
 alias bb="brew bundle"
 
 # Home manager
