@@ -6,6 +6,7 @@ tap "buo/cask-upgrade"
 
 # 'brew install'
 brew "mas"
+brew "goku"
 
 # 'brew install --cask'
 cask "alt-tab"
@@ -46,6 +47,8 @@ cask "qlmarkdown", args: { "no-quarantine": true }
 cask "zoom"
 cask "zotero"
 cask "glance-chamburr", args: { "no-quarantine": true }
+
+cask "jabref", args: { "no-quarantine": true }
 
 # 'mas install'
 mas "DwellClick", id: 402414007
