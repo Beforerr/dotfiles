@@ -25,6 +25,7 @@ cask "github"
 cask "hazeover"
 cask "hiddenbar", args: { "no-quarantine": true }
 cask "iina"
+cask "iterm2"
 cask "itsycal"
 cask "julia"
 cask "karabiner-elements"
