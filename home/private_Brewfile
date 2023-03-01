@@ -17,7 +17,6 @@ cask "chatgpt", args: { "no-quarantine": true }
 cask "digikam"
 cask "espanso"
 cask "eudic"
-cask "fig"
 cask "finicky"
 cask "flux"
 cask "google-drive"
