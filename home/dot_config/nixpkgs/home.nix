@@ -41,7 +41,7 @@
     enableAutosuggestions = true;
     enableSyntaxHighlighting = true;
     dotDir = ".config/zsh";
-    initExtraFirst = "source $HOME/.zshrc";
+    initExtraBeforeCompInit = "source $HOME/.zshrc";
     autocd = true;
     zplug = {
       enable = true;
@@ -55,6 +55,7 @@
   programs.git = {
     enable = true;
   };
+  programs.broot.enable = true;
   programs.direnv.enable = true;
   programs.zoxide.enable = true;
   programs.starship.enable = true;
