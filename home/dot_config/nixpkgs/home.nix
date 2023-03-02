@@ -48,7 +48,7 @@
       plugins = [
         { name = "plugins/brew"; tags = ["from:oh-my-zsh"];}
         { name = "plugins/git"; tags = ["from:oh-my-zsh"];}
-        { name = "~/.config/zsh"; tags = ["from:local"];}
+        { name = "~/.config/zsh/plugins"; tags = ["from:local"];}
       ];
     };
   };
