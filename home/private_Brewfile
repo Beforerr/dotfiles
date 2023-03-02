@@ -12,6 +12,7 @@ brew "goku"
 cask "alt-tab"
 cask "appcleaner"
 cask "bitwarden"
+cask "betterandbetter"
 cask "calibre"
 cask "chatgpt", args: { "no-quarantine": true }
 cask "digikam"
