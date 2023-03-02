@@ -20,4 +20,4 @@ else
 fi
 
 echo "You may need to change login shell to zsh (nix-shell) with ..."
-echo "	sudo chsh -s $(which zsh) $(whoami)"
+echo 'sudo chsh -s $(which zsh) $(whoami)'
