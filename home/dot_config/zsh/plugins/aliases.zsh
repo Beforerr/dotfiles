@@ -5,7 +5,7 @@ alias la="ls -lAF ${colorflag}"
 alias ll="ls -lAF ${colorflag}"
 alias ls="ls -G"
 
-if command -v cat; then
+if command -v bat >/dev/null; then
 	alias cat="bat"
 fi
 
@@ -42,7 +42,7 @@ alias cme="chezmoi edit"
 alias cmcd="chezmoi cd"
 
 # Micromamba
-if command -v micromamba; then
+if command -v micromamba >/dev/null; then
 	alias m="micromamba"
 	alias mamba="micromamba"
 	alias conda="micromamba"
