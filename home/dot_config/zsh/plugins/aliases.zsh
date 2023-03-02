@@ -5,6 +5,10 @@ alias la="ls -lAF ${colorflag}"
 alias ll="ls -lAF ${colorflag}"
 alias ls="ls -G"
 
+if command -v cat; then
+	alias cat="bat"
+fi
+
 # Easier navigation
 alias ...="cd ../.."
 alias ....="cd ../../.."
@@ -38,6 +42,8 @@ alias cme="chezmoi edit"
 alias cmcd="chezmoi cd"
 
 # Micromamba
-alias m="micromamba"
-alias mamba="micromamba"
-alias conda="micromamba"
+if command -v micromamba; then
+	alias m="micromamba"
+	alias mamba="micromamba"
+	alias conda="micromamba"
+fi
