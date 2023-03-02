@@ -18,3 +18,8 @@ if command -v home-manager; then
 else
 	echo "Home manager is not installed. Please install it first."
 fi
+
+echo "Change login shell to zsh (nix-shell)..."
+if ! command -v zsh; then
+	chsh -s $(which zsh) $(whoami)
+fi
