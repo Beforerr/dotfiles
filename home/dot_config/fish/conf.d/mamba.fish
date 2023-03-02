@@ -1,0 +1,1 @@
+eval "$(micromamba shell hook --shell=fish)"
