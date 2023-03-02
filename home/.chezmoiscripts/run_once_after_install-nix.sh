@@ -21,5 +21,5 @@ fi
 
 echo "Change login shell to zsh (nix-shell)..."
 if ! command -v zsh; then
-	sudo chsh -s $(which zsh) $(whoami)
+	chsh -s $(which zsh) $(whoami)
 fi
