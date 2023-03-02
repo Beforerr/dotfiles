@@ -11,7 +11,6 @@
     pkgs.bat
     pkgs.cht-sh
     # pkgs.chezmoi
-    pkgs.fish
     pkgs.gdu
     pkgs.htop
     pkgs.gnumake
@@ -55,6 +54,7 @@
   programs.git = {
     enable = true;
   };
+  programs.fish.enable = true;
   programs.broot.enable = true;
   programs.direnv.enable = true;
   programs.zoxide.enable = true;
