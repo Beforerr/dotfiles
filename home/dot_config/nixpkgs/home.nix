@@ -10,7 +10,6 @@
   home.packages = [
     pkgs.bat
     pkgs.cht-sh
-    # pkgs.chezmoi
     pkgs.gdu
     pkgs.htop
     pkgs.gnumake
@@ -45,6 +44,7 @@
     zplug = {
       enable = true;
       plugins = [
+        { name = "plugins/aliases"; tags = ["from:oh-my-zsh"];}
         { name = "plugins/brew"; tags = ["from:oh-my-zsh"];}
         { name = "plugins/git"; tags = ["from:oh-my-zsh"];}
         { name = "~/.config/zsh/plugins"; tags = ["from:local"];}
