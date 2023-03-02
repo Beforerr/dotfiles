@@ -19,7 +19,5 @@ else
 	echo "Home manager is not installed. Please install it first."
 fi
 
-echo "Change login shell to zsh (nix-shell)..."
-if ! command -v zsh; then
-	sudo chsh -s $(which zsh) $(whoami)
-fi
+echo "You may need to change login shell to zsh (nix-shell) with ..."
+echo "	sudo chsh -s $(which zsh) $(whoami)"
