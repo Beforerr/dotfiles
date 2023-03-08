@@ -15,6 +15,7 @@ cask "bitwarden"
 cask "betterandbetter"
 cask "calibre"
 cask "chatgpt", args: { "no-quarantine": true }
+cask "cheatsheet"
 cask "digikam"
 cask "espanso"
 cask "eudic"
