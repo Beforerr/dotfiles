@@ -40,6 +40,7 @@ cask "snipaste"
 cask "sogouinput"
 cask "sublime-text"
 cask "syncthing"
+cask "switchkey", args: { "no-quarantine": true }
 cask "telegram"
 cask "tropy"
 cask "xquartz"
@@ -55,4 +56,3 @@ cask "glance-chamburr", args: { "no-quarantine": true }
 # 'mas install'
 mas "DwellClick", id: 402414007
 mas "Flow", id: 1423210932
-
