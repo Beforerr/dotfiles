@@ -19,6 +19,7 @@
     pkgs.rclone
     pkgs.pipx
     pkgs.micromamba
+    pkgs.geckodriver
   ];
 
   # This value determines the Home Manager release that your
