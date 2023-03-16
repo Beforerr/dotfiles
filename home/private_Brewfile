@@ -11,7 +11,6 @@ brew "goku"
 # 'brew install --cask'
 cask "alt-tab"
 cask "appcleaner"
-cask "bitwarden"
 cask "betterandbetter"
 cask "calibre"
 cask "chatgpt", args: { "no-quarantine": true }
@@ -52,6 +51,8 @@ cask "zoom"
 cask "zotero"
 cask "glance-chamburr", args: { "no-quarantine": true }
 
-# 'mas install'
+# 'mas install' 
+mas "Bitwarden", id: 1352778147
 mas "DwellClick", id: 402414007
 mas "Flow", id: 1423210932
+# cask "bitwarden"

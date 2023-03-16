@@ -9,6 +9,7 @@
   # Packages that should be installed to the user profile.
   home.packages = [
     pkgs.bat
+    pkgs.bitwarden-cli
     pkgs.cht-sh
     pkgs.gdu
     pkgs.htop
