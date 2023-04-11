@@ -36,23 +36,7 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  programs.zsh = {
-    enable = true;
-    enableAutosuggestions = true;
-    enableSyntaxHighlighting = true;
-    dotDir = ".config/zsh";
-    initExtraBeforeCompInit = "source $HOME/.zshrc";
-    autocd = true;
-    zplug = {
-      enable = true;
-      plugins = [
-        { name = "plugins/aliases"; tags = ["from:oh-my-zsh"];}
-        { name = "plugins/brew"; tags = ["from:oh-my-zsh"];}
-        { name = "plugins/git"; tags = ["from:oh-my-zsh"];}
-        { name = "~/.config/zsh/plugins"; tags = ["from:local"];}
-      ];
-    };
-  };
+
   programs.git = {
     enable = true;
   };
