@@ -5,7 +5,6 @@
   # paths it should manage.
   home.username = "zijin";
   home.homeDirectory = "/Users/zijin";
-  users.users.zijin.shell = pkgs.zsh;
 
   # Packages that should be installed to the user profile.
   home.packages = [
