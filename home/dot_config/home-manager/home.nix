@@ -14,6 +14,7 @@
     pkgs.gdu
     pkgs.htop
     pkgs.gnumake
+    pkgs.gfortran
     pkgs.wget
     pkgs.ugrep
     pkgs.ripgrep

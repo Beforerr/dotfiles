@@ -6,3 +6,5 @@ then
 fi
 
 eval $(thefuck --alias)
+
+. spack/share/spack/setup-env.sh
