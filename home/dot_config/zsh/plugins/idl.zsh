@@ -1,5 +1,3 @@
-
-
 export EXELIS_DIR=$HOME/Applications/harris
 export IDL_DIR=$EXELIS_DIR/idl88
 export IDL_EXE=$IDL_DIR/bin/idl
