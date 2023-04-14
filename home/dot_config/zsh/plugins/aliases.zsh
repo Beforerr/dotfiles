@@ -44,5 +44,5 @@ alias cme="chezmoi edit"
 if command -v micromamba >/dev/null; then
 	alias m="micromamba"
 	alias mamba="micromamba"
-	alias conda="micromamba"
+	# alias conda="micromamba"
 fi
