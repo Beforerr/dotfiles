@@ -8,9 +8,3 @@ fi
 eval $(thefuck --alias)
 
 . $HOME/spack/share/spack/setup-env.sh
-
-export EXELIS_DIR=$HOME/Applications/harris
-export IDL_DIR=$EXELIS_DIR/idl88
-export PATH="$IDL_DIR/bin:$PATH"
-export PYTHONPATH=$IDL_DIR/lib/bridges:$PYTHONPATH
-export PYTHONPATH=$IDL_DIR/bin/bin.darwin.x86_64:$PYTHONPATH
