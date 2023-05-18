@@ -16,6 +16,7 @@ cask "buzz"
 cask "calibre"
 cask "chatgpt", args: { "no-quarantine": true }
 cask "digikam"
+cask "docker"
 cask "espanso"
 cask "eudic"
 cask "finicky"
@@ -48,6 +49,7 @@ cask "visual-studio-code"
 cask "warp"
 cask "yesplaymusic", args: { "no-quarantine": true }
 cask "qlmarkdown", args: { "no-quarantine": true }
+cask "qbittorrent", args: { "no-quarantine": true }
 cask "zoom"
 cask "zotero"
 cask "glance-chamburr", args: { "no-quarantine": true }

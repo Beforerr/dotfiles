@@ -49,6 +49,7 @@
         { name = "plugins/aliases"; tags = ["from:oh-my-zsh"];}
         { name = "plugins/brew"; tags = ["from:oh-my-zsh"];}
         { name = "plugins/git"; tags = ["from:oh-my-zsh"];}
+        { name = "hlissner/zsh-autopair"; tags = ["defer:2"];}
         { name = "~/.config/zsh/plugins"; tags = ["from:local"];}
       ];
     };
