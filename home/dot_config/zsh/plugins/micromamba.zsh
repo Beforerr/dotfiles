@@ -1,16 +1,18 @@
-# >>> mamba initialize >>>
-# # !! Contents within this block are managed by 'mamba init' !!
-export MAMBA_EXE="/Users/zijin/.nix-profile/bin/micromamba";
-export MAMBA_ROOT_PREFIX="/Users/zijin/conda";
-__mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/zijin/mambaforge/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
-    eval "$__mamba_setup"
+    eval "$__conda_setup"
 else
-    if [ -f "/Users/zijin/conda/etc/profile.d/micromamba.sh" ]; then
-        . "/Users/zijin/conda/etc/profile.d/micromamba.sh"
+    if [ -f "/Users/zijin/mambaforge/etc/profile.d/conda.sh" ]; then
+        . "/Users/zijin/mambaforge/etc/profile.d/conda.sh"
     else
-        export  PATH="/Users/zijin/conda/bin:$PATH"  # extra space after export prevents interference from conda init
+        export PATH="/Users/zijin/mambaforge/bin:$PATH"
     fi
 fi
-unset __mamba_setup
-# <<< mamba initialize <<<
+unset __conda_setup
+
+if [ -f "/Users/zijin/mambaforge/etc/profile.d/mamba.sh" ]; then
+    . "/Users/zijin/mambaforge/etc/profile.d/mamba.sh"
+fi
+# <<< conda initialize <<<
