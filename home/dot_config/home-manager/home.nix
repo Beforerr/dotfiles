@@ -19,7 +19,6 @@
     pkgs.ripgrep
     pkgs.rclone
     pkgs.pipx
-    pkgs.micromamba
     pkgs.temurin-bin
   ];
 
