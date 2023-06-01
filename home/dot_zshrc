@@ -8,3 +8,4 @@ fi
 eval $(thefuck --alias)
 
 . $HOME/spack/share/spack/setup-env.sh
+
