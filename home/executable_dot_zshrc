@@ -1,0 +1,19 @@
+export PATH="$PATH:/Users/zijin/.local/bin"
+export PATH=/Users/zijin/.codon/bin:$PATH
+
+if type brew &>/dev/null
+then
+FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+fi
+
+eval $(thefuck --alias)
+
+. $HOME/spack/share/spack/setup-env.sh
+
+
+###########################################
+#  CDF environment variables declaration
+###########################################
+. /Applications/cdf/cdf39_0-dist/bin/definitions.B
+export CLASSPATH=.:$CDF_BASE/cdfjava/classes/cdfjava.jar:$CDF_BASE/cdfjava/classes/cdfjson.jar:$CDF_BASE/cdfjava/classes/gson-2.8.6.jar:$CDF_BASE/cdfjava/classes/javax.json-1.0.4.jar:$CDF_BASE/cdfjava/cdftools/CDFToolsDriver.jar:$CDF_BASE/cdfjava/cdfml/cdfml.jar
+export DYLD_LIBRARY_PATH=.:$CDF_BASE/lib
