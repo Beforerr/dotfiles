@@ -28,7 +28,6 @@ cask "itsycal"
 cask "julia"
 cask "karabiner-elements"
 cask "keka"
-cask "koodo-reader", args: {"no-quarantine": true }
 cask "raycast"
 cask "rectangle"
 cask "siyuan"
@@ -42,9 +41,7 @@ cask "tropy"
 cask "xquartz"
 cask "vivaldi"
 cask "visual-studio-code"
-cask "warp"
 cask "qlmarkdown", args: { "no-quarantine": true }
-cask "qbittorrent", args: { "no-quarantine": true }
 cask "zoom"
 cask "zotero"
 cask "glance-chamburr", args: { "no-quarantine": true }
