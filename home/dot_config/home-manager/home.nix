@@ -38,7 +38,7 @@
   programs.zsh = {
     enable = true;
     enableAutosuggestions = true;
-    enableSyntaxHighlighting = true;
+    syntaxHighlighting.enable = true;
     dotDir = ".config/zsh";
     initExtraBeforeCompInit = "source $HOME/.zshrc";
     autocd = true;
@@ -62,4 +62,7 @@
   programs.direnv.enable = true;
   programs.zoxide.enable = true;
   programs.starship.enable = true;
+  programs.starship.settings = {
+    battery.disabled = true;
+  };
 }
