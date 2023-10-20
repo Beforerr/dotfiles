@@ -8,6 +8,7 @@
 
   # Packages that should be installed to the user profile.
   home.packages = [
+    # pkgs.micromamba # Note: outdated
     pkgs.bat
     pkgs.bitwarden-cli
     pkgs.cht-sh
