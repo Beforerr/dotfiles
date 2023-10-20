@@ -1,7 +1,8 @@
 # 'brew tap'
 tap "homebrew/cask"
 tap "yqrashawn/goku"
-tap "lencx/chatgpt"
+repo = "lencx/chatgpt"
+tap repo, "https://github.com/#{repo}.git"
 tap "buo/cask-upgrade"
 
 # 'brew install'
@@ -12,12 +13,8 @@ brew "goku"
 cask "alt-tab"
 cask "appcleaner"
 cask "betterandbetter"
-cask "buzz"
-# cask "calibre"
 cask "chatgpt", args: { "no-quarantine": true }
 cask "clash-for-windows", args: { "no-quarantine": true }
-cask "digikam"
-# cask "docker"
 cask "espanso"
 cask "eudic"
 cask "finicky"
@@ -25,7 +22,6 @@ cask "flux"
 cask "google-drive"
 cask "github"
 cask "hazeover"
-cask "hiddenbar", args: { "no-quarantine": true }
 cask "iina"
 cask "iterm2"
 cask "itsycal"
@@ -36,10 +32,8 @@ cask "koodo-reader", args: {"no-quarantine": true }
 cask "raycast"
 cask "rectangle"
 cask "siyuan"
-cask "slack"
 cask "shortcat"
 cask "snipaste"
-cask "sogouinput"
 cask "sublime-text"
 cask "syncthing"
 cask "switchkey", args: { "no-quarantine": true }
@@ -49,7 +43,6 @@ cask "xquartz"
 cask "vivaldi"
 cask "visual-studio-code"
 cask "warp"
-cask "yesplaymusic", args: { "no-quarantine": true }
 cask "qlmarkdown", args: { "no-quarantine": true }
 cask "qbittorrent", args: { "no-quarantine": true }
 cask "zoom"
