@@ -52,4 +52,3 @@ cask "glance-chamburr", args: { "no-quarantine": true }
 mas "Bitwarden", id: 1352778147
 mas "DwellClick", id: 402414007
 mas "Flow", id: 1423210932
-# cask "bitwarden"
