@@ -10,6 +10,7 @@ brew "mas"
 brew "goku"
 
 # 'brew install --cask'
+# Tier-1
 cask "alt-tab"
 cask "appcleaner"
 cask "betterandbetter"

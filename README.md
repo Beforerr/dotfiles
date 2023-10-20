@@ -9,7 +9,7 @@
 
 ## Installation
 
-First we need to get command line tools:
+First we need to get command line tools, we can do that by installing `Homebrew`.
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
