@@ -10,11 +10,14 @@ brew "mas"
 brew "goku"
 
 # 'brew install --cask'
-# Tier-1
+## Tier-1
+cask "vivaldi"
+cask "visual-studio-code"
+cask "chatgpt", args: { "no-quarantine": true }
+
 cask "alt-tab"
 cask "appcleaner"
 cask "betterandbetter"
-cask "chatgpt", args: { "no-quarantine": true }
 cask "clash-for-windows", args: { "no-quarantine": true }
 cask "espanso"
 cask "eudic"
@@ -40,8 +43,6 @@ cask "switchkey", args: { "no-quarantine": true }
 cask "telegram"
 cask "tropy"
 cask "xquartz"
-cask "vivaldi"
-cask "visual-studio-code"
 cask "qlmarkdown", args: { "no-quarantine": true }
 cask "zoom"
 cask "zotero"
