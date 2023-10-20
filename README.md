@@ -9,6 +9,12 @@
 
 ## Installation
 
+First we need to get command line tools:
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
 One-line install:
 
 ```bash
