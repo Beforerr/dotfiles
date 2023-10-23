@@ -7,7 +7,7 @@ if ! command -v conda; then
 	bash Miniforge3-$(uname)-$(uname -m).sh -b
 fi
 
-# Notes
+# Notes: 
 echo "Installing 'micromamba' package manager..."
 if ! command -v micromamba; then
 	"${SHELL}" <(curl -L micro.mamba.pm/install.sh)

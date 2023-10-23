@@ -7,7 +7,7 @@
 - Use Homebrew exclusively for casks (applications);
 - Sync application settings with [mackup](https://github.com/lra/mackup).
 
-## Installation
+## General setup
 
 First we need to get command line tools, we can do that by installing `Homebrew`.
 
@@ -20,3 +20,11 @@ One-line install:
 ```bash
 curl https://raw.githubusercontent.com/Beforerr/dotfiles/main/install.sh | bash
 ```
+
+Note we need to restart the terminal after the installation of `nix`, so the script will fail on the first run as expected.
+
+## Apps
+
+#### Zotero
+
+Install beta version and login to sync.
