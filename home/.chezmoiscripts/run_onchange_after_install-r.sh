@@ -1,4 +1,4 @@
 #!/bin/bash
 
-R -e "install.packages('devtools', repos='http://cran.rstudio.com/')"
-R -e "install.packages("pak")"
+# packages.R hash: {{ include "packgages.R" | sha256sum }}
+Rscript packgages.R
