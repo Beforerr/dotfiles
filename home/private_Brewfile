@@ -9,12 +9,12 @@ tap "buo/cask-upgrade"
 brew "mas"
 brew "goku"
 
-# 'brew install --cask'
 ## Tier-1
 cask "vivaldi"
 cask "visual-studio-code"
 cask "chatgpt", args: { "no-quarantine": true }
 
+## Tier-2 (apps)
 cask "alt-tab"
 cask "appcleaner"
 cask "betterandbetter"
@@ -30,7 +30,6 @@ cask "hazeover"
 cask "iina"
 cask "iterm2"
 cask "itsycal"
-cask "julia"
 cask "karabiner-elements"
 cask "keka"
 cask "raycast"
@@ -49,6 +48,10 @@ cask "qlmarkdown", args: { "no-quarantine": true }
 cask "zoom"
 cask "zotero"
 cask "glance-chamburr", args: { "no-quarantine": true }
+
+## Tier-2 (programming)
+cask "r"
+cask "julia"
 
 # 'mas install' 
 mas "Bitwarden", id: 1352778147
