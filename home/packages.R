@@ -5,4 +5,5 @@ install.packages("pak")
 pak::pkg_install("tidyverse")
 pak::pkg_install("arrow")
 
-pak::pkg_install("ggpubr")
+list = c("ggplot2", "ggpubr", "patchwork")
+pak::pkg_install(list)
