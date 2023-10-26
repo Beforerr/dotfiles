@@ -18,6 +18,7 @@ cask "chatgpt", args: { "no-quarantine": true }
 cask "alt-tab"
 cask "appcleaner"
 cask "betterandbetter"
+cask "copyq", args: { "no-quarantine": true }
 cask "clash-for-windows", args: { "no-quarantine": true }
 cask "espanso"
 cask "eudic"
