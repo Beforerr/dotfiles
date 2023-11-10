@@ -1,4 +1,6 @@
 #!/bin/bash
 
 # packages.R hash: {{ include "packages.R" | sha256sum }}
-Rscript ~/packages.R
+if command -v Rscript &> /dev/null then
+    Rscript ~/packages.R
+fi
