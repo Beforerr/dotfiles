@@ -52,7 +52,6 @@ cask "glance-chamburr", args: { "no-quarantine": true }
 
 ## Tier-2 (programming)
 cask "r"
-cask "julia"
 cask "quarto"
 
 # 'mas install' 

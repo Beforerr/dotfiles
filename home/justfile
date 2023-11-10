@@ -5,8 +5,8 @@ rustup:
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 juliaup:
-  #!/usr/bin/env bash
-  echo "Juliaup - Julia version manager..."
+  #!/usr/bin/env sh
+  echo "Installing Juliaup - Julia version manager..."
   if ! command -v juliaup; then
     curl -fsSL https://install.julialang.org | sh -s -- --yes
   fi
@@ -15,3 +15,11 @@ julia-pkgs: juliaup
   #!/usr/bin/env julia
   using Pkg
   Pkg.add("Pluto")
+
+spack:
+  #!/bin/bash
+  echo "Installing 'spack' package manager..."
+  if ! command -v spack; then
+    git clone -c feature.manyFiles=true https://github.com/spack/spack.git
+    . spack/share/spack/setup-env.sh
+  fi
