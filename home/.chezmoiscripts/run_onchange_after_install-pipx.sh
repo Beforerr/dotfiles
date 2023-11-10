@@ -16,3 +16,4 @@ pipx install isort
 pipx install nbqa
 pipx inject nbqa isort
 
+pipx install thefuck
