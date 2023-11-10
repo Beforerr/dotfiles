@@ -1,8 +1,14 @@
+# justfile
+default:
+  just --list
+
 rustup:
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 juliaup:
+  #!/usr/bin/env bash
+  echo "Juliaup - Julia version manager..."
+  if ! command -v juliaup; then
+    curl -fsSL https://install.julialang.org | sh -s -- --yes
     echo "Juliaup - Julia version manager..."
-    if ! command -v juliaup; then
-      curl -fsSL https://install.julialang.org | sh -s -- --yes
-    fi
+  fi
