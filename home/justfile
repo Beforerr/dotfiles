@@ -12,7 +12,7 @@ juliaup:
   fi
 
 julia-pkgs: juliaup
-  julia package.jl
+  julia packages.jl
 
 spack:
   #!/bin/bash
