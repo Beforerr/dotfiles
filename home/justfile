@@ -12,9 +12,7 @@ juliaup:
   fi
 
 julia-pkgs: juliaup
-  #!/usr/bin/env julia
-  using Pkg
-  Pkg.add("Pluto")
+  julia package.jl
 
 spack:
   #!/bin/bash

@@ -1,6 +1,0 @@
-# micromamba create -f ml.yml -y
-name: ml
-channels:
-  - conda-forge
-dependencies:
-  - scikit-learn
