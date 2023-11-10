@@ -7,7 +7,9 @@ fi
 
 eval $(thefuck --alias)
 
-. $HOME/spack/share/spack/setup-env.sh
+if [ -f "$HOME/spack/share/spack/setup-env.sh" ]; then
+    . $HOME/spack/share/spack/setup-env.sh
+fi
 
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'mamba init' !!
