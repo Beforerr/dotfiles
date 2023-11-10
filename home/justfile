@@ -1,4 +1,3 @@
-# justfile
 default:
   just --list
 
@@ -10,5 +9,9 @@ juliaup:
   echo "Juliaup - Julia version manager..."
   if ! command -v juliaup; then
     curl -fsSL https://install.julialang.org | sh -s -- --yes
-    echo "Juliaup - Julia version manager..."
   fi
+
+julia-pkgs: juliaup
+  #!/usr/bin/env julia
+  using Pkg
+  Pkg.add("Pluto")
