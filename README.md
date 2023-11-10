@@ -3,10 +3,10 @@
 ## Introducation
 
 - Dotfiles are managed by [chezmoi](https://www.chezmoi.io/) and Nix;
-- Use Nix for packages & command line tools;
-- Use Homebrew exclusively for casks (applications);
-- Sync application settings with [mackup](https://github.com/lra/mackup).
+- Use `Nix` for packages & command line tools;
+- Use `Homebrew` exclusively for casks (applications);
 - Use [just](https://just.systems) for automation (see [Justfile](./home/justfile)).
+- Sync application settings with [mackup](https://github.com/lra/mackup) (see [mackup.cfg](./home/private_dot_mackup.cfg)).
 
 ## General setup
 
