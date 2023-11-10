@@ -4,5 +4,5 @@ rustup:
 juliaup:
     echo "Juliaup - Julia version manager..."
     if ! command -v juliaup; then
-        curl -fsSL https://install.julialang.org | sh -s -- --yes
+      curl -fsSL https://install.julialang.org | sh -s -- --yes
     fi
