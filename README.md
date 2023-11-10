@@ -6,7 +6,7 @@
 - Use Nix for packages & command line tools;
 - Use Homebrew exclusively for casks (applications);
 - Sync application settings with [mackup](https://github.com/lra/mackup).
-- Use `justfile` for automation.
+- Use [just](https://just.systems) for automation (see [Justfile](./home/justfile)).
 
 ## General setup
 
