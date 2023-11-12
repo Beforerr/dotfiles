@@ -15,6 +15,11 @@ juliaup:
 julia-pkgs: juliaup
   julia packages.jl
 
+julia-pluto:
+  #!/usr/bin/env julia
+  import Pluto;
+  Pluto.run()
+
 spack:
   #!/bin/bash
   echo "Installing 'spack' package manager..."
@@ -22,3 +27,6 @@ spack:
     git clone -c feature.manyFiles=true https://github.com/spack/spack.git
     . spack/share/spack/setup-env.sh
   fi
+
+zotero-addons:
+  aria2c https://github.com/syt2/zotero-addons/releases/latest/download/zotero-addons.xpi
