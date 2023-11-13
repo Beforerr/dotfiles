@@ -1,6 +1,12 @@
 default:
   just --list
 
+backup:
+  mackup backup --force && mackup uninstall --force
+
+restore:
+  mackup restore --force && mackup uninstall --force
+
 rustup:
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
