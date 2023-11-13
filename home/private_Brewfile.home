@@ -1,3 +1,6 @@
+cask "switchkey", args: { "no-quarantine": true }
+
+
 cask "digikam"
 cask "slack"
 cask "koodo-reader", args: {"no-quarantine": true }

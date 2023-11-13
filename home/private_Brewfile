@@ -19,7 +19,6 @@ cask "alt-tab"
 cask "appcleaner"
 cask "betterandbetter"
 cask "copyq", args: { "no-quarantine": true }
-# cask "clash-for-windows", args: { "no-quarantine": true }
 cask "espanso"
 cask "eudic"
 cask "finicky"
@@ -41,7 +40,6 @@ cask "snipaste"
 cask "sublime-text"
 cask "syncthing"
 cask "stats"
-cask "switchkey", args: { "no-quarantine": true }
 cask "telegram"
 cask "tropy"
 cask "qlmarkdown", args: { "no-quarantine": true }
