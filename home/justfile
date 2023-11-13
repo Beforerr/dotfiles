@@ -17,6 +17,7 @@ restore:
 
 clean:
   nix-collect-garbage -d
+  brew cleanup
 
 version:
 	nix --version && brew --version && micromamba --version
