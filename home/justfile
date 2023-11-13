@@ -11,6 +11,8 @@ backup:
   mackup backup --force && mackup uninstall --force
 
 restore:
+  #!/usr/bin/env sh
+  killall iTerm2
   mackup restore --force && mackup uninstall --force
 
 rustup:
