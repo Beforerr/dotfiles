@@ -1,8 +1,7 @@
 export PATH="$PATH:/Users/zijin/.local/bin"
 
-if type brew &>/dev/null
-then
-FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+if type brew &>/dev/null; then
+    FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 fi
 
 eval $(thefuck --alias)
