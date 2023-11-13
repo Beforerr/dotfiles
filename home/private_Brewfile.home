@@ -1,5 +1,3 @@
-file ~/Brewfile
-
 cask "digikam"
 cask "slack"
 cask "koodo-reader", args: {"no-quarantine": true }
