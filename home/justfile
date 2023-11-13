@@ -5,6 +5,7 @@ update:
   nix-channel --update
 
 backup:
+  #!/usr/bin/env sh
   killall iTerm2
   mackup backup --force && mackup uninstall --force
 
