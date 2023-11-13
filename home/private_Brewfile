@@ -1,5 +1,5 @@
 # 'brew tap'
-tap "homebrew/cask"
+# tap "homebrew/cask" # no need anymore
 tap "yqrashawn/goku"
 repo = "lencx/chatgpt"
 tap repo, "https://github.com/#{repo}.git"
@@ -19,7 +19,7 @@ cask "alt-tab"
 cask "appcleaner"
 cask "betterandbetter"
 cask "copyq", args: { "no-quarantine": true }
-cask "clash-for-windows", args: { "no-quarantine": true }
+# cask "clash-for-windows", args: { "no-quarantine": true }
 cask "espanso"
 cask "eudic"
 cask "finicky"
@@ -44,15 +44,12 @@ cask "stats"
 cask "switchkey", args: { "no-quarantine": true }
 cask "telegram"
 cask "tropy"
-cask "xquartz"
 cask "qlmarkdown", args: { "no-quarantine": true }
 cask "zoom"
 cask "zotero"
 cask "glance-chamburr", args: { "no-quarantine": true }
 
-## Tier-2 (programming)
-cask "r"
-cask "quarto"
+
 
 # 'mas install' 
 mas "Bitwarden", id: 1352778147

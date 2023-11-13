@@ -1,0 +1,12 @@
+# 'brew tap'
+tap "homebrew/cask"
+tap "yqrashawn/goku"
+tap "lencx/chatgpt"
+tap "buo/cask-upgrade"
+
+file ~/Brewfile
+
+## Tier-2 (programming)
+cask "r"
+cask "quarto"
+cask "xquartz"
