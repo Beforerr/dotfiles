@@ -2,6 +2,7 @@ default:
   just --list
 
 update:
+  chezmoi update
   nix-channel --update
 
 backup:
