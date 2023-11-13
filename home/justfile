@@ -18,6 +18,8 @@ restore:
 rustup:
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
+julia-all: juliaup julia-pkgs
+
 # Install Julia
 juliaup:
   #!/usr/bin/env sh
