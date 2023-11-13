@@ -15,6 +15,12 @@ restore:
   killall iTerm2
   mackup restore --force && mackup uninstall --force
 
+clean:
+  nix-collect-garbage -d
+
+version:
+	nix --version && brew --version && micromamba --version
+
 rustup:
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
@@ -51,3 +57,7 @@ spack:
 
 zotero-addons:
   aria2c https://github.com/syt2/zotero-addons/releases/latest/download/zotero-addons.xpi
+
+popclip:
+	curl https://pilotmoon.com/popclip/extensions/ext/DOI.popclipextz -o "DOI.popclipextz"
+	open "DOI.popclipextz"

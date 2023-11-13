@@ -29,3 +29,10 @@ Note we need to restart the terminal after the installation of `nix`, so the scr
 #### Zotero
 
 Install beta version and login to sync.
+
+## Languages
+
+- [Julia](https://julialang.org/) (via `juliaup`)
+- [Python](https://www.python.org/) (via `mamba`)
+- [R](https://www.r-project.org/) (via `brew`)
+- [Rust](https://www.rust-lang.org/) (via `rustup`)

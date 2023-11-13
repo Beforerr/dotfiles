@@ -16,10 +16,4 @@ nix:
 home-manager: nix
 	which home-manager || (nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager && nix-channel --update && nix-shell '<home-manager>' -A install)
 
-version:
-	nix --version && brew --version && micromamba --version
-
-popclip:
-	curl https://pilotmoon.com/popclip/extensions/ext/DOI.popclipextz -o "DOI.popclipextz"
-	open "DOI.popclipextz"
 
