@@ -30,7 +30,7 @@ juliaup:
 
 julia-pkgs:
   #!/usr/bin/env sh
-  if ! command -v julia; then
+  if command -v julia; then
     julia packages.jl
   else
     echo "Julia not installed. Skipping packages installation."
