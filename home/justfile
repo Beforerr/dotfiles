@@ -1,6 +1,9 @@
 default:
   just --list
 
+update:
+  nix-channel --update
+
 backup:
   mackup backup --force && mackup uninstall --force
 
