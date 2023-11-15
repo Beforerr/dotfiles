@@ -32,7 +32,6 @@ cask "iterm2"
 cask "itsycal"
 cask "karabiner-elements"
 cask "keka"
-cask "microsoft-powerpoint"
 cask "raycast"
 cask "rectangle"
 cask "rustdesk"
@@ -49,7 +48,8 @@ cask "zoom"
 # cask "zotero" # v7 version is not stable
 cask "glance-chamburr", args: { "no-quarantine": true }
 
-
+cask "microsoft-powerpoint"
+cask "microsoft-excel"
 
 # 'mas install' 
 mas "Bitwarden", id: 1352778147
