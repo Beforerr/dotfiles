@@ -1,0 +1,7 @@
+# mamba env create --file math.yml
+# conda activate math
+name: math
+channels:
+  - conda-forge
+dependencies:
+  - sympy
