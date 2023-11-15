@@ -2,3 +2,5 @@
 cask "r"
 cask "quarto"
 cask "xquartz"
+
+mas "WireGuard", id: 1451685025
