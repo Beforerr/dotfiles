@@ -1,5 +1,6 @@
 # 'brew tap'
 # tap "homebrew/cask" # no need anymore
+tap "homebrew/cask-versions"
 tap "yqrashawn/goku"
 repo = "lencx/chatgpt"
 tap repo, "https://github.com/#{repo}.git"
