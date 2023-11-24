@@ -46,6 +46,7 @@ cask "telegram"
 cask "tropy"
 cask "qlmarkdown", args: { "no-quarantine": true }
 cask "zoom"
+cask "zotero-beta"
 # cask "zotero" # v7 version is not stable
 cask "glance-chamburr", args: { "no-quarantine": true }
 
