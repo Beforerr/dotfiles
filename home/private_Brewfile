@@ -20,6 +20,7 @@ cask "alt-tab"
 cask "appcleaner"
 cask "betterandbetter"
 cask "copyq", args: { "no-quarantine": true }
+cask "maccy"
 cask "espanso"
 cask "eudic"
 cask "finicky"
