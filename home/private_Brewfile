@@ -19,7 +19,7 @@ cask "chatgpt", args: { "no-quarantine": true }
 cask "alt-tab"
 cask "appcleaner"
 cask "betterandbetter"
-cask "copyq", args: { "no-quarantine": true }
+# cask "copyq", args: { "no-quarantine": true } # cross-platform clipboard manager
 cask "maccy"
 cask "espanso"
 cask "eudic"
