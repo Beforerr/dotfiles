@@ -1,12 +1,12 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 import re
 import pyperclip
 
-def convert_html_image_to_markdown(html):
+def convert_html_image_to_markdown(input):
     # Extracting URL, image source, and title from the HTML
-    match = re.search(r'<a href="(.*?)".*?><img src="(.*?)" alt=".*?"/></a>', html)
+    match = re.search(r'<a href="(.*?)".*?><img src="(.*?)" alt=".*?"/></a>', input)
     if not match:
-        return "Invalid HTML format"
+        return input
 
     link, img_src, title = match.groups()
 
@@ -17,4 +17,4 @@ def convert_html_image_to_markdown(html):
 # Example usage
 input = pyperclip.paste()
 output = convert_html_image_to_markdown(input)
-pyperclip.copy('The text to be copied to the clipboard.')
+pyperclip.copy(output)
