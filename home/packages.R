@@ -12,3 +12,5 @@ pak::pkg_install(list)
 
 pak::repo_add(rhub = "https://easystats.r-universe.dev")
 pak::pkg_install("easystats/easystats")
+
+pak::pkg_install("brentthorne/posterdown")
