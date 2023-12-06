@@ -16,12 +16,14 @@
     pkgs.gdu
     pkgs.htop
     pkgs.gnumake
+    pkgs.cmake
     pkgs.wget
     pkgs.ugrep
     pkgs.ripgrep
     pkgs.rclone
     pkgs.pipx
     pkgs.temurin-bin
+    pkgs.ruby
   ];
 
   # This value determines the Home Manager release that your
