@@ -9,6 +9,7 @@ tap "buo/cask-upgrade"
 # 'brew install'
 brew "mas"
 brew "goku"
+brew "pipx"
 
 ## Tier-1
 cask "vivaldi"
@@ -29,7 +30,8 @@ cask "flux"
 cask "google-drive"
 cask "github"
 cask "hiddenbar", args: { "no-quarantine": true }
-cask "hazeover"
+# cask "hazeover"
+cask "deskcover-pro"
 cask "iina"
 cask "iterm2"
 cask "itsycal"

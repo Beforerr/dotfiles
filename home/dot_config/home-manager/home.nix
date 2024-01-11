@@ -21,7 +21,7 @@
     pkgs.ugrep
     pkgs.ripgrep
     pkgs.rclone
-    pkgs.pipx
+    # pkgs.pipx # Note: outdated
     pkgs.temurin-bin
     pkgs.ruby
     pkgs.pandoc
@@ -35,7 +35,7 @@
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "23.11";
+  home.stateVersion = "24.05";
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
