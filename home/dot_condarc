@@ -1,3 +1,4 @@
 channels:
   - conda-forge
 always_yes: true
+solver: libmamba
