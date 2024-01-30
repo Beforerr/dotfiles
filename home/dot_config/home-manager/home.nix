@@ -25,6 +25,7 @@
     pkgs.temurin-bin
     pkgs.ruby
     pkgs.pandoc
+    pkgs.librsvg
   ];
 
   # This value determines the Home Manager release that your

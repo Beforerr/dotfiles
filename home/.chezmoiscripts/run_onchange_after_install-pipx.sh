@@ -4,6 +4,7 @@
 pipx install mackup
 
 # Python environment
+pipx install nbdev
 pipx install nbqa
 pipx install black isort
 pipx inject nbqa isort
