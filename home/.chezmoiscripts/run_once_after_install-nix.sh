@@ -1,6 +1,6 @@
 #!/bin/bash
 # Check if the user has sudo privileges
-if sudo -ln 2>&1 | grep -q '(.*) ALL' ; then
+if sudo -l -U zijin  2>&1 | grep -q '(.*) ALL' ; then
     echo "This user has sudo privileges."
 else
     echo "This user does NOT have sudo privileges."
