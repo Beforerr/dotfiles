@@ -1,4 +1,4 @@
 #!/bin/bash
-
-quarto install tinytex
-# nix-env -iA nixpkgs.librsvg
+if command -v quarto; then
+    quarto install tinytex
+fi
