@@ -57,6 +57,9 @@ spack:
     . spack/share/spack/setup-env.sh
   fi
 
+zotero-sync:
+  ln -s "$HOME/Library/CloudStorage/GoogleDrive-zijin@g.ucla.edu/Other computers/My MacBook Pro/storage" "$HOME/Zotero/"
+
 zotero-addons:
   aria2c https://github.com/syt2/zotero-addons/releases/latest/download/zotero-addons.xpi
 
