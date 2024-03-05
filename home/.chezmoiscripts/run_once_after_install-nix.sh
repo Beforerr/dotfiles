@@ -1,4 +1,11 @@
 #!/bin/bash
+# Check if the user has sudo privileges
+if sudo -ln 2>&1 | grep -q '(.*) ALL' ; then
+    echo "This user has sudo privileges."
+else
+    echo "This user does NOT have sudo privileges."
+	exit
+fi
 
 echo "Installing 'nix' package manager..."
 if ! command -v nix; then
