@@ -9,6 +9,7 @@
   # Packages that should be installed to the user profile.
   home.packages = [
     # pkgs.micromamba # Note: outdated
+
     pkgs.just
     pkgs.bat
     pkgs.bitwarden-cli
@@ -26,6 +27,7 @@
     pkgs.ruby
     pkgs.pandoc
     pkgs.librsvg
+    pkgs.gfortran
   ];
 
   # This value determines the Home Manager release that your
