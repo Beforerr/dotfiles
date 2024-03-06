@@ -16,8 +16,10 @@
     pkgs.cht-sh
     pkgs.gdu
     pkgs.htop
+
     pkgs.gnumake
     pkgs.cmake
+
     pkgs.wget
     pkgs.ugrep
     pkgs.ripgrep
@@ -27,7 +29,6 @@
     pkgs.ruby
     pkgs.pandoc
     pkgs.librsvg
-    pkgs.gfortran
   ];
 
   # This value determines the Home Manager release that your

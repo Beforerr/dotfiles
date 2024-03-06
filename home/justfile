@@ -28,6 +28,10 @@ clean:
 version:
 	nix --version && brew --version && micromamba --version
 
+cmd:
+  # zoxide
+  curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+
 rustup:
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
