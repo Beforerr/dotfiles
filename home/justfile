@@ -5,10 +5,20 @@ update:
   chezmoi update
   nix-channel --update
 
-config:
+config: git-config
+
+git-config:
   git config --global user.name "Beforerr"
   git config --global user.email "zzj956959688@gmail.com"
   git config --global github.user "Beforerr"
+
+install-spack:
+  #!/bin/bash
+  echo "Installing 'spack' package manager..."
+  if ! command -v spack; then
+    git clone -c feature.manyFiles=true https://github.com/spack/spack.git
+    . spack/share/spack/setup-env.sh
+  fi
 
 backup:
   #!/usr/bin/env sh
@@ -57,14 +67,6 @@ julia-pluto:
   #!/usr/bin/env julia
   import Pluto;
   Pluto.run()
-
-spack:
-  #!/bin/bash
-  echo "Installing 'spack' package manager..."
-  if ! command -v spack; then
-    git clone -c feature.manyFiles=true https://github.com/spack/spack.git
-    . spack/share/spack/setup-env.sh
-  fi
 
 zotero-addons:
   aria2c https://github.com/syt2/zotero-addons/releases/latest/download/zotero-addons.xpi
