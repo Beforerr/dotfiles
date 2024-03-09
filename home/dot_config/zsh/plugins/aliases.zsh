@@ -44,3 +44,5 @@ alias cme="chezmoi edit"
 if command -v micromamba >/dev/null; then
 	alias m="micromamba"
 fi
+
+alias j="just"
