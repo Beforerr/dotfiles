@@ -28,6 +28,7 @@ cask "eudic"
 cask "finicky"
 cask "flux"
 cask "google-drive"
+cask "box-drive"
 cask "github"
 cask "hiddenbar", args: { "no-quarantine": true }
 # cask "hazeover"
