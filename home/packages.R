@@ -1,8 +1,8 @@
 options(repos = c(CRAN = "https://cloud.r-project.org"))
 
 install.packages("pak")
-
-pak::pkg_install("languageserver")
+pak::pkg_install("rmarkdown")
+pak::pkg_install(c("languageserver", "jsonlite"))
 
 pak::pkg_install("tidyverse")
 pak::pkg_install("arrow")

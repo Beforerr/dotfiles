@@ -45,10 +45,17 @@ cmd:
 rustup:
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
+r-up:
+  #!/usr/bin/env sh
+  echo "Installing R..."
+  if ! command -v R; then
+    brew install --cask r
+  fi
+
 julia-all: juliaup julia-pkgs
 
 # Install Julia
-juliaup:
+julia-up:
   #!/usr/bin/env sh
   echo "Installing Juliaup - Julia version manager..."
   if ! command -v juliaup; then
