@@ -74,3 +74,9 @@ zotero-addons:
 popclip:
 	curl https://pilotmoon.com/popclip/extensions/ext/DOI.popclipextz -o "DOI.popclipextz"
 	open "DOI.popclipextz"
+
+gpt-academic:
+  #!/usr/bin/env sh
+  cd ~/src/gpt_academic
+  micromamba run -n gptac_venv python -m pip install -r requirements.txt # 这个步骤和pip安装一样的步骤
+  micromamba run -n gptac_venv python main.py
