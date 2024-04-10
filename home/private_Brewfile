@@ -12,7 +12,8 @@ brew "goku"
 brew "pipx"
 
 ## Tier-1
-cask "vivaldi"
+# cask "vivaldi"
+cask "arc"
 cask "visual-studio-code"
 cask "chatgpt", args: { "no-quarantine": true }
 
