@@ -25,6 +25,9 @@ backup:
   killall iTerm2
   mackup backup --force && mackup uninstall --force
 
+backup-pictures:
+  rclone sync ~/Pictures BoxUCLA:Pictures --progress
+
 restore:
   #!/usr/bin/env sh
   killall iTerm2
