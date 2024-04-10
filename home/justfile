@@ -52,7 +52,7 @@ r-up:
     brew install --cask r
   fi
 
-julia-all: juliaup julia-pkgs
+julia-all: julia-up julia-pkgs
 
 # Install Julia
 julia-up:
