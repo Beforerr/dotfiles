@@ -21,7 +21,6 @@ cask "chatgpt", args: { "no-quarantine": true }
 cask "alt-tab"
 cask "appcleaner"
 cask "betterandbetter"
-cask "google-chrome" # used in some cases
 # cask "copyq", args: { "no-quarantine": true } # cross-platform clipboard manager
 cask "maccy"
 cask "espanso"
@@ -59,6 +58,9 @@ cask "glance-chamburr", args: { "no-quarantine": true }
 cask "microsoft-powerpoint"
 cask "microsoft-excel"
 cask "microsoft-word"
+
+cask "google-chrome" # used in some cases
+cask "tor-browser"
 
 # 'mas install' 
 mas "Bitwarden", id: 1352778147
