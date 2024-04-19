@@ -15,6 +15,7 @@ brew "pipx"
 # cask "vivaldi"
 cask "arc"
 cask "visual-studio-code"
+cask "emacs"
 cask "chatgpt", args: { "no-quarantine": true }
 
 ## Tier-2 (apps)
