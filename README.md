@@ -7,6 +7,7 @@
 - Use `Homebrew` exclusively for casks (applications);
 - Use [just](https://just.systems) for automation (see [Justfile](./home/justfile)).
 - Sync application settings with [mackup](https://github.com/lra/mackup) (see [mackup.cfg](./home/private_dot_mackup.cfg)).
+    - Note: `mackup` is not used for syncing dotfiles, mostly for private application settings (such as `rclone`, `espanso` and so on).
 
 ## General setup
 
@@ -20,7 +21,7 @@ One-line install:
 
 ```bash
 curl https://raw.githubusercontent.com/Beforerr/dotfiles/main/install.sh | bash
-```
+``
 
 Note we need to restart the terminal after the installation of `nix`, so the script will fail on the first run as expected.
 
