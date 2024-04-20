@@ -7,7 +7,9 @@
 - Use `Homebrew` exclusively for casks (applications);
 - Use [just](https://just.systems) for automation (see [Justfile](./home/justfile)).
 - Sync application settings with [mackup](https://github.com/lra/mackup) (see [mackup.cfg](./home/private_dot_mackup.cfg)).
-    - Note: `mackup` is not used for syncing dotfiles, mostly for private application settings (such as `rclone`, `espanso` and so on).
+    - Note: 
+        - `mackup` is not used for syncing dotfiles, mostly for private application settings (such as `rclone`, `espanso` and so on).
+        - It is better to specify the application settings in the `mackup.cfg` file (whitelist instead of blacklist).
 
 ## General setup
 
