@@ -27,6 +27,7 @@
     # pkgs.pipx # Note: outdated
     pkgs.temurin-bin
     pkgs.ruby
+    pkgs.nodejs
     pkgs.pandoc
     pkgs.librsvg
   ];
@@ -46,7 +47,7 @@
 
   programs.zsh = {
     enable = true;
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     dotDir = ".config/zsh";
     initExtraBeforeCompInit = "source $HOME/.zshrc";
@@ -62,9 +63,7 @@
       ];
     };
   };
-  programs.git = {
-    enable = true;
-  };
+  programs.git.enable = true;
   programs.aria2.enable = true;
   programs.fish.enable = true;
   programs.broot.enable = true;

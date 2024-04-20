@@ -14,6 +14,7 @@ fi
 
 echo "Installing 'home manager'..."
 if ! command -v home-manager; then
+	nix-channel --add https://channels.nixos.org/nixpkgs-unstable nixpkgs
 	nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
 	nix-channel --update 
 	nix-shell '<home-manager>' -A install
