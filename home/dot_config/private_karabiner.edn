@@ -1,0 +1,104 @@
+
+{
+    :profiles {
+        :goku {
+            :default true
+        }
+    } 
+
+    :templates {
+        :km "osascript -e 'tell application \"Keyboard Maestro Engine\" to do script \"%s\"'"
+        :open "open -a \"%s\".app"
+    }
+
+    :applications {
+        :arc [ "^company.thebrowser.Browser" ]
+        :chatgpt [ "^com.lencx.chatgpt$" ]
+        :eudic [ "com.eusoft.eudic" ]
+
+        :vivaldi [ "^com.vivaldi.Vivaldi$" ]
+        :tana [ "^com.vivaldi.Vivaldi.app.fcihfelaaldlnndgdpikildeaibblbpm" ]
+        :telegram [ "^ru.keepcoder.Telegram$" ]
+        :vscode [ "^com.microsoft.VSCode" ]
+        :wechat [ "^com.tencent.xinWeChat$" ]
+        :slack [ "com.tinyspeck.slackmacgap"]
+        :sublime [ "^com.sublimetext.4$" ]
+        :zotero [ "zotero" ]
+
+        :Apps [:chatgpt
+            :slack
+            :sublime
+            :zotero
+            :eudic
+        ]
+    }
+
+    :tos {
+        :toggle_terminal {:key :!Tgrave_accent_and_tilde}
+        :activate_vivaldi {:key :!T1}
+        :activate_raycast {:shell "open -a Raycast"}
+        :hide_app [:km "Hide Front Application"]
+        :close_app {:key :!Cw}
+        :quit_app {:key :!Cq}
+    }
+
+    :simlayers {
+        :w-mode {:key :w}
+        ;; :space-mode {:key :spacebar}
+    }
+    :main [
+        {
+            :des "wkey (apps)"
+            :rules [:w-mode
+                [:1 "open 'https://mail.google.com/mail/u/1/#inbox'"]
+                [:2 "open 'https://mail.google.com/mail/u/0/#inbox'"]
+                [:s [:km "open: Slack"]]
+                [:n [:km "open: Sublime Text"]]
+                [:k [:km "open: Keyboard Maestro"]]
+                [:e [:km "open: Weather"]]
+            ]
+        }
+        {
+            :des "Power Combos"
+            :rules [
+            	;; arc
+                [:left_command :left_command :arc {:alone :!Ct}]
+                [:right_command :right_command :arc {:alone :!Cs}]
+                ;; vivaldi
+                [:left_command :left_command :vivaldi {:alone :left_command}]
+                [:right_command :left_command :vivaldi {:alone [:km "Viv: Command Key"]}]
+                [:left_option :left_option :vivaldi {:alone :!CTO1}]
+                ;; tana
+                [:left_command :left_command :tana {:alone :!Cs}]
+                [:left_control :left_control :tana {:alone :!TSd}]
+                ;; vscode
+                [:left_command :left_command :vscode {:alone :!CSp}]
+                [:left_control :left_control :vscode {:alone :toggle_terminal}]
+                ;; zotero
+                ;; [:left_option :left_option :zotero {:alone "osascript $HOME/.config/scripts/open_website_in_arc.applescript Tana"}]
+
+                ;; hide/close apps
+                [:left_command :left_command :Apps {:alone :hide_app}]
+                [:left_command :left_command :telegram {:alone :quit_app}]
+
+                ;; default
+                [:left_command :left_command nil {:alone :hide_app}]
+                [:right_command :right_command nil {:alone :activate_raycast}]
+                [:left_control :left_control nil {:alone :activate_vivaldi}]
+            ]
+        }
+        {:des "multitouch"
+            :rules [
+                [:a :!Ca :multitouch_extension_finger_count_total]
+                [:s [:km "356AC911-63CF-4B85-A928-A27B2031FF95"] :multitouch_extension_finger_count_total] ; Open URL or Search Using Google Chrome
+                [:d :!Cd :multitouch_extension_finger_count_total]
+                [:f :!Cf :multitouch_extension_finger_count_total]
+                [:z :!Cz :multitouch_extension_finger_count_total]
+                [:x :!Cx :multitouch_extension_finger_count_total]
+                [:c :!Cc :multitouch_extension_finger_count_total]
+                [:v :!Cv :multitouch_extension_finger_count_total]
+                [:b :!Cb :multitouch_extension_finger_count_total]
+            ]
+        }
+    ]
+}

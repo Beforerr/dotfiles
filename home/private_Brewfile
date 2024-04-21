@@ -2,8 +2,6 @@
 # tap "homebrew/cask" # no need anymore
 tap "homebrew/cask-versions"
 tap "yqrashawn/goku"
-repo = "lencx/chatgpt"
-tap repo, "https://github.com/#{repo}.git"
 tap "buo/cask-upgrade"
 
 # 'brew install'
@@ -17,7 +15,7 @@ brew "koekeishiya/formulae/yabai"
 cask "arc"
 cask "visual-studio-code"
 cask "emacs"
-cask "chatgpt", args: { "no-quarantine": true }
+cask "lencx/chatgpt/chatgpt", args: { "no-quarantine": true }
 
 ## Tier-2 (apps)
 cask "alt-tab"
