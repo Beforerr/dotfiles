@@ -38,10 +38,10 @@
         :toggle_terminal {:key :!Tgrave_accent_and_tilde}
         :activate_vivaldi {:key :!T1}
         :activate_raycast {:shell [:open "raycast"]}
-        :emacs {:shell "/opt/homebrew/bin/emacsclient --eval '(emacs-everywhere)'"}
         :hide_app {:key :!Ch}
         :close_app {:key :!Cw}
         :quit_app {:key :!Cq}
+        :emacs {:shell "/opt/homebrew/bin/emacsclient --eval '(emacs-everywhere)'"}
     }
 
     :simlayers {
