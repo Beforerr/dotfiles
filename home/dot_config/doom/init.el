@@ -44,7 +44,7 @@
        ;;neotree           ; a project drawer, like NERDTree for vim
        ophints           ; highlight the region an operation acts on
        (popup +defaults)   ; tame sudden yet inevitable temporary windows
-       tabs              ; a tab bar for Emacs
+       ;; tabs              ; a tab bar for Emacs
        treemacs          ; a project drawer, like neotree but cooler
        ;;unicode           ; extended unicode support for various languages
        (vc-gutter +pretty) ; vcs diff in the fringe
@@ -152,7 +152,7 @@
        ;;lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
-       ;;nix               ; I hereby declare "nix geht mehr!"
+       nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
        (org +roam2)                ; organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
@@ -174,7 +174,7 @@
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
        ;;web               ; the tubes
-       ;;yaml              ; JSON, but readable
+       yaml              ; JSON, but readable
        ;;zig               ; C, but simpler
 
        :email
