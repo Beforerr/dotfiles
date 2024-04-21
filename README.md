@@ -29,7 +29,13 @@ Note we need to restart the terminal after the installation of `nix`, so the scr
 
 ## Apps
 
-#### Zotero
+### Karabiner-Elements
+
+Customize keyboard mappings.
+
+[](~/.config/)
+
+### Zotero
 
 Install beta version and login to sync.
 

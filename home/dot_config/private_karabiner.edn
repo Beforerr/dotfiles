@@ -17,7 +17,8 @@
         :eudic [ "com.eusoft.eudic" ]
 
         :vivaldi [ "^com.vivaldi.Vivaldi$" ]
-        :tana [ "^com.vivaldi.Vivaldi.app.fcihfelaaldlnndgdpikildeaibblbpm" ]
+        ;; :tana [ "^com.vivaldi.Vivaldi.app.fcihfelaaldlnndgdpikildeaibblbpm" ]
+        :tana [ "tana" ]
         :telegram [ "^ru.keepcoder.Telegram$" ]
         :vscode [ "^com.microsoft.VSCode" ]
         :wechat [ "^com.tencent.xinWeChat$" ]
@@ -37,6 +38,7 @@
         :toggle_terminal {:key :!Tgrave_accent_and_tilde}
         :activate_vivaldi {:key :!T1}
         :activate_raycast {:shell [:open "raycast"]}
+        :emacs {:shell "/opt/homebrew/bin/emacsclient --eval '(emacs-everywhere)'"}
         :hide_app {:key :!Ch}
         :close_app {:key :!Cw}
         :quit_app {:key :!Cq}
@@ -50,12 +52,15 @@
         {
             :des "wkey (apps)"
             :rules [:w-mode
-                [:1 "open 'https://mail.google.com/mail/u/1/#inbox'"]
-                [:2 "open 'https://mail.google.com/mail/u/0/#inbox'"]
+                [:1 "open 'https://mail.google.com/mail/u/0/#inbox'"]
+                [:2 "open 'https://mail.google.com/mail/u/1/#inbox'"]
+                [:q [:km "open: WeChat"]]
+                ;; [:q "open kmtrigger://macro=open%3A%20WeChat"] # this seems to be slower
                 [:s [:km "open: Slack"]]
                 [:n [:km "open: Sublime Text"]]
                 [:k [:km "open: Keyboard Maestro"]]
-                [:e [:km "open: Weather"]]
+                [:e :emacs]
+                ;; [:e [:km "open: Weather"]]
             ]
         }
         {
@@ -70,6 +75,7 @@
                 [:left_option :left_option :vivaldi {:alone :!CTO1}]
                 ;; tana
                 [:left_command :left_command :tana {:alone :!Cs}]
+                [:left_option :left_option :tana {:alone :!TSd}]
                 [:left_control :left_control :tana {:alone :!TSd}]
                 ;; vscode
                 [:left_command :left_command :vscode {:alone :!CSp}]
