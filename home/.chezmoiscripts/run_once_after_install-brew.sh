@@ -11,3 +11,6 @@ if command -v brew; then
 else
     echo "Brew is not installed. Please install it first."
 fi
+
+echo "Setting up 'yabai' and 'skhd'..."
+chmod +x $HOME/.config/yabai/yabairc

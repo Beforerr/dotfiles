@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+# bsp or float (default: float)
+yabai -m config layout bsp
+
+echo "yabai configuration loaded.."

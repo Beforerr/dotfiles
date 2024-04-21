@@ -10,6 +10,7 @@ tap "buo/cask-upgrade"
 brew "mas"
 brew "goku"
 brew "pipx"
+brew "koekeishiya/formulae/yabai"
 
 ## Tier-1
 # cask "vivaldi"
