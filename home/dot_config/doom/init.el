@@ -87,7 +87,7 @@
 
        :tools
        ;;ansible
-       biblio            ; Writes a PhD for you (citation needed)
+       ;; biblio            ; Writes a PhD for you (citation needed)
        ;;collab            ; buffers with friends
        ;;debugger          ; FIXME stepping through code, to help you add bugs
        ;;direnv
@@ -144,7 +144,7 @@
        json              ; At least it ain't XML
        ;;(java +lsp)       ; the poster child for carpal tunnel syndrome
        ;; javascript        ; all(hope(abandon(ye(who(enter(here))))))
-       julia             ; a better, faster MATLAB
+       (julia +lsp)             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
        ;;latex             ; writing papers in Emacs has never been so fun
        ;;lean              ; for folks with too much to prove

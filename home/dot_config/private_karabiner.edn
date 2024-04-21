@@ -54,12 +54,13 @@
             :rules [:w-mode
                 [:1 "open 'https://mail.google.com/mail/u/0/#inbox'"]
                 [:2 "open 'https://mail.google.com/mail/u/1/#inbox'"]
+                ;; [:q "open kmtrigger://macro=open%3A%20WeChat"]
                 [:q [:km "open: WeChat"]]
-                ;; [:q "open kmtrigger://macro=open%3A%20WeChat"] # this seems to be slower
                 [:s [:km "open: Slack"]]
                 [:n [:km "open: Sublime Text"]]
                 [:k [:km "open: Keyboard Maestro"]]
                 [:e :emacs]
+                ;; [:e "emacsclient --eval '(emacs-everywhere)'"]
                 ;; [:e [:km "open: Weather"]]
             ]
         }
