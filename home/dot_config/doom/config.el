@@ -93,3 +93,15 @@
 )
 
 (setq copilot-indent-offset-warning-disable t)
+
+(defcustom emacs-everywhere-custom-hooks
+  '(emacs-everywhere-set-frame-name
+    emacs-everywhere-apply-major-mode
+    emacs-everywhere-insert-selection
+    emacs-everywhere-remove-trailing-whitespace)
+  "Hooks to be run before function `emacs-everywhere-mode'."
+  :type 'hook
+  :group 'emacs-everywhere)
+
+(advice-add 'emacs-everywhere-init-hooks :override #'emacs-everywhere-custom-hooks)
+
