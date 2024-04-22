@@ -3,5 +3,9 @@
 # bsp or float (default: float)
 echo "yabai configuration loaded.."
 
+yabai -m config layout bsp
+
 # --grid <rows>:<cols>:<start-x>:<start-y>:<width>:<height>
 yabai -m rule --add title="^Emacs Everywhere.*" display=mouse grid=3:3:1:1:1:1 manage=off
+
+yabai -m rule --add app="iTerm2" display=mouse grid=3:3:1:1:1:1 manage=off
