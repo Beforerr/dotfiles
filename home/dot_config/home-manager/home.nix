@@ -30,6 +30,7 @@
     pkgs.nodejs
     pkgs.pandoc
     pkgs.librsvg
+    pkgs.neovide
   ];
 
   # This value determines the Home Manager release that your
@@ -65,6 +66,7 @@
   };
   programs.git.enable = true;
   programs.emacs.enable = true;
+  programs.neovim.enable = true;
   programs.aria2.enable = true;
   programs.fish.enable = true;
   programs.broot.enable = true;

@@ -78,9 +78,8 @@
                 [:left_option :left_option :tana {:alone :!TSd}] ; return to the home page
                 [:left_control :left_control :tana {:alone :!TSd}] ; return to the home page
                 ;; vscode
-                ;; [:left_command :left_command :vscode {:alone :!CSp}]
                 [:left_command :left_command :vscode {:alone :!Cp}]
-                ;; [:right_command :right_command :vscode {:alone :!Cp}]
+                [:left_option :left_option :vscode {:alone :!Op}]
                 [:left_control :left_control :vscode {:alone :toggle_terminal}]
                 ;; zotero
                 ;; [:left_option :left_option :zotero {:alone "osascript $HOME/.config/scripts/open_website_in_arc.applescript Tana"}]
@@ -90,6 +89,7 @@
                 [:left_command :left_command :telegram {:alone :quit_app}]
 
                 ;; default
+                [:caps_lock :!CSspacebar]
                 [:left_command :left_command nil {:alone :hide_app}]
                 [:left_control :left_control nil {:alone :activate_vivaldi}]
                 [:right_command :right_command nil {:alone :activate_raycast}]
