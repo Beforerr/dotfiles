@@ -10,7 +10,7 @@ brew "mas"
 brew "goku"
 brew "pipx"
 brew "koekeishiya/formulae/yabai"
-brew "emacs-plus"
+# brew "emacs-plus"
 
 ## Tier-1
 # cask "vivaldi"

@@ -40,7 +40,7 @@
         :hide_app {:key :!Ch}
         :close_app {:key :!Cw}
         :quit_app {:key :!Cq}
-        :emacs {:shell "/opt/homebrew/bin/emacsclient --eval '(emacs-everywhere)'"}
+        :emacs {:shell "~/.nix-profile/bin/emacsclient --eval '(emacs-everywhere)'"}
     }
 
     :simlayers {

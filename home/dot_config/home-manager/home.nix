@@ -64,7 +64,7 @@
     };
   };
   programs.git.enable = true;
-  # programs.emacs.enable = true;
+  programs.emacs.enable = true;
   programs.aria2.enable = true;
   programs.fish.enable = true;
   programs.broot.enable = true;
