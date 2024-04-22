@@ -58,7 +58,7 @@
                 [:s [:km "open: Slack"]]
                 [:n [:km "open: Sublime Text"]]
                 [:k [:km "open: Keyboard Maestro"]]
-                [:t [:km "open Telegram"]]
+                [:t [:km "open: Telegram"]]
                 [:e :emacs]
                 ;; [:e [:km "open: Weather"]]
             ]

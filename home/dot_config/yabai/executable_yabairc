@@ -7,4 +7,4 @@ echo "yabai configuration loaded.."
 yabai -m rule --add title="Emacs Everywhere.*" display=mouse grid=3:3:1:1:1:1 manage=off
 yabai -m rule --add app="emacs" display=mouse grid=3:3:1:1:1:1 manage=off
 
-yabai -m rule --add app="iTerm2" display=mouse grid=3:3:0:1:1:1 manage=off
+yabai -m rule --add app="iTerm2" display=mouse grid=3:3:1:0:1:1 manage=off
