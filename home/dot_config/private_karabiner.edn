@@ -1,4 +1,3 @@
-
 {
     :profiles {
         :goku {
@@ -54,13 +53,12 @@
             :rules [:w-mode
                 [:1 "open 'https://mail.google.com/mail/u/0/#inbox'"]
                 [:2 "open 'https://mail.google.com/mail/u/1/#inbox'"]
-                ;; [:q "open kmtrigger://macro=open%3A%20WeChat"]
+                ;; [:q "open kmtrigger://macro=open%3A%20WeChat"] ; `open` seems to be slower than using `osascript` 
                 [:q [:km "open: WeChat"]]
                 [:s [:km "open: Slack"]]
                 [:n [:km "open: Sublime Text"]]
                 [:k [:km "open: Keyboard Maestro"]]
                 [:e :emacs]
-                ;; [:e "emacsclient --eval '(emacs-everywhere)'"]
                 ;; [:e [:km "open: Weather"]]
             ]
         }
@@ -76,10 +74,12 @@
                 [:left_option :left_option :vivaldi {:alone :!CTO1}]
                 ;; tana
                 [:left_command :left_command :tana {:alone :!Cs}]
-                [:left_option :left_option :tana {:alone :!TSd}]
-                [:left_control :left_control :tana {:alone :!TSd}]
+                [:left_option :left_option :tana {:alone :!TSd}] ; return to the home page
+                [:left_control :left_control :tana {:alone :!TSd}] ; return to the home page
                 ;; vscode
-                [:left_command :left_command :vscode {:alone :!CSp}]
+                ;; [:left_command :left_command :vscode {:alone :!CSp}]
+                [:left_command :left_command :vscode {:alone :!Cp}]
+                ;; [:right_command :right_command :vscode {:alone :!Cp}]
                 [:left_control :left_control :vscode {:alone :toggle_terminal}]
                 ;; zotero
                 ;; [:left_option :left_option :zotero {:alone "osascript $HOME/.config/scripts/open_website_in_arc.applescript Tana"}]
@@ -90,8 +90,9 @@
 
                 ;; default
                 [:left_command :left_command nil {:alone :hide_app}]
-                [:right_command :right_command nil {:alone :activate_raycast}]
                 [:left_control :left_control nil {:alone :activate_vivaldi}]
+                [:right_command :right_command nil {:alone :activate_raycast}]
+                [:right_option :right_option nil {:alone :!CSspacebar}]
             ]
         }
         {:des "multitouch"
