@@ -82,7 +82,7 @@
                 [:left_option :left_option :vscode {:alone :!Op}]
                 [:left_control :left_control :vscode {:alone :toggle_terminal}]
                 ;; zotero
-                ;; [:left_option :left_option :zotero {:alone "osascript $HOME/.config/scripts/open_website_in_arc.applescript Tana"}]
+                [:left_option :left_option :zotero {:alone [:km "Open: Tana"]}]
 
                 ;; hide/close apps
                 [:left_command :left_command :Apps {:alone :hide_app}]
