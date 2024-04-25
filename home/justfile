@@ -22,7 +22,6 @@ install-spack:
 
 backup:
   #!/usr/bin/env sh
-  killall iTerm2
   mackup backup --force && mackup uninstall --force
 
 backup-pictures:
@@ -30,7 +29,6 @@ backup-pictures:
 
 restore:
   #!/usr/bin/env sh
-  killall iTerm2
   echo "Syncing applications with 'mackup'..."
   mackup restore --force && mackup uninstall --force
 
