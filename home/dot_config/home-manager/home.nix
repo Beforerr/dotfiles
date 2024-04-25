@@ -72,6 +72,7 @@
   programs.broot.enable = true;
   programs.direnv.enable = true;
   programs.zoxide.enable = true;
+  programs.yazi.enable = true;
   programs.starship.enable = true;
   programs.starship.settings = {
     battery.disabled = true;
