@@ -91,6 +91,7 @@
                 ;; default
                 [:caps_lock :!CSspacebar]
                 [:left_command :left_command nil {:alone :hide_app}]
+                [:left_option :left_option nil {:alone [:km "Open: Tana"]}]
                 [:left_control :left_control nil {:alone :activate_vivaldi}]
                 [:right_command :right_command nil {:alone :activate_raycast}]
                 [:right_option :right_option nil {:alone :!CSspacebar}]
