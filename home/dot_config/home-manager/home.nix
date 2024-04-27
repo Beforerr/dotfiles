@@ -79,4 +79,5 @@
     battery.disabled = true;
   };
 
+  # services.emacs.enable = true; #: The module services.emacs does not support your platform.
 }
