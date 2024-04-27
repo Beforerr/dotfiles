@@ -13,5 +13,3 @@ if ! command -v micromamba; then
 	echo "Installing 'micromamba' package manager..."
 	"${SHELL}" <(curl -L micro.mamba.pm/install.sh)
 fi
-
-# curl -fsSL https://get.pnpm.io/install.sh | sh -
