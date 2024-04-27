@@ -5,6 +5,13 @@ alias la="ls -lAF ${colorflag}"
 alias ll="ls -lAF ${colorflag}"
 alias ls="ls -G"
 
+if command -v exa >/dev/null; then
+	alias l="exa -l"
+	alias la="exa -la"
+	alias ll="exa -la"
+	alias ls="exa"
+fi
+
 if command -v bat >/dev/null; then
 	alias cat="bat"
 fi

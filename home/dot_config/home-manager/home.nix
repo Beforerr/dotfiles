@@ -16,6 +16,7 @@
     pkgs.cht-sh
     pkgs.gdu
     pkgs.htop
+    pkgs.eza
 
     pkgs.gnumake
     pkgs.cmake
