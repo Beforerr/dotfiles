@@ -28,7 +28,7 @@
     pkgs.temurin-bin
     pkgs.ruby
     # pkgs.rustup
-    # pkgs.nodejs #: The operation was rejected by your operating system.
+    # pkgs.nodejs #: The operation was rejected by your operating system. (use `nvm` instead)
     pkgs.pandoc
     pkgs.librsvg
     pkgs.neovide
