@@ -37,6 +37,7 @@ cask "hiddenbar", args: { "no-quarantine": true }
 cask "deskcover-pro"
 cask "iina"
 cask "iterm2"
+cask "wezterm"
 cask "itsycal"
 cask "karabiner-elements"
 cask "keka"
