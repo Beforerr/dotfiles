@@ -27,7 +27,7 @@
     # pkgs.pipx # Note: outdated
     pkgs.temurin-bin
     pkgs.ruby
-    pkgs.nodejs #: The operation was rejected by your operating system.
+    # pkgs.nodejs #: The operation was rejected by your operating system.
     pkgs.pandoc
     pkgs.librsvg
     pkgs.neovide
