@@ -13,5 +13,5 @@ yabai -m rule --add title="Emacs Everywhere.*" display=mouse grid=3:3:1:1:1:1 ma
 
 # Move the activated app to the current mouse position and focus it
 yabai -m signal --add event=application_activated \
-	app="(iTerm2|WezTerm|Zed)$" \
+	app="(iTerm2|WezTerm|Zed|espanso)$" \
 	action="yabai -m window --display mouse --focus"
