@@ -16,6 +16,7 @@ yabai -m signal --add event=application_activated \
 	app="(iTerm2|WezTerm|Zed)" \
 	action="yabai -m window --display mouse --focus"
 
+# BUG: This doesn't work
 yabai -m signal --add event=application_visible \
 	app="espanso" \
 	action="yabai -m window --display mouse --focus"

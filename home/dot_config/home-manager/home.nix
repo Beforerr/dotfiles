@@ -23,6 +23,7 @@
     pkgs.wget
     pkgs.ugrep
     pkgs.ripgrep
+    pkgs.yq-go
     pkgs.rclone
     # pkgs.pipx # Note: outdated
     pkgs.temurin-bin
@@ -70,6 +71,7 @@
   programs.neovim.enable = true;
   programs.aria2.enable = true;
   programs.fish.enable = true;
+  programs.nushell.enable = true;
   programs.broot.enable = true;
   programs.direnv.enable = true;
   programs.zoxide.enable = true;
