@@ -29,7 +29,7 @@
     pkgs.temurin-bin
     pkgs.ruby
     # pkgs.rustup
-    pkgs.nodejs # Note: The operation was rejected by your operating system (one may use `nvm` instead).
+    pkgs.nodejs # Note: The operation was rejected by your operating system (one may use `nvm` instead). It is used by emacs `copilot` package.
     pkgs.pandoc
     pkgs.librsvg
     pkgs.neovide
