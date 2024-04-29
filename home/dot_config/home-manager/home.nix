@@ -9,9 +9,11 @@
   # Packages that should be installed to the user profile.
   home.packages = [
     # pkgs.micromamba # Note: outdated
+
     pkgs.just
     pkgs.bat
     pkgs.bitwarden-cli
+    pkgs.cht-sh
     pkgs.gdu
     pkgs.htop
     pkgs.eza
@@ -25,9 +27,9 @@
     pkgs.rclone
     # pkgs.pipx # Note: outdated
     pkgs.temurin-bin
-    # pkgs.ruby
+    pkgs.ruby
     # pkgs.rustup
-    pkgs.nodejs # Note: The operation was rejected by your operating system (one may use `nvm` instead). It is used by emacs `copilot` package.
+    pkgs.nodejs # Note: The operation was rejected by your operating system (one may use `nvm` instead).
     pkgs.pandoc
     pkgs.librsvg
     pkgs.neovide
