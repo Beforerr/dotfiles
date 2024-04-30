@@ -66,22 +66,22 @@
   programs.git.enable = true;
   programs.emacs.enable = true;
   programs.neovim.enable = true;
-  programs.aria2.enable = true;
   programs.fish.enable = true;
   programs.nushell.enable = true;
 
+  programs.aria2.enable = true;
   programs.broot.enable = true;
   programs.direnv.enable = true;
-  
   programs.eza.enable = true;
+  programs.fzf.enable = true;
   programs.zoxide.enable = true;
   programs.yazi = {
     enable = true;
     enableZshIntegration = true;
   };
-  programs.starship.enable = true;
-  programs.starship.settings = {
-    battery.disabled = true;
+  programs.starship = {
+    enable = true;
+    settings.battery.disabled = true;
   };
 
   # services.emacs.enable = true; #: The module services.emacs does not support your platform.
