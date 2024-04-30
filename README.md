@@ -45,3 +45,9 @@ Install beta version and login to sync.
 - [Python](https://www.python.org/) (via `mamba`)
 - [R](https://www.r-project.org/) (via `brew`)
 - [Rust](https://www.rust-lang.org/) (via `rustup`)
+
+
+
+## Notes
+
+- [zsh - What should/shouldn't go in .zshenv, .zshrc, .zlogin, .zprofile, .zlogout? - Unix & Linux Stack Exchange](https://unix.stackexchange.com/questions/71253/what-should-shouldnt-go-in-zshenv-zshrc-zlogin-zprofile-zlogout)

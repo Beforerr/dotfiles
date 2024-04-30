@@ -50,7 +50,7 @@
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     dotDir = ".config/zsh";
-    initExtra= "source $HOME/.zshrc";
+    initExtraFirst = "source $HOME/.zshrc";
     autocd = true;
     zplug = {
       enable = true;
