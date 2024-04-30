@@ -1,9 +1,5 @@
 export PATH="$PATH:$HOME/.local/bin"
 
-if type brew &>/dev/null; then
-    FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-fi
-
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'mamba init' !!
 export MAMBA_EXE="$HOME/.local/bin/micromamba";
@@ -25,8 +21,3 @@ path=('/Users/zijin/.juliaup/bin' $path)
 export PATH
 
 # <<< juliaup initialize <<<
-
-#: loading `nvm` during startup takes time
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
