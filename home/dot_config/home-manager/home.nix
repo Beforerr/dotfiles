@@ -8,14 +8,13 @@
 
   # Packages that should be installed to the user profile.
   home.packages = [
-    # pkgs.micromamba # Note: outdated
+    pkgs.micromamba # Note: outdated
 
     pkgs.just
     pkgs.bat
     pkgs.bitwarden-cli
     pkgs.gdu
     pkgs.htop
-    pkgs.eza
 
     pkgs.gnumake
     pkgs.cmake
@@ -72,10 +71,16 @@
   programs.aria2.enable = true;
   programs.fish.enable = true;
   programs.nushell.enable = true;
+
   programs.broot.enable = true;
   programs.direnv.enable = true;
+  
+  programs.eza.enable = true;
   programs.zoxide.enable = true;
-  programs.yazi.enable = true;
+  programs.yazi = {
+    enable = true;
+    enableZshIntegration = true;
+  };
   programs.starship.enable = true;
   programs.starship.settings = {
     battery.disabled = true;

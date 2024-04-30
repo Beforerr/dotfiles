@@ -4,8 +4,6 @@ if type brew &>/dev/null; then
     FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 fi
 
-eval $(thefuck --alias)
-
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'mamba init' !!
 export MAMBA_EXE="$HOME/.local/bin/micromamba";
