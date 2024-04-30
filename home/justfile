@@ -1,9 +1,11 @@
+import? 'scripts/languages.just'
+
 default:
   just --list
 
 update:
-  chezmoi update
-  nix-channel --update
+  -chezmoi update
+  -nix-channel --update
 
 config: git-config
 
@@ -12,22 +14,15 @@ git-config:
   git config --global user.email "zzj956959688@gmail.com"
   git config --global github.user "Beforerr"
 
-install-spack:
-  #!/bin/bash
-  echo "Installing 'spack' package manager..."
-  if ! command -v spack; then
-    git clone -c feature.manyFiles=true https://github.com/spack/spack.git
-    . spack/share/spack/setup-env.sh
-  fi
-
-backup:
+backup-config:
   #!/usr/bin/env sh
   mackup backup --force && mackup uninstall --force
 
 backup-pictures:
   rclone sync ~/Pictures BoxUCLA:Pictures --progress
 
-restore:
+# restoring the configuration using mackup
+restore-config:
   #!/usr/bin/env sh
   echo "Syncing applications with 'mackup'..."
   mackup restore --force && mackup uninstall --force
@@ -36,48 +31,13 @@ migrate:
   rclone sync GoogleDriveUCLA:library BoxUCLA:library --progress
 
 clean:
-  nix-collect-garbage -d
-  brew cleanup
+  -nix-collect-garbage -d
+  -brew cleanup
 
 version:
-	nix --version && brew --version && micromamba --version
-
-cmd:
-  # zoxide
-  curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
-
-rustup:
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-
-r-up:
-  #!/usr/bin/env sh
-  echo "Installing R..."
-  if ! command -v R; then
-    brew install --cask r
-  fi
-
-julia-all: julia-up julia-pkgs
-
-# Install Julia
-julia-up:
-  #!/usr/bin/env sh
-  echo "Installing Juliaup - Julia version manager..."
-  if ! command -v juliaup; then
-    curl -fsSL https://install.julialang.org | sh -s -- --yes
-  fi
-
-julia-pkgs:
-  #!/usr/bin/env sh
-  if command -v julia; then
-    julia packages.jl
-  else
-    echo "Julia not installed. Skipping packages installation."
-  fi
-
-julia-pluto:
-  #!/usr/bin/env julia
-  import Pluto;
-  Pluto.run()
+  -nix --version
+  -brew --version
+  -micromamba --version
 
 zotero-link:
   ln -s ~/Library/CloudStorage/Box-Box/storage ~/Zotero/storage
