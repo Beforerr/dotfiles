@@ -31,7 +31,7 @@ cask "finicky"
 cask "flux"
 cask "google-drive"
 cask "box-drive"
-cask "github"
+# cask "github"
 cask "hiddenbar", args: { "no-quarantine": true }
 # cask "hazeover"
 cask "deskcover-pro"
