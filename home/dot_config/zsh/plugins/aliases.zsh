@@ -8,11 +8,15 @@ function alias_helper() {
 }
 
 # Shortcuts for common commands 
-colorflag="-G"
-alias l="ls -lF ${colorflag}"
-alias la="ls -lAF ${colorflag}"
-alias ll="ls -lAF ${colorflag}"
-alias ls="ls -G"
+if command -v exa >/dev/null; then
+else
+	colorflag="-G"
+	alias l="ls -lF ${colorflag}"
+	alias la="ls -lAF ${colorflag}"
+	alias ll="ls -lAF ${colorflag}"
+	alias ls="ls -G"
+fi
+
 
 alias_helper cat bat
 
