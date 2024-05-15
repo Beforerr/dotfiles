@@ -24,6 +24,7 @@
         :slack [ "com.tinyspeck.slackmacgap"]
         :sublime [ "^com.sublimetext.4$" ]
         :zotero [ "zotero" ]
+        :siyuan [ "SiYuan" ]
 
         :Apps [:chatgpt
             :slack
@@ -85,6 +86,9 @@
                 [:left_option :left_option :zotero {:alone [:km "Open: Tana"]}]
                 ;; wechat
                 [:left_command :left_command :wechat {:alone :close_app}]
+
+                ;; SiYuan
+                [:left_command :left_command :siyuan {:alone :!Cp}]
 
                 ;; hide/close apps
                 ;; [:left_command :left_command :Apps {:alone :hide_app}]
