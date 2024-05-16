@@ -29,6 +29,7 @@ restore-config:
 
 migrate:
   rclone sync GoogleDriveUCLA:library BoxUCLA:library --progress
+  ln -s "/Volumes/My Passport for Mac/data" ~/data
 
 clean:
   -nix-collect-garbage -d
