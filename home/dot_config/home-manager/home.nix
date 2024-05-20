@@ -26,6 +26,7 @@
     pkgs.temurin-bin
     # pkgs.ruby
     # pkgs.rustup
+    pkgs.pixi
     pkgs.nodejs # Note: The operation was rejected by your operating system (one may use `nvm` instead).
     pkgs.pandoc
     pkgs.librsvg

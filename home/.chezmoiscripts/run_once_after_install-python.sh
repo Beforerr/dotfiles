@@ -1,6 +1,5 @@
 #!/usr/bin/env zsh -i
 
-# base.yml hash: {{ include "dot_conda/base.yml" | sha256sum }}
 if command -v conda &> /dev/null; then
     conda env create --file .conda/base.yml
 fi
