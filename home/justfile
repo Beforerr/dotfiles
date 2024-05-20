@@ -55,3 +55,6 @@ gpt-academic:
   cd ~/src/gpt_academic
   micromamba run -n gptac_venv python -m pip install -r requirements.txt # 这个步骤和pip安装一样的步骤
   micromamba run -n gptac_venv python main.py
+
+env-install:
+  micromamba env create --file environment.yml
