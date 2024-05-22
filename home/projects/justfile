@@ -1,0 +1,27 @@
+np := if os() == "macos" {`sysctl -n hw.ncpu`} else if os() == "linux" {`nproc`} else {"1"}
+
+default:
+  just --list
+
+clean:
+  find . -name '.DS_Store' -type f -delete
+
+[no-cd]
+preview:
+  quarto preview --no-render
+
+setup: git-ignore
+
+setup-quarto:
+  cp -u share/quarto/* {{invocation_directory()}}
+
+git-ignore:
+  cp share/.gitignore {{invocation_directory()}}
+
+julia-new-package name:
+  #!/usr/bin/env julia
+  using PkgTemplates
+  Template(interactive=true)({{name}})
+
+log:
+  just julia-new-package Discontinuity.jl

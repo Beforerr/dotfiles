@@ -6,6 +6,7 @@ default:
 update:
   -chezmoi update
   -nix-channel --update
+  homemanager switch
 
 config: git-config
 
