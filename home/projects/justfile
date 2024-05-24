@@ -6,10 +6,6 @@ default:
 clean:
   find . -name '.DS_Store' -type f -delete
 
-[no-cd]
-preview:
-  quarto preview --no-render
-
 setup: git-ignore
 
 setup-quarto:
@@ -22,6 +18,27 @@ julia-new-package name:
   #!/usr/bin/env julia
   using PkgTemplates
   Template(interactive=true)({{name}})
+
+[no-cd]
+preview: export
+  #!/usr/bin/env sh
+  if command -v nbdev_preview &> /dev/null; then
+    nbdev_preview
+  else
+    quarto preview --no-render
+  fi
+
+[no-cd]
+publish:
+  #!/usr/bin/env sh
+  if command -v nbdev_proc_nbs &> /dev/null; then
+    nbdev_proc_nbs && cd _proc
+  fi
+  quarto publish gh-pages --no-prompt
+
+[no-cd]
+export:
+  -nbdev_export
 
 log:
   just julia-new-package Discontinuity.jl
