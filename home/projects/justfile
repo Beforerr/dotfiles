@@ -1,3 +1,5 @@
+set allow-duplicate-recipes := true
+
 np := if os() == "macos" {`sysctl -n hw.ncpu`} else if os() == "linux" {`nproc`} else {"1"}
 
 default:
@@ -9,7 +11,7 @@ clean:
 setup: git-ignore
 
 setup-quarto:
-  cp -u share/quarto/* {{invocation_directory()}}
+  cp -n share/quarto/* {{invocation_directory()}}
 
 git-ignore:
   cp share/.gitignore {{invocation_directory()}}
@@ -18,30 +20,6 @@ julia-new-package name:
   #!/usr/bin/env julia
   using PkgTemplates
   Template(interactive=true)({{name}})
-
-[no-cd]
-preview: export
-  #!/usr/bin/env sh
-  if command -v nbdev_preview &> /dev/null; then
-    nbdev_preview
-  else
-    quarto preview
-  fi
-
-[no-cd]
-publish:
-  #!/usr/bin/env sh
-  if command -v nbdev_proc_nbs &> /dev/null; then
-    nbdev_proc_nbs && cd _proc
-  fi
-  if ! quarto publish gh-pages --no-render --no-prompt; then
-    echo "quarto publish gh-pages failed"
-    quarto publish gh-pages
-  fi
-
-[no-cd]
-export:
-  -nbdev_export
 
 log:
   just julia-new-package Discontinuity.jl
