@@ -25,7 +25,7 @@ preview: export
   if command -v nbdev_preview &> /dev/null; then
     nbdev_preview
   else
-    quarto preview --no-render
+    quarto preview
   fi
 
 [no-cd]
@@ -34,7 +34,10 @@ publish:
   if command -v nbdev_proc_nbs &> /dev/null; then
     nbdev_proc_nbs && cd _proc
   fi
-  quarto publish gh-pages --no-prompt
+  if ! quarto publish gh-pages --no-render --no-prompt; then
+    echo "quarto publish gh-pages failed"
+    quarto publish gh-pages
+  fi
 
 [no-cd]
 export:

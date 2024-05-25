@@ -13,6 +13,7 @@
     pkgs.bitwarden-cli
     pkgs.gdu
     pkgs.htop
+    pkgs.watchexec
 
     pkgs.gnumake
     pkgs.cmake
