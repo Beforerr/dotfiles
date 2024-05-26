@@ -2,9 +2,9 @@
 if command -v pipx &> /dev/null; then
     # mackup
     pipx install mackup
+    pipx install pdm
 
     # Python environment
-    pipx install nbdev
     pipx install nbqa
     pipx install black isort
     pipx inject nbqa isort
