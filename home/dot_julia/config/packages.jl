@@ -1,20 +1,21 @@
 using Pkg
-Pkg.add("Revise")
 Pkg.add([
+    "Revise",
+    "DrWatson",
+
+    # Interactive
     "IJulia",
     "QuartoNotebookRunner",
-    "Pluto"
-])
+    "Pluto",
 
-Pkg.add([
+    # Plotting
     "LaTeXStrings",
     "CairoMakie",
     "GLMakie",
     "WGLMakie",
-    "AlgebraOfGraphics"
-])
+    "AlgebraOfGraphics",
 
-Pkg.add([
+    # Data
     "DataFrames",
     "DataFramesMeta",
 ])
