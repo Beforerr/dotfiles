@@ -21,3 +21,5 @@ path=('/Users/zijin/.juliaup/bin' $path)
 export PATH
 
 # <<< juliaup initialize <<<
+
+eval "$(pdm completion)"
