@@ -17,6 +17,7 @@ brew "koekeishiya/formulae/yabai"
 cask "arc"
 cask "visual-studio-code"
 # cask "emacs"
+cask "chatgpt"
 cask "lencx/chatgpt/chatgpt", args: { "no-quarantine": true }
 
 ## Tier-2 (apps)
@@ -36,7 +37,7 @@ cask "hiddenbar", args: { "no-quarantine": true }
 # cask "hazeover"
 cask "deskcover-pro"
 cask "iina"
-cask "iterm2"
+# cask "iterm2"
 cask "wezterm"
 cask "itsycal"
 cask "karabiner-elements"
