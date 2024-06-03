@@ -54,6 +54,8 @@
             :rules [:w-mode
                 [:1 "open 'https://mail.google.com/mail/u/0/#inbox'"]
                 [:2 "open 'https://mail.google.com/mail/u/1/#inbox'"]
+                ;; messenger website
+                [:m "open 'https://www.messenger.com/'"]
                 ;; [:q "open kmtrigger://macro=open%3A%20WeChat"] ; `open` seems to be slower than using `osascript` 
                 [:q [:km "open: WeChat"]]
                 [:s [:km "open: Slack"]]
