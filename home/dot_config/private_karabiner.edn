@@ -59,6 +59,7 @@
                 ;; [:q "open kmtrigger://macro=open%3A%20WeChat"] ; `open` seems to be slower than using `osascript` 
                 [:q [:km "open: WeChat"]]
                 [:s [:km "open: Slack"]]
+                [:c "open -a Clock"]
                 [:n [:km "open: Sublime Text"]]
                 [:k [:km "open: Keyboard Maestro"]]
                 [:t [:km "open: Telegram"]]
