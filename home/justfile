@@ -42,15 +42,19 @@ zotero-link:
 zotero-addons:
   aria2c https://github.com/syt2/zotero-addons/releases/latest/download/zotero-addons.xpi
 
+download:
+  aria2c https://desktop-update.tana.inc/download/dmg
+  open 
+
 popclip:
 	curl https://pilotmoon.com/popclip/extensions/ext/DOI.popclipextz -o "DOI.popclipextz"
-	open "DOI.popclipextz"
+	open Tana*.dmg
+
+browser-extensions:
+  open https://chromewebstore.google.com/detail/simplify-gmail/pbmlfaiicoikhdbjagjbglnbfcbcojpj
 
 gpt-academic:
   #!/usr/bin/env sh
   cd ~/src/gpt_academic
   micromamba run -n gptac_venv python -m pip install -r requirements.txt # 这个步骤和pip安装一样的步骤
   micromamba run -n gptac_venv python main.py
-
-env-install:
-  micromamba env create --file environment.yml
