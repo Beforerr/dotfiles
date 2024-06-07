@@ -1,20 +1,20 @@
 # 'brew tap'
 tap "yqrashawn/goku"
 tap "buo/cask-upgrade"
-tap "d12frosted/emacs-plus"
 
 # 'brew install'
 brew "mas"
 brew "goku"
 brew "pipx"
 brew "koekeishiya/formulae/yabai"
+
+# tap "d12frosted/emacs-plus"
 # brew "emacs-plus"
 
 ## Tier-1
 # cask "vivaldi"
 cask "arc"
 cask "visual-studio-code"
-# cask "emacs"
 cask "chatgpt"
 cask "lencx/chatgpt/chatgpt", args: { "no-quarantine": true }
 

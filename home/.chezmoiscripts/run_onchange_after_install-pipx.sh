@@ -2,7 +2,6 @@
 if command -v pipx &> /dev/null; then
     # mackup
     pipx install mackup
-    pipx install pdm
 
     # Python environment
     pipx install nbqa
