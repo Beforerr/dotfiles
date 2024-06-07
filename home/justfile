@@ -8,12 +8,7 @@ update:
   -nix-channel --update
   homemanager switch
 
-config: git-config
-
-git-config:
-  git config --global user.name "Beforerr"
-  git config --global user.email "zzj956959688@gmail.com"
-  git config --global github.user "Beforerr"
+config:
 
 backup-config:
   #!/usr/bin/env sh
