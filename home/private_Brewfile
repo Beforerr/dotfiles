@@ -57,8 +57,8 @@ cask "zotero@beta"
 cask "glance-chamburr", args: { "no-quarantine": true }
 
 cask "microsoft-powerpoint"
-cask "microsoft-excel"
-cask "microsoft-word"
+# cask "microsoft-excel"
+# cask "microsoft-word"
 
 # cask "google-chrome" # used in some cases
 cask "tor-browser"

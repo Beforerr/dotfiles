@@ -1,7 +1,10 @@
 [git]
-    autoCommit = true
-    autoPush = true
+autoCommit = true
+autoPush = true
 
 [edit]
-    command = "code"
-    args = ["--wait"]
+command = "code"
+args = ["--wait"]
+
+[scriptEnv]
+HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK = "1"

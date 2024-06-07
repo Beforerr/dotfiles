@@ -44,14 +44,20 @@ zotero-addons:
 
 download:
   aria2c https://desktop-update.tana.inc/download/dmg
-  open 
+  open Tana*.dmg
 
 popclip:
 	curl https://pilotmoon.com/popclip/extensions/ext/DOI.popclipextz -o "DOI.popclipextz"
-	open Tana*.dmg
 
 browser-extensions:
-  open https://chromewebstore.google.com/detail/simplify-gmail/pbmlfaiicoikhdbjagjbglnbfcbcojpj
+  # bitwarden
+  open https://chrome.google.com/webstore/detail/bitwarden-free-password-m/nngceckbapebfimnlniiiahkandclblb
+  # simplify-gmail
+  open https://chromewebstore.google.com/detail/simplify-gmail/pbmlfaiicoikhdbjagjbglnbfcbcojpj 
+  # violentmonkey
+  open https://chromewebstore.google.com/detail/violentmonkey/jinjaccalgkegednnccohejagnlnfdag
+  # ublock-origin
+  open https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm
 
 gpt-academic:
   #!/usr/bin/env sh
