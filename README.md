@@ -7,9 +7,10 @@
 - Use `Homebrew` exclusively for casks (applications);
 - Use [just](https://just.systems) for automation (see [Justfile](./home/justfile)).
 - Sync application settings with [mackup](https://github.com/lra/mackup) (see [mackup.cfg](./home/private_dot_mackup.cfg)).
-    - Note: 
-        - `mackup` is not used for syncing dotfiles, mostly for private application settings (such as `rclone`, `espanso` and so on).
-        - It is better to specify the application settings in the `.mackup.cfg` file (whitelist instead of blacklist).
+  - Note:
+    - `mackup` is not used for syncing dotfiles, mostly for private application settings (such as `rclone`, `espanso` and so on).
+    - It is better to specify the application settings in the `.mackup.cfg` file (whitelist instead of blacklist).
+- Use [`Garden`](https://garden-rs.gitlab.io/index.html) for managing repositories
 
 ## General setup
 
@@ -45,8 +46,6 @@ Install beta version and login to sync.
 - [Python](https://www.python.org/) (via `mamba`)
 - [R](https://www.r-project.org/) (via `brew`)
 - [Rust](https://www.rust-lang.org/) (via `rustup`)
-
-
 
 ## Notes
 
