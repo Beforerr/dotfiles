@@ -8,6 +8,9 @@ update:
   -nix-channel --update
   homemanager switch
 
+home-setup:
+  brew bundle --file=~/packages/home.Brewfile
+
 config:
 
 backup-config:
