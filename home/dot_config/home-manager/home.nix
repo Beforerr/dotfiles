@@ -25,6 +25,7 @@
     pkgs.yq-go
     pkgs.rclone
     # pkgs.pipx # Note: outdated
+    pkgs.goku
     pkgs.temurin-bin
     # pkgs.ruby
     # pkgs.rustup

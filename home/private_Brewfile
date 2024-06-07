@@ -1,6 +1,4 @@
 # 'brew tap'
-# tap "homebrew/cask" # no need anymore
-tap "homebrew/cask-versions"
 tap "yqrashawn/goku"
 tap "buo/cask-upgrade"
 tap "d12frosted/emacs-plus"
@@ -56,7 +54,7 @@ cask "telegram"
 cask "tropy"
 cask "qlmarkdown", args: { "no-quarantine": true }
 cask "zoom"
-cask "zotero-beta"
+cask "zotero@beta"
 # cask "zotero" # v7 version is not stable
 cask "glance-chamburr", args: { "no-quarantine": true }
 
@@ -64,7 +62,7 @@ cask "microsoft-powerpoint"
 cask "microsoft-excel"
 cask "microsoft-word"
 
-cask "google-chrome" # used in some cases
+# cask "google-chrome" # used in some cases
 cask "tor-browser"
 
 # 'mas install' 
