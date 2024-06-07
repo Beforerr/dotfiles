@@ -1,0 +1,25 @@
+---
+garden:
+  root: ~/projects
+trees:
+  beforerr:
+    url: "https://github.com/Beforerr/beforerr.git"
+  share:
+    url: "https://github.com/Beforerr/project-share.git"
+  workflows:
+    url: "https://github.com/Beforerr/workflows.git"
+  cs_theory:
+    url: "https://github.com/Beforerr/cs_theory.git"
+    depth: 1
+  discontinuitypy:
+    url: "https://github.com/Beforerr/ids_finder.git"
+    depth: 1
+  psp_conjunction:
+    url: "https://github.com/Beforerr/psp_conjunction.git"
+    depth: 1
+  ion_scattering_by_SWD:
+    url: "https://github.com/Beforerr/ion_scattering_by_SWD.git"
+    depth: 1
+  ids_spatial_evolution_juno:
+    url: "https://github.com/Beforerr/ids_spatial_evolution_juno.git"
+    depth: 1
