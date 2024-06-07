@@ -10,10 +10,11 @@
   home.packages = [
     pkgs.just
     pkgs.bat
-    pkgs.bitwarden-cli
+    # pkgs.bitwarden-cli
     pkgs.gdu
     pkgs.htop
     pkgs.watchexec
+    pkgs.pre-commit
 
     pkgs.gnumake
     pkgs.cmake
@@ -28,6 +29,7 @@
     # pkgs.ruby
     # pkgs.rustup
     pkgs.pixi
+    pkgs.pdm
     pkgs.nodejs # Note: The operation was rejected by your operating system (one may use `nvm` instead).
     pkgs.pandoc
     pkgs.librsvg
