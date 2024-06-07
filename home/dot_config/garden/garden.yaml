@@ -23,3 +23,7 @@ trees:
   ids_spatial_evolution_juno:
     url: "https://github.com/Beforerr/ids_spatial_evolution_juno.git"
     depth: 1
+  ~/.julia/dev/Discontinuity:
+    url: "https://github.com/Beforerr/Discontinuity.jl"
+  ~/.julia/dev/beforerr:
+    url: "https://github.com/Beforerr/beforerr.jl"
