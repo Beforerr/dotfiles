@@ -53,6 +53,7 @@ cask "tropy"
 cask "qlmarkdown", args: { "no-quarantine": true }
 cask "zoom"
 cask "zotero@beta"
+cask "beforerr/beforerr/quarto-pre"
 # cask "zotero" # v7 version is not stable
 cask "glance-chamburr", args: { "no-quarantine": true }
 
