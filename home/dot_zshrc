@@ -1,4 +1,4 @@
-export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin"
 export fpath=($HOME/.local/share/zsh/site-functions $fpath)
 
 # >>> mamba initialize >>>

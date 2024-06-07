@@ -62,6 +62,8 @@
                 [:c "open -a Clock"]
                 [:n [:km "open: Sublime Text"]]
                 [:k [:km "open: Keyboard Maestro"]]
+                ;; messenger web
+                [:m "open 'https://www.messenger.com/'"]
                 [:t [:km "open: Telegram"]]
                 [:e :emacs]
                 ;; [:e [:km "open: Weather"]]

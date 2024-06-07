@@ -28,7 +28,7 @@
     pkgs.goku
     pkgs.temurin-bin
     # pkgs.ruby
-    # pkgs.rustup
+    pkgs.rustup
     pkgs.pixi
     pkgs.pdm
     pkgs.nodejs # Note: The operation was rejected by your operating system (one may use `nvm` instead).
