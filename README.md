@@ -40,6 +40,12 @@ Customize keyboard mappings.
 
 Install beta version and login to sync.
 
+### Browser
+
+#### Extensions
+
+- Surfingkeys settings - [gistfile](https://gist.githubusercontent.com/Beforerr/6a618d442ca37ec061c9cf012784a643/raw/e28248821f255370d8383e456c179aa18026cf89/gistfile.txt)
+
 ## Languages
 
 - [Julia](https://julialang.org/) (via `juliaup`)
