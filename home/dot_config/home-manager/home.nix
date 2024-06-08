@@ -35,6 +35,8 @@
     pkgs.pandoc
     pkgs.librsvg
     # pkgs.neovide # (GUI for neovim)
+
+    pkgs.dockutil
   ];
 
   # This value determines the Home Manager release that your

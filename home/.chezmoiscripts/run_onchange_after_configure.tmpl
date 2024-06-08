@@ -1,5 +1,5 @@
 {{ if eq .chezmoi.os "darwin" -}}
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 echo "Set some sensible macOS defaults..."
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we’re about to change
@@ -32,6 +32,9 @@ chflags nohidden ~/Library
 ###############################################################################
 # Dock, Dashboard, and hot corners                                            #
 ###############################################################################
+
+# Remove the default Dock items
+defaults write com.apple.dock persistent-apps -array
 
 # Automatically hide and show the Dock
 defaults write com.apple.dock "autohide" -bool "true"
