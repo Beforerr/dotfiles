@@ -27,5 +27,6 @@ trees:
     url: "https://github.com/Beforerr/Discontinuity.jl"
   ~/.julia/dev/beforerr:
     url: "https://github.com/Beforerr/beforerr.jl"
-  /Users/zijin/src/Beforerr.m:
+  ~/src/Beforerr.m:
     url: "https://github.com/Beforerr/Beforerr.m.git"
+    depth: 1
