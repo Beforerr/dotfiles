@@ -10,6 +10,10 @@ groups:
     - ids_spatial_evolution_juno
   julia:
     - ~/.julia/dev/beforerr
+    - ~/.julia/dev/Discontinuity
+  src:
+    - ~/src/workflows
+    - ~/src/Beforerr.m
 trees:
   beforerr:
     url: "https://github.com/Beforerr/beforerr.git"

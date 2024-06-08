@@ -13,6 +13,9 @@ home-setup:
 
 config:
 
+sync-projects:
+  garden grow "*"
+
 backup-config:
   #!/usr/bin/env sh
   mackup backup --force && mackup uninstall --force
