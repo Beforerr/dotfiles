@@ -57,6 +57,7 @@
                 ;; messenger website
                 [:m "open 'https://www.messenger.com/'"]
                 ;; [:q "open kmtrigger://macro=open%3A%20WeChat"] ; `open` seems to be slower than using `osascript` 
+                [:b "open -a Books"]
                 [:q [:km "open: WeChat"]]
                 [:s [:km "open: Slack"]]
                 [:c "open -a Clock"]
