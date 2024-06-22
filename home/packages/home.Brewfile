@@ -2,6 +2,7 @@
 cask "digikam"
 cask "wechat"
 cask "slack"
+cask "whatsapp"
 # cask "koodo-reader", args: {"no-quarantine": true }
 # cask "yesplaymusic", args: { "no-quarantine": true }
 # cask "qbittorrent", args: { "no-quarantine": true }

@@ -12,6 +12,7 @@ groups:
     - ~/.julia/dev/beforerr
     - ~/.julia/dev/Discontinuity
   src:
+    - ~/src/space-analysis.py
     - ~/src/workflows
     - ~/src/Beforerr.m
 trees:
@@ -35,12 +36,15 @@ trees:
   ids_spatial_evolution_juno:
     url: "https://github.com/Beforerr/ids_spatial_evolution_juno.git"
     depth: 1
-  ~/.julia/dev/Discontinuity:
-    url: "https://github.com/Beforerr/Discontinuity.jl"
-  ~/.julia/dev/beforerr:
-    url: "https://github.com/Beforerr/beforerr.jl"
   ~/src/workflows:
     url: "https://github.com/Beforerr/workflows.git"
   ~/src/Beforerr.m:
     url: "https://github.com/Beforerr/Beforerr.m.git"
     depth: 1
+  ~/src/space-analysis.py:
+    url: "https://github.com/Beforerr/space-analysis.py"
+    depth: 1
+  ~/.julia/dev/Discontinuity:
+    url: "https://github.com/Beforerr/Discontinuity.jl"
+  ~/.julia/dev/beforerr:
+    url: "https://github.com/Beforerr/beforerr.jl"

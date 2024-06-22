@@ -64,6 +64,8 @@ browser-extensions:
   open https://chromewebstore.google.com/detail/violentmonkey/jinjaccalgkegednnccohejagnlnfdag
   # ublock-origin
   open https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm
+  # saladict
+  open https://chromewebstore.google.com/detail/saladict-pop-up-dictionar/cdonnmffkdaoajfknoeeecmchibpmkmg
 
 gpt-academic:
   #!/usr/bin/env sh

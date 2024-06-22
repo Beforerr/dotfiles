@@ -12,4 +12,6 @@ if command -v pipx &> /dev/null; then
     pipx install thefuck
 
     pipx install segno # generate qr code
+
+    pipx install yt-dlp
 fi
