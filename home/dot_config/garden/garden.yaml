@@ -41,6 +41,9 @@ trees:
   ~/src/Beforerr.m:
     url: "https://github.com/Beforerr/Beforerr.m.git"
     depth: 1
+  ~/src/beforerr_dev:
+    url: "https://github.com/Beforerr/beforerr_dev.git"
+    depth: 1
   ~/src/space-analysis.py:
     url: "https://github.com/Beforerr/space-analysis.py"
     depth: 1
