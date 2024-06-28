@@ -12,6 +12,7 @@ groups:
     - ~/.julia/dev/beforerr
     - ~/.julia/dev/Discontinuity
   src:
+    - ~/src/beforerr_dev
     - ~/src/space-analysis.py
     - ~/src/workflows
     - ~/src/Beforerr.m
