@@ -15,6 +15,7 @@ config:
 
 sync-projects:
   garden grow "*"
+  garden cmd "*" git pull
 
 backup-config:
   #!/usr/bin/env sh
