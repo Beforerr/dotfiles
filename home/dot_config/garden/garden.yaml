@@ -1,5 +1,9 @@
 garden:
   root: ~/projects
+commands:
+  pull:
+    - git pull
+    - git submodule update --init --recursive
 groups:
   projects:
     - beforerr
