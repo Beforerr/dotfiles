@@ -12,6 +12,7 @@ groups:
     - ion_scattering_by_SWD
     - psp_conjunction
     - ids_spatial_evolution_juno
+    - elfin_emics
   julia:
     - ~/.julia/dev/beforerr
     - ~/.julia/dev/Discontinuity
@@ -40,6 +41,9 @@ trees:
     depth: 1
   ids_spatial_evolution_juno:
     url: "https://github.com/Beforerr/ids_spatial_evolution_juno.git"
+    depth: 1
+  elfin_emics:
+    url: "https://github.com/Beforerr/EMIC_multi-satellites_study.git"
     depth: 1
   ~/src/workflows:
     url: "https://github.com/Beforerr/workflows.git"
