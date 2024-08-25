@@ -6,6 +6,7 @@ default:
 update:
   -chezmoi update
   -nix-channel --update
+  -nix-shell '<home-manager>' -A install
   homemanager switch
 
 home-setup:
