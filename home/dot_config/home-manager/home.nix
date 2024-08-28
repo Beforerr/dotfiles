@@ -15,6 +15,7 @@
     pkgs.htop
     pkgs.watchexec
     pkgs.pre-commit
+    pkgs.ruff
 
     pkgs.gnumake
     pkgs.cmake
