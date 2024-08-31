@@ -9,14 +9,14 @@ update:
   -nix-shell '<home-manager>' -A install
   homemanager switch
 
-home-setup:
+setup-home:
   brew bundle --file=~/packages/home.Brewfile
 
-config:
+sync: sync-projects
 
 sync-projects:
   garden grow "*"
-  garden cmd "*" git pull
+  garden cmd "*" pull
 
 backup-config:
   #!/usr/bin/env sh
@@ -39,7 +39,7 @@ clean:
   -nix-collect-garbage -d
   -brew cleanup
 
-version:
+check-version:
   -nix --version
   -brew --version
   -micromamba --version
