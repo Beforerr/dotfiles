@@ -59,3 +59,4 @@ alias_helper conda micromamba
 alias_helper mamba micromamba
 
 alias j="just"
+alias .j='just --justfile ~/justfile --working-directory .'

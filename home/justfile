@@ -50,7 +50,7 @@ zotero-link:
 zotero-addons:
   aria2c https://github.com/syt2/zotero-addons/releases/latest/download/zotero-addons.xpi
 
-download:
+install-tana:
   aria2c https://desktop-update.tana.inc/download/dmg
   open Tana*.dmg
 
