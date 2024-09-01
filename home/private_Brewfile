@@ -3,3 +3,8 @@ tap "buo/cask-upgrade"
 
 brew "pipx"
 brew "koekeishiya/formulae/yabai"
+
+## Tier-2 (apps)
+cask "qlmarkdown", args: { "no-quarantine": true }
+cask "beforerr/beforerr/quarto-pre"
+cask "glance-chamburr", args: { "no-quarantine": true }

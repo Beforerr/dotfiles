@@ -8,20 +8,10 @@
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-homebrew = {
-      url = "github:zhaofengli-wip/nix-homebrew";
-    };
-    homebrew-bundle = {
-      url = "github:homebrew/homebrew-bundle";
-      flake = false;
-    };
-    homebrew-core = {
-      url = "github:homebrew/homebrew-core";
-      flake = false;
-    };
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
   };
 
-  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, home-manager, nixpkgs } @inputs:
+  outputs = { self, darwin, nix-homebrew, home-manager, nixpkgs } @inputs:
     let
       user = "zijin";
       linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
@@ -79,10 +69,6 @@
               nix-homebrew = {
                 inherit user;
                 enable = true;
-                taps = {
-                  "homebrew/homebrew-core" = homebrew-core;
-                  "homebrew/homebrew-bundle" = homebrew-bundle;
-                };
                 autoMigrate = true;
               };
             }

@@ -9,6 +9,7 @@ _:
   # Tier-2
   "alt-tab"
   "betterandbetter"
+  "sogouinput"
   "maccy"
   "espanso"
   "finicky"
@@ -31,20 +32,19 @@ _:
   "zed"
   "stats"
   "tropy"
-  "qlmarkdown"
+  { name = "qlmarkdown"; args.no_quarantine = true; }
   "zotero@beta"
   "beforerr/beforerr/quarto-pre"
   "mathpix-snipping-tool"
-  "glance-chamburr"
+  { name = "glance-chamburr"; args.no_quarantine = true; }
 
   "microsoft-powerpoint"
   "microsoft-excel"
   "microsoft-word"
 
-  # Development Tools
-  # "visual-studio-code"
-
   # Communication Tools
+  "wechat"
+  "slack"
   "telegram"
   "zoom"
 
