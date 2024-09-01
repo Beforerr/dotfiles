@@ -8,14 +8,9 @@
 
   # Packages that should be installed to the user profile.
   home.packages = [
-    pkgs.just
-    pkgs.bat
-    # pkgs.bitwarden-cli
     pkgs.gdu
     pkgs.htop
     pkgs.watchexec
-    pkgs.pre-commit
-    pkgs.ruff
 
     pkgs.gnumake
     pkgs.cmake
@@ -30,14 +25,10 @@
     pkgs.temurin-bin
     # pkgs.ruby
     pkgs.rustup
-    pkgs.pixi
-    pkgs.pdm
     pkgs.nodejs # Note: The operation was rejected by your operating system (one may use `nvm` instead).
     pkgs.pandoc
     pkgs.librsvg
     # pkgs.neovide # (GUI for neovim)
-
-    pkgs.dockutil
   ];
 
   # This value determines the Home Manager release that your
@@ -71,26 +62,6 @@
       ];
     };
   };
-  programs.git.enable = true;
   programs.emacs.enable = true;
   programs.neovim.enable = true;
-  # programs.fish.enable = true;
-  # programs.nushell.enable = true;
-
-  programs.aria2.enable = true;
-  programs.broot.enable = true;
-  programs.direnv.enable = true;
-  programs.eza.enable = true;
-  programs.fzf.enable = true;
-  programs.zoxide.enable = true;
-  programs.yazi = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-  programs.starship = {
-    enable = true;
-    settings.battery.disabled = true;
-  };
-
-  # services.emacs.enable = true; #: The module services.emacs does not support your platform.
 }

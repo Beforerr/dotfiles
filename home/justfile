@@ -9,6 +9,10 @@ update:
   -nix-shell '<home-manager>' -A install
   homemanager switch
 
+install-nix-flake:
+  find apps/$(uname -m | sed 's/arm64/aarch64/')-darwin -type f \( -name apply -o -name build -o -name build-switch -o -name create-keys -o -name copy-keys -o -name check-keys \) -exec chmod +x {} \;
+  nix run .#apply
+
 setup-home:
   brew bundle --file=~/packages/home.Brewfile
 
