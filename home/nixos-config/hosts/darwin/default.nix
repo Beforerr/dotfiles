@@ -58,6 +58,8 @@ let user = "zijin"; in
       NSGlobalDomain = {
         AppleShowAllExtensions = true;
         ApplePressAndHoldEnabled = false;
+        _HIHideMenuBar = true;
+        
 
         # 120, 90, 60, 30, 12, 6, 2
         KeyRepeat = 2;
@@ -81,6 +83,7 @@ let user = "zijin"; in
       };
 
       finder = {
+        FXDefaultSearchScope = "SCcf";
         _FXShowPosixPathInTitle = false;
       };
 
