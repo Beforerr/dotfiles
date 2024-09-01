@@ -1,7 +1,0 @@
-#!/bin/sh
-
-# home.nix hash: {{ include "dot_config/home-manager/home.nix" | sha256sum }}
-echo "Switching home-manager configuration..."
-if command -v home-manager &> /dev/null; then
-    home-manager switch
-fi
