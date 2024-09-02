@@ -34,9 +34,9 @@ alias p="cd ~/projects"
 alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
 
 # Editors
-alias c="code"
-alias s="subl"
-alias v="nvim"
+alias_helper c code
+alias_helper s subl
+alias_helper v nvim
 
 # Homebrew
 alias b="brew"
