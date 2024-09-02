@@ -1,3 +1,0 @@
-[submodule "home/nixos-config"]
-	path = home/nixos-config
-	url = https://github.com/Beforerr/nixos-config
