@@ -5,9 +5,6 @@ default:
 
 update:
   -chezmoi update
-  -nix-channel --update
-  -nix-shell '<home-manager>' -A install
-  homemanager switch
 
 setup-home:
   brew bundle --file=~/packages/home.Brewfile
