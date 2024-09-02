@@ -15,6 +15,8 @@ in
     home = "/Users/${user}";
   };
 
+  services.yabai.enable = true;
+
   # Enable home-manager
   home-manager = {
     useGlobalPkgs = true;

@@ -3,7 +3,7 @@
 {
   homebrew = {
     enable = true;
-    onActivation.cleanup = "uninstall";
+    # onActivation.cleanup = "uninstall";
 
     taps = [ "beforerr/beforerr" ];
     casks = import ./casks.nix { };

@@ -6,6 +6,9 @@ default:
 update:
   -chezmoi update
 
+setup:
+  cd ~/nixos-config && nix run .#build-switch
+
 setup-home:
   brew bundle --file=~/packages/home.Brewfile
 
