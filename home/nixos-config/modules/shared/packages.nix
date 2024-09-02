@@ -35,6 +35,7 @@ with pkgs; [
   # Text and terminal utilities
   bat
   htop
+  ugrep
   ripgrep
   yq-go
 ]

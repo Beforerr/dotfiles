@@ -5,8 +5,7 @@ let user = "zijin"; in
 {
 
   imports = [
-    ../../modules/darwin/default.nix
-    ../../modules/darwin/system.nix
+    ../../modules/darwin
     ../../modules/shared
     ../../modules/shared/cachix
   ];

@@ -12,6 +12,7 @@ _:
   "sogouinput"
   "maccy"
   "espanso"
+  "eudic"
   "finicky"
   "flux"
   "google-drive"

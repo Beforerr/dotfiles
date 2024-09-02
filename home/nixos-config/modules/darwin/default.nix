@@ -1,12 +1,17 @@
-{ config, pkgs, lib, home-manager, ... }:
+{
+  pkgs,
+  home-manager,
+  ...
+}:
 
 let
   user = "zijin";
 in
 {
   imports = [
-   ./dock
-   ./homebrew/default.nix
+    ./system.nix
+    ./dock
+    ./homebrew
   ];
 
   # It me
