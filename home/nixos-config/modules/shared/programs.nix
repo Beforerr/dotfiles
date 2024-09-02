@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, ... }:
 
 let name = "Beforerr";
     user = "zijin";
@@ -41,8 +41,7 @@ let name = "Beforerr";
     };
   };
   home-manager.enable = true;
-  vscode.enable = true;
-
+  
   aria2.enable = true;
   btop.enable = true;
   broot.enable = true;
