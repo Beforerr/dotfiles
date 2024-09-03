@@ -9,7 +9,7 @@ _:
   # Tier-2
   "alt-tab"
   "betterandbetter"
-  "sogouinput"
+  # "sogouinput"
   "maccy"
   "espanso"
   "eudic"
