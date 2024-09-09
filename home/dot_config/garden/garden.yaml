@@ -8,6 +8,7 @@ groups:
   projects:
     - beforerr
     - share
+    - travel
     - cs_theory
     - ion_scattering_by_SWD
     - psp_conjunction
@@ -27,6 +28,8 @@ trees:
     depth: 1
   share:
     url: "https://github.com/Beforerr/project-share.git"
+  travel:
+    url: "https://github.com/Beforerr/travel"
   cs_theory:
     url: "https://github.com/Beforerr/cs_theory.git"
     depth: 1
