@@ -9,6 +9,7 @@ groups:
     - beforerr
     - share
     - travel
+    - discontinuitypy
     - cs_theory
     - ion_scattering_by_SWD
     - psp_conjunction

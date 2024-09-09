@@ -12,7 +12,7 @@ setup:
 setup-home:
   brew bundle --file=~/packages/home.Brewfile
 
-sync: sync-projects
+sync: update sync-projects
 
 sync-projects:
   garden grow "*"
