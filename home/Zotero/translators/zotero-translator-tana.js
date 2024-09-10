@@ -2,13 +2,13 @@
   "translatorID":"dda092d2-a257-46af-b9a3-2f04a55cb04f",
   "translatorType":2,
   "label":"Tana Metadata Export",
-  "creator":"Stian Håklev based on Joel Chan's work",
+  "creator":"Beforerr based on Stian Håklev's work based on Joel Chan's work",
   "target":"md",
   "minVersion":"2.0",
   "maxVersion":"",
   "priority":200,
   "inRepository":false,
-  "lastUpdated":"2022-09-07 - 10:15"
+  "lastUpdated":"2024-09-09"
 }
    
 function doExport() {
@@ -59,7 +59,8 @@ function doExport() {
     Zotero.write('  - Links:: \n')
     Zotero.write(`    - ${itemLink}\n`);
     if (item.DOI) {
-      Zotero.write(`    - [DOI](https://doi.org/${item.DOI})\n`);
+      // Zotero.write(`    - [DOI](https://doi.org/${item.DOI})\n`);
+      // Zotero.write(`    - <a href="https://doi.org/${item.DOI}">DOI</a>\n`);
       Zotero.write(`    - [Connected Papers](https://connectedpapers.com/api/redirect/doi/${item.DOI})\n`);
       // Zotero.write(`    - [Semantic scholar](https://www.semanticscholar.org/paper/${getDOIInfoBySemanticscholar(item.DOI)})\n`);
     } else if (item.url){
