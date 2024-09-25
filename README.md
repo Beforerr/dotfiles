@@ -40,6 +40,12 @@ Customize keyboard mappings.
 
 Install beta version and login to sync.
 
+#### Extensions
+
+- [windingwind/zotero-actions-tags](https://github.com/windingwind/zotero-actions-tags) - Customize your Zotero workflow.
+  - [[Share] Copy Zotero link · Discussion #115](https://github.com/windingwind/zotero-actions-tags/discussions/115)
+    - [discussioncomment](https://github.com/windingwind/zotero-actions-tags/discussions/115#discussioncomment-8731031)
+
 ### Browser
 
 #### Extensions
