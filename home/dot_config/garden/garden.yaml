@@ -11,6 +11,7 @@ groups:
     - travel
     - discontinuitypy
     - cs_theory
+    - energetic_particles
     - ion_scattering_by_SWD
     - psp_conjunction
     - ids_spatial_evolution_juno
