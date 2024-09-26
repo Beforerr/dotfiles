@@ -37,6 +37,9 @@ trees:
   discontinuitypy:
     url: "https://github.com/Beforerr/ids_finder.git"
     depth: 1
+  energetic_particles:
+    url: "https://github.com/Beforerr/energetic_particles.git"
+    depth: 1
   ion_scattering_by_SWD:
     url: "https://github.com/Beforerr/ion_scattering_by_SWD.git"
     depth: 1
