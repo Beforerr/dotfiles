@@ -62,3 +62,4 @@ Install beta version and login to sync.
 ## Notes
 
 - [zsh - What should/shouldn't go in .zshenv, .zshrc, .zlogin, .zprofile, .zlogout? - Unix & Linux Stack Exchange](https://unix.stackexchange.com/questions/71253/what-should-shouldnt-go-in-zshenv-zshrc-zlogin-zprofile-zlogout)
+- `dockutil` requires `swift` to be built from source which takes a long time, so it is not included in the configuration.

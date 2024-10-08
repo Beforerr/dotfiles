@@ -4,6 +4,9 @@ default:
   just --list
 
 update:
+
+
+update-config:
   -chezmoi update
 
 setup:
