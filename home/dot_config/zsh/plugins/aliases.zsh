@@ -60,3 +60,5 @@ alias_helper mamba micromamba
 
 alias j="just"
 alias .j='just --justfile ~/justfile --working-directory .'
+
+alias jj="julia --threads=auto --project"
