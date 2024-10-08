@@ -1,79 +1,74 @@
 import? 'scripts/languages.just'
 
 default:
-  just --list
+    just --list
 
-update:
-
+update: update-config sync-projects
 
 update-config:
-  -chezmoi update
-
-setup:
-  cd ~/nixos-config && nix run .#build-switch
+    -chezmoi update
+    cd ~/nixos-config && nix run .#build-switch
 
 setup-home:
-  brew bundle --file=~/packages/home.Brewfile
-
-sync: update sync-projects
+    brew bundle --file=~/packages/home.Brewfile
 
 sync-projects:
-  garden grow "*"
-  garden cmd "*" pull
+    garden grow "*"
+    garden cmd "*" pull
 
 backup-config:
-  #!/usr/bin/env sh
-  mackup backup --force && mackup uninstall --force
+    #!/usr/bin/env sh
+    mackup backup --force && mackup uninstall --force
 
 backup-pictures:
-  rclone sync ~/Pictures BoxUCLA:Pictures --progress
+    rclone sync ~/Pictures BoxUCLA:Pictures --progress
 
 # restoring the configuration using mackup
 restore-config:
-  #!/usr/bin/env sh
-  echo "Syncing applications with 'mackup'..."
-  mackup restore --force && mackup uninstall --force
+    #!/usr/bin/env sh
+    echo "Syncing applications with 'mackup'..."
+    mackup restore --force && mackup uninstall --force
 
 migrate:
-  rclone sync GoogleDriveUCLA:library BoxUCLA:library --progress
-  ln -s "/Volumes/My Passport for Mac/data" ~/data
+    rclone sync GoogleDriveUCLA:library BoxUCLA:library --progress
+    ln -s "/Volumes/My Passport for Mac/data" ~/data
 
 clean:
-  -nix-collect-garbage -d
-  -brew cleanup
+    -nix-collect-garbage -d
+    -brew cleanup
 
 check-version:
-  -nix --version
-  -brew --version
-  -micromamba --version
+    -nix --version
+    -brew --version
+    -micromamba --version
 
 zotero-link:
-  ln -s ~/Library/CloudStorage/Box-Box/storage ~/Zotero/storage
+    ln -s ~/Library/CloudStorage/Box-Box/storage ~/Zotero/storage
 
 zotero-addons:
-  aria2c https://github.com/syt2/zotero-addons/releases/latest/download/zotero-addons.xpi
+    aria2c https://github.com/syt2/zotero-addons/releases/latest/download/zotero-addons.xpi
 
 install-tana:
-  aria2c https://desktop-update.tana.inc/download/dmg
-  open Tana*.dmg
+    aria2c https://desktop-update.tana.inc/download/dmg
+    open Tana*.dmg
 
 popclip:
-	curl https://pilotmoon.com/popclip/extensions/ext/DOI.popclipextz -o "DOI.popclipextz"
+    curl https://pilotmoon.com/popclip/extensions/ext/DOI.popclipextz -o "DOI.popclipextz"
 
 browser-extensions:
-  # bitwarden
-  open https://chrome.google.com/webstore/detail/bitwarden-free-password-m/nngceckbapebfimnlniiiahkandclblb
-  # simplify-gmail
-  open https://chromewebstore.google.com/detail/simplify-gmail/pbmlfaiicoikhdbjagjbglnbfcbcojpj 
-  # violentmonkey
-  open https://chromewebstore.google.com/detail/violentmonkey/jinjaccalgkegednnccohejagnlnfdag
-  # ublock-origin
-  open https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm
-  # saladict
-  open https://chromewebstore.google.com/detail/saladict-pop-up-dictionar/cdonnmffkdaoajfknoeeecmchibpmkmg
+    # bitwarden
+    open https://chrome.google.com/webstore/detail/bitwarden-free-password-m/nngceckbapebfimnlniiiahkandclblb
+    # simplify-gmail
+    open https://chromewebstore.google.com/detail/simplify-gmail/pbmlfaiicoikhdbjagjbglnbfcbcojpj 
+    # violentmonkey
+    open https://chromewebstore.google.com/detail/violentmonkey/jinjaccalgkegednnccohejagnlnfdag
+    # ublock-origin
+    open https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm
+    # saladict
+    open https://chromewebstore.google.com/detail/saladict-pop-up-dictionar/cdonnmffkdaoajfknoeeecmchibpmkmg
 
 gpt-academic:
-  #!/usr/bin/env sh
-  cd ~/src/gpt_academic
-  micromamba run -n gptac_venv python -m pip install -r requirements.txt # 这个步骤和pip安装一样的步骤
-  micromamba run -n gptac_venv python main.py
+    #!/usr/bin/env sh
+    cd ~/src/gpt_academic
+    micromamba run -n gptac_venv python -m pip install -r requirements.txt # 这个步骤和pip安装一样的步骤
+    micromamba run -n gptac_venv python main.py
