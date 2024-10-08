@@ -10,7 +10,7 @@ in
 {
   imports = [
     ./system.nix
-    ./dock
+    # ./dock
     ./homebrew
   ];
 
@@ -27,19 +27,5 @@ in
     useGlobalPkgs = true;
     users.${user} = import ./home-manager.nix;
   };
-
-  # Fully declarative dock using the latest from Nix Store
-  local.dock.enable = true;
-  local.dock.entries = [
-    { path = "/System/Applications/Launchpad.app"; }
-    {
-      path = "~/projects";
-      section = "others";
-    }
-    {
-      path = "~/Downloads";
-      section = "others";
-    }
-  ];
 
 }

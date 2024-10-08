@@ -8,7 +8,6 @@ with pkgs;
 
   home.packages = [
     mas
-    dockutil
   ];
   programs = {
     vscode.enable = true;
