@@ -21,9 +21,9 @@ update-julia:
     -juliaup update
 
 install-pkgs:
-    -julia ~/.julia/config/packages.jl
+    -julia ~/.julia/config/packages.jl --threads=auto
 
 pluto:
-    #!/usr/bin/env julia
+    #!/usr/bin/env julia --threads=auto
     import Pluto;
     Pluto.run()
