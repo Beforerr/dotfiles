@@ -14,7 +14,7 @@ setup-home:
 
 sync-projects:
     garden grow "*"
-    garden cmd "*" pull
+    garden cmd "*" pull -j
 
 backup-config:
     #!/usr/bin/env sh

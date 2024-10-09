@@ -11,7 +11,7 @@
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
   };
 
-  outputs = { self, darwin, nix-homebrew, home-manager, nixpkgs } @inputs:
+  outputs = { self, darwin, nix-homebrew, home-manager, nixpkgs, ... } @inputs:
     let
       user = "zijin";
       linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
