@@ -7,15 +7,4 @@ Pkg.add([
     "IJulia",
     "QuartoNotebookRunner",
     "Pluto",
-
-    # Plotting
-    "LaTeXStrings",
-    "CairoMakie",
-    "GLMakie",
-    "WGLMakie",
-    "AlgebraOfGraphics",
-
-    # Data
-    "DataFrames",
-    "DataFramesMeta",
 ])
