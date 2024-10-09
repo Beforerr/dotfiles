@@ -1,5 +1,4 @@
-import? 'julia.just'
-# mod? julia
+mod? julia
 
 install language:
   just install-{{ language }}
