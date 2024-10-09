@@ -1,29 +1,5 @@
 mod? julia
+mod? rust
 
 install language:
-  just install-{{ language }}
-
-install-rust:
-  command -v rustup || curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-  rustup default stable
-
-install-R:
-  command -v R || brew install --cask r
-
-# check programming language versions (ignoring errors)
-check-versions:
-  -python3 --version
-  -node --version
-  -julia --version
-
-install-spack:
-  #!/usr/bin/env sh
-  echo "Installing 'spack' package manager..."
-  if ! command -v spack; then
-    git clone -c feature.manyFiles=true https://github.com/spack/spack.git
-    . spack/share/spack/setup-env.sh
-  fi
-
-install-zoxide:
-  #!/usr/bin/env sh
-  command -v zoxide || curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+    just {{language}} install
