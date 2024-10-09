@@ -16,6 +16,8 @@ with pkgs; [
   rclone
   zip
 
+  librsvg
+
   # Encryption and security tools
 
   # Cloud-related tools and SDKs
