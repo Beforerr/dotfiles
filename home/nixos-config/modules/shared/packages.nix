@@ -1,6 +1,7 @@
 { pkgs }:
 
-with pkgs; [
+with pkgs;
+[
   # General packages for development and system management
   ## Tier 1
   just
@@ -26,6 +27,9 @@ with pkgs; [
 
   # Nix-related tools
   nixfmt-rfc-style
+
+  # Rust development tools
+  rustup
 
   # Node.js development tools
 
