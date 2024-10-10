@@ -2,8 +2,10 @@ garden:
   root: ~/projects
 commands:
   pull:
-    - git pull
+    - git pull --quiet
     - git submodule update --init --recursive
+  status:
+    - git status -s
 groups:
   projects:
     - beforerr
