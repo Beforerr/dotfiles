@@ -48,4 +48,6 @@ in
     StandardErrorPath = "/tmp/emacs.err.log";
     StandardOutPath = "/tmp/emacs.out.log";
   };
+
+  system.stateVersion = 5;
 }
