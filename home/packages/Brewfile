@@ -4,6 +4,7 @@ cask "chatgpt"
 cask "raycast"
 
 # Tier-2
+cask "visual-studio-code"
 cask "alt-tab"
 cask "betterandbetter"
 # cask "sogouinput"
