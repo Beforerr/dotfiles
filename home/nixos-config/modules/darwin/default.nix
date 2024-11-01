@@ -11,7 +11,7 @@ in
   imports = [
     ./system.nix
     # ./dock
-    ./homebrew
+    # ./homebrew
   ];
 
   # It me

@@ -1,0 +1,57 @@
+# Tier-1
+cask "arc"
+cask "chatgpt"
+cask "raycast"
+
+# Tier-2
+cask "alt-tab"
+cask "betterandbetter"
+# cask "sogouinput"
+cask "maccy"
+cask "espanso"
+cask "eudic"
+cask "finicky"
+cask "flux"
+cask "google-drive"
+cask "box-drive"
+cask "wezterm"
+cask "hiddenbar"
+cask "hazeover"
+cask "itsycal"
+cask "karabiner-elements"
+cask "keka"
+cask "rectangle"
+cask "rustdesk"
+cask "siyuan"
+cask "shortcat"
+cask "snipaste"
+cask "zed"
+cask "stats"
+cask "tropy"
+cask "qlmarkdown", args: { "no-quarantine": true }
+cask "zotero@beta"
+cask "beforerr/beforerr/quarto-pre"
+cask "mathpix-snipping-tool"
+cask "glance-chamburr", args: { "no-quarantine": true }
+cask "microsoft-powerpoint"
+cask "microsoft-excel"
+cask "microsoft-word"
+
+# Communication Tools
+cask "wechat"
+cask "slack"
+cask "telegram"
+cask "zoom"
+
+# Utility Tools
+cask "syncthing"
+
+# Entertainment Tools
+cask "iina"
+cask "tor-browser"
+
+# Mac App Store Apps
+mas "Bitwarden", id: 1352778147
+mas "DwellClick", id: 402414007
+mas "Flow", id: 1423210932
+mas "Gapplin", id: 768053424
