@@ -24,5 +24,10 @@ in
       pull.rebase = true;
       rebase.autoStash = true;
     };
+    aliases = {
+      co = "checkout";
+      s  = "status";
+      st = "status";
+    };
   };
 }

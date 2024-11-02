@@ -16,6 +16,7 @@ with pkgs;
   wget
   rclone
   zip
+  hyperfine
 
   librsvg
 
