@@ -36,7 +36,8 @@ with pkgs;
 
   # Python development tools
   pixi
-  pdm
+  # disable pdm as it fails to create virtualenv https://github.com/NixOS/nixpkgs/issues/225730
+  # pdm
   ruff
 
   # Text and terminal utilities
