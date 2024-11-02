@@ -5,13 +5,12 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
     darwin = {
-      url = "github:LnL7/nix-darwin/master";
+      url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
   };
 
-  outputs = { self, darwin, nix-homebrew, home-manager, nixpkgs, ... } @inputs:
+  outputs = { self, darwin, home-manager, nixpkgs, ... } @inputs:
     let
       user = "zijin";
       linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
@@ -64,14 +63,6 @@
           specialArgs = inputs;
           modules = [
             home-manager.darwinModules.home-manager
-            nix-homebrew.darwinModules.nix-homebrew
-            {
-              nix-homebrew = {
-                inherit user;
-                enable = true;
-                autoMigrate = true;
-              };
-            }
             ./hosts/darwin
           ];
         }
