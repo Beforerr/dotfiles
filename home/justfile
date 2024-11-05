@@ -8,6 +8,7 @@ update: update-config sync-projects
 
 update-config:
     -chezmoi update
+    # nix flake update
     cd ~/nixos-config && nix run .#build-switch
 
 update-pkgs:
@@ -39,6 +40,11 @@ migrate:
 clean:
     -nix-collect-garbage -d
     -brew cleanup
+
+[private]
+disk-usage:
+    gdu --ignore-dirs-pattern '.*CloudStorage'
+    gdu / -I '.*CloudStorage'
 
 check-version:
     -nix --version

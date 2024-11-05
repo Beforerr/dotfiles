@@ -36,6 +36,7 @@ with pkgs;
 
   # Python development tools
   pixi
+  uv
   # disable pdm as it fails to create virtualenv https://github.com/NixOS/nixpkgs/issues/225730
   # pdm
   ruff
