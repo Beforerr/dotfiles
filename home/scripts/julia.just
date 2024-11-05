@@ -5,6 +5,7 @@ default:
 
 # Install Julia using Juliaup
 install: install-juliaup install-pkgs
+
 # Update Julia using Juliaup
 update: update-julia install-pkgs
 
@@ -27,3 +28,16 @@ pluto:
     #!/usr/bin/env julia --threads=auto
     import Pluto;
     Pluto.run()
+
+[private]
+clean:
+    #!/usr/bin/env sh
+    # remove old julia compiled packages
+    julia --version
+    current_version=$(julia --version | awk '{print $3}' | cut -d'.' -f1,2)
+    for dir in ~/.julia/compiled/*; do
+        if [[ $(basename "$dir") != "v$current_version" ]]; then
+            echo "Removing $dir..."
+            rm -rf "$dir"
+        fi
+    done
