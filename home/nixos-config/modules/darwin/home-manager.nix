@@ -9,4 +9,7 @@ with pkgs;
   home.packages = [
     mas
   ];
+  programs = {
+    vscode.enable = true;
+  };
 }
