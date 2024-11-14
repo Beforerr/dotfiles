@@ -1,9 +1,8 @@
 using Pkg
 Pkg.add([
     "Revise",
-    "DrWatson",
-
-    "PkgTemplates",
+    "DrWatson", "PkgTemplates",
+    "LiveServer",
 
     # Interactive
     "IJulia",
