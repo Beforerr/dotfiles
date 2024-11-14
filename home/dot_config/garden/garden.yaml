@@ -22,6 +22,7 @@ groups:
     - ~/.julia/dev/beforerr
     - ~/.julia/dev/Discontinuity
     - ~/.julia/dev/PlasmaFormulary
+    - ~/.julia/dev/ChargedParticles
   src:
     - ~/src/beforerr_dev
     - ~/src/space-analysis.py
@@ -73,3 +74,5 @@ trees:
     url: "https://github.com/Beforerr/beforerr.jl"
   ~/.julia/dev/PlasmaFormulary:
     url: "https://github.com/Beforerr/PlasmaFormulary.jl"
+  ~/.julia/dev/ChargedParticles:
+    url: "https://github.com/Beforerr/ChargedParticles.jl"
