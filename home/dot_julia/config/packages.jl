@@ -1,8 +1,10 @@
 using Pkg
 Pkg.add([
     "Revise",
-    "DrWatson", "PkgTemplates",
+    "DrWatson",
+    "PkgTemplates",
     "LiveServer",
+    "PkgCacheInspector",
 
     # Interactive
     "IJulia",

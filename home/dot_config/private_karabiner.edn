@@ -19,7 +19,7 @@
         ;; :tana [ "^com.vivaldi.Vivaldi.app.fcihfelaaldlnndgdpikildeaibblbpm" ]
         :tana [ "tana" ]
         :telegram [ "^ru.keepcoder.Telegram$" ]
-        :vscode [ "^com.microsoft.VSCode" "com.todesktop.230313mzl4w4u92" ]
+        :vscode [ "^com.microsoft.VSCode" "com.todesktop.230313mzl4w4u92" "com.exafunction.windsurf" ]
         :wechat [ "^com.tencent.xinWeChat$" ]
         :slack [ "com.tinyspeck.slackmacgap"]
         :sublime [ "^com.sublimetext.4$" ]
