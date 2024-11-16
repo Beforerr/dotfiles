@@ -29,6 +29,18 @@ pluto:
     import Pluto;
     Pluto.run()
 
+[no-cd]
+servedocs:
+    #!/usr/bin/env -S julia --threads=auto --project=docs/ -i
+    using Pkg
+    Pkg.develop(PackageSpec(path=pwd()))
+    using LiveServer;
+    servedocs(include_dirs=["src/"])
+
+[no-cd]
+test:
+    julia --threads=auto --project=. -e 'using Pkg; Pkg.test()'
+
 [private]
 clean:
     #!/usr/bin/env sh

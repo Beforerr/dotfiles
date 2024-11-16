@@ -3,7 +3,9 @@ Pkg.add([
     "Revise",
     "DrWatson",
     "PkgTemplates",
+
     "LiveServer",
+    "BenchmarkTools",
     "PkgCacheInspector",
 
     # Interactive

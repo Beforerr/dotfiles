@@ -11,6 +11,7 @@ in
     ignores = [
       "*.swp"
       ".DS_Store"
+      ".vscode"
     ];
     userName = name;
     userEmail = email;
@@ -26,7 +27,7 @@ in
     };
     aliases = {
       co = "checkout";
-      s  = "status";
+      s = "status";
       st = "status";
     };
   };
