@@ -4,9 +4,11 @@ Pkg.add([
     "DrWatson",
     "PkgTemplates",
 
+    # Development
     "LiveServer",
     "BenchmarkTools",
     "PkgCacheInspector",
+    "MethodAnalysis",
 
     # Interactive
     "IJulia",

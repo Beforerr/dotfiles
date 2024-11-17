@@ -37,6 +37,11 @@ servedocs:
     using LiveServer;
     servedocs(include_dirs=["src/"])
 
+new-package name:
+    #!/usr/bin/env -S julia --threads=auto
+    using PkgTemplates
+    Template(; julia=v"1.10")("{{name}}")
+
 [no-cd]
 test:
     julia --threads=auto --project=. -e 'using Pkg; Pkg.test()'
