@@ -2,7 +2,7 @@ export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.pixi/bin"
 export fpath=($HOME/.local/share/zsh/site-functions $fpath)
 
 # disable homebrew auto update
-export HOMEBREW_NO_INSTALL_UPGRADE = 1
+export HOMEBREW_NO_INSTALL_UPGRADE=1
 
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'mamba init' !!
