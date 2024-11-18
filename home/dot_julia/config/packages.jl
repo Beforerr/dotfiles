@@ -14,4 +14,5 @@ Pkg.add([
     "IJulia",
     "QuartoNotebookRunner",
     "Pluto",
+    "BasicAutoloads",
 ])
