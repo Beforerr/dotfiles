@@ -5,6 +5,7 @@ Pkg.add([
     "PkgTemplates",
 
     # Development
+    "About",
     "LiveServer",
     "BenchmarkTools",
     "PkgCacheInspector",

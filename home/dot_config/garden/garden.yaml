@@ -29,6 +29,7 @@ groups:
     - ~/src/space-analysis.py
     - ~/src/workflows
     - ~/src/Beforerr.m
+    - /opt/homebrew/Library/Taps/beforerr/homebrew-beforerr
 trees:
   beforerr:
     url: "https://github.com/Beforerr/beforerr.git"
@@ -79,3 +80,5 @@ trees:
     url: "https://github.com/Beforerr/ChargedParticles.jl"
   ~/.julia/dev/PermuteArgs:
     url: "https://github.com/Beforerr/PermuteArgs.jl"
+  /opt/homebrew/Library/Taps/beforerr/homebrew-beforerr:
+    url: "https://github.com/Beforerr/homebrew-beforerr"
