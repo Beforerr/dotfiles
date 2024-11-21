@@ -13,6 +13,7 @@ Pkg.add([
 
     # Interactive
     "IJulia",
+    "OhMyREPL",
     "QuartoNotebookRunner",
     "Pluto",
     "BasicAutoloads",

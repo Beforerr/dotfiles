@@ -12,8 +12,18 @@ if isinteractive()
         ["@test", "@testset", "@test_broken", "@test_deprecated", "@test_logs",
             "@test_nowarn", "@test_skip", "@test_throws", "@test_warn", "@inferred"] =>
             :(using Test),
-        ["@about"] => :(using About; macro about(x)
+        ["@about"] => :(using About;
+        macro about(x)
             Expr(:call, About.about, x)
         end),
     ])
+
+    using Pkg: Pkg
+    atreplinit() do repl
+        try
+            @eval using OhMyREPL
+        catch e
+            @warn "error while importing OhMyREPL" e
+        end
+    end
 end
