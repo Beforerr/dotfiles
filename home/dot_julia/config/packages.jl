@@ -10,9 +10,10 @@ Pkg.add([
     "BenchmarkTools",
     "PkgCacheInspector",
     "MethodAnalysis",
+    "PackageCompiler",
 
     # Interactive
-    "IJulia",
+    # "IJulia",
     "OhMyREPL",
     "QuartoNotebookRunner",
     "Pluto",

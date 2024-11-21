@@ -1,0 +1,12 @@
+default:
+    just --list
+
+create-sysimage:
+    #!/usr/bin/env julia --threads=auto
+    # Create a sysimage
+    using PackageCompiler
+    create_sysimage(["Revise", "AlgebraOfGraphics", "CairoMakie", "DataFrames", "DataFramesMeta"]; sysimage_path="JuliaSysimage.so")
+
+test-sysimage:
+    time julia --threads=auto --project=. --sysimage=JuliaSysimage.so test/test.jl
+    time julia --threads=auto --project=. test/test.jl
