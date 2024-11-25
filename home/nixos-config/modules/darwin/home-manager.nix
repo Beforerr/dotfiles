@@ -10,6 +10,6 @@ with pkgs;
     mas
   ];
   programs = {
-    vscode.enable = true;
+    # vscode.enable = true;
   };
 }
