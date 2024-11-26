@@ -18,6 +18,7 @@ with pkgs;
   zip
   hyperfine
 
+  pandoc
   librsvg
 
   # Encryption and security tools
