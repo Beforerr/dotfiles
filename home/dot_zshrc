@@ -25,3 +25,6 @@ path=('/Users/zijin/.juliaup/bin' $path)
 export PATH
 
 # <<< juliaup initialize <<<
+
+# Added by Windsurf
+export PATH="/Users/zijin/.codeium/windsurf/bin:$PATH"
