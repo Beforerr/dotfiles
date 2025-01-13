@@ -40,6 +40,8 @@ migrate:
 clean:
     -nix-collect-garbage -d
     -brew cleanup
+    -pixi clean cache --yes
+    -micromamba clean --all
 
 [private]
 disk-usage:
