@@ -7,6 +7,7 @@ Pkg.add([
     # Development
     "About",
     "LiveServer",
+    "JET",
     "BenchmarkTools",
     "PkgCacheInspector",
     "MethodAnalysis",

@@ -37,6 +37,13 @@ servedocs:
     using LiveServer;
     servedocs(include_dirs=["src/"])
 
+[no-cd]
+jet:
+    #!/usr/bin/env -S julia --threads=auto --project=. -i
+    using JET: report_package
+    using Pkg: project
+    report_package(project().name)
+
 new-package name:
     #!/usr/bin/env -S julia --threads=auto
     using PkgTemplates

@@ -1,4 +1,4 @@
-export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.pixi/bin"
+export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.pixi/bin:$HOME/.julia/bin"
 export fpath=($HOME/.local/share/zsh/site-functions $fpath)
 
 # disable homebrew auto update
