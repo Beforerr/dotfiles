@@ -5,7 +5,7 @@ Pkg.add([
     "PkgTemplates",
 
     # Development
-    "About",
+    # "About",
     "LiveServer",
     "JET",
     "BenchmarkTools",
@@ -17,6 +17,6 @@ Pkg.add([
     # "IJulia",
     "OhMyREPL",
     "QuartoNotebookRunner",
-    "Pluto",
+    # "Pluto",
     "BasicAutoloads",
 ])

@@ -24,6 +24,8 @@ groups:
     - ~/.julia/dev/PlasmaFormulary
     - ~/.julia/dev/ChargedParticles
     - ~/.julia/dev/PermuteArgs
+    - ~/.julia/dev/SpaceTools
+    - ~/.julia/dev/Speasy
   src:
     - ~/src/beforerr_dev
     - ~/src/space-analysis.py
@@ -80,5 +82,9 @@ trees:
     url: "https://github.com/Beforerr/ChargedParticles.jl"
   ~/.julia/dev/PermuteArgs:
     url: "https://github.com/Beforerr/PermuteArgs.jl"
+  ~/.julia/dev/SpaceTools:
+    url: "https://github.com/Beforerr/SpaceTools.jl"
+  ~/.julia/dev/Speasy:
+    url: "https://github.com/SciQLop/Speasy.jl"
   /opt/homebrew/Library/Taps/beforerr/homebrew-beforerr:
     url: "https://github.com/Beforerr/homebrew-beforerr"
