@@ -8,6 +8,9 @@ install: install-juliaup install-pkgs
 
 # Update Julia using Juliaup
 update: update-julia install-pkgs
+    #!/usr/bin/env julia --threads=auto
+    using PrecompileAfterUpdate
+    PrecompileAfterUpdate.precompile()
 
 [private]
 install-juliaup:

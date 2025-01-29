@@ -12,6 +12,7 @@ Pkg.add([
     "PkgCacheInspector",
     "MethodAnalysis",
     "PackageCompiler",
+    "PrecompileAfterUpdate",
 
     # Interactive
     # "IJulia",
