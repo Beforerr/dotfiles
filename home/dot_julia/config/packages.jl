@@ -13,6 +13,8 @@ Pkg.add([
     "MethodAnalysis",
     "PackageCompiler",
     "PrecompileAfterUpdate",
+    "TestItems",
+    "TestItemRunner",
 
     # Interactive
     # "IJulia",

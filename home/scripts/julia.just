@@ -33,6 +33,12 @@ pluto:
     Pluto.run()
 
 [no-cd]
+add-docs:
+    #!/usr/bin/env -S julia --threads=auto --project=. -i
+    using DocumenterTools
+    DocumenterTools.generate()
+
+[no-cd]
 servedocs:
     #!/usr/bin/env -S julia --threads=auto --project=docs/ -i
     using Pkg
