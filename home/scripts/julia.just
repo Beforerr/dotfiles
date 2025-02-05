@@ -56,7 +56,13 @@ jet:
 new-package name:
     #!/usr/bin/env -S julia --threads=auto
     using PkgTemplates
-    Template(; julia=v"1.10")("{{name}}")
+    Template(; 
+        julia=v"1.10", 
+        plugins=[
+            Tests(; project=true),
+            GitHubActions(; extra_versions=["1.10", "1.11", "pre"])
+        ]
+    )("{{name}}")
 
 [no-cd]
 test:
