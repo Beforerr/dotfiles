@@ -1,22 +1,21 @@
 function alias_helper() {
-	# Safely Create an alias for a command
-	# Usage: alias_helper <alias_name> <command>
-	# Example: alias_helper c code
-	if command -v $2 >/dev/null; then
-		alias $1=$2
-	fi
+    # Safely Create an alias for a command
+    # Usage: alias_helper <alias_name> <command>
+    # Example: alias_helper c code
+    if command -v $2 >/dev/null; then
+        alias $1=$2
+    fi
 }
 
-# Shortcuts for common commands 
+# Shortcuts for common commands
 if command -v exa >/dev/null; then
 else
-	colorflag="-G"
-	alias l="ls -lF ${colorflag}"
-	alias la="ls -lAF ${colorflag}"
-	alias ll="ls -lAF ${colorflag}"
-	alias ls="ls -G"
+    colorflag="-G"
+    alias l="ls -lF ${colorflag}"
+    alias la="ls -lAF ${colorflag}"
+    alias ll="ls -lAF ${colorflag}"
+    alias ls="ls -G"
 fi
-
 
 alias_helper cat bat
 
@@ -60,5 +59,6 @@ alias_helper mamba micromamba
 
 alias j="just"
 alias .j='just --justfile ~/justfile --working-directory .'
+alias .jj='just --justfile ~/justfile --working-directory . julia'
 
 alias jj="julia --threads=auto --project"

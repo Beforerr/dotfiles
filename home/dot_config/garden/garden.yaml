@@ -88,6 +88,8 @@ trees:
     url: "https://github.com/Beforerr/SpaceTools.jl"
   ~/.julia/dev/Speasy:
     url: "https://github.com/SciQLop/Speasy.jl"
+  ~/.julia/dev/HAPI:
+    url: "https://github.com/Beforerr/HAPI.jl"
   ~/.python/dev/speasy:
     url: "https://github.com/Beforerr/speasy"
   /opt/homebrew/Library/Taps/beforerr/homebrew-beforerr:
