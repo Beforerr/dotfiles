@@ -26,6 +26,7 @@ groups:
     - ~/.julia/dev/PermuteArgs
     - ~/.julia/dev/SpaceTools
     - ~/.julia/dev/Speasy
+    - ~/.julia/dev/HAPI
   src:
     - ~/src/beforerr_dev
     - ~/src/space-analysis.py
@@ -86,5 +87,7 @@ trees:
     url: "https://github.com/Beforerr/SpaceTools.jl"
   ~/.julia/dev/Speasy:
     url: "https://github.com/SciQLop/Speasy.jl"
+  ~/.julia/dev/HAPI:
+    url: "https://github.com/Beforerr/HAPI.jl"
   /opt/homebrew/Library/Taps/beforerr/homebrew-beforerr:
     url: "https://github.com/Beforerr/homebrew-beforerr"
