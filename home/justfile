@@ -16,7 +16,7 @@ update-pkgs:
 
 sync-projects:
     garden grow "*"
-    -garden cmd "*" pull -j3
+    -garden cmd "*" pull -j4
     garden cmd "*" status
 
 backup-config:
