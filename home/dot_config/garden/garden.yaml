@@ -26,6 +26,8 @@ groups:
     - ~/.julia/dev/PermuteArgs
     - ~/.julia/dev/SpaceTools
     - ~/.julia/dev/Speasy
+    - ~/.julia/dev/PySPEDAS
+    - ~/.julia/dev/HAPI
   python:
     - ~/.python/dev/speasy
   src:
@@ -86,6 +88,8 @@ trees:
     url: "https://github.com/Beforerr/PermuteArgs.jl"
   ~/.julia/dev/SpaceTools:
     url: "https://github.com/Beforerr/SpaceTools.jl"
+  ~/.julia/dev/PySPEDAS:
+    url: "https://github.com/Beforerr/PySPEDAS.jl"
   ~/.julia/dev/Speasy:
     url: "https://github.com/SciQLop/Speasy.jl"
   ~/.julia/dev/HAPI:
