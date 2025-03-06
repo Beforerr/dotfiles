@@ -1,6 +1,6 @@
 the_efw_l1:
   inventory_path: spdf/THEMIS/THE/L1/EFW
-  master_cdf: https://spdf.gsfc.nasa.gov/pub/data/themis/tha/l1/efw/2025/tha_l1_efw_20250102_v01.cdf
+  master_cdf: https://spdf.gsfc.nasa.gov/pub/data/themis/the/l1/efw/2025/the_l1_efw_20250102_v01.cdf
   split_frequency: daily
   split_rule: regular
   url_pattern: https://spdf.gsfc.nasa.gov/pub/data/themis/the/l1/efw/{Y}/the_l1_efw_{Y}{M:02d}{D:02d}_v\d+.cdf
