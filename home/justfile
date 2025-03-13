@@ -14,10 +14,16 @@ update-config:
 update-pkgs:
     -cargo install garden-tools
 
+sync: sync-projects sync-overleaf
+
 sync-projects:
     garden grow "*"
     -garden cmd "*" pull -j4
     garden cmd "*" status
+
+[private]
+sync-overleaf:
+    just -f projects/share/justfile sync-overleaf
 
 backup-config:
     #!/usr/bin/env sh
