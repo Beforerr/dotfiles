@@ -15,6 +15,7 @@ Pkg.add([
     "PrecompileAfterUpdate",
     "TestItems",
     "TestItemRunner",
+    "TestEnv",
 
     # Interactive
     # "IJulia",
