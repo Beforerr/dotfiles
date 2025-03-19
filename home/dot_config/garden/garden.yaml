@@ -24,7 +24,7 @@ groups:
     - ~/.julia/dev/PlasmaFormulary
     - ~/.julia/dev/ChargedParticles
     - ~/.julia/dev/PermuteArgs
-    - ~/.julia/dev/SpaceTools
+    - ~/.julia/dev/SPEDAS
     - ~/.julia/dev/Speasy
     - ~/.julia/dev/PySPEDAS
     - ~/.julia/dev/HAPI
@@ -86,8 +86,8 @@ trees:
     url: "https://github.com/Beforerr/ChargedParticles.jl"
   ~/.julia/dev/PermuteArgs:
     url: "https://github.com/Beforerr/PermuteArgs.jl"
-  ~/.julia/dev/SpaceTools:
-    url: "https://github.com/Beforerr/SpaceTools.jl"
+  ~/.julia/dev/SPEDAS:
+    url: "https://github.com/Beforerr/SPEDAS.jl"
   ~/.julia/dev/PySPEDAS:
     url: "https://github.com/Beforerr/PySPEDAS.jl"
   ~/.julia/dev/Speasy:
