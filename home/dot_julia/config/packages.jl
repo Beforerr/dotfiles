@@ -6,6 +6,7 @@ Pkg.add([
 
     # Development
     # "About",
+    "Aqua",
     "LiveServer",
     "JET",
     "BenchmarkTools",
