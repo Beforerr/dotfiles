@@ -13,6 +13,8 @@ if isinteractive()
             "@test_nowarn", "@test_skip", "@test_throws", "@test_warn", "@inferred"] =>
             :(using Test),
         ["@testitem"] => :(using TestItems),
+        ["@report_opt", "@report_call"] => :(using JET),
+        ["@descend"] => :(using Cthulhu),
         ["@about"] => :(using About;
         macro about(x)
             Expr(:call, About.about, x)
