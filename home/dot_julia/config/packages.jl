@@ -1,7 +1,6 @@
 using Pkg
 Pkg.add([
     "Revise",
-    "DrWatson",
     "PkgTemplates",
 
     # Development
@@ -21,7 +20,6 @@ Pkg.add([
     # Interactive
     # "IJulia",
     "OhMyREPL",
-    "QuartoNotebookRunner",
     # "Pluto",
     "BasicAutoloads",
 ])
