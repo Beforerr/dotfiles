@@ -4,6 +4,9 @@ catch e
     @info "Revise not installed. Run `] add Revise` to install it."
 end
 
+import Pkg
+Pkg.UPDATED_REGISTRY_THIS_SESSION[] = true
+
 if isinteractive()
     import BasicAutoloads
     BasicAutoloads.register_autoloads([
