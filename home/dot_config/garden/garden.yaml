@@ -25,6 +25,7 @@ groups:
     - ~/.julia/dev/ChargedParticles
     - ~/.julia/dev/PermuteArgs
     - ~/.julia/dev/SPEDAS
+    - ~/.julia/dev/SpaceDataModel
     - ~/.julia/dev/Speasy
     - ~/.julia/dev/PySPEDAS
     - ~/.julia/dev/HAPIClient
@@ -88,6 +89,7 @@ trees:
     url: "https://github.com/Beforerr/PermuteArgs.jl"
   ~/.julia/dev/SPEDAS:
     url: "https://github.com/Beforerr/SPEDAS.jl"
+    depth: 1
   ~/.julia/dev/PySPEDAS:
     url: "https://github.com/Beforerr/PySPEDAS.jl"
   ~/.julia/dev/Speasy:
@@ -96,5 +98,8 @@ trees:
     url: "https://github.com/Beforerr/HAPIClient.jl"
   ~/.python/dev/speasy:
     url: "https://github.com/Beforerr/speasy"
+    depth: 1
   /opt/homebrew/Library/Taps/beforerr/homebrew-beforerr:
     url: "https://github.com/Beforerr/homebrew-beforerr"
+  ~/.julia/dev/SpaceDataModel:
+    url: "https://github.com/Beforerr/SpaceDataModel.jl"
