@@ -36,6 +36,7 @@ cask "glance-chamburr", args: { "no-quarantine": true }
 cask "microsoft-powerpoint"
 cask "microsoft-excel"
 cask "microsoft-word"
+cask "adobe-acrobat-reader"
 
 # Communication Tools
 cask "wechat"
