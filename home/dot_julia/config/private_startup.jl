@@ -11,6 +11,7 @@ if isinteractive()
     import BasicAutoloads
     BasicAutoloads.register_autoloads([
         ["@b", "@be"] => :(using Chairmarks),
+        ["@track"] => :(using RegressionTests),
         ["@benchmark", "@btime"] => :(using BenchmarkTools),
         ["@test", "@testset", "@test_broken", "@test_deprecated", "@test_logs",
             "@test_nowarn", "@test_skip", "@test_throws", "@test_warn", "@inferred"] =>
