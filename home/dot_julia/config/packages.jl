@@ -9,6 +9,8 @@ Pkg.add([
     "LiveServer",
     "JET",
     "BenchmarkTools",
+    "Chairmarks",
+    "RegressionTests",
     "PkgCacheInspector",
     "MethodAnalysis",
     "PackageCompiler",
