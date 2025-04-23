@@ -26,7 +26,8 @@ groups:
     - ~/.julia/dev/ChargedParticles
     - ~/.julia/dev/PermuteArgs
     - ~/.julia/dev/SPEDAS
-    - ~/.julia/dev/Speasy
+    - ~/.julia/dev/SpaceDataModel
+    - ~/.julia/dev/Speasy.jl
     - ~/.julia/dev/PySPEDAS
     - ~/.julia/dev/HAPIClient
   python:
@@ -91,6 +92,8 @@ trees:
     url: "https://github.com/Beforerr/PermuteArgs.jl"
   ~/.julia/dev/SPEDAS:
     url: "https://github.com/Beforerr/SPEDAS.jl"
+  ~/.julia/dev/SpaceDataModel:
+    url: "https://github.com/Beforerr/SpaceDataModel.jl"
   ~/.julia/dev/PySPEDAS:
     url: "https://github.com/Beforerr/PySPEDAS.jl"
   ~/.julia/dev/Speasy:
