@@ -13,6 +13,8 @@ update-config:
 
 update-pkgs:
     -cargo install garden-tools
+    -curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+    -cargo binstall --strategies crate-meta-data jj-cli
 
 sync: sync-projects sync-overleaf
 

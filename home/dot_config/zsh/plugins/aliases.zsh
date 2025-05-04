@@ -61,4 +61,4 @@ alias j="just"
 alias .j='just --justfile ~/justfile --working-directory .'
 alias .jj='just --justfile ~/justfile --working-directory . julia'
 
-alias jj="julia --threads=auto --project"
+alias jl="julia --threads=auto --project"
