@@ -26,6 +26,7 @@ update-julia:
 
 install-pkgs:
     -julia ~/.julia/config/packages.jl --threads=auto
+    -julia --project=@runic -e 'using Pkg; Pkg.add("Runic")'
 
 pluto:
     #!/usr/bin/env julia --threads=auto

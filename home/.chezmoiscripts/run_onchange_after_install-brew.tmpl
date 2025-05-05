@@ -2,5 +2,5 @@
 
 # Brewfile hash: {{ include "packages/Brewfile" | sha256sum }}
 if command -v brew &>/dev/null; then
-    brew bundle --file=packages/Brewfile
+    brew bundle --file=packages/Brewfile || true
 fi

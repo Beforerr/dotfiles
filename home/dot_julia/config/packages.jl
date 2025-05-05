@@ -18,6 +18,7 @@ Pkg.add([
     "TestItems",
     "TestItemRunner",
     "TestEnv",
+    "InteractiveErrors",
 
     # Interactive
     # "IJulia",
