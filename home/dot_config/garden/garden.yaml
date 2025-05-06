@@ -30,6 +30,7 @@ groups:
     - ~/.julia/dev/Speasy.jl
     - ~/.julia/dev/PySPEDAS
     - ~/.julia/dev/HAPIClient
+    - ~/src/IRBEM.jl
   python:
     - ~/.python/dev/speasy
   src:
@@ -104,3 +105,5 @@ trees:
     url: "https://github.com/Beforerr/speasy"
   /opt/homebrew/Library/Taps/beforerr/homebrew-beforerr:
     url: "https://github.com/Beforerr/homebrew-beforerr"
+  ~/src/IRBEM.jl:
+    url: "https://github.com/Beforerr/IRBEM.jl"
