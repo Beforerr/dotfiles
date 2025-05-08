@@ -65,3 +65,4 @@ alias jl="julia --threads=auto --project"
 
 alias jgf="jj git fetch"
 alias jgp="jj git push"
+alias js="jj status"
