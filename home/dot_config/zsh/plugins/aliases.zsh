@@ -62,3 +62,6 @@ alias .j='just --justfile ~/justfile --working-directory .'
 alias .jj='just --justfile ~/justfile --working-directory . julia'
 
 alias jl="julia --threads=auto --project"
+
+alias jgf="jj git fetch"
+alias jgp="jj git push"
