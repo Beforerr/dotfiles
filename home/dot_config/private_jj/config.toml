@@ -1,0 +1,9 @@
+"$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
+
+[ui]
+editor = "windsurf -w"
+paginate = "never"
+
+[user]
+email = "zzj956959688@gmail.com"
+name = "Beforerr"
