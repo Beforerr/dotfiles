@@ -82,3 +82,6 @@ clean:
         fi
     done
     # ~/Library/Caches/quarto/julia/Project.toml
+
+link:
+    ln -s ~/src/IRBEM.jl ~/.julia/dev/IRBEM
