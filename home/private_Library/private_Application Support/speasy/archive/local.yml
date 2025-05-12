@@ -1,0 +1,65 @@
+WI_PM_3DP:
+  inventory_path: local
+  master_cdf: https://cdaweb.gsfc.nasa.gov/pub/software/cdawlib/0MASTERS/wi_pm_3dp_00000000_v01.cdf
+  split_frequency: daily
+  split_rule: regular
+  url_pattern: /Users/zijin/data/wind/3dp/3dp_pm/{Y}/wi_pm_3dp_{Y}{M:02d}{D:02d}_v\d+.cdf
+  use_file_list: true
+
+WI_H4-RTN_MFI:
+  inventory_path: local
+  master_cdf: https://cdaweb.gsfc.nasa.gov/pub/software/cdawlib/0MASTERS/wi_h4-rtn_mfi_00000000_v01.cdf
+  split_frequency: daily
+  split_rule: regular
+  url_pattern: /Users/zijin/data/wind/mfi/mfi_h4-rtn/{Y}/wi_h4-rtn_mfi_{Y}{M:02d}{D:02d}_v\d+.cdf
+  use_file_list: true
+
+WI_K0_SWE:
+  inventory_path: local
+  master_cdf: https://cdaweb.gsfc.nasa.gov/pub/software/cdawlib/0MASTERS/wi_k0_swe_00000000_v01.cdf
+  split_frequency: daily
+  split_rule: regular
+  url_pattern: /Users/zijin/data/wind/swe/swe_k0/{Y}/wi_k0_swe_{Y}{M:02d}{D:02d}_v\d+.cdf
+  use_file_list: true
+
+
+STA_L1_MAG_RTN:
+  inventory_path: local
+  master_cdf: https://cdaweb.gsfc.nasa.gov/pub/software/cdawlib/0MASTERS/sta_l1_mag_rtn_00000000_v01.cdf
+  split_frequency: daily
+  split_rule: regular
+  url_pattern: /Users/zijin/data/stereo/impact/level1/ahead/mag/RTN/{Y}/{M:02d}/STA_L1_MAG_RTN_{Y}{M:02d}{D:02d}_V06.cdf
+  use_file_list: true
+
+STA_L2_MAGPLASMA_1M:
+  inventory_path: local
+  master_cdf: https://cdaweb.gsfc.nasa.gov/pub/software/cdawlib/0MASTERS/sta_l2_magplasma_1m_00000000_v01.cdf
+  split_frequency: yearly
+  split_rule: regular
+  url_pattern: /Users/zijin/data/spdf/pub/data/stereo/ahead/l2/impact/magplasma/1min/{Y}/sta_l2_magplasma_1m_{Y}{M:02d}{D:02d}_v\d+.cdf
+  use_file_list: true
+
+
+STA_L2_PLA_1DMAX_1MIN:
+  inventory_path: local
+  master_cdf: https://cdaweb.gsfc.nasa.gov/pub/software/cdawlib/0MASTERS/sta_l2_pla_1dmax_1min_00000000_v01.cdf
+  split_frequency: daily
+  split_rule: regular
+  url_pattern: /Users/zijin/data/spdf/pub/data/stereo/ahead/l2/plastic/1dmax/1min/{Y}/sta_l2_pla_1dmax_1min_{Y}{M:02d}{D:02d}_v\d+.cdf
+  use_file_list: true
+
+THB_L2_FGM:
+  inventory_path: local
+  master_cdf: https://cdaweb.gsfc.nasa.gov/pub/software/cdawlib/0MASTERS/thb_l2_fgm_00000000_v01.cdf
+  split_frequency: daily
+  split_rule: regular
+  url_pattern: /Users/zijin/data/spdf/pub/data/themis/thb/l2/fgm/{Y}/thb_l2_fgm_{Y}{M:02d}{D:02d}_v\d+.cdf
+  use_file_list: true
+
+THB_L2_MOM:
+  inventory_path: local
+  master_cdf: https://cdaweb.gsfc.nasa.gov/pub/software/cdawlib/0MASTERS/thb_l2_mom_00000000_v01.cdf
+  split_frequency: daily
+  split_rule: regular
+  url_pattern: /Users/zijin/data/spdf/pub/data/themis/thb/l2/mom/{Y}/thb_l2_mom_{Y}{M:02d}{D:02d}_v\d+.cdf
+  use_file_list: true
