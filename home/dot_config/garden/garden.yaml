@@ -19,6 +19,7 @@ groups:
     - ids_spatial_evolution_juno
     - elfin_emic
     - CurrentSheetTestParticle
+    - TestParticle
   julia:
     - ~/.julia/dev/beforerr
     - ~/.julia/dev/Discontinuity
@@ -107,3 +108,5 @@ trees:
     url: "https://github.com/Beforerr/homebrew-beforerr"
   ~/src/IRBEM.jl:
     url: "https://github.com/Beforerr/IRBEM.jl"
+  ~/.julia/dev/TestParticle:
+    url: "https://github.com/Beforerr/TestParticle.jl"
