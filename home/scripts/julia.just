@@ -54,6 +54,7 @@ jet:
     using Pkg: project
     report_package(project().name)
 
+[no-cd]
 new-package name dir="~/.julia/dev":
     #!/usr/bin/env -S julia --threads=auto
     using PkgTemplates
