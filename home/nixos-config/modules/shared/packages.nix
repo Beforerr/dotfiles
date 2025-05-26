@@ -34,6 +34,7 @@ with pkgs;
   rustup
 
   # Node.js development tools
+  nodejs
 
   # Python development tools
   pixi
