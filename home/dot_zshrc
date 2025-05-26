@@ -32,3 +32,5 @@ export PATH="/Users/zijin/.codeium/windsurf/bin:$PATH"
 autoload -U compinit
 compinit
 source <(jj util completion zsh)
+
+. "$HOME/.nvm/nvm.sh"
