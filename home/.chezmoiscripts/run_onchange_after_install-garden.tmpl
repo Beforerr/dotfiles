@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# garden.yaml hash: {{ include "dot_config/garden/garden.yaml" | sha256sum }}
+if command -v garden &>/dev/null; then
+    garden grow "*"
+    garden cmd "*" pull -j4
+    garden cmd "*" status
+fi
