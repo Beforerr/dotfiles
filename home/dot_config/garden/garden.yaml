@@ -20,6 +20,7 @@ groups:
     - elfin_emic
     - CurrentSheetTestParticle
     - TestParticle
+    - dmsp_elfin
   julia:
     - ~/.julia/dev/beforerr
     - ~/.julia/dev/Discontinuity
@@ -66,6 +67,8 @@ trees:
   ids_spatial_evolution_juno:
     url: "https://github.com/Beforerr/ids_spatial_evolution_juno.git"
     depth: 1
+  dmsp_elfin:
+    url: "https://github.com/Beforerr/dmsp_elfin.git"
   elfin_emic:
     url: "https://github.com/Beforerr/EMIC_multi-satellites_study.git"
     depth: 1
