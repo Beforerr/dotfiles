@@ -63,7 +63,9 @@ new-package name dir="~/.julia/dev":
         julia=v"1.10", 
         plugins=[
             Tests(; project=true),
-            GitHubActions(; extra_versions=["1.10", "1.11", "pre"])
+            GitHubActions(; extra_versions=["lts", "1", "pre"]),
+            Codecov(),
+            Documenter{GitHubActions}(),
         ]
     )("{{name}}")
 
@@ -87,3 +89,4 @@ clean:
 
 link:
     ln -s ~/src/IRBEM.jl ~/.julia/dev/IRBEM
+    ln -s ~/src/Aacgm.jl ~/.julia/dev/Aacgm
