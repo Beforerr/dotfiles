@@ -33,7 +33,7 @@ groups:
     - ~/.julia/dev/PySPEDAS
     - ~/.julia/dev/HAPIClient
     - ~/src/IRBEM.jl
-    - ~/src/Aacgm.jl
+    - ~/src/GeoAACGM.jl
   python:
     - ~/.python/dev/speasy
   src:
@@ -112,7 +112,7 @@ trees:
     url: "https://github.com/Beforerr/homebrew-beforerr"
   ~/src/IRBEM.jl:
     url: "https://github.com/Beforerr/IRBEM.jl"
-  ~/src/Aacgm.jl:
-    url: "https://github.com/Beforerr/Aacgm.jl"
+  ~/src/GeoAACGM.jl:
+    url: "https://github.com/Beforerr/GeoAACGM.jl"
   ~/.julia/dev/TestParticle:
     url: "https://github.com/Beforerr/TestParticle.jl"
