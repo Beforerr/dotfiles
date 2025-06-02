@@ -89,4 +89,4 @@ clean:
 
 link:
     ln -s ~/src/IRBEM.jl ~/.julia/dev/IRBEM
-    ln -s ~/src/Aacgm.jl ~/.julia/dev/Aacgm
+    ln -s ~/src/GeoAACGM.jl ~/.julia/dev/GeoAACGM
