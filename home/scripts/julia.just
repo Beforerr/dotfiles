@@ -90,3 +90,4 @@ clean:
 link:
     ln -s ~/src/IRBEM.jl ~/.julia/dev/IRBEM
     ln -s ~/src/GeoAACGM.jl ~/.julia/dev/GeoAACGM
+    ln -s ~/src/MadrigalWeb.jl ~/.julia/dev/MadrigalWeb

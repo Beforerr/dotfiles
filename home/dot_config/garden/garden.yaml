@@ -34,6 +34,7 @@ groups:
     - ~/.julia/dev/HAPIClient
     - ~/src/IRBEM.jl
     - ~/src/GeoAACGM.jl
+    - ~/src/MadrigalWeb.jl
   python:
     - ~/.python/dev/speasy
   src:
@@ -116,3 +117,5 @@ trees:
     url: "https://github.com/Beforerr/GeoAACGM.jl"
   ~/.julia/dev/TestParticle:
     url: "https://github.com/Beforerr/TestParticle.jl"
+  ~/src/MadrigalWeb.jl:
+    url: "https://github.com/Beforerr/MadrigalWeb.jl"
