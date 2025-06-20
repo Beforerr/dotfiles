@@ -94,9 +94,9 @@ trees:
   ~/.julia/dev/beforerr:
     url: "https://github.com/Beforerr/beforerr.jl"
   ~/.julia/dev/PlasmaFormulary:
-    url: "https://github.com/Beforerr/PlasmaFormulary.jl"
+    url: "https://github.com/JuliaPlasma/PlasmaFormulary.jl"
   ~/.julia/dev/ChargedParticles:
-    url: "https://github.com/Beforerr/ChargedParticles.jl"
+    url: "https://github.com/JuliaPlasma/ChargedParticles.jl"
   ~/.julia/dev/PermuteArgs:
     url: "https://github.com/Beforerr/PermuteArgs.jl"
   ~/.julia/dev/SPEDAS:
