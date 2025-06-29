@@ -34,9 +34,11 @@ groups:
     - ~/.julia/dev/HAPIClient
     - ~/src/IRBEM.jl
     - ~/src/GeoAACGM.jl
+    - ~/src/GeoCotrans.jl
     - ~/src/MadrigalWeb.jl
     - ~/src/juliaspacephysics.github.io
     - ~/src/juliaspacephysics-actions
+    - ~/src/TimeseriesUtilities.jl
   python:
     - ~/.python/dev/speasy
   src:
@@ -125,3 +127,7 @@ trees:
     url: "https://github.com/JuliaSpacePhysics/juliaspacephysics.github.io"
   ~/src/juliaspacephysics-actions:
     url: "https://github.com/JuliaSpacePhysics/actions"
+  ~/src/GeoCotrans.jl:
+    url: "https://github.com/JuliaSpacePhysics/GeoCotrans.jl"
+  ~/src/TimeseriesUtilities.jl:
+    url: "https://github.com/Beforerr/TimeseriesUtilities.jl"
