@@ -22,7 +22,6 @@ unset __mamba_setup
 # !! Contents within this block are managed by juliaup !!
 
 path=('/Users/zijin/.juliaup/bin' $path)
-source <(juliaup completions zsh)
 export PATH
 
 # <<< juliaup initialize <<<
@@ -33,5 +32,6 @@ export PATH="/Users/zijin/.codeium/windsurf/bin:$PATH"
 autoload -U compinit
 compinit
 source <(jj util completion zsh)
+source <(juliaup completions zsh)
 
 . "$HOME/.nvm/nvm.sh"
