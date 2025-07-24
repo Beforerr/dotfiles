@@ -22,6 +22,7 @@ unset __mamba_setup
 # !! Contents within this block are managed by juliaup !!
 
 path=('/Users/zijin/.juliaup/bin' $path)
+source <(juliaup completions zsh)
 export PATH
 
 # <<< juliaup initialize <<<
