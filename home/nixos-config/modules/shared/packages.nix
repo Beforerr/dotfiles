@@ -49,4 +49,6 @@ with pkgs;
   ugrep
   ripgrep
   yq-go
+
+  tmux
 ]
