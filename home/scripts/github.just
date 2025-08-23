@@ -7,14 +7,23 @@ auto-merge:
     [ -z "$PR_NUMBER" ] && { echo "No open PRs found"; exit 0; }
     
     echo "Checking PR #$PR_NUMBER status..."
-    # Check if all checks have passed
-    CHECK_STATUS=$(gh pr checks $PR_NUMBER --json state --jq '.[] | select(.state != "SUCCESS" and .state != "SKIPPED") | .state' | wc -l)
-    
-    if [ "$CHECK_STATUS" -gt 0 ]; then
-        echo "Checks are still running or failed. Cannot merge."
-        gh pr checks $PR_NUMBER
-        exit 1
-    fi
+    # Check if all checks have passed (retry up to 3 times if still running)
+    for attempt in 1 2 3; do
+        echo "Attempt $attempt/3..."
+        CHECK_STATUS=$(gh pr checks $PR_NUMBER --json state --jq '.[] | select(.state != "SUCCESS" and .state != "SKIPPED") | .state' | wc -l)
+        
+        [ "$CHECK_STATUS" -eq 0 ] && break
+        
+        if [ "$attempt" -eq 3 ]; then
+            echo "Checks are still running or failed after 3 attempts. Cannot merge."
+            gh pr checks $PR_NUMBER
+            exit 1
+        fi
+        
+        sleep_time=$((60 * (2 ** attempt)))
+        echo "Checks still running. Waiting $sleep_time seconds before retry..."
+        sleep $sleep_time
+    done
     
     echo "All checks passed. Merging PR #$PR_NUMBER..."
     gh pr merge $PR_NUMBER --squash --delete-branch
