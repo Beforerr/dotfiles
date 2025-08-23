@@ -26,6 +26,9 @@ auto-merge:
     done
     
     echo "All checks passed. Merging PR #$PR_NUMBER..."
-    gh pr merge $PR_NUMBER --squash --delete-branch
+    gh pr merge $PR_NUMBER --squash
+    # Delete remote branch after merge
+    BRANCH_NAME=$(gh pr view $PR_NUMBER --json headRefName --jq '.headRefName')
+    git push origin --delete "$BRANCH_NAME"
     jj git fetch
     jj rebase -s @ -d main
