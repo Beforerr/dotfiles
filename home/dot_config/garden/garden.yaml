@@ -27,18 +27,20 @@ groups:
     - ~/.julia/dev/PlasmaFormulary
     - ~/.julia/dev/ChargedParticles
     - ~/.julia/dev/PermuteArgs
-    - ~/.julia/dev/SPEDAS
-    - ~/.julia/dev/SpaceDataModel
     - ~/.julia/dev/Speasy.jl
-    - ~/.julia/dev/PySPEDAS
     - ~/.julia/dev/HAPIClient
     - ~/src/IRBEM.jl
     - ~/src/GeoAACGM.jl
     - ~/src/GeoCotrans.jl
     - ~/src/Madrigal.jl
+    - ~/src/PlasmaWaves.jl
     - ~/src/juliaspacephysics.github.io
     - ~/src/juliaspacephysics-actions
     - ~/src/TimeseriesUtilities.jl
+    - ~/src/SpaceDataModel.jl
+    - ~/src/SpacePhysicsMakie.jl
+    - ~/src/SPEDAS.jl
+    - ~/src/PySPEDAS.jl
   python:
     - ~/.python/dev/speasy
   src:
@@ -101,11 +103,11 @@ trees:
     url: "https://github.com/JuliaPlasma/ChargedParticles.jl"
   ~/.julia/dev/PermuteArgs:
     url: "https://github.com/Beforerr/PermuteArgs.jl"
-  ~/.julia/dev/SPEDAS:
+  ~/src/SPEDAS.jl:
     url: "https://github.com/JuliaSpacePhysics/SPEDAS.jl"
-  ~/.julia/dev/SpaceDataModel:
+  ~/src/SpaceDataModel.jl:
     url: "https://github.com/JuliaSpacePhysics/SpaceDataModel.jl"
-  ~/.julia/dev/PySPEDAS:
+  ~/src/PySPEDAS.jl:
     url: "https://github.com/JuliaSpacePhysics/PySPEDAS.jl"
   ~/.julia/dev/Speasy:
     url: "https://github.com/SciQLop/Speasy.jl"
@@ -131,3 +133,7 @@ trees:
     url: "https://github.com/JuliaSpacePhysics/GeoCotrans.jl"
   ~/src/TimeseriesUtilities.jl:
     url: "https://github.com/Beforerr/TimeseriesUtilities.jl"
+  ~/src/SpacePhysicsMakie.jl:
+    url: "https://github.com/JuliaSpacePhysics/SpacePhysicsMakie.jl"
+  ~/src/PlasmaWaves.jl:
+    url: "https://github.com/Beforerr/PlasmaWaves.jl"

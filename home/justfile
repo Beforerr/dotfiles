@@ -1,4 +1,5 @@
 import? 'scripts/languages.just'
+import? 'scripts/github.just'
 mod? hosts 'scripts/hosts.just'
 
 default:

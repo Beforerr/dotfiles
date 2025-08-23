@@ -42,8 +42,6 @@ add-docs:
 [no-cd]
 servedocs:
     #!/usr/bin/env -S julia --threads=auto --project=docs/ -i
-    using Pkg
-    Pkg.develop(PackageSpec(path=pwd()))
     using LiveServer;
     servedocs(include_dirs=["src/"])
 
@@ -90,4 +88,10 @@ clean:
 link:
     ln -s ~/src/IRBEM.jl ~/.julia/dev/IRBEM
     ln -s ~/src/GeoAACGM.jl ~/.julia/dev/GeoAACGM
-    ln -s ~/src/MadrigalWeb.jl ~/.julia/dev/MadrigalWeb
+    ln -s ~/src/GeoCotrans.jl ~/.julia/dev/GeoCotrans
+    ln -s ~/src/Madrigal.jl ~/.julia/dev/Madrigal
+    ln -s ~/src/TimeseriesUtilities.jl ~/.julia/dev/TimeseriesUtilities
+    ln -s ~/src/SPEDAS.jl ~/.julia/dev/SPEDAS
+    ln -s ~/src/SpaceDataModel.jl ~/.julia/dev/SpaceDataModel
+    ln -s ~/src/SpacePhysicsMakie.jl ~/.julia/dev/SpacePhysicsMakie
+    ln -s ~/src/PySPEDAS.jl ~/.julia/dev/PySPEDAS
