@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(jj bookmark:*)",
+      "Bash(jj diff:*)",
+      "Bash(jj describe:*)",
+      "Bash(jj edit:*)",
+      "Bash(jj git:*)",
+      "Bash(jj log:*)",
+      "Bash(jj status:*)",
+      "Bash(jj new:*)",
+      "Bash(jj rebase:*)",
+      "Bash(julia:*)",
+      "Bash(gh:*)",
+      "Bash(gh pr:*)",
+      "Bash(gh api:*)",
+      "Bash(grep:*)",
+      "Bash(mkdir:*)",
+      "WebFetch(domain:github.com)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
