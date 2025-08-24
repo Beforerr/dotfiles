@@ -17,3 +17,5 @@
 
 ## Commit Messages
 - Follow conventional commit format
+
+- Do not create a new commit if it has been created, and you can use `jj git push -c @` to push current commit
