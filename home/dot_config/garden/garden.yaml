@@ -27,8 +27,8 @@ groups:
     - ~/.julia/dev/PlasmaFormulary
     - ~/.julia/dev/ChargedParticles
     - ~/.julia/dev/PermuteArgs
-    - ~/.julia/dev/Speasy.jl
     - ~/.julia/dev/HAPIClient
+    - ~/src/Speasy.jl
     - ~/src/IRBEM.jl
     - ~/src/GeoAACGM.jl
     - ~/src/GeoCotrans.jl
@@ -111,7 +111,7 @@ trees:
     url: "https://github.com/JuliaSpacePhysics/SpaceDataModel.jl"
   ~/src/PySPEDAS.jl:
     url: "https://github.com/JuliaSpacePhysics/PySPEDAS.jl"
-  ~/.julia/dev/Speasy:
+  ~/src/Speasy.jl:
     url: "https://github.com/SciQLop/Speasy.jl"
   ~/.julia/dev/HAPIClient:
     url: "https://github.com/JuliaSpacePhysics/HAPIClient.jl"
