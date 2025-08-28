@@ -95,3 +95,4 @@ link:
     ln -s ~/src/SpaceDataModel.jl ~/.julia/dev/SpaceDataModel
     ln -s ~/src/SpacePhysicsMakie.jl ~/.julia/dev/SpacePhysicsMakie
     ln -s ~/src/PySPEDAS.jl ~/.julia/dev/PySPEDAS
+    ln -s ~/src/SolarEnergeticParticle.jl ~/.julia/dev/SolarEnergeticParticle

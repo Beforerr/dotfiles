@@ -41,6 +41,8 @@ groups:
     - ~/src/SpacePhysicsMakie.jl
     - ~/src/SPEDAS.jl
     - ~/src/PySPEDAS.jl
+    - ~/src/SolarEnergeticParticle.jl
+    - ~/src/MinimumVarianceAnalysis.jl
   python:
     - ~/.python/dev/speasy
   src:
@@ -137,3 +139,8 @@ trees:
     url: "https://github.com/JuliaSpacePhysics/SpacePhysicsMakie.jl"
   ~/src/PlasmaWaves.jl:
     url: "https://github.com/Beforerr/PlasmaWaves.jl"
+  ~/src/SolarEnergeticParticle.jl:
+    url: "https://github.com/JuliaSpacePhysics/SolarEnergeticParticle.jl"
+  ~/src/MinimumVarianceAnalysis.jl:
+    url: "https://github.com/Beforerr/MinimumVarianceAnalysis.jl"
+    
