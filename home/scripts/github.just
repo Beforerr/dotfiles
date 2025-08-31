@@ -34,10 +34,6 @@ auto-merge:
     jj rebase -s @ -d main
 
 push:
-    #!/bin/bash
-    set -e
-    
-    # Push current commit to GitHub
     echo "Pushing current commit to GitHub..."
     jj git push -c @
 
@@ -57,9 +53,9 @@ create-pr:
     # Get commit message for PR title
     COMMIT_MSG=$(jj log -r @ --no-graph -T 'description' | head -n1)
     
-    # Create PR
+    # Create PR using the remote branch
     echo "Creating PR from branch: $BRANCH_NAME"
     echo "PR title: $COMMIT_MSG"
-    gh pr create --title "$COMMIT_MSG" --body "🤖 Generated with [Claude Code](https://claude.ai/code)"
+    gh pr create --head "$BRANCH_NAME" --title "$COMMIT_MSG" --body "🤖 Generated with [Claude Code](https://claude.ai/code)"
 
 push-and-pr: push create-pr
