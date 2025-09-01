@@ -56,6 +56,6 @@ create-pr:
     # Create PR using the remote branch
     echo "Creating PR from branch: $BRANCH_NAME"
     echo "PR title: $COMMIT_MSG"
-    gh pr create --head "$BRANCH_NAME" --title "$COMMIT_MSG" --body "🤖 Generated with [Claude Code](https://claude.ai/code)"
+    gh pr create --head "$BRANCH_NAME" --title "$COMMIT_MSG"
 
 push-and-pr: push create-pr
