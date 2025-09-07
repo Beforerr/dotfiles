@@ -1,5 +1,14 @@
 # Agent Rules and Preferences
 
+## Style Guidelines
+
+### Docstrings
+
+-   Clarity First: Write docstrings that are clear and easy to understand.
+-   Conciseness: Keep descriptions brief; avoid unnecessary verbosity.
+-   Detail When Needed: Include additional explanations only when they provide meaningful context (e.g., complex logic, non-obvious behavior, side effects).
+-   Consistency: Follow the same style, tone, structure, and level of detail for the same project.
+
 ## Version Control
 
 -   Use Jujutsu (`jj`) for version control instead of git
@@ -33,4 +42,3 @@
 -   Follow conventional commit format
 
 -   Do not create a new commit if it has been created.
-- When writing functions docstring keep the docstring clear and simple. Verbose when only necessary
