@@ -59,3 +59,25 @@ create-pr:
     gh pr create --head "$BRANCH_NAME" --title "$COMMIT_MSG"
 
 push-and-pr: push create-pr
+
+register:
+    #!/bin/bash
+    # Script to trigger Julia package registration by commenting on the current commit
+    set -e
+
+    # Get repository info
+    REPO_INFO=$(gh repo view --json owner,name)
+    OWNER=$(echo "$REPO_INFO" | jq -r '.owner.login')
+    REPO_NAME=$(echo "$REPO_INFO" | jq -r '.name')
+
+    # Get the current commit hash
+    COMMIT_HASH=$(jj log -r main --no-graph --template 'commit_id.short()')
+
+    # Comment on the commit to trigger registration
+    echo "Commenting on commit $COMMIT_HASH in Repository: $OWNER/$REPO_NAME to trigger Julia package registration..."
+    gh api "repos/$OWNER/$REPO_NAME/commits/$COMMIT_HASH/comments" \
+        --method POST \
+        --input - <<< '{"body":"@JuliaRegistrator register()"}' \
+        --silent
+    echo "✅ Registration comment posted successfully!"
+    echo "Check the commit page: https://github.com/$OWNER/$REPO_NAME/commit/$COMMIT_HASH"
