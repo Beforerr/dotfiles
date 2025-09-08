@@ -1,0 +1,8 @@
+#  elfin_data/elb/l1/state/defn/2021/elb_l1_state_defn_20210326_v03.cdf
+elb_state:
+  inventory_path: local
+  master_cdf: https://data.elfin.ucla.edu/elb/l1/state/defn/2021/
+  split_frequency: daily
+  split_rule: regular
+  url_pattern: https://data.elfin.ucla.edu/elb/l1/state/defn/{Y}/elb_l1_state_defn_{Y}{M:02d}{D:02d}_v\d+.cdf
+  use_file_list: true
