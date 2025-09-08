@@ -1,6 +1,6 @@
 #  elfin_data/elb/l1/state/defn/2021/elb_l1_state_defn_20210326_v03.cdf
 elb_state:
-  inventory_path: local
+  inventory_path: elfin/elb_state
   master_cdf: https://data.elfin.ucla.edu/elb/l1/state/defn/2021/
   split_frequency: daily
   split_rule: regular
