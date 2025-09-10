@@ -5,8 +5,10 @@
 ### Docstrings
 
 -   Clarity First: Write docstrings that are clear and easy to understand.
--   Conciseness: Keep descriptions brief; avoid unnecessary verbosity.
+-   Conciseness: Keep descriptions brief, avoid unnecessary verbosity and do not repeat yourself.
 -   Detail When Needed: Include additional explanations only when they provide meaningful context (e.g., complex logic, non-obvious behavior, side effects).
+-   Only provide an argument list when really necessary.
+-   Provide hints to related functions.
 -   Consistency: Follow the same style, tone, structure, and level of detail for the same project.
 
 ## Version Control
