@@ -43,6 +43,8 @@ groups:
     - ~/src/PySPEDAS.jl
     - ~/src/SolarEnergeticParticle.jl
     - ~/src/MinimumVarianceAnalysis.jl
+    - ~/src/CommonDataFormat.jl
+    - ~/src/CDFDatasets.jl
   python:
     - ~/.python/dev/speasy
   src:
@@ -143,4 +145,7 @@ trees:
     url: "https://github.com/JuliaSpacePhysics/SolarEnergeticParticle.jl"
   ~/src/MinimumVarianceAnalysis.jl:
     url: "https://github.com/Beforerr/MinimumVarianceAnalysis.jl"
-    
+  ~/src/CommonDataFormat.jl:
+    url: "https://github.com/JuliaSpacePhysics/CommonDataFormat.jl"
+  ~/src/CDFDatasets.jl:
+    url: "https://github.com/JuliaSpacePhysics/CDFDatasets.jl"
