@@ -97,3 +97,4 @@ link:
     ln -s ~/src/PySPEDAS.jl ~/.julia/dev/PySPEDAS
     ln -s ~/src/SolarEnergeticParticle.jl ~/.julia/dev/SolarEnergeticParticle
     ln -s ~/src/Speasy.jl ~/.julia/dev/Speasy
+    ln -s ~/src/CDFDatasets.jl ~/.julia/dev/CDFDatasets

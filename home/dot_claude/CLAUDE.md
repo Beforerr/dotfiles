@@ -2,6 +2,10 @@
 
 ## Style Guidelines
 
+### Functions
+
+-   When writing functions, avoid overly restrict the argument types. In general, you should use the most general applicable abstract types for arguments, and when in doubt, omit the argument types. The most common reasons to declare argument types in Julia are, Dispatch, Correctness, and Clarity.
+
 ### Docstrings
 
 -   Clarity First: Write docstrings that are clear and easy to understand.
