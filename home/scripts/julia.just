@@ -98,3 +98,4 @@ link:
     ln -s ~/src/SolarEnergeticParticle.jl ~/.julia/dev/SolarEnergeticParticle
     ln -s ~/src/Speasy.jl ~/.julia/dev/Speasy
     ln -s ~/src/CDFDatasets.jl ~/.julia/dev/CDFDatasets
+    ln -s ~/src/CommonDataFormat.jl ~/.julia/dev/CommonDataFormat
