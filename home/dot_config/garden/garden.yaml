@@ -45,6 +45,7 @@ groups:
     - ~/src/MinimumVarianceAnalysis.jl
     - ~/src/CommonDataFormat.jl
     - ~/src/CDFDatasets.jl
+    - ~/src/CDAWeb.jl
   python:
     - ~/.python/dev/speasy
   src:
@@ -149,3 +150,5 @@ trees:
     url: "https://github.com/JuliaSpacePhysics/CommonDataFormat.jl"
   ~/src/CDFDatasets.jl:
     url: "https://github.com/JuliaSpacePhysics/CDFDatasets.jl"
+  ~/src/CDAWeb.jl:
+    url: "https://github.com/JuliaSpacePhysics/CDAWeb.jl"

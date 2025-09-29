@@ -99,3 +99,4 @@ link:
     ln -s ~/src/Speasy.jl ~/.julia/dev/Speasy
     ln -s ~/src/CDFDatasets.jl ~/.julia/dev/CDFDatasets
     ln -s ~/src/CommonDataFormat.jl ~/.julia/dev/CommonDataFormat
+    ln -s ~/src/CDAWeb.jl ~/.julia/dev/CDAWeb
