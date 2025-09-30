@@ -85,6 +85,9 @@ clean:
     done
     # ~/Library/Caches/quarto/julia/Project.toml
 
+bump:
+    julia --project -e 'using PkgBump, Pkg; project_file = Base.active_project(); project = Pkg.Types.read_project(project_file); PkgBump.updateversion!(project, project_file, :patch)'
+
 link:
     ln -s ~/src/IRBEM.jl ~/.julia/dev/IRBEM
     ln -s ~/src/GeoAACGM.jl ~/.julia/dev/GeoAACGM
