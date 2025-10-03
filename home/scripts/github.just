@@ -40,25 +40,20 @@ push:
 create-pr:
     #!/bin/bash
     set -e
-    
     # Get current branch name
-    BRANCH_NAME=$(jj log -r @ --no-graph -T 'bookmarks')
+    BRANCH=$(jj log -r @ --no-graph -T 'bookmarks')
     
     # Check if we're on main branch
-    if [[ "$BRANCH_NAME" == *"main"* ]]; then
+    if [[ "$BRANCH" == *"main"* ]]; then
         echo "Cannot create PR from main branch"
         exit 1
     fi
-    
-    # Get commit message for PR title
-    COMMIT_MSG=$(jj log -r @ --no-graph -T 'description' | head -n1)
-    
     # Create PR using the remote branch
-    echo "Creating PR from branch: $BRANCH_NAME"
-    echo "PR title: $COMMIT_MSG"
-    gh pr create --head "$BRANCH_NAME" --title "$COMMIT_MSG"
+    echo "Creating PR from branch: $BRANCH"
+    gh pr create --head "$BRANCH" --fill
 
 push-and-pr: push create-pr
 
+[no-cd]
 register:
     just julia register

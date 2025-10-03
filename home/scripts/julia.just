@@ -91,6 +91,7 @@ bump:
     jj bookmark move main --to=@; jj git push; 
     just register
 
+[no-cd]
 register:
     #!/bin/bash
     # Script to trigger Julia package registration by commenting on the current commit
