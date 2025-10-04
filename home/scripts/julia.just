@@ -89,7 +89,7 @@ clean:
 bump:
     julia --project -e 'using PkgBump, Pkg; project_file = Base.active_project(); project = Pkg.Types.read_project(project_file); PkgBump.updateversion!(project, project_file, :patch); new_version = project.version; run(`jj desc -m "build(release): 🔖 $new_version"`)'
     jj bookmark move main --to=@; jj git push; 
-    just register
+    .j julia register
 
 [no-cd]
 register:
