@@ -60,8 +60,26 @@ new-package name dir="~/.julia/dev":
         dir="{{dir}}",
         julia=v"1.10", 
         plugins=[
-            Tests(; project=true),
+            Tests(; project=true, aqua=true),
             GitHubActions(; extra_versions=["lts", "1", "pre"]),
+            Codecov(),
+            Documenter{GitHubActions}(),
+        ]
+    )("{{name}}")
+
+[no-cd]
+new-package-sph name dir="~/.julia/dev":
+    #!/usr/bin/env -S julia --threads=auto
+    using PkgTemplates
+    Template(; 
+        user="JuliaSpacePhysics",
+        dir="{{dir}}",
+        julia=v"1.10", 
+        plugins=[
+            Tests(; project=true, aqua=true),
+            GitHubActions(; 
+                file="~/src/juliaspacephysics.github.io/templates/github/workflows/CI.yml",
+            ),
             Codecov(),
             Documenter{GitHubActions}(),
         ]
@@ -85,11 +103,12 @@ clean:
     done
     # ~/Library/Caches/quarto/julia/Project.toml
 
+bump: _bump register
+
 [no-cd]
-bump:
+_bump:
     julia --project -e 'using PkgBump, Pkg; project_file = Base.active_project(); project = Pkg.Types.read_project(project_file); PkgBump.updateversion!(project, project_file, :patch); new_version = project.version; run(`jj desc -m "build(release): 🔖 $new_version"`)'
     jj bookmark move main --to=@; jj git push; 
-    .j julia register
 
 [no-cd]
 register:
@@ -128,4 +147,6 @@ link:
     ln -s ~/src/Speasy.jl ~/.julia/dev/Speasy
     ln -s ~/src/CDFDatasets.jl ~/.julia/dev/CDFDatasets
     ln -s ~/src/CommonDataFormat.jl ~/.julia/dev/CommonDataFormat
+    ln -s ~/src/HAPIClient.jl ~/.julia/dev/HAPIClient
     ln -s ~/src/CDAWeb.jl ~/.julia/dev/CDAWeb
+    ln -s ~/src/ELFINData.jl ~/.julia/dev/ELFINData

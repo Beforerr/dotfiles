@@ -27,7 +27,7 @@ groups:
     - ~/.julia/dev/PlasmaFormulary
     - ~/.julia/dev/ChargedParticles
     - ~/.julia/dev/PermuteArgs
-    - ~/.julia/dev/HAPIClient
+    - ~/src/HAPIClient.jl
     - ~/src/Speasy.jl
     - ~/src/IRBEM.jl
     - ~/src/GeoAACGM.jl
@@ -46,6 +46,7 @@ groups:
     - ~/src/CommonDataFormat.jl
     - ~/src/CDFDatasets.jl
     - ~/src/CDAWeb.jl
+    - ~/src/ELFINData.jl
   python:
     - ~/.python/dev/speasy
   src:
@@ -152,3 +153,5 @@ trees:
     url: "https://github.com/JuliaSpacePhysics/CDFDatasets.jl"
   ~/src/CDAWeb.jl:
     url: "https://github.com/JuliaSpacePhysics/CDAWeb.jl"
+  ~/src/ELFINData.jl:
+    url: "https://github.com/JuliaSpacePhysics/ELFINData.jl"

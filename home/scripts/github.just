@@ -54,6 +54,11 @@ create-pr:
 
 push-and-pr: push create-pr
 
+sleep:
+    sleep 10
+
+push-and-pr-and-merge: push create-pr sleep auto-merge
+
 [no-cd]
 register:
     just julia register
