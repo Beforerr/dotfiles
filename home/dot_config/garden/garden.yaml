@@ -2,10 +2,10 @@ garden:
   root: ~/projects
 commands:
   pull:
-    - git pull --quiet
+    - "[ -d .jj ] && jj git fetch --quiet || git pull --quiet"
     - git submodule update --init --recursive
   status:
-    - git status -s
+    - "[ -d .jj ] && jj st || git status -s"
 groups:
   projects:
     - beforerr
@@ -47,6 +47,7 @@ groups:
     - ~/src/CDFDatasets.jl
     - ~/src/CDAWeb.jl
     - ~/src/ELFINData.jl
+    - ~/src/VelocityDistributionFunctions.jl
   python:
     - ~/.python/dev/speasy
   src:
@@ -155,3 +156,5 @@ trees:
     url: "https://github.com/JuliaSpacePhysics/CDAWeb.jl"
   ~/src/ELFINData.jl:
     url: "https://github.com/JuliaSpacePhysics/ELFINData.jl"
+  ~/src/VelocityDistributionFunctions.jl:
+    url: "https://github.com/JuliaSpacePhysics/VelocityDistributionFunctions.jl"
