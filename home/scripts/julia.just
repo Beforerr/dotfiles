@@ -107,6 +107,7 @@ bump: _bump register
 
 [no-cd]
 _bump:
+    julia -e 'using Pkg; !haskey(Pkg.project().dependencies, "PkgBump") && Pkg.add(url="https://github.com/AtelierArith/PkgBump.jl")'
     julia --project -e 'using PkgBump, Pkg; project_file = Base.active_project(); project = Pkg.Types.read_project(project_file); PkgBump.updateversion!(project, project_file, :patch); new_version = project.version; run(`jj desc -m "build(release): 🔖 $new_version"`)'
     jj bookmark move main --to=@; jj git push; 
 
