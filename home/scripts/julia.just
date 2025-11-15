@@ -42,6 +42,8 @@ add-docs:
 [no-cd]
 servedocs:
     #!/usr/bin/env -S julia --threads=auto --project=docs/ -i
+    using Pkg
+    Pkg.resolve()
     using LiveServer;
     servedocs(include_dirs=["src/"])
 
@@ -68,7 +70,7 @@ new-package name dir="~/.julia/dev":
     )("{{name}}")
 
 [no-cd]
-new-package-sph name dir="~/.julia/dev":
+new-package-sph name dir="~/src":
     #!/usr/bin/env -S julia --threads=auto
     using PkgTemplates
     Template(; 
@@ -78,7 +80,7 @@ new-package-sph name dir="~/.julia/dev":
         plugins=[
             Tests(; project=true, aqua=true),
             GitHubActions(; 
-                file="~/src/juliaspacephysics.github.io/templates/github/workflows/CI.yml",
+                file="/Users/zijin/src/juliaspacephysics.github.io/templates/github/workflows/CI.yml",
             ),
             Codecov(),
             Documenter{GitHubActions}(),
@@ -152,3 +154,4 @@ link:
     ln -s ~/src/CDAWeb.jl ~/.julia/dev/CDAWeb
     ln -s ~/src/ELFINData.jl ~/.julia/dev/ELFINData
     ln -s ~/src/VelocityDistributionFunctions.jl ~/.julia/dev/VelocityDistributionFunctions
+    ln -s ~/src/PlasmaWaves.jl ~/.julia/dev/PlasmaWaves

@@ -35,3 +35,4 @@ source <(jj util completion zsh)
 source <(juliaup completions zsh)
 
 . "$HOME/.nvm/nvm.sh"
+export PATH="/Users/zijin/.pixi/bin:$PATH"
