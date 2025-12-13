@@ -11,19 +11,19 @@ Pkg.add([
     "BenchmarkTools",
     "Chairmarks",
     "RegressionTests",
-    "PkgCacheInspector",
-    "MethodAnalysis",
+    # "PkgCacheInspector",
+    # "MethodAnalysis",
     "PackageCompiler",
     "PrecompileAfterUpdate",
     "TestItems",
     "TestItemRunner",
     "TestEnv",
-    "InteractiveErrors",
+    # "InteractiveErrors",
     "Infiltrator",
 
     # Interactive
     # "IJulia",
-    "OhMyREPL",
+    # "OhMyREPL",
     # "Pluto",
     "BasicAutoloads",
 ])

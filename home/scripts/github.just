@@ -25,7 +25,23 @@ auto-merge:
         sleep $sleep_time
     done
     
-    echo "All checks passed. Merging PR #$PR_NUMBER..."
+    echo "All checks passed."
+    just --justfile {{justfile()}} merge $PR_NUMBER
+
+[no-cd]
+merge pr_number="":
+    #!/bin/bash
+    set -e
+
+    # Use provided PR number or get latest open PR
+    if [ -n "$pr_number" ]; then
+        PR_NUMBER="$pr_number"
+    else
+        PR_NUMBER=$(gh pr list --state open --limit 1 --json number --jq '.[0].number')
+        [ -z "$PR_NUMBER" ] && { echo "No open PRs found"; exit 0; }
+    fi
+
+    echo "Merging PR #$PR_NUMBER..."
     gh pr merge $PR_NUMBER --squash
     # Delete remote branch after merge
     BRANCH_NAME=$(gh pr view $PR_NUMBER --json headRefName --jq '.headRefName')

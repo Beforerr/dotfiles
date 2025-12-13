@@ -5,7 +5,7 @@ commands:
     - "[ -d .jj ] && jj git fetch --quiet || git pull --quiet"
     - git submodule update --init --recursive
   status:
-    - "[ -d .jj ] && jj st || git status -s"
+    - "[ -d .jj ] && (jj st | grep -E '^(Working copy changes:|Parent commit changes:)' || true) || git status -s"
 groups:
   projects:
     - beforerr

@@ -45,20 +45,11 @@ if isinteractive()
             "@test_nowarn", "@test_skip", "@test_throws", "@test_warn", "@inferred"] =>
             :(using Test),
         ["@testitem"] => :(using TestItems),
-        ["@report_opt", "@report_call"] => :(using JET),
+        ["@report_opt", "@report_call", "@test_call", "@test_opt"] => :(using JET),
         ["@descend"] => :(using Cthulhu),
         ["@about"] => :(using About;
         macro about(x)
             Expr(:call, About.about, x)
         end),
     ])
-
-    using Pkg: Pkg
-    atreplinit() do repl
-        try
-            @eval using OhMyREPL
-        catch e
-            @warn "error while importing OhMyREPL" e
-        end
-    end
 end
