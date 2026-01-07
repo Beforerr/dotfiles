@@ -28,6 +28,7 @@ groups:
     - ~/.julia/dev/ChargedParticles
     - ~/.julia/dev/PermuteArgs
     - ~/src/HAPIClient.jl
+    - ~/src/TestParticle.jl
     - ~/src/Speasy.jl
     - ~/src/IRBEM.jl
     - ~/src/GeoAACGM.jl
@@ -47,7 +48,9 @@ groups:
     - ~/src/CDFDatasets.jl
     - ~/src/CDAWeb.jl
     - ~/src/ELFINData.jl
+    - ~/src/DMSPData.jl
     - ~/src/VelocityDistributionFunctions.jl
+    - ~/src/SpaceWeather.jl
   python:
     - ~/.python/dev/speasy
   src:
@@ -120,15 +123,15 @@ trees:
     url: "https://github.com/SciQLop/Speasy.jl"
   ~/.julia/dev/HAPIClient:
     url: "https://github.com/JuliaSpacePhysics/HAPIClient.jl"
-  ~/.python/dev/speasy:
-    url: "https://github.com/Beforerr/speasy"
+  # ~/.python/dev/speasy:
+    # url: "https://github.com/Beforerr/speasy"
   /opt/homebrew/Library/Taps/beforerr/homebrew-beforerr:
     url: "https://github.com/Beforerr/homebrew-beforerr"
   ~/src/IRBEM.jl:
     url: "https://github.com/Beforerr/IRBEM.jl"
   ~/src/GeoAACGM.jl:
     url: "https://github.com/JuliaSpacePhysics/GeoAACGM.jl"
-  ~/.julia/dev/TestParticle:
+  ~/src/TestParticle.jl:
     url: "https://github.com/Beforerr/TestParticle.jl"
   ~/src/Madrigal.jl:
     url: "https://github.com/JuliaSpacePhysics/Madrigal.jl"
@@ -142,12 +145,14 @@ trees:
     url: "https://github.com/Beforerr/TimeseriesUtilities.jl"
   ~/src/SpacePhysicsMakie.jl:
     url: "https://github.com/JuliaSpacePhysics/SpacePhysicsMakie.jl"
+  ~/src/SpaceWeather.jl:
+    url: "https://github.com/JuliaSpacePhysics/SpaceWeather.jl"
   ~/src/PlasmaWaves.jl:
-    url: "https://github.com/Beforerr/PlasmaWaves.jl"
+    url: "https://github.com/JuliaSpacePhysics/PlasmaWaves.jl"
   ~/src/SolarEnergeticParticle.jl:
     url: "https://github.com/JuliaSpacePhysics/SolarEnergeticParticle.jl"
   ~/src/MinimumVarianceAnalysis.jl:
-    url: "https://github.com/Beforerr/MinimumVarianceAnalysis.jl"
+    url: "https://github.com/JuliaSpacePhysics/MinimumVarianceAnalysis.jl"
   ~/src/CommonDataFormat.jl:
     url: "https://github.com/JuliaSpacePhysics/CommonDataFormat.jl"
   ~/src/CDFDatasets.jl:
@@ -156,5 +161,7 @@ trees:
     url: "https://github.com/JuliaSpacePhysics/CDAWeb.jl"
   ~/src/ELFINData.jl:
     url: "https://github.com/JuliaSpacePhysics/ELFINData.jl"
+  ~/src/DMSPData.jl:
+    url: https://github.com/JuliaSpacePhysics/DMSPData.jl
   ~/src/VelocityDistributionFunctions.jl:
     url: "https://github.com/JuliaSpacePhysics/VelocityDistributionFunctions.jl"

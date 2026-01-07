@@ -9,6 +9,7 @@ with pkgs;
   ## Tier 2
   btop
   coreutils
+  gh
   gdu
   goku
   killall
@@ -32,6 +33,7 @@ with pkgs;
 
   # Rust development tools
   rustup
+  typst
 
   # Node.js development tools
   # nodejs
@@ -49,6 +51,7 @@ with pkgs;
   ugrep
   ripgrep
   yq-go
+  jq
 
   tmux
 ]
