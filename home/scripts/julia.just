@@ -157,3 +157,4 @@ link:
     ln -s ~/src/VelocityDistributionFunctions.jl ~/.julia/dev/VelocityDistributionFunctions
     ln -s ~/src/PlasmaWaves.jl ~/.julia/dev/PlasmaWaves
     ln -s ~/src/MultiSpacecraftAnalysis.jl ~/.julia/dev/MultiSpacecraftAnalysis
+    ln -s ~/src/SpaceWeather.jl ~/.julia/dev/SpaceWeather

@@ -21,6 +21,7 @@ groups:
     - CurrentSheetTestParticle
     - TestParticle
     - dmsp_elfin
+    - SPEDAS_paper
   julia:
     - ~/.julia/dev/beforerr
     - ~/.julia/dev/Discontinuity
@@ -90,6 +91,8 @@ trees:
   elfin_emic:
     url: "https://github.com/Beforerr/EMIC_multi-satellites_study.git"
     depth: 1
+  SPEDAS_paper:
+    url: https://github.com/Beforerr/SPEDAS_paper
   CurrentSheetTestParticle:
     url: "https://github.com/Beforerr/CurrentSheetTestParticle.git"
   ~/src/workflows:
