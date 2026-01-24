@@ -11,17 +11,18 @@ groups:
     - beforerr
     - share
     - travel
-    - discontinuitypy
     - cs_theory
     - energetic_particles
     - ion_scattering_by_SWD
     - psp_conjunction
-    - ids_spatial_evolution_juno
-    - elfin_emic
+    # - ids_spatial_evolution_juno
+    # - elfin_emic
     - CurrentSheetTestParticle
     - TestParticle
     - dmsp_elfin
     - SPEDAS_paper
+
+    # - discontinuitypy
   julia:
     - ~/.julia/dev/beforerr
     - ~/.julia/dev/Discontinuity
@@ -33,6 +34,7 @@ groups:
     - ~/src/Speasy.jl
     - ~/src/IRBEM.jl
     - ~/src/TsyganenkoModels.jl
+    - ~/src/MagneticField.jl
     - ~/src/GeoAACGM.jl
     - ~/src/GeoCotrans.jl
     - ~/src/Madrigal.jl
