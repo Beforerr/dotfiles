@@ -158,3 +158,4 @@ link:
     ln -s ~/src/PlasmaWaves.jl ~/.julia/dev/PlasmaWaves
     ln -s ~/src/MultiSpacecraftAnalysis.jl ~/.julia/dev/MultiSpacecraftAnalysis
     ln -s ~/src/SpaceWeather.jl ~/.julia/dev/SpaceWeather
+    ln -s ~/src/TsyganenkoModels.jl ~/.julia/dev/TsyganenkoModels

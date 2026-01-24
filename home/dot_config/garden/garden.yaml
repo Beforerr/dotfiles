@@ -32,6 +32,7 @@ groups:
     - ~/src/TestParticle.jl
     - ~/src/Speasy.jl
     - ~/src/IRBEM.jl
+    - ~/src/TsyganenkoModels.jl
     - ~/src/GeoAACGM.jl
     - ~/src/GeoCotrans.jl
     - ~/src/Madrigal.jl
@@ -168,3 +169,7 @@ trees:
     url: https://github.com/JuliaSpacePhysics/DMSPData.jl
   ~/src/VelocityDistributionFunctions.jl:
     url: "https://github.com/JuliaSpacePhysics/VelocityDistributionFunctions.jl"
+  ~/src/TsyganenkoModels.jl:
+    url: "https://github.com/JuliaSpacePhysics/TsyganenkoModels.jl"
+  ~/src/MagneticField.jl:
+    url: "https://github.com/JuliaSpacePhysics/MagneticField.jl"
