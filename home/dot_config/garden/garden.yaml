@@ -34,7 +34,7 @@ groups:
     - ~/src/Speasy.jl
     - ~/src/IRBEM.jl
     - ~/src/TsyganenkoModels.jl
-    - ~/src/MagneticField.jl
+    - ~/src/MagneticModels.jl
     - ~/src/GeoAACGM.jl
     - ~/src/GeoCotrans.jl
     - ~/src/Madrigal.jl
@@ -130,7 +130,7 @@ trees:
   ~/.julia/dev/HAPIClient:
     url: "https://github.com/JuliaSpacePhysics/HAPIClient.jl"
   # ~/.python/dev/speasy:
-    # url: "https://github.com/Beforerr/speasy"
+  # url: "https://github.com/Beforerr/speasy"
   /opt/homebrew/Library/Taps/beforerr/homebrew-beforerr:
     url: "https://github.com/Beforerr/homebrew-beforerr"
   ~/src/IRBEM.jl:
@@ -173,5 +173,5 @@ trees:
     url: "https://github.com/JuliaSpacePhysics/VelocityDistributionFunctions.jl"
   ~/src/TsyganenkoModels.jl:
     url: "https://github.com/JuliaSpacePhysics/TsyganenkoModels.jl"
-  ~/src/MagneticField.jl:
-    url: "https://github.com/JuliaSpacePhysics/MagneticField.jl"
+  ~/src/v.jl:
+    url: "https://github.com/JuliaSpacePhysics/MagneticModels.jl"
