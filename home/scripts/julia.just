@@ -159,3 +159,4 @@ link:
     ln -s ~/src/MultiSpacecraftAnalysis.jl ~/.julia/dev/MultiSpacecraftAnalysis
     ln -s ~/src/SpaceWeather.jl ~/.julia/dev/SpaceWeather
     ln -s ~/src/TsyganenkoModels.jl ~/.julia/dev/TsyganenkoModels
+    ln -s ~/src/PlanetaryMagneticFields.jl ~/.julia/dev/PlanetaryMagneticFields

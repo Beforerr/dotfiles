@@ -21,6 +21,7 @@ groups:
     - TestParticle
     - dmsp_elfin
     - SPEDAS_paper
+    - AKR
 
     # - discontinuitypy
   julia:
@@ -34,7 +35,7 @@ groups:
     - ~/src/Speasy.jl
     - ~/src/IRBEM.jl
     - ~/src/TsyganenkoModels.jl
-    - ~/src/MagneticModels.jl
+    - ~/src/PlanetaryMagneticFields.jl
     - ~/src/GeoAACGM.jl
     - ~/src/GeoCotrans.jl
     - ~/src/Madrigal.jl
@@ -173,5 +174,7 @@ trees:
     url: "https://github.com/JuliaSpacePhysics/VelocityDistributionFunctions.jl"
   ~/src/TsyganenkoModels.jl:
     url: "https://github.com/JuliaSpacePhysics/TsyganenkoModels.jl"
-  ~/src/v.jl:
-    url: "https://github.com/JuliaSpacePhysics/MagneticModels.jl"
+  ~/src/PlanetaryMagneticFields.jl:
+    url: "https://github.com/JuliaSpacePhysics/PlanetaryMagneticFields.jl"
+  ~/src/AKR:
+    url: "https://github.com/Beforerr/AKR"
