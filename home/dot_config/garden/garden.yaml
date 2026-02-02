@@ -9,6 +9,7 @@ commands:
 groups:
   projects:
     - beforerr
+    - Apartar
     - share
     - travel
     - cs_theory
@@ -53,6 +54,7 @@ groups:
     - ~/src/CDFDatasets.jl
     - ~/src/CDAWeb.jl
     - ~/src/ELFINData.jl
+    - ~/src/ERGData.jl
     - ~/src/DMSPData.jl
     - ~/src/VelocityDistributionFunctions.jl
     - ~/src/SpaceWeather.jl
@@ -68,6 +70,8 @@ trees:
   beforerr:
     url: "https://github.com/Beforerr/beforerr.git"
     depth: 1
+  Apartar:
+    url: "https://github.com/Beforerr/Apartar.git"
   share:
     url: "https://github.com/Beforerr/project-share.git"
   travel:
@@ -99,6 +103,8 @@ trees:
     url: https://github.com/Beforerr/SPEDAS_paper
   CurrentSheetTestParticle:
     url: "https://github.com/Beforerr/CurrentSheetTestParticle.git"
+  AKR:
+    url: "https://github.com/Beforerr/AKR"
   ~/src/workflows:
     url: "https://github.com/Beforerr/workflows.git"
   ~/src/Beforerr.m:
@@ -167,7 +173,9 @@ trees:
   ~/src/CDAWeb.jl:
     url: "https://github.com/JuliaSpacePhysics/CDAWeb.jl"
   ~/src/ELFINData.jl:
-    url: "https://github.com/JuliaSpacePhysics/ELFINData.jl"
+    url: https://github.com/JuliaSpacePhysics/ELFINData.jl
+  ~/src/ERGData.jl:
+    url: https://github.com/JuliaSpacePhysics/ERGData.jl
   ~/src/DMSPData.jl:
     url: https://github.com/JuliaSpacePhysics/DMSPData.jl
   ~/src/VelocityDistributionFunctions.jl:
@@ -176,5 +184,3 @@ trees:
     url: "https://github.com/JuliaSpacePhysics/TsyganenkoModels.jl"
   ~/src/PlanetaryMagneticFields.jl:
     url: "https://github.com/JuliaSpacePhysics/PlanetaryMagneticFields.jl"
-  ~/src/AKR:
-    url: "https://github.com/Beforerr/AKR"

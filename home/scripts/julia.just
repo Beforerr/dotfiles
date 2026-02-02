@@ -55,11 +55,20 @@ jet:
     report_package(project().name)
 
 [no-cd]
+snoop:
+    #!/usr/bin/env -S julia --threads=auto --project=. --startup-file=no -i
+    using SnoopCompileCore, TOML
+    pkg_name = Symbol(TOML.parsefile("Project.toml")["name"])
+    invs = @eval @snoop_invalidations using $pkg_name
+    using SnoopCompile, AbstractTrees
+    trees = invalidation_trees(invs)
+
+[no-cd]
 new-package name dir="~/.julia/dev":
     #!/usr/bin/env -S julia --threads=auto
     using PkgTemplates
     Template(; 
-        dir="{{dir}}",
+        dir="{{ dir }}",
         julia=v"1.10", 
         plugins=[
             Tests(; project=true, aqua=true),
@@ -67,7 +76,7 @@ new-package name dir="~/.julia/dev":
             Codecov(),
             Documenter{GitHubActions}(),
         ]
-    )("{{name}}")
+    )("{{ name }}")
 
 [no-cd]
 new-package-sph name dir="~/src":
@@ -75,7 +84,7 @@ new-package-sph name dir="~/src":
     using PkgTemplates
     Template(; 
         user="JuliaSpacePhysics",
-        dir="{{dir}}",
+        dir="{{ dir }}",
         julia=v"1.10", 
         plugins=[
             Tests(; project=true, aqua=true),
@@ -85,7 +94,7 @@ new-package-sph name dir="~/src":
             Codecov(),
             Documenter{GitHubActions}(),
         ]
-    )("{{name}}")
+    )("{{ name }}")
 
 [no-cd]
 test:
@@ -109,8 +118,8 @@ bump: _bump register
 
 [no-cd]
 _bump:
-    julia -e 'using Pkg; !haskey(Pkg.project().dependencies, "PkgBump") && Pkg.add(url="https://github.com/AtelierArith/PkgBump.jl")'
-    julia --project -e 'using PkgBump, Pkg; project_file = Base.active_project(); project = Pkg.Types.read_project(project_file); PkgBump.updateversion!(project, project_file, :patch); new_version = project.version; run(`jj desc -m "build(release): 🔖 $new_version"`)'
+    julia -e --startup-file=no 'using Pkg; !haskey(Pkg.project().dependencies, "PkgBump") && Pkg.add(url="https://github.com/AtelierArith/PkgBump.jl")'
+    julia --project -e --startup-file=no 'using PkgBump, Pkg; project_file = Base.active_project(); project = Pkg.Types.read_project(project_file); PkgBump.updateversion!(project, project_file, :patch); new_version = project.version; run(`jj desc -m "build(release): 🔖 $new_version"`)'
     jj bookmark move main --to=@; jj git push; 
 
 [no-cd]
