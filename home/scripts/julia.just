@@ -163,6 +163,7 @@ link:
     ln -s ~/src/CDAWeb.jl ~/.julia/dev/CDAWeb
     ln -s ~/src/ELFINData.jl ~/.julia/dev/ELFINData
     ln -s ~/src/DMSPData.jl ~/.julia/dev/DMSPData
+    ln -s ~/src/ERGData.jl ~/.julia/dev/ERGData
     ln -s ~/src/VelocityDistributionFunctions.jl ~/.julia/dev/VelocityDistributionFunctions
     ln -s ~/src/PlasmaWaves.jl ~/.julia/dev/PlasmaWaves
     ln -s ~/src/MultiSpacecraftAnalysis.jl ~/.julia/dev/MultiSpacecraftAnalysis
