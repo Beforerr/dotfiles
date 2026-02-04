@@ -146,6 +146,7 @@ trees:
     url: "https://github.com/JuliaSpacePhysics/GeoAACGM.jl"
   ~/src/TestParticle.jl:
     url: "https://github.com/henry2004y/TestParticle.jl"
+    depth: 1
   ~/src/Madrigal.jl:
     url: "https://github.com/JuliaSpacePhysics/Madrigal.jl"
   ~/src/juliaspacephysics.github.io:
