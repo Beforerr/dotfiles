@@ -41,6 +41,7 @@ groups:
     - ~/src/GeoCotrans.jl
     - ~/src/Madrigal.jl
     - ~/src/PlasmaWaves.jl
+    - ~/src/PlasmaBO.jl
     - ~/src/juliaspacephysics.github.io
     - ~/src/juliaspacephysics-actions
     - ~/src/TimeseriesUtilities.jl
@@ -50,6 +51,7 @@ groups:
     - ~/src/PySPEDAS.jl
     - ~/src/SolarEnergeticParticle.jl
     - ~/src/MinimumVarianceAnalysis.jl
+    - ~/src/MultiSpacecraftAnalysis.jl
     - ~/src/CommonDataFormat.jl
     - ~/src/CDFDatasets.jl
     - ~/src/CDAWeb.jl
@@ -163,10 +165,14 @@ trees:
     url: "https://github.com/JuliaSpacePhysics/SpaceWeather.jl"
   ~/src/PlasmaWaves.jl:
     url: "https://github.com/JuliaSpacePhysics/PlasmaWaves.jl"
+  ~/src/PlasmaBo.jl:
+    url: "https://github.com/JuliaSpacePhysics/PlasmaBo.jl"
   ~/src/SolarEnergeticParticle.jl:
     url: "https://github.com/JuliaSpacePhysics/SolarEnergeticParticle.jl"
   ~/src/MinimumVarianceAnalysis.jl:
     url: "https://github.com/JuliaSpacePhysics/MinimumVarianceAnalysis.jl"
+  ~/src/MultiSpacecraftAnalysis.jl:
+    url: "https://github.com/JuliaSpacePhysics/MultiSpacecraftAnalysis.jl"
   ~/src/CommonDataFormat.jl:
     url: "https://github.com/JuliaSpacePhysics/CommonDataFormat.jl"
   ~/src/CDFDatasets.jl:
