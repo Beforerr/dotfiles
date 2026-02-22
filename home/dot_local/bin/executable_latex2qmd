@@ -1,0 +1,361 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.11"
+# dependencies = ["pyperclip"]
+# ///
+"""
+Convert LaTeX citations and common commands to Quarto/Pandoc markdown.
+
+Supported conversions:
+  \\cite{key1,key2}                    → [@key1; @key2]
+  \\cite<prefix>{key1,key2}            → [prefix @key1; @key2]
+  \\cite<prefix>[suffix]{key1,key2}    → [prefix @key1; @key2, suffix]
+  \\citeA{key}                         → @key  (inline author-year)
+  \\rev{...}                           → [text]{.added}  (configurable)
+  \\textit{...} / \\emph{...}          → *...*
+  \\textbf{...}                        → **...**
+  \\texttt{...}                        → `...`
+
+Usage:
+  latex2qmd input.tex [output.qmd]   # file → file (or stdout)
+  latex2qmd -c                       # clipboard → clipboard
+  latex2qmd -c input.tex             # file → clipboard
+  latex2qmd -c - > out.qmd           # clipboard → stdout (pipe)
+"""
+
+import re
+import sys
+import argparse
+import pyperclip
+
+# ── configuration
+REV_MODE = "strip" # "span" → [text]{.added}, "strip" → just text, "raw" → keep \rev{}
+
+# ── helpers ───────────────────────────────────────────────────────────────────
+
+def find_closing(s: str, start: int, open_char: str, close_char: str) -> int:
+    """Find the index of the matching closing delimiter."""
+    depth = 0
+    for i in range(start, len(s)):
+        if s[i] == open_char:
+            depth += 1
+        elif s[i] == close_char:
+            depth -= 1
+            if depth == 0:
+                return i
+    raise ValueError(f"Unmatched '{open_char}' starting at position {start}:\n  {s[start:start+60]}")
+
+
+def extract_optional_args(s: str, pos: int) -> tuple[str, str, int]:
+    """
+    Extract optional <prefix> and [suffix] arguments starting at pos.
+    Returns (prefix, suffix, next_pos).
+    """
+    prefix = ""
+    suffix = ""
+
+    # skip whitespace
+    while pos < len(s) and s[pos] == ' ':
+        pos += 1
+
+    # angle bracket prefix: <...>
+    if pos < len(s) and s[pos] == '<':
+        close = find_closing(s, pos, '<', '>')
+        prefix = s[pos+1:close]
+        pos = close + 1
+
+    # square bracket suffix: [...]
+    if pos < len(s) and s[pos] == '[':
+        close = find_closing(s, pos, '[', ']')
+        suffix = s[pos+1:close]
+        pos = close + 1
+
+    return prefix, suffix, pos
+
+
+def format_citation(keys_str: str, prefix: str, suffix: str) -> str:
+    """Format cite keys as a Pandoc citation."""
+    keys = [k.strip() for k in keys_str.split(',')]
+    atoms = "; ".join(f"@{k}" for k in keys)
+    inner = f"{prefix} {atoms}" if prefix else atoms
+    if suffix:
+        inner += f", {suffix}"
+    return f"[{inner}]"
+
+
+# ── brace-aware command conversion ───────────────────────────────────────────
+
+def replace_command(s: str, cmdname: str, transform) -> str:
+    """Replace all \\cmdname{...} using transform(content) → str."""
+    result = []
+    pattern = f"\\{cmdname}{{"
+    i = 0
+    while True:
+        j = s.find(pattern, i)
+        if j == -1:
+            result.append(s[i:])
+            break
+        result.append(s[i:j])
+        brace_open = j + len(pattern) - 1  # index of '{'
+        brace_close = find_closing(s, brace_open, '{', '}')
+        content = s[brace_open+1:brace_close]
+        result.append(transform(content))
+        i = brace_close + 1
+    return "".join(result)
+
+def replace_citeA(s: str) -> str:
+    """Replace \\citeA{key} → @key (inline author-year, no brackets)."""
+    result = []
+    trigger = "\\citeA"
+    i = 0
+    while True:
+        j = s.find(trigger, i)
+        if j == -1:
+            result.append(s[i:])
+            break
+        result.append(s[i:j])
+        pos = j + len(trigger)
+
+        if pos >= len(s) or s[pos] != '{':
+            result.append(trigger)
+            i = j + len(trigger)
+            continue
+
+        brace_close = find_closing(s, pos, '{', '}')
+        keys_str = s[pos+1:brace_close]
+        keys = [k.strip() for k in keys_str.split(',')]
+        # multiple keys: @key1; @key2 — still no brackets
+        result.append("; ".join(f"@{k}" for k in keys))
+        i = brace_close + 1
+    return "".join(result)
+
+def replace_cite(s: str) -> str:
+    """Replace all \\cite variants (with optional <prefix> and [suffix])."""
+    result = []
+    trigger = "\\cite"
+    i = 0
+    while True:
+        j = s.find(trigger, i)
+        if j == -1:
+            result.append(s[i:])
+            break
+        result.append(s[i:j])
+        pos = j + len(trigger)
+
+        prefix, suffix, pos = extract_optional_args(s, pos)
+
+        # expect mandatory {keys}
+        if pos >= len(s) or s[pos] != '{':
+            result.append(trigger)
+            i = j + len(trigger)
+            continue
+
+        brace_close = find_closing(s, pos, '{', '}')
+        keys_str = s[pos+1:brace_close]
+        result.append(format_citation(keys_str, prefix, suffix))
+        i = brace_close + 1
+    return "".join(result)
+
+def replace_figure(s: str) -> str:
+    """Replace LaTeX figure environments with Quarto div-style figures."""
+    result = []
+    i = 0
+    begin_trigger = "\\begin{figure}"
+    end_trigger = "\\end{figure}"
+
+    while True:
+        j = s.find(begin_trigger, i)
+        if j == -1:
+            result.append(s[i:])
+            break
+        result.append(s[i:j])
+
+        end = s.find(end_trigger, j)
+        if end == -1:
+            raise ValueError("Unclosed \\begin{figure}")
+        block = s[j + len(begin_trigger):end]
+
+        # ── extract includegraphics path ──────────────────────────────────
+        path = ""
+        path_match = re.search(r'\\includegraphics(?:\[[^\]]*\])?\{([^}]+)\}', block)
+        if path_match:
+            path = path_match.group(1)
+            # strip extension — Quarto resolves it
+            path = re.sub(r'\.(pdf|png|jpg|jpeg|svg)$', '', path)
+            # normalize to figures/ prefix if not already pathed
+            if '/' not in path:
+                path = f"figures/{path}"
+
+        # ── extract label and caption ─────────────────────────────────────
+        label = ""
+        caption = ""
+        cap_match = re.search(r'\\caption\{', block)
+        if cap_match:
+            brace_open = cap_match.end() - 1
+            brace_close = find_closing(block, brace_open, '{', '}')
+            caption_raw = block[brace_open+1:brace_close]
+
+            label_match = re.search(r'\\label\{([^}]+)\}', caption_raw)
+            if label_match:
+                label = label_match.group(1)
+                caption_raw = caption_raw[:label_match.start()] + caption_raw[label_match.end():]
+
+            caption = convert_latex_to_qmd(caption_raw.strip())
+
+        # ── assemble Quarto div figure ────────────────────────────────────
+        label_attr = f"#{ label}" if label else ""
+        lines = [
+            f"::: {{{label_attr}}}",
+            f"![]({path})",
+            "",
+            caption,
+            ":::",
+        ]
+        result.append("\n".join(lines) + "\n")
+
+        i = end + len(end_trigger)
+        if i < len(s) and s[i] == '%':
+            i += 1
+
+    return "".join(result)
+
+
+def replace_ref(s: str) -> str:
+    """
+    Replace LaTeX figure references with Quarto cross-references.
+
+      Figure~\\ref{fig-x}   → @fig-x
+      figure~\\ref{fig-x}   → @fig-x
+      Fig.~\\ref{fig-x}     → @fig-x
+      \\ref{fig-x}          → @fig-x   (bare, no preceding word)
+    """
+    # with preceding "Figure/Fig./figure" + optional ~ or space
+    s = re.sub(
+        r'(?:Figure|figure|Fig\.)\s*~?\s*\\ref\{([^}]+)\}',
+        r'@\1',
+        s
+    )
+    # bare \ref fallback
+    s = re.sub(r'\\ref\{([^}]+)\}', r'@\1', s)
+    return s
+
+def replace_sections(s: str, base_level: int = 1) -> str:
+    levels = [
+        ("\\subsubsection", base_level + 2),
+        ("\\subsection",    base_level + 1),
+        ("\\section",       base_level),
+        ("\\paragraph",     base_level + 3),
+    ]
+    for cmd, level in levels:
+        hashes = "#" * level
+        # match both starred and unstarred variants
+        pattern = re.escape(cmd) + r'\*?\s*\{'
+        result = []
+        i = 0
+        while True:
+            m = re.search(pattern, s[i:])
+            if not m:
+                result.append(s[i:])
+                break
+            start = i + m.start()
+            brace_open = i + m.end() - 1
+            result.append(s[i:start])
+            brace_close = find_closing(s, brace_open, '{', '}')
+            title = s[brace_open+1:brace_close].strip()
+            title = convert_inline_latex(title)  # handle \textit etc. in titles
+            result.append(f"\n{hashes} {title}\n")
+            i = brace_close + 1
+        s = "".join(result)
+    return s
+
+def convert_inline_latex(s: str) -> str:
+    """Apply only inline formatting conversions — safe to use inside titles."""
+    s = replace_command(s, "textit",  lambda c: f"*{c}*")
+    s = replace_command(s, "emph",    lambda c: f"*{c}*")
+    s = replace_command(s, "textbf",  lambda c: f"**{c}**")
+    s = replace_command(s, "texttt",  lambda c: f"`{c}`")
+    s = s.replace("\\ldots", "…")
+    s = s.replace("~", "\u00A0")
+    s = s.replace("---", "—")
+    s = s.replace("--",  "–")
+    return s
+
+# ── main conversion pipeline ──────────────────────────────────────────────────
+
+def convert_latex_to_qmd(s: str) -> str:
+    # citations first (most complex)
+    s = replace_figure(s)
+    s = replace_sections(s)
+    s = replace_ref(s) 
+    s = replace_citeA(s)
+    s = replace_cite(s)
+
+    # \rev{} — tracked changes / review markup
+    def rev_transform(content):
+        if REV_MODE == "span":
+            return f"[{content}]{{.added}}"
+        elif REV_MODE == "strip":
+            return content
+        else:
+            return f"\\rev{{{content}}}"
+
+    s = replace_command(s, "rev", rev_transform)
+
+    # inline formatting
+    s = replace_command(s, "textit",  lambda c: f"*{c}*")
+    s = replace_command(s, "emph",    lambda c: f"*{c}*")
+    s = replace_command(s, "textbf",  lambda c: f"**{c}**")
+    s = replace_command(s, "texttt",  lambda c: f"`{c}`")
+
+    # text replacements
+    s = s.replace("\\ldots", "…")
+    s = s.replace("~", "\u00A0")
+    s = s.replace("---", "—")
+    s = s.replace("--",  "–")
+
+    return s
+
+
+# ── entry point ───────────────────────────────────────────────────────────────
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Convert LaTeX citations and markup to Quarto/Pandoc markdown."
+    )
+    parser.add_argument(
+        "-c", "--clipboard",
+        action="store_true",
+        help="Read from clipboard if no input file given; always write result back to clipboard."
+    )
+    parser.add_argument("input",  nargs="?", help="Input .tex file (omit to read from clipboard with -c)")
+    parser.add_argument("output", nargs="?", help="Output .qmd file (omit to print to stdout)")
+    args = parser.parse_args()
+
+    # ── read input ────────────────────────────────────────────────────────────
+    if args.input:
+        text = open(args.input).read()
+    elif args.clipboard:
+        text = pyperclip.paste()
+        print("Read from clipboard.", file=sys.stderr)
+    else:
+        parser.print_help()
+        sys.exit(1)
+
+    # ── convert ───────────────────────────────────────────────────────────────
+    result = convert_latex_to_qmd(text)
+
+    # ── write output ──────────────────────────────────────────────────────────
+    if args.clipboard:
+        pyperclip.copy(result)
+        print("Result copied to clipboard.", file=sys.stderr)
+    
+    if args.output:
+        with open(args.output, "w") as f:
+            f.write(result)
+        print(f"Written to {args.output}", file=sys.stderr)
+    elif not args.clipboard:
+        print(result)
+
+
+if __name__ == "__main__":
+    main()
