@@ -10,12 +10,14 @@ update: update-config sync-projects
 update-config:
     -chezmoi update
     # nix flake update
+    # sudo mv /etc/zshrc /etc/zshrc.before-nix-darwin
+    # sudo mv /etc/zprofile /etc/zprofile.before-nix-darwin
     cd ~/nixos-config && nix run .#build-switch
 
 update-pkgs:
     -cargo install garden-tools
     -curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
-    -cargo binstall --strategies crate-meta-data jj-cli
+    -cargo binstall --strategies crate-meta-data jj-cli typst-cli
 
 sync: sync-projects sync-overleaf
 

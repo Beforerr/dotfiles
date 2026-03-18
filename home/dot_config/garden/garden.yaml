@@ -90,6 +90,9 @@ trees:
   ion_scattering_by_SWD:
     url: "https://github.com/Beforerr/ion_scattering_by_SWD.git"
     depth: 1
+  cusp_field:
+    url: "https://github.com/Beforerr/cusp_field.git"
+    depth: 1
   psp_conjunction:
     url: "https://github.com/Beforerr/psp_conjunction.git"
     depth: 1

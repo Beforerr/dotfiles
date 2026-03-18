@@ -1,32 +1,32 @@
 auto-merge:
     #!/bin/bash
     set -e
-    
+
     # Get latest PR number
     PR_NUMBER=$(gh pr list --state open --limit 1 --json number --jq '.[0].number')
     [ -z "$PR_NUMBER" ] && { echo "No open PRs found"; exit 0; }
-    
+
     echo "Checking PR #$PR_NUMBER status..."
     # Check if all checks have passed (retry up to 3 times if still running)
     for attempt in 1 2 3; do
         echo "Attempt $attempt/3..."
         CHECK_STATUS=$(gh pr checks $PR_NUMBER --json state --jq '.[] | select(.state != "SUCCESS" and .state != "SKIPPED") | .state' | wc -l)
-        
+
         [ "$CHECK_STATUS" -eq 0 ] && break
-        
+
         if [ "$attempt" -eq 3 ]; then
             echo "Checks are still running or failed after 3 attempts. Cannot merge."
             gh pr checks $PR_NUMBER
             exit 1
         fi
-        
+
         sleep_time=$((60 * (2 ** attempt)))
         echo "Checks still running. Waiting $sleep_time seconds before retry..."
         sleep $sleep_time
     done
-    
+
     echo "All checks passed."
-    just --justfile {{justfile()}} merge $PR_NUMBER
+    just --justfile {{ justfile() }} merge $PR_NUMBER
 
 [no-cd]
 merge pr_number="":
@@ -53,12 +53,32 @@ push:
     echo "Pushing current commit to GitHub..."
     jj git push -c @
 
+[no-cd]
+track-branch branch="":
+    #!/bin/bash
+    set -e
+
+    if [ -n "$branch" ]; then
+        BRANCH="$branch"
+    else
+        BRANCH=$(gh pr list --state open --limit 1 --json headRefName --jq '.[0].headRefName')
+        [ -z "$BRANCH" ] && { echo "No open GitHub PR branch found. Provide one: just track-branch <branch>"; exit 1; }
+    fi
+
+    if ! git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
+        echo "Branch '$BRANCH' not found on origin (GitHub)."
+        exit 1
+    fi
+
+    echo "Tracking GitHub branch with jujutsu: $BRANCH@origin"
+    jj bookmark track "$BRANCH@origin"
+
 create-pr:
     #!/bin/bash
     set -e
     # Get current branch name
     BRANCH=$(jj log -r @ --no-graph -T 'bookmarks')
-    
+
     # Check if we're on main branch
     if [[ "$BRANCH" == *"main"* ]]; then
         echo "Cannot create PR from main branch"

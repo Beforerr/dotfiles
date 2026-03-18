@@ -33,7 +33,6 @@ with pkgs;
 
   # Rust development tools
   rustup
-  typst
 
   # Node.js development tools
   # nodejs
