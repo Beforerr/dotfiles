@@ -28,7 +28,6 @@ groups:
   julia:
     - ~/.julia/dev/beforerr
     - ~/.julia/dev/Discontinuity
-    - ~/.julia/dev/PlasmaFormulary
     - ~/.julia/dev/ChargedParticles
     - ~/.julia/dev/PermuteArgs
     - ~/src/HAPIClient.jl
@@ -42,6 +41,7 @@ groups:
     - ~/src/Madrigal.jl
     - ~/src/PlasmaWaves.jl
     - ~/src/PlasmaBO.jl
+    - ~/src/PlasmaFormulary.jl
     - ~/src/juliaspacephysics.github.io
     - ~/src/juliaspacephysics-actions
     - ~/src/TimeseriesUtilities.jl
@@ -125,8 +125,6 @@ trees:
     url: "https://github.com/Beforerr/Discontinuity.jl"
   ~/.julia/dev/beforerr:
     url: "https://github.com/Beforerr/beforerr.jl"
-  ~/.julia/dev/PlasmaFormulary:
-    url: "https://github.com/JuliaPlasma/PlasmaFormulary.jl"
   ~/.julia/dev/ChargedParticles:
     url: "https://github.com/JuliaPlasma/ChargedParticles.jl"
   ~/.julia/dev/PermuteArgs:
@@ -139,7 +137,7 @@ trees:
     url: "https://github.com/JuliaSpacePhysics/PySPEDAS.jl"
   ~/src/Speasy.jl:
     url: "https://github.com/SciQLop/Speasy.jl"
-  ~/.julia/dev/HAPIClient:
+  ~/src/HAPIClient.jl:
     url: "https://github.com/JuliaSpacePhysics/HAPIClient.jl"
   # ~/.python/dev/speasy:
   # url: "https://github.com/Beforerr/speasy"
@@ -168,8 +166,10 @@ trees:
     url: "https://github.com/JuliaSpacePhysics/SpaceWeather.jl"
   ~/src/PlasmaWaves.jl:
     url: "https://github.com/JuliaSpacePhysics/PlasmaWaves.jl"
-  ~/src/PlasmaBo.jl:
-    url: "https://github.com/JuliaSpacePhysics/PlasmaBo.jl"
+  ~/src/PlasmaBO.jl:
+    url: "https://github.com/JuliaSpacePhysics/PlasmaBO.jl"
+  ~/src/PlasmaFormulary.jl:
+    url: "https://github.com/JuliaPlasma/PlasmaFormulary.jl"
   ~/src/SolarEnergeticParticle.jl:
     url: "https://github.com/JuliaSpacePhysics/SolarEnergeticParticle.jl"
   ~/src/MinimumVarianceAnalysis.jl:

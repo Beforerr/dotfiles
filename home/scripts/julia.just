@@ -165,7 +165,10 @@ link:
     ln -s ~/src/DMSPData.jl ~/.julia/dev/DMSPData
     ln -s ~/src/ERGData.jl ~/.julia/dev/ERGData
     ln -s ~/src/VelocityDistributionFunctions.jl ~/.julia/dev/VelocityDistributionFunctions
+    ln -s ~/src/MinimumVarianceAnalysis.jl ~/.julia/dev/MinimumVarianceAnalysis
     ln -s ~/src/PlasmaWaves.jl ~/.julia/dev/PlasmaWaves
+    ln -s ~/src/PlasmaBO.jl ~/.julia/dev/PlasmaBO
+    ln -s ~/src/PlasmaFormulary.jl ~/.julia/dev/PlasmaFormulary
     ln -s ~/src/MultiSpacecraftAnalysis.jl ~/.julia/dev/MultiSpacecraftAnalysis
     ln -s ~/src/SpaceWeather.jl ~/.julia/dev/SpaceWeather
     ln -s ~/src/TsyganenkoModels.jl ~/.julia/dev/TsyganenkoModels
