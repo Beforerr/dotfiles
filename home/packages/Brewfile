@@ -7,7 +7,7 @@ cask "raycast"
 cask "alt-tab"
 cask "betterandbetter"
 # cask "sogouinput"
-cask "maccy"
+# cask "maccy"
 cask "espanso"
 cask "eudic"
 cask "finicky"
@@ -22,17 +22,17 @@ cask "karabiner-elements"
 cask "keka"
 cask "rectangle"
 cask "rustdesk"
-cask "siyuan"
+# cask "siyuan"
 cask "shortcat"
 cask "snipaste"
 cask "zed"
 cask "stats"
-cask "tropy"
+# cask "tropy"
 cask "qlmarkdown", args: { "no-quarantine": true }
-cask "zotero@beta"
+# cask "zotero@beta"
 cask "beforerr/beforerr/quarto-pre"
 cask "mathpix-snipping-tool"
-cask "glance-chamburr", args: { "no-quarantine": true }
+cask "glance-chamburr"
 cask "microsoft-powerpoint"
 cask "microsoft-excel"
 cask "microsoft-word"
@@ -45,11 +45,11 @@ cask "telegram"
 cask "zoom"
 
 # Utility Tools
-cask "syncthing"
+# cask "syncthing"
 
 # Entertainment Tools
 cask "iina"
-cask "tor-browser"
+# cask "tor-browser"
 
 # Mac App Store Apps
 mas "Bitwarden", id: 1352778147
