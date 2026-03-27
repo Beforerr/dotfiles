@@ -22,4 +22,3 @@ source <(jj util completion zsh)
 source <(juliaup completions zsh)
 
 export PATH="/Users/zijin/.pixi/bin:$PATH"
-devbox shell
