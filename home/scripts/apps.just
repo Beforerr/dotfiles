@@ -22,9 +22,3 @@ browser-extensions:
     open https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm
     # saladict
     open https://chromewebstore.google.com/detail/saladict-pop-up-dictionar/cdonnmffkdaoajfknoeeecmchibpmkmg
-
-gpt-academic:
-    #!/usr/bin/env sh
-    cd ~/src/gpt_academic
-    micromamba run -n gptac_venv python -m pip install -r requirements.txt # 这个步骤和pip安装一样的步骤
-    micromamba run -n gptac_venv python main.py

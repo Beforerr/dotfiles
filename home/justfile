@@ -52,7 +52,6 @@ clean:
     -nix-collect-garbage -d
     -brew cleanup
     -pixi clean cache --yes
-    -micromamba clean --all
 
 [private]
 disk-usage:
@@ -62,4 +61,3 @@ disk-usage:
 check-version:
     -nix --version
     -brew --version
-    -micromamba --version

@@ -52,11 +52,6 @@ alias cma="chezmoi apply"
 alias cmr="chezmoi re-add"
 alias cme="chezmoi edit"
 
-# Micromamba
-alias m="micromamba"
-alias_helper conda micromamba
-alias_helper mamba micromamba
-
 alias j="just"
 alias .j='just --justfile ~/justfile --working-directory .'
 alias .jj='just --justfile ~/justfile --working-directory . julia'

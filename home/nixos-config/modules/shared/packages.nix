@@ -29,21 +29,14 @@ with pkgs;
 
   # Media-related packages
 
-  # Nix-related tools
-  nixfmt-rfc-style
-
   # Rust development tools
   rustup
-
-  # Node.js development tools
-  # nodejs
 
   # Python development tools
   # pixi
   # uv
   # disable pdm as it fails to create virtualenv https://github.com/NixOS/nixpkgs/issues/225730
   # pdm
-  ruff
 
   # Text and terminal utilities
   bat
