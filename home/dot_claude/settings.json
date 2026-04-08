@@ -22,7 +22,9 @@
       "WebFetch(domain:raw.githubusercontent.com)",
       "WebFetch(domain:juliaspacephysics.github.io)",
       "mcp__julia__julia_eval",
-      "mcp__julia__julia_restart"
+      "mcp__julia__julia_restart",
+      "mcp__tana-local__search_nodes",
+      "mcp__tana-local__read_node"
     ],
     "deny": [],
     "ask": []
