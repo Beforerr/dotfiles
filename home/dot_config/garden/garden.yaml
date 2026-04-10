@@ -30,6 +30,7 @@ groups:
     - ~/.julia/dev/Discontinuity
     - ~/.julia/dev/ChargedParticles
     - ~/.julia/dev/PermuteArgs
+    - ~/src/julia-client
     - ~/src/HAPIClient.jl
     - ~/src/TestParticle.jl
     - ~/src/Speasy.jl
@@ -129,6 +130,8 @@ trees:
     url: "https://github.com/JuliaPlasma/ChargedParticles.jl"
   ~/.julia/dev/PermuteArgs:
     url: "https://github.com/Beforerr/PermuteArgs.jl"
+  ~/src/julia-client:
+    url: https://github.com/Beforerr/julia-client
   ~/src/SPEDAS.jl:
     url: "https://github.com/JuliaSpacePhysics/SPEDAS.jl"
   ~/src/SpaceDataModel.jl:
