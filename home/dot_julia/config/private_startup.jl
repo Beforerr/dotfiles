@@ -35,7 +35,7 @@ macro autoinfiltrate(cond=true)
     )
 end
 
-if isinteractive() && isdefined(Base, :active_repl)
+if isinteractive()
     import BasicAutoloads
     BasicAutoloads.register_autoloads([
         ["@b", "@be"] => :(using Chairmarks),

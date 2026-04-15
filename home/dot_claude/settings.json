@@ -3,6 +3,8 @@
     "allow": [
       "Bash(jj:*)",
       "Bash(julia:*)",
+      "Bash(julia-client:*)",
+      "Bash(julia-client *)",
       "Bash(gh:*)",
       "Bash(gh pr:*)",
       "Bash(gh api:*)",
