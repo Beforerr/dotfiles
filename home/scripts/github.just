@@ -87,6 +87,7 @@ create-pr:
     # Create PR using the remote branch
     echo "Creating PR from branch: $BRANCH"
     gh pr create --head "$BRANCH" --fill
+    jj new
 
 push-and-pr: push create-pr
 

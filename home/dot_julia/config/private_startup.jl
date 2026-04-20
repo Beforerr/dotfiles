@@ -7,7 +7,7 @@ end
 import Pkg
 Pkg.UPDATED_REGISTRY_THIS_SESSION[] = true
 
-macro autoinfiltrate(cond=true)
+macro autoinfiltrate(cond = true)
     pkgid = Base.PkgId(Base.UUID("5903a43b-9cc3-4c30-8d17-598619ec4e9b"), "Infiltrator")
     if !haskey(Base.loaded_modules, pkgid)
         try
@@ -24,7 +24,8 @@ macro autoinfiltrate(cond=true)
             :macrocall,
             Symbol("@warn"),
             lnn,
-            "Could not load Infiltrator.")
+            "Could not load Infiltrator."
+        )
     end
 
     return Expr(
@@ -36,20 +37,30 @@ macro autoinfiltrate(cond=true)
 end
 
 if isinteractive()
-    import BasicAutoloads
-    BasicAutoloads.register_autoloads([
-        ["@b", "@be"] => :(using Chairmarks),
-        ["@track"] => :(using RegressionTests),
-        ["@benchmark", "@btime"] => :(using BenchmarkTools),
-        ["@test", "@testset", "@test_broken", "@test_deprecated", "@test_logs",
-            "@test_nowarn", "@test_skip", "@test_throws", "@test_warn", "@inferred"] =>
-            :(using Test),
-        ["@testitem"] => :(using TestItems),
-        ["@report_opt", "@report_call", "@test_call", "@test_opt"] => :(using JET),
-        ["@descend"] => :(using Cthulhu),
-        ["@about"] => :(using About;
-        macro about(x)
-            Expr(:call, About.about, x)
-        end),
-    ])
+    atreplinit() do _
+        @eval Main begin
+            import BasicAutoloads
+            BasicAutoloads.register_autoloads(
+                [
+                    ["@b", "@be"] => :(using Chairmarks),
+                    ["@track"] => :(using RegressionTests),
+                    ["@benchmark", "@btime"] => :(using BenchmarkTools),
+                    [
+                        "@test", "@testset", "@test_broken", "@test_deprecated", "@test_logs",
+                        "@test_nowarn", "@test_skip", "@test_throws", "@test_warn", "@inferred",
+                    ] =>
+                        :(using Test),
+                    ["@testitem"] => :(using TestItems),
+                    ["@report_opt", "@report_call", "@test_call", "@test_opt"] => :(using JET),
+                    ["@descend"] => :(using Cthulhu),
+                    ["@about"] => :(
+                        using About;
+                        macro about(x)
+                            return Expr(:call, About.about, x)
+                        end
+                    ),
+                ]
+            )
+        end
+    end
 end

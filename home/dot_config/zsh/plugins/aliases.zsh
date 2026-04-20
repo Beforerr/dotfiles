@@ -33,7 +33,6 @@ alias p="cd ~/projects"
 alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
 
 # Editors
-alias_helper c code
 alias_helper s subl
 alias_helper v nvim
 
@@ -64,3 +63,7 @@ alias jgpc="jj git push -c @"
 alias jgpr="jj git push -c @; .j create-pr"
 alias js="jj status"
 alias jjs="jj squash"
+
+# Claude
+alias c="claude --dangerously-skip-permissions"
+alias cc="claude --dangerously-skip-permissions"

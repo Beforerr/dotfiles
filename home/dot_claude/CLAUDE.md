@@ -9,5 +9,11 @@
 
 ## Style Guidelines
 
-- When writing functions, avoid restricting argument types (omit them when possible). Declare them only when necessary for dispatch, correctness, or clarity.
-- Prefer clear, concise, consistent, and understandable docstrings over verbose ones. Only provide an argument list when really necessary. Include additional explanations for meaningful context (e.g., complex logic, non-obvious behavior, side effects).
+- Prefer clear, concise, consistent, and understandable docstrings over verbose ones. Only provide argument list when really necessary. Include additional explanations for meaningful context (e.g., complex logic, non-obvious behavior, side effects).
+
+## Julia development
+
+- When writing functions, avoid restricting argument types (omit types when possible; declare for dispatch, correctness, or clarity).
+- Never edit Project.toml directly (use `Pkg` commands)
+- Activate the test environment with `Pkg.activate("test"; io=devnull)`
+- Run selective tests with [`TestRunner`](https://github.com/aviatesk/TestRunner.jl): `using TestRunner; runtest("test/runtests.jl", ["TestSetName", r"TestSetRegex"])`
