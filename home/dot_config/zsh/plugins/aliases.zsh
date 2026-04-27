@@ -66,4 +66,4 @@ alias jjs="jj squash"
 
 # Claude
 alias c="claude --dangerously-skip-permissions"
-alias cc="claude --dangerously-skip-permissions"
+alias cc="claude --dangerously-skip-permissions -c"

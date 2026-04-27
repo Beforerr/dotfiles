@@ -15,5 +15,5 @@
 
 - When writing functions, avoid restricting argument types (omit types when possible; declare for dispatch, correctness, or clarity).
 - Never edit Project.toml directly (use `Pkg` commands)
-- Activate the test environment with `Pkg.activate("test"; io=devnull)`
+- Activate the test environment with `Pkg.activate("test")`
 - Run selective tests with [`TestRunner`](https://github.com/aviatesk/TestRunner.jl): `using TestRunner; runtest("test/runtests.jl", ["TestSetName", r"TestSetRegex"])`

@@ -1,3 +1,8 @@
+merge-dependabot:
+    #!/bin/bash
+    gh pr list --state open --author "app/dependabot" --json number --jq '.[].number' \
+    | xargs -I {} gh pr merge {} --squash --delete-branch 
+
 auto-merge:
     #!/bin/bash
     set -e
