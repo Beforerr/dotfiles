@@ -44,6 +44,7 @@ restore-config:
     mackup restore --force && mackup uninstall --force
 
 link:
+    ln -s ~/.claude/CLAUDE.md ~/.codex/AGENTS.md
     ln -s ~/Library/CloudStorage/Box-Box/research ~/research
 
 [private]

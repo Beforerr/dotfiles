@@ -13,7 +13,9 @@
 
 ## Julia development
 
-- When writing functions, avoid restricting argument types (omit types when possible; declare for dispatch, correctness, or clarity).
-- Never edit Project.toml directly (use `Pkg` commands)
-- Activate the test environment with `Pkg.activate("test")`
-- Run selective tests with [`TestRunner`](https://github.com/aviatesk/TestRunner.jl): `using TestRunner; runtest("test/runtests.jl", ["TestSetName", r"TestSetRegex"])`
+- When writing functions, avoid restricting argument types (omit types when possible; declare for dispatch, correctness, or clarity);
+- Never edit Project.toml directly (use `Pkg` commands);
+- Activate test environment with `Pkg.activate("test")`;
+- For selective tests:
+    - `using TestRunner` with `@testset`: `runtest("test/runtests.jl", ["TestSetName", r"TestSetRegex"])`
+    - `using TestItemRunner` with `@testitem`: `TestItemRunner.run_tests(pwd(); filter = ti -> ti.name == "TestItemName")`
