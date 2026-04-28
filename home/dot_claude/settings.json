@@ -35,7 +35,6 @@
     "skill-creator@claude-plugins-official": true
   },
   "effortLevel": "high",
-  "advisorModel": "opus",
   "skipDangerousModePermissionPrompt": true,
   "agentPushNotifEnabled": true
 }
