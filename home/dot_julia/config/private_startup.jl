@@ -7,12 +7,6 @@ end
 import Pkg
 Pkg.UPDATED_REGISTRY_THIS_SESSION[] = true
 
-try
-    using AbbreviatedStackTraces
-catch e
-    @info "AbbreviatedStackTraces not installed. Run `] add AbbreviatedStackTraces` to install it."
-end
-
 macro autoinfiltrate(cond = true)
     pkgid = Base.PkgId(Base.UUID("5903a43b-9cc3-4c30-8d17-598619ec4e9b"), "Infiltrator")
     if !haskey(Base.loaded_modules, pkgid)
