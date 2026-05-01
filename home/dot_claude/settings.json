@@ -27,7 +27,6 @@
     "deny": [],
     "ask": []
   },
-  "model": "opus",
   "statusLine": {
     "type": "command",
     "command": "sh /Users/zijin/.claude/statusline-command.sh"
