@@ -13,8 +13,6 @@ from pyzotero import zotero
 def lookup(zot, query):
     match = None
 
-    match = None
-
     # 1. Exact citekey
     items = zot.items(q=query, limit=20)
     match = next(
