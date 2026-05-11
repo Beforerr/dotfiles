@@ -1,7 +1,7 @@
 #!/usr/bin/env -S uv run --script
 # /// script
 # requires-python = ">=3.11"
-# dependencies = ["pyzotero"]
+# dependencies = ["pyzotero", "pytest"]
 # ///
 """Lookup a Zotero item by citekey, DOI, or partial title; print metadata + local PDF path."""
 
@@ -115,53 +115,46 @@ def main():
         print_item(zot, match, query)
 
 
-def run_tests():
-    import unittest
+_zot = None
 
-    class ZoteroLookupTests(unittest.TestCase):
-        @classmethod
-        def setUpClass(cls):
-            cls.zot = zotero.Zotero(0, "user", local=True)
+def _get_zot():
+    global _zot
+    if _zot is None:
+        _zot = zotero.Zotero(0, "user", local=True)
+    return _zot
 
-        def test_citekey(self):
-            m = lookup(self.zot, "zhangExploringOuterRadiation2025")
-            self.assertIsNotNone(m)
-            self.assertEqual(m["data"]["citationKey"], "zhangExploringOuterRadiation2025")
+def test_citekey():
+    m = lookup(_get_zot(), "zhangExploringOuterRadiation2025")
+    assert m is not None
+    assert m["data"]["citationKey"] == "zhangExploringOuterRadiation2025"
 
-        def test_doi(self):
-            m = lookup(self.zot, "10.1029/2025GL116966")
-            self.assertIsNotNone(m)
-            self.assertEqual(m["data"]["DOI"], "10.1029/2025GL116966")
+def test_doi():
+    m = lookup(_get_zot(), "10.1029/2025GL116966")
+    assert m is not None
+    assert m["data"]["DOI"] == "10.1029/2025GL116966"
 
-        def test_doi_url_prefix(self):
-            m = lookup(self.zot, "https://doi.org/10.1029/2025GL116966")
-            self.assertIsNotNone(m)
-            self.assertEqual(m["data"]["DOI"], "10.1029/2025GL116966")
+def test_doi_url_prefix():
+    m = lookup(_get_zot(), "https://doi.org/10.1029/2025GL116966")
+    assert m is not None
+    assert m["data"]["DOI"] == "10.1029/2025GL116966"
 
-        def test_partial_title(self):
-            m = lookup(self.zot, "Outer Radiation Belt")
-            self.assertIsNotNone(m)
-            self.assertIn("Outer Radiation Belt", m["data"]["title"])
+def test_partial_title():
+    m = lookup(_get_zot(), "Outer Radiation Belt")
+    assert m is not None
+    assert "Outer Radiation Belt" in m["data"]["title"]
 
-        def test_dedup(self):
-            # citekey and DOI for the same paper → same key
-            m1 = lookup(self.zot, "zhangExploringOuterRadiation2025")
-            m2 = lookup(self.zot, "10.1029/2025GL116966")
-            self.assertEqual(m1["key"], m2["key"])
+def test_dedup():
+    m1 = lookup(_get_zot(), "zhangExploringOuterRadiation2025")
+    m2 = lookup(_get_zot(), "10.1029/2025GL116966")
+    assert m1["key"] == m2["key"]
 
-        def test_not_found(self):
-            m = lookup(self.zot, "thisDoesNotExist99999")
-            self.assertIsNone(m)
-
-    suite = unittest.TestLoader().loadTestsFromTestCase(ZoteroLookupTests)
-    runner = unittest.TextTestRunner(verbosity=2)
-    result = runner.run(suite)
-    sys.exit(0 if result.wasSuccessful() else 1)
+def test_not_found():
+    assert lookup(_get_zot(), "thisDoesNotExist99999") is None
 
 
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "--test":
-        sys.argv.pop(1)
-        run_tests()
+        import pytest
+        sys.exit(pytest.main([__file__, "-v"]))
     else:
         main()
