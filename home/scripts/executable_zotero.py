@@ -7,50 +7,8 @@
 
 import sys
 import os
-import sqlite3
 from pyzotero import zotero
-
-def lookup(zot, query):
-    match = None
-
-    # 1. Exact citekey
-    items = zot.items(q=query, limit=20)
-    match = next(
-        (i for i in items if i["data"].get("citationKey") == query), None
-    )
-
-    # 2. DOI — Zotero API doesn't index DOI fields, query SQLite directly
-    if not match:
-        doi = query.removeprefix("https://doi.org/").removeprefix("doi:")
-        db_path = os.path.expanduser("~/Zotero/zotero.sqlite")
-        try:
-            con = sqlite3.connect(f"file:{db_path}?mode=ro&immutable=1", uri=True)
-            row = con.execute(
-                "SELECT items.key FROM itemData "
-                "JOIN fields ON itemData.fieldID = fields.fieldID "
-                "JOIN itemDataValues ON itemData.valueID = itemDataValues.valueID "
-                "JOIN items ON itemData.itemID = items.itemID "
-                "WHERE fields.fieldName = 'DOI' "
-                "AND LOWER(itemDataValues.value) = LOWER(?)",
-                (doi,),
-            ).fetchone()
-            con.close()
-            if row:
-                match = zot.item(row[0])
-        except Exception:
-            pass
-
-    # 3. Partial title (case-insensitive substring)
-    if not match:
-        title_items = zot.items(q=query, limit=20)
-        ql = query.lower()
-        match = next(
-            (i for i in title_items if ql in i["data"].get("title", "").lower()),
-            None,
-        )
-
-    return match
-
+from zotero_lib import lookup, find_local_pdf
 
 def print_item(zot, match, query):
     d = match["data"]
@@ -76,18 +34,11 @@ def print_item(zot, match, query):
 
     # Find local PDF
     children = zot.children(match["key"])
-    storage_base = os.path.expanduser("~/Zotero/storage")
-    for child in children:
-        cd = child["data"]
-        if cd.get("contentType") == "application/pdf":
-            att_key = cd["key"]
-            filename = cd.get("filename", "")
-            pdf_path = os.path.join(storage_base, att_key, filename)
-            if os.path.exists(pdf_path):
-                print(f"PDF:     {pdf_path.replace(os.path.expanduser('~'), '~', 1)}")
-            else:
-                print(f"PDF:     (not downloaded; filename: {filename})")
-            break
+    pdf, filename = find_local_pdf(children)
+    if pdf:
+        print(f"PDF:     {str(pdf).replace(os.path.expanduser('~'), '~', 1)}")
+    elif filename:
+        print(f"PDF:     (not downloaded; filename: {filename})")
 
 
 def main():
