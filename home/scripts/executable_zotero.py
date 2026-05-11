@@ -53,10 +53,6 @@ def lookup(zot, query):
 
 
 def print_item(zot, match, query):
-    if not match:
-        print(f"No item found for: {query}", file=sys.stderr)
-        return
-
     d = match["data"]
     creators = d.get("creators", [])
     authors = ", ".join(
@@ -66,6 +62,7 @@ def print_item(zot, match, query):
     )
 
     print(f"Title:   {d.get('title', '')}")
+    print(f"Citekey: {d.get('citationKey', '')}")
     print(f"Authors: {authors}")
     print(f"Journal: {d.get('publicationTitle', d.get('bookTitle', ''))}")
     print(f"Date:    {d.get('date', '')}")
@@ -87,7 +84,7 @@ def print_item(zot, match, query):
             filename = cd.get("filename", "")
             pdf_path = os.path.join(storage_base, att_key, filename)
             if os.path.exists(pdf_path):
-                print(f"PDF:     {pdf_path}")
+                print(f"PDF:     {pdf_path.replace(os.path.expanduser('~'), '~', 1)}")
             else:
                 print(f"PDF:     (not downloaded; filename: {filename})")
             break
@@ -101,12 +98,70 @@ def main():
     zot = zotero.Zotero(0, "user", local=True)
     queries = sys.argv[1:]
 
-    for i, query in enumerate(queries):
-        if i > 0:
-            print()
+    seen = set()
+    first = True
+    for query in queries:
         match = lookup(zot, query)
+        if match is None:
+            print(f"No item found for: {query}", file=sys.stderr)
+            continue
+        key = match["key"]
+        if key in seen:
+            continue
+        seen.add(key)
+        if not first:
+            print()
+        first = False
         print_item(zot, match, query)
 
 
+def run_tests():
+    import unittest
+
+    class ZoteroLookupTests(unittest.TestCase):
+        @classmethod
+        def setUpClass(cls):
+            cls.zot = zotero.Zotero(0, "user", local=True)
+
+        def test_citekey(self):
+            m = lookup(self.zot, "zhangExploringOuterRadiation2025")
+            self.assertIsNotNone(m)
+            self.assertEqual(m["data"]["citationKey"], "zhangExploringOuterRadiation2025")
+
+        def test_doi(self):
+            m = lookup(self.zot, "10.1029/2025GL116966")
+            self.assertIsNotNone(m)
+            self.assertEqual(m["data"]["DOI"], "10.1029/2025GL116966")
+
+        def test_doi_url_prefix(self):
+            m = lookup(self.zot, "https://doi.org/10.1029/2025GL116966")
+            self.assertIsNotNone(m)
+            self.assertEqual(m["data"]["DOI"], "10.1029/2025GL116966")
+
+        def test_partial_title(self):
+            m = lookup(self.zot, "Outer Radiation Belt")
+            self.assertIsNotNone(m)
+            self.assertIn("Outer Radiation Belt", m["data"]["title"])
+
+        def test_dedup(self):
+            # citekey and DOI for the same paper → same key
+            m1 = lookup(self.zot, "zhangExploringOuterRadiation2025")
+            m2 = lookup(self.zot, "10.1029/2025GL116966")
+            self.assertEqual(m1["key"], m2["key"])
+
+        def test_not_found(self):
+            m = lookup(self.zot, "thisDoesNotExist99999")
+            self.assertIsNone(m)
+
+    suite = unittest.TestLoader().loadTestsFromTestCase(ZoteroLookupTests)
+    runner = unittest.TextTestRunner(verbosity=2)
+    result = runner.run(suite)
+    sys.exit(0 if result.wasSuccessful() else 1)
+
+
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) > 1 and sys.argv[1] == "--test":
+        sys.argv.pop(1)
+        run_tests()
+    else:
+        main()
