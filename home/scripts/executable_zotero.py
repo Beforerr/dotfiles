@@ -10,14 +10,8 @@ import os
 import sqlite3
 from pyzotero import zotero
 
-def main():
-    if len(sys.argv) < 2:
-        print("Usage: zotero.py <citekey|DOI|partial title>", file=sys.stderr)
-        sys.exit(1)
-
-    query = sys.argv[1]
-
-    zot = zotero.Zotero(0, "user", local=True)
+def lookup(zot, query):
+    match = None
 
     match = None
 
@@ -57,9 +51,13 @@ def main():
             None,
         )
 
+    return match
+
+
+def print_item(zot, match, query):
     if not match:
         print(f"No item found for: {query}", file=sys.stderr)
-        sys.exit(1)
+        return
 
     d = match["data"]
     creators = d.get("creators", [])
@@ -95,6 +93,22 @@ def main():
             else:
                 print(f"PDF:     (not downloaded; filename: {filename})")
             break
+
+
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: zotero.py <citekey|DOI|partial title> [...]", file=sys.stderr)
+        sys.exit(1)
+
+    zot = zotero.Zotero(0, "user", local=True)
+    queries = sys.argv[1:]
+
+    for i, query in enumerate(queries):
+        if i > 0:
+            print()
+        match = lookup(zot, query)
+        print_item(zot, match, query)
+
 
 if __name__ == "__main__":
     main()
