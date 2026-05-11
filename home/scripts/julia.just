@@ -97,16 +97,24 @@ new-package-sph name dir="~/src":
     )("{{ name }}")
 
 [no-cd]
-fast-test:
-    julia-client --project=test -e '
-        using TOML
-        test_deps = get(TOML.parsefile(joinpath(pwd(), "test", "Project.toml")), "deps", Dict())
-        if haskey(test_deps, "TestItems") || haskey(test_deps, "TestItemRunner")
-            using TestItemRunner; TestItemRunner.run_tests(pwd())
+fast-test filter="":
+    #!/usr/bin/env -S julia-client --project=test
+    using TOML
+    test_deps = get(TOML.parsefile(joinpath(pwd(), "test", "Project.toml")), "deps", Dict())
+    filter_str = "{{ filter }}"
+    if haskey(test_deps, "TestItems") || haskey(test_deps, "TestItemRunner")
+        using TestItemRunner
+        kw = isempty(filter_str) ? (;) : (; filter = ti -> occursin(Regex(filter_str), ti.name))
+        TestItemRunner.run_tests(pwd(); kw...)
+    else
+        runtests = joinpath(pwd(), "test", "runtests.jl")
+        if isempty(filter_str)
+            include(runtests)
         else
-            include(joinpath(pwd(), "test", "runtests.jl"))
+            using TestRunner
+            TestRunner.runtest(runtests, [Regex(filter_str)])
         end
-    '
+    end
 
 [no-cd]
 time-import:

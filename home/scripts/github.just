@@ -45,8 +45,6 @@ merge pr_number="":
         PR_NUMBER=$(gh pr list --state open --limit 1 --json number --jq '.[0].number')
         [ -z "$PR_NUMBER" ] && { echo "No open PRs found"; exit 0; }
     fi
-
-    echo "Merging PR #$PR_NUMBER..."
     gh pr merge $PR_NUMBER --squash
     # Delete remote branch after merge
     BRANCH_NAME=$(gh pr view $PR_NUMBER --json headRefName --jq '.headRefName')
@@ -74,9 +72,10 @@ track-branch branch="":
     echo "Tracking GitHub branch with jujutsu: $BRANCH@origin"
     jj bookmark track "$BRANCH@origin"
 
-create-pr:
+push-and-pr:
     #!/bin/bash
     set -e
+    jj git push -c @
     BRANCH_NAME=$(jj log -r @ --no-graph -T 'bookmarks')
 
     if [[ "$BRANCH_NAME" == *"main"* ]]; then
@@ -87,11 +86,3 @@ create-pr:
     echo "Creating PR from branch: $BRANCH_NAME"
     gh pr create --head "$BRANCH_NAME" --fill
     jj new
-
-push-and-pr:
-    jj git push -c @
-    create-pr
-
-[no-cd]
-register:
-    just julia register

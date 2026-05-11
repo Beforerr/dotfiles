@@ -62,6 +62,10 @@ disk-usage:
     gdu --ignore-dirs-pattern '.*CloudStorage'
     gdu / -I '.*CloudStorage'
 
+# Lookup a Zotero item by citekey — prints metadata and local PDF path
+zotero citekey:
+    uv run --with pyzotero ~/scripts/zotero.py {{citekey}}
+
 check-version:
     -nix --version
     -brew --version

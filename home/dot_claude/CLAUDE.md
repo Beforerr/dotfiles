@@ -14,11 +14,13 @@
 
 ## Task automation (`just`)
 
-- User-level justfile: `~/justfile` (modules: `julia`, `rust`, `github`)
+Recipes are guidelines, not fixed rules — add or improve them as needed to fit task.
+
+- User-level justfile: `~/justfile` (modules: `julia`, `rust`, `github` in `~/scripts/`)
 - Discover recipes: `just --list` or `just --justfile ~/justfile --list`
-- Always use `--justfile ~/justfile` when calling from a project directory, e.g. `just --justfile ~/justfile check-bump`
-- Use `--dry-run` to preview commands before executing, e.g. `just --justfile ~/justfile --dry-run bump`
-- Common recipes: `julia test`, `julia time-import`, `github create-pr`, `github push-and-pr`
+- Always use `--justfile ~/justfile` when calling from project directory, e.g. `just --justfile ~/justfile check-bump`
+- Use `--dry-run` to preview commands before executing
+- Common recipes: `julia fast-test`, `julia time-import`, `github push-and-pr`
 
 ## Julia development
 
