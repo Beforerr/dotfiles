@@ -97,8 +97,22 @@ new-package-sph name dir="~/src":
     )("{{ name }}")
 
 [no-cd]
-test:
-    julia --threads=auto --project=. -e 'using Pkg; Pkg.test()'
+fast-test:
+    julia-client --project=test -e '
+        using TOML
+        test_deps = get(TOML.parsefile(joinpath(pwd(), "test", "Project.toml")), "deps", Dict())
+        if haskey(test_deps, "TestItems") || haskey(test_deps, "TestItemRunner")
+            using TestItemRunner; TestItemRunner.run_tests(pwd())
+        else
+            include(joinpath(pwd(), "test", "runtests.jl"))
+        end
+    '
+
+[no-cd]
+time-import:
+    #!/usr/bin/env sh
+    name=$(julia --threads=auto --project=. --startup-file=no -e 'using Pkg; Pkg.resolve(); Pkg.instantiate(); print(Pkg.project().name)')
+    julia --project=. --startup-file=no -e "@time Base.@time_imports using $name"
 
 [private]
 clean:
@@ -112,15 +126,34 @@ clean:
             rm -rf "$dir"
         fi
     done
-    # ~/Library/Caches/quarto/julia/Project.toml
-
-bump: _bump register
 
 [no-cd]
-_bump:
+bump:
+    #!/usr/bin/env sh
+    set -e
+    bump_type=$(just --justfile ~/justfile _bump-type)
     julia --startup-file=no -e 'using Pkg; !haskey(Pkg.project().dependencies, "PkgBump") && Pkg.add(url="https://github.com/AtelierArith/PkgBump.jl")'
-    julia --project --startup-file=no -e 'using PkgBump, Pkg; project_file = Base.active_project(); project = Pkg.Types.read_project(project_file); PkgBump.updateversion!(project, project_file, :patch); new_version = project.version; run(`jj desc -m "build(release): 🔖 $new_version"`)'
-    jj bookmark move main --to=@; jj git push; 
+    new_version=$(julia --project --startup-file=no -e "
+        using PkgBump, Pkg
+        project_file = Base.active_project()
+        project = Pkg.Types.read_project(project_file)
+        PkgBump.updateversion!(project, project_file, :$bump_type)
+        print(project.version)
+    ")
+    echo "Bumped to v$new_version ($bump_type)"
+    jj desc -m "build(release): 🔖 $new_version"
+    jj bookmark move main --to=@
+    jj git push
+    if [ "$bump_type" = "patch" ]; then
+        just --justfile ~/justfile julia register
+    else
+        REPO_INFO=$(gh repo view --json owner,name)
+        OWNER=$(echo "$REPO_INFO" | jq -r '.owner.login')
+        REPO_NAME=$(echo "$REPO_INFO" | jq -r '.name')
+        COMMIT_HASH=$(jj log -r main --no-graph --template 'commit_id.short()')
+        echo "⚠️  Breaking change detected — register manually:"
+        echo "https://github.com/$OWNER/$REPO_NAME/commit/$COMMIT_HASH"
+    fi
 
 [no-cd]
 register:

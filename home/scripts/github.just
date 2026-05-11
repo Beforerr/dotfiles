@@ -54,10 +54,6 @@ merge pr_number="":
     jj git fetch
     jj rebase -s @ -d main
 
-push:
-    echo "Pushing current commit to GitHub..."
-    jj git push -c @
-
 [no-cd]
 track-branch branch="":
     #!/bin/bash
@@ -81,25 +77,20 @@ track-branch branch="":
 create-pr:
     #!/bin/bash
     set -e
-    # Get current branch name
-    BRANCH=$(jj log -r @ --no-graph -T 'bookmarks')
+    BRANCH_NAME=$(jj log -r @ --no-graph -T 'bookmarks')
 
-    # Check if we're on main branch
-    if [[ "$BRANCH" == *"main"* ]]; then
+    if [[ "$BRANCH_NAME" == *"main"* ]]; then
         echo "Cannot create PR from main branch"
         exit 1
     fi
     # Create PR using the remote branch
-    echo "Creating PR from branch: $BRANCH"
-    gh pr create --head "$BRANCH" --fill
+    echo "Creating PR from branch: $BRANCH_NAME"
+    gh pr create --head "$BRANCH_NAME" --fill
     jj new
 
-push-and-pr: push create-pr
-
-sleep:
-    sleep 10
-
-push-and-pr-and-merge: push create-pr sleep auto-merge
+push-and-pr:
+    jj git push -c @
+    create-pr
 
 [no-cd]
 register:

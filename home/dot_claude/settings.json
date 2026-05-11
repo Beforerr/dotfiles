@@ -35,6 +35,7 @@
     "skill-creator@claude-plugins-official": true
   },
   "effortLevel": "high",
+  "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "agentPushNotifEnabled": true
 }

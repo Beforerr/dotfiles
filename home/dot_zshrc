@@ -14,13 +14,15 @@ export PATH
 # <<< juliaup initialize <<<
 
 # Added by Windsurf
-export PATH="/Users/zijin/.codeium/windsurf/bin:$PATH"
+export PATH="$HOME/.codeium/windsurf/bin:$PATH"
 
 autoload -U compinit
 compinit
 source <(jj util completion zsh)
 source <(juliaup completions zsh)
 
-export PATH="/Users/zijin/.pixi/bin:$PATH"
+export PATH="$HOME/.pixi/bin:$PATH"
 
 eval "$(devbox global shellenv --init-hook)"
+
+export PERSON_PROFILE_DIR="$HOME/Library/Mobile Documents/com~apple~CloudDocs/profiles"

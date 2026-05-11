@@ -12,6 +12,14 @@
 
 - Prefer clear, concise, consistent, and understandable docstrings over verbose ones. Only provide argument list when really necessary. Include additional explanations for meaningful context (e.g., complex logic, non-obvious behavior, side effects).
 
+## Task automation (`just`)
+
+- User-level justfile: `~/justfile` (modules: `julia`, `rust`, `github`)
+- Discover recipes: `just --list` or `just --justfile ~/justfile --list`
+- Always use `--justfile ~/justfile` when calling from a project directory, e.g. `just --justfile ~/justfile check-bump`
+- Use `--dry-run` to preview commands before executing, e.g. `just --justfile ~/justfile --dry-run bump`
+- Common recipes: `julia test`, `julia time-import`, `github create-pr`, `github push-and-pr`
+
 ## Julia development
 
 - When writing functions, avoid restricting argument types (omit types when possible; declare for dispatch, correctness, or clarity);
