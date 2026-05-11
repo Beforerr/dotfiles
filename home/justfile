@@ -1,5 +1,6 @@
 import? 'scripts/languages.just'
 import? 'scripts/github.just'
+
 mod? hosts 'scripts/hosts.just'
 
 default:
@@ -62,9 +63,9 @@ disk-usage:
     gdu --ignore-dirs-pattern '.*CloudStorage'
     gdu / -I '.*CloudStorage'
 
-# Lookup a Zotero item by citekey — prints metadata and local PDF path
-zotero citekey:
-    uv run --with pyzotero ~/scripts/zotero.py {{citekey}}
+# Lookup a Zotero item by citekey, DOI, or partial title; prints metadata and local PDF path
+zotero query:
+    uv run ~/scripts/zotero.py {{ query }}
 
 check-version:
     -nix --version
