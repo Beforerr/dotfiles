@@ -1,5 +1,6 @@
 import? 'scripts/languages.just'
 import? 'scripts/github.just'
+import? 'scripts/latex.just'
 
 mod? hosts 'scripts/hosts.just'
 
