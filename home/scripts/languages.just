@@ -17,6 +17,21 @@ bump:
     fi
 
 [no-cd]
+coverage:
+    #!/usr/bin/env sh
+    find . -name '*.cov' -delete
+    if [ -f Project.toml ]; then
+        julia --project=. --code-coverage=user test/runtests.jl
+        julia --project=@temp -e 'using Pkg; Pkg.add("Coverage"; io=devnull); using Coverage; LCOV.writefile("lcov.info", process_folder("."))'
+    else
+        echo "No Project.toml found"
+    fi
+    genhtml lcov.info --output-directory coverage-html
+    echo "Coverage report generated in coverage-html/index.html"
+    find . -name '*.cov' -delete
+    echo "Clean after: \`rm -rf lcov.info coverage-html\`"
+
+[no-cd]
 [private]
 _bump-type:
     #!/usr/bin/env sh

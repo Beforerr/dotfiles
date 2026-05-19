@@ -5,7 +5,7 @@ import? 'scripts/latex.just'
 mod? hosts 'scripts/hosts.just'
 
 default:
-    just --list
+    just --list --justfile ~/justfile
 
 update: update-config sync-projects
 
@@ -30,7 +30,7 @@ sync-projects:
 
 [private]
 sync-overleaf:
-    just -f projects/share/justfile sync-overleaf
+    cd ~/projects/share && just sync-overleaf
 
 backup-config:
     #!/usr/bin/env sh
@@ -68,6 +68,6 @@ disk-usage:
 zotero +query:
     ~/scripts/zotero.py {{ query }}
 
-check-version:
-    -nix --version
-    -brew --version
+# extract_figures from a PDF file
+extract_figures +pdf_file:
+    ~/scripts/extract_figures.py {{ pdf_file }}

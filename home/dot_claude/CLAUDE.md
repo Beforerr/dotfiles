@@ -16,11 +16,10 @@
 
 Recipes are guidelines, not fixed rules — add or improve them as needed to fit task.
 
-- User-level justfile: `~/justfile` (modules: `julia`, `rust`, `github` in `~/scripts/`)
-- Discover recipes: `just --list` or `just --justfile ~/justfile --list`
-- Always use `--justfile ~/justfile` when calling from project directory, e.g. `just --justfile ~/justfile check-bump`
-- Use `--dry-run` to preview commands before executing
-- Common recipes: `julia fast-test`, `julia time-import`, `github push-and-pr`
+- User-level justfile: `~/justfile` (modules: `julia`, `rust`, `github` in `~/scripts/`). Use `--justfile ~/justfile` when calling from project directory.
+- Discover recipes: `just --justfile ~/justfile --list`
+- `--dry-run` available to preview commands before executing
+- Common recipes: `julia fast-test [regex]`, `julia time-import`, `github push-and-pr`
 
 ## Julia development
 

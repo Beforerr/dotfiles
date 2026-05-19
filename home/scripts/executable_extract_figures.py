@@ -12,7 +12,13 @@ Usage:
 
 Requires Zotero to be running with Better BibTeX installed.
 
-Output folder:
+Output layout
+  Default (no output_dir given): figures land in a *central* directory
+  ($PAPERS_DIR, default ~/Documents/papers/<key>) and a symlink
+  ./sources/papers/<key> is created in the current project pointing to it.
+  Pass an explicit output_dir to bypass the central directory entirely.
+
+Per-paper folder contents:
   README.md  — YAML frontmatter (auto-merged) + Markdown body (user-editable)
   paper.pdf  — symlink to the Zotero-managed PDF
   fig*.png   — extracted figures (raster + vector)
@@ -25,10 +31,14 @@ README update policy
 """
 
 import argparse
+import os
 import re
 import sys
 from pathlib import Path
 from zotero_lib import lookup, find_attachment
+
+DEFAULT_PAPERS_ROOT = Path("~/Documents/papers").expanduser()
+PROJECT_LINK_DIR    = Path("sources/papers")
 
 CAPTION_RE = re.compile(r"^(Fig\.?\s*[A-Z]?\d|Figure\s*[A-Z]?\d)", re.I)
 CAP_NUM_RE = re.compile(r"(?:Fig\.?|Figure)\s*([A-Z]?\d+)", re.I)
@@ -417,13 +427,37 @@ def write_readme(
 
 # ── CLI ───────────────────────────────────────────────────────────────────────
 
+def _papers_root() -> Path:
+    """Central directory for extracted papers ($PAPERS_DIR or ~/Documents/papers)."""
+    env = os.environ.get("PAPERS_DIR")
+    return Path(env).expanduser() if env else DEFAULT_PAPERS_ROOT
+
+
+def _ensure_project_symlink(link: Path, target: Path) -> str:
+    """Create/refresh `link` so it points at `target`. Returns status string.
+
+    Refuses to clobber a real (non-symlink) directory at `link`.
+    """
+    link.parent.mkdir(parents=True, exist_ok=True)
+    if link.is_symlink():
+        if link.resolve() == target.resolve():
+            return "ok"
+        link.unlink()
+    elif link.exists():
+        return "blocked"
+    link.symlink_to(target)
+    return "created"
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Extract figures from a Zotero PDF by citation key"
     )
     parser.add_argument("citation_key")
     parser.add_argument("output_dir", nargs="?",
-                        help="Output directory (default: ./sources/papers/<key>)")
+                        help="Explicit output directory. When omitted, figures go to "
+                             "$PAPERS_DIR/<key> (default ~/Documents/papers/<key>) and "
+                             "./sources/papers/<key> is symlinked to it.")
     parser.add_argument("--min-kb", type=int, default=MIN_SIZE_KB)
     parser.add_argument("--overwrite", action="store_true",
                         help="Fully regenerate README.md even if it already exists")
@@ -431,8 +465,14 @@ def main():
                         help="Figures to extract, e.g. '1,3,5-7,A1-A3' (default: all)")
     args = parser.parse_args()
 
-    key     = args.citation_key
-    out_dir = Path(args.output_dir) if args.output_dir else Path("sources/papers") / key
+    key = args.citation_key
+
+    if args.output_dir:
+        out_dir   = Path(args.output_dir).expanduser().resolve()
+        link_path = None
+    else:
+        out_dir   = (_papers_root() / key).resolve()
+        link_path = PROJECT_LINK_DIR / key
 
     try:
         selection = _parse_fig_selection(args.figures or "")
@@ -458,6 +498,14 @@ def main():
     }[action]
     print(f"\nREADME: {readme}  [{action_msg}]")
     print(f"Done: {len(figures)} figure(s) → {out_dir}/")
+
+    if link_path is not None:
+        status = _ensure_project_symlink(link_path, out_dir)
+        if status == "blocked":
+            print(f"WARNING: {link_path} exists as a real directory; skipping symlink. "
+                  f"Move/remove it manually to enable the link.")
+        else:
+            print(f"Link: {link_path} → {out_dir}  [{status}]")
 
 
 if __name__ == "__main__":

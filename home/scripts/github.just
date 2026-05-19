@@ -12,6 +12,7 @@ auto-merge:
     [ -z "$PR_NUMBER" ] && { echo "No open PRs found"; exit 0; }
 
     echo "Checking PR #$PR_NUMBER status..."
+    sleep 8
     # Check if all checks have passed (retry up to 3 times if still running)
     for attempt in 1 2 3; do
         echo "Attempt $attempt/3..."

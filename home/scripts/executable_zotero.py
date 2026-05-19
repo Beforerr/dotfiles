@@ -19,13 +19,18 @@ def print_item(zot, match, query):
         if c.get("creatorType") == "author"
     )
 
-    print(f"Title:   {d.get('title', '')}")
-    print(f"Citekey: {d.get('citationKey', '')}")
-    print(f"Authors: {authors}")
-    print(f"Journal: {d.get('publicationTitle', d.get('bookTitle', ''))}")
-    print(f"Date:    {d.get('date', '')}")
-    print(f"DOI:     {d.get('DOI', '')}")
-    print(f"URL:     {d.get('url', '')}")
+    fields = [
+        ("Title",   d.get("title", "")),
+        ("Citekey", d.get("citationKey", "")),
+        ("Authors", authors),
+        ("Journal", d.get("publicationTitle", d.get("bookTitle", ""))),
+        ("Date",    d.get("date", "")),
+        ("DOI",     d.get("DOI", "")),
+        ("URL",     d.get("url", "")),
+    ]
+    for label, value in fields:
+        if value:
+            print(f"{label + ':':<8} {value}")
 
     abstract = d.get("abstractNote", "")
     if abstract:

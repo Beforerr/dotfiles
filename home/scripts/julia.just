@@ -1,5 +1,5 @@
-# Check julia and juliaup versions
 default:
+    -just --list --justfile "{{ source_file() }}"
     -julia --version
     -juliaup --version
 
@@ -27,11 +27,6 @@ update-julia:
 install-pkgs:
     -julia ~/.julia/config/packages.jl --threads=auto
     -julia --project=@runic -e 'using Pkg; Pkg.add("Runic")'
-
-pluto:
-    #!/usr/bin/env julia --threads=auto
-    import Pluto;
-    Pluto.run()
 
 [no-cd]
 add-docs:
@@ -62,6 +57,21 @@ snoop:
     invs = @eval @snoop_invalidations using $pkg_name
     using SnoopCompile, AbstractTrees
     trees = invalidation_trees(invs)
+    println("Total trees: ", length(trees))
+    function countnodes(n::SnoopCompile.InstanceNode)
+        total = 1; for c in n.children; total += countnodes(c); end; total
+    end
+    function count_tree(t)
+        n = 0
+        for be in t.backedges; n += countnodes(be); end
+        for (sig, mb) in t.mt_backedges; n += countnodes(mb); end
+        n
+    end
+    counts = [(count_tree(t), t) for t in trees]
+    for (n, t) in counts
+        println("[", lpad(n, 5), "] ", t.method)
+    end
+    println("Total: ", sum(first.(counts)))
 
 [no-cd]
 new-package name dir="~/.julia/dev":
@@ -97,14 +107,14 @@ new-package-sph name dir="~/src":
     )("{{ name }}")
 
 [no-cd]
-fast-test filter="":
-    #!/usr/bin/env -S julia-client --project=test
+fast-test filter="" flags="":
+    #!/usr/bin/env -S julia-client {{ flags }} --project=test
     using TOML
     test_deps = get(TOML.parsefile(joinpath(pwd(), "test", "Project.toml")), "deps", Dict())
     filter_str = "{{ filter }}"
     if haskey(test_deps, "TestItems") || haskey(test_deps, "TestItemRunner")
         using TestItemRunner
-        kw = isempty(filter_str) ? (;) : (; filter = ti -> occursin(Regex(filter_str), ti.name))
+        kw = isempty(filter_str) ? (;) : (; filter = ti -> occursin(filter_str, ti.name))
         TestItemRunner.run_tests(pwd(); kw...)
     else
         runtests = joinpath(pwd(), "test", "runtests.jl")
@@ -121,6 +131,20 @@ time-import:
     #!/usr/bin/env sh
     name=$(julia --threads=auto --project=. --startup-file=no -e 'using Pkg; Pkg.resolve(); Pkg.instantiate(); print(Pkg.project().name)')
     julia --project=. --startup-file=no -e "@time Base.@time_imports using $name"
+
+# Compare import time against another revision (default: parent `HEAD~1`).
+[no-cd]
+time-import-compare rev="HEAD~1" warmup="2" runs="5":
+    #!/usr/bin/env sh
+    set -e
+    name=$(julia --threads=auto --project=. --startup-file=no -e 'using Pkg; Pkg.resolve(); Pkg.instantiate(); print(Pkg.project().name)')
+    wt=$(mktemp -d -t jl-time-import-XXXXXX)
+    trap 'git worktree remove --force "$wt" 2>/dev/null || true; rm -rf "$wt"' EXIT
+    git worktree add --detach "$wt" {{ rev }}
+    julia --threads=auto --project="$wt" --startup-file=no -e 'using Pkg; Pkg.resolve(); Pkg.instantiate()' >/dev/null
+    hyperfine --warmup {{ warmup }} --runs {{ runs }} \
+        -n "{{ rev }}" "julia --project='$wt' --startup-file=no -e 'using $name'" \
+        -n "HEAD"      "julia --project=.    --startup-file=no -e 'using $name'"
 
 [private]
 clean:
