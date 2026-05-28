@@ -25,6 +25,20 @@
     "deny": [],
     "ask": []
   },
+  "model": "opus",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "rtk hook claude"
+          }
+        ]
+      }
+    ]
+  },
   "statusLine": {
     "type": "command",
     "command": "sh /Users/zijin/.claude/statusline-command.sh"
@@ -36,5 +50,5 @@
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "agentPushNotifEnabled": true,
-  "model": "opus"
+  "remoteControlAtStartup": true
 }

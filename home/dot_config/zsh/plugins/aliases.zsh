@@ -53,7 +53,6 @@ alias cme="chezmoi edit"
 
 alias j="just"
 alias .j='just --justfile ~/justfile --working-directory .'
-alias .jj='just --justfile ~/justfile --working-directory . julia'
 
 alias jl="julia --threads=auto --project"
 

@@ -38,11 +38,8 @@ auto-merge:
 merge pr_number="":
     #!/bin/bash
     set -e
-
-    # Use provided PR number or get latest open PR
-    if [ -n "$pr_number" ]; then
-        PR_NUMBER="$pr_number"
-    else
+    PR_NUMBER='{{ pr_number }}'
+    if [ -z "$PR_NUMBER" ]; then
         PR_NUMBER=$(gh pr list --state open --limit 1 --json number --jq '.[0].number')
         [ -z "$PR_NUMBER" ] && { echo "No open PRs found"; exit 0; }
     fi
@@ -73,11 +70,11 @@ track-branch branch="":
     echo "Tracking GitHub branch with jujutsu: $BRANCH@origin"
     jj bookmark track "$BRANCH@origin"
 
-push-and-pr:
+push-and-pr revision="@":
     #!/bin/bash
     set -e
-    jj git push -c @
-    BRANCH_NAME=$(jj log -r @ --no-graph -T 'bookmarks')
+    jj git push -c {{ revision }}
+    BRANCH_NAME=$(jj log -r {{ revision }} --no-graph -T 'bookmarks')
 
     if [[ "$BRANCH_NAME" == *"main"* ]]; then
         echo "Cannot create PR from main branch"

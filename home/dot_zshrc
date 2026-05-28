@@ -25,4 +25,8 @@ export PATH="$HOME/.pixi/bin:$PATH"
 
 eval "$(devbox global shellenv --init-hook)"
 
-export PERSON_PROFILE_DIR="$HOME/Library/Mobile Documents/com~apple~CloudDocs/profiles"
+export PERSON_PROFILE_DIR="$HOME/Library/CloudStorage/Box-Box/profiles"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
