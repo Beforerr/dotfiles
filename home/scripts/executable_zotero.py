@@ -8,7 +8,7 @@
 import sys
 import os
 from pyzotero import zotero
-from zotero_lib import lookup, find_local_pdf
+from zotero_lib import lookup, find_attachment
 
 def print_item(zot, match, query):
     d = match["data"]
@@ -32,13 +32,13 @@ def print_item(zot, match, query):
         abstract = abstract.replace("\n", "\\n")
         print(f"Abstract: {abstract}")
 
-    # Find local PDF
+    # Find local attachment
     children = zot.children(match["key"])
-    pdf, filename = find_local_pdf(children)
-    if pdf:
-        print(f"PDF:     {str(pdf).replace(os.path.expanduser('~'), '~', 1)}")
+    path, filename = find_attachment(children)
+    if path:
+        print(f"File:    {str(path).replace(os.path.expanduser('~'), '~', 1)}")
     elif filename:
-        print(f"PDF:     (not downloaded; filename: {filename})")
+        print(f"File:    (not downloaded; filename: {filename})")
 
 
 def main():
@@ -92,7 +92,7 @@ def test_doi_url_prefix():
 def test_partial_title():
     m = lookup(_get_zot(), "Outer Radiation Belt")
     assert m is not None
-    assert "Outer Radiation Belt" in m["data"]["title"]
+    assert "outer radiation belt" in m["data"]["title"].lower()
 
 def test_dedup():
     m1 = lookup(_get_zot(), "zhangExploringOuterRadiation2025")

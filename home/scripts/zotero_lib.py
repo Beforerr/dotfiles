@@ -71,18 +71,32 @@ def lookup(zot, query: str) -> dict | None:
     )
 
 
-def find_local_pdf(children: list) -> tuple[Path | None, str | None]:
-    """Return (path, filename) for the first PDF child.
+DEFAULT_ATTACHMENT_TYPES = ("application/pdf", "application/epub+zip")
+
+
+def find_attachment(
+    children: list,
+    content_types = DEFAULT_ATTACHMENT_TYPES,
+) -> tuple[Path | None, str | None]:
+    """Return (path, filename) for the first matching attachment child.
+
+    Children are scanned in *content_types* order, so earlier types are
+    preferred over later ones (e.g. PDF over EPUB by default).
 
     path     — local Path if the file exists, else None.
-    filename — attachment filename if a PDF child exists, else None.
+    filename — attachment filename if a matching child exists, else None.
     """
-    for child in children:
-        d = child["data"]
-        if d.get("contentType") != "application/pdf":
-            continue
-        att_key  = child["key"]
-        filename = d.get("filename") or d.get("path", "").removeprefix("storage:")
-        path = ZOTERO_STORAGE / att_key / filename
-        return (path if path.exists() else None), filename
+    for ctype in content_types:
+        for child in children:
+            d = child["data"]
+            if d.get("contentType") != ctype:
+                continue
+            att_key  = child["key"]
+            filename = d.get("filename") or d.get("path", "").removeprefix("storage:")
+            path = ZOTERO_STORAGE / att_key / filename
+            return (path if path.exists() else None), filename
     return None, None
+
+
+# Backwards-compatible alias.
+find_local_pdf = find_attachment

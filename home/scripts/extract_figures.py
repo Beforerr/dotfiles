@@ -28,7 +28,7 @@ import argparse
 import re
 import sys
 from pathlib import Path
-from zotero_lib import lookup, find_local_pdf
+from zotero_lib import lookup, find_attachment
 
 CAPTION_RE = re.compile(r"^(Fig\.?\s*[A-Z]?\d|Figure\s*[A-Z]?\d)", re.I)
 CAP_NUM_RE = re.compile(r"(?:Fig\.?|Figure)\s*([A-Z]?\d+)", re.I)
@@ -47,7 +47,7 @@ def find_pdf(query: str) -> tuple[Path, dict]:
     if item is None:
         sys.exit(f"'{query}' not found in Zotero.")
     children = zot.children(item["key"])
-    pdf_path, _ = find_local_pdf(children)
+    pdf_path, _ = find_attachment(children, content_types=("application/pdf",))
     if pdf_path is None:
         sys.exit(f"No local PDF found for '{query}' (item {item['key']}).")
     return pdf_path, _meta_from_item(item)
