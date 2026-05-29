@@ -367,11 +367,6 @@ def epub_to_md(epub_path: str, out_path: str | None = None, preset: Preset | Non
     print(f"{out_path}  ({size_kb:.0f} KB, {n_lines} lines, {len(sections)} sections)")
     return out_path
 
-
-# ---------------------------------------------------------------------------
-# CLI
-# ---------------------------------------------------------------------------
-
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("epub", help="path to .epub file")

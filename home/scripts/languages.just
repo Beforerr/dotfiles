@@ -1,9 +1,5 @@
 mod? julia
-mod? rust
-mod? R
-
-install language:
-    just {{ language }} install
+mod? latex
 
 [no-cd]
 bump:

@@ -1,9 +1,7 @@
 import? 'scripts/languages.just'
 import? 'scripts/github.just'
-import? 'scripts/latex.just'
 
-mod? hosts 'scripts/hosts.just'
-
+[private]
 default:
     just --list --justfile ~/justfile
 
@@ -36,6 +34,7 @@ backup-config:
     #!/usr/bin/env sh
     mackup backup --force && mackup uninstall --force
 
+[private]
 backup-pictures:
     rclone sync ~/Pictures BoxUCLA:Pictures --progress
 
@@ -45,6 +44,7 @@ restore-config:
     echo "Syncing applications with 'mackup'..."
     mackup restore --force && mackup uninstall --force
 
+[private]
 link:
     ln -s ~/.claude/CLAUDE.md ~/.codex/AGENTS.md
     ln -s ~/Library/CloudStorage/Box-Box/research ~/research
@@ -58,6 +58,7 @@ clean:
     -nix-collect-garbage -d
     -brew cleanup
     -pixi clean cache --yes
+    -rm ~/.condarc
 
 [private]
 disk-usage:
