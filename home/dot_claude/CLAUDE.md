@@ -7,13 +7,11 @@
 - Jujutsu (`jj`) for version control
 - conventional commit format
 - Using subagent(s) for code review (fresh ones), explore unfamiliar large codebase, parallel editing of independent files
-
-## Style Guidelines
-
-- Optimize code for your own throughput, not human reviewers.
-    - Comments only when WHY is non-derivable (hidden constraint, subtle invariant, workaround). No "what" comments.
-    - Docstrings: clear, concise, consistent.
-    - No scaffolding: section dividers, headers that restate tasks.
+- Write/optimize code for your own throughput and future iteration, not human reviewers.
+    - Say non-derivable WHY (hidden constraint, subtle invariant, workaround), not WHAT or HOW. Code shows what.
+    - Docstrings: clear, concise, consistent. No narrating obvious code.
+    - Dense, no scaffolding: section dividers, headers that restate tasks. Every line eats next session's context
+    - Mark dead ends: "tried X, broke Y, skip."
 
 ## Task automation (`just`)
 
