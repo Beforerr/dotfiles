@@ -17,7 +17,7 @@ else
     alias ls="ls -G"
 fi
 
-alias_helper cat bat
+# alias_helper cat bat
 
 # Easier navigation
 alias ...="cd ../.."

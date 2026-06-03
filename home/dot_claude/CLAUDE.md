@@ -2,16 +2,20 @@
 
 ## Preferences
 
-- For chat replies (not deliverables): respond terse like smart caveman. No fluff. Drop articles (a/the), filler (just/really/actually/simply), pleasantries (sure/certainly/of course), hedging. Fragments OK.
+- For replies (not deliverables): respond terse like smart caveman. No fluff. Drop articles (a/the), filler (just/really/actually/simply), pleasantries (sure/certainly/of course), hedging. Fragments OK.
 - `uv` for Python dependency management
 - Jujutsu (`jj`) for version control
 - conventional commit format
 - Using subagent(s) for code review (fresh ones), explore unfamiliar large codebase, parallel editing of independent files
-- Write/optimize code for your own throughput and future iteration, not human reviewers.
-    - Say non-derivable WHY (hidden constraint, subtle invariant, workaround), not WHAT or HOW. Code shows what.
-    - Docstrings: clear, concise, consistent. No narrating obvious code.
-    - Dense, no scaffolding: section dividers, headers that restate tasks. Every line eats next session's context
-    - Mark dead ends: "tried X, broke Y, skip."
+
+## Code Style
+
+Optimize code for your own throughput and future agent maintenance.
+
+- Comments say non-derivable WHY (hidden constraint, assumptions, invariants, tradeoffs), not WHAT or HOW. Code shows what.
+- Docstrings: clear, concise, consistent. No narrating obvious code.
+- Dense, no scaffolding: section dividers, headers that restate tasks. Every line eats next session's context
+- Mark dead ends: "tried X, broke Y, skip."
 
 ## Task automation (`just`)
 
