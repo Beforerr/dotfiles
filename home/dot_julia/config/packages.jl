@@ -19,7 +19,7 @@ Pkg.add([
     "TestItemRunner",
     "TestEnv",
     # "InteractiveErrors",
-    "Infiltrator",
+    # "Infiltrator",
 
     # Interactive
     # "IJulia",

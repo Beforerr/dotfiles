@@ -1,4 +1,4 @@
-"""Shared Zotero utilities used by zotero and extract_figures scripts."""
+"""Zotero utilities"""
 import re
 import sqlite3
 from pathlib import Path
@@ -13,7 +13,7 @@ def _sqlite_connect():
 
 
 def sqlite_lookup_citekey(citation_key) -> str | None:
-    """Return the Zotero item key for *citation_key* via SQLite, or None."""
+    """Return the Zotero item key for *citation_key*"""
     try:
         con = _sqlite_connect()
         row = con.execute(
@@ -31,7 +31,7 @@ def sqlite_lookup_citekey(citation_key) -> str | None:
 
 
 def sqlite_lookup_doi(doi) -> str | None:
-    """Return the Zotero item key for *doi* via SQLite, or None."""
+    """Return the Zotero item key"""
     doi = doi.removeprefix("https://doi.org/").removeprefix("doi:")
     try:
         con = _sqlite_connect()
@@ -80,11 +80,7 @@ def find_attachment(
 ) -> tuple[Path | None, str | None]:
     """Return (path, filename) for the first matching attachment child.
 
-    Children are scanned in *content_types* order, so earlier types are
-    preferred over later ones (e.g. PDF over EPUB by default).
-
-    path     — local Path if the file exists, else None.
-    filename — attachment filename if a matching child exists, else None.
+    Children are scanned in *content_types* order, so earlier types are preferred over later ones.
     """
     for ctype in content_types:
         for child in children:

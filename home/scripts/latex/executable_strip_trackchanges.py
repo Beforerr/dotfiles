@@ -9,9 +9,7 @@
 % comment               -> (removed, unless \\%)
 
 Usage:
-  strip_latex.py [--no-trackchanges] [--no-comments] src [dst]
-  strip_latex.py ... -            # write to stdout
-  echo ... | strip_latex.py -     # read from stdin
+  strip_trackchanges.py [--no-trackchanges] [--no-comments] src [dst]
 """
 import argparse, re, sys
 from pathlib import Path
