@@ -54,9 +54,8 @@ zinit wait lucid for \
   OMZP::aliases \
   hlissner/zsh-autopair
 zinit cdreplay -q   # compinit ran above
-zinit lucid for \
-  "$HOME/.config/zsh/plugins/aliases.zsh" \
-  "$HOME/.config/zsh/plugins/idl.zsh"
+
+for f in $HOME/.config/zsh/plugins/*.zsh(N); do source $f; done
 
 # invalidated by devbox's global config, daily refresh
 _db="$_zsh_cache/devbox-shellenv.zsh"

@@ -1,7 +1,4 @@
 function alias_helper() {
-    # Safely Create an alias for a command
-    # Usage: alias_helper <alias_name> <command>
-    # Example: alias_helper c code
     if command -v $2 >/dev/null; then
         alias $1=$2
     fi
