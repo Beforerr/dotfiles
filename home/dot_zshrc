@@ -16,17 +16,49 @@ export PATH
 # Added by Windsurf
 export PATH="$HOME/.codeium/windsurf/bin:$PATH"
 
-autoload -U compinit
-compinit
-source <(jj util completion zsh)
-source <(juliaup completions zsh)
-
 export PATH="$HOME/.pixi/bin:$PATH"
-
-eval "$(devbox global shellenv --init-hook)"
 
 export PERSON_PROFILE_DIR="$HOME/Library/CloudStorage/Box-Box/profiles"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+_zsh_cache="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+[[ -d $_zsh_cache ]] || mkdir -p "$_zsh_cache"
+
+_fresh24() { local -a f=( $1(N.mh-24) ); (( $#f )) }
+
+# compaudit dominated startup. -C skips but trusts dumps and rebuilds daily.
+# -d to avoid writing new .zcompdump.<host>.<pid> per run.
+autoload -Uz compinit
+_zdump="${ZDOTDIR:-$HOME}/.zcompdump"
+if _fresh24 $_zdump; then compinit -C -d "$_zdump"; else compinit -d "$_zdump"; fi
+
+_cache_comp() {
+  local f="$_zsh_cache/$1.zsh" bin
+  bin=$(command -v "$1" 2>/dev/null) || return
+  [[ -f $f && $f -nt $bin ]] || "${@:2}" >| "$f" 2>/dev/null
+  source "$f"
+}
+_cache_comp jj jj util completion zsh
+_cache_comp juliaup juliaup completions zsh
+
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+source "${ZINIT_HOME}/zinit.zsh"
+zinit wait lucid for \
+  OMZL::git.zsh \
+  OMZP::git \
+  OMZP::aliases \
+  hlissner/zsh-autopair
+zinit cdreplay -q   # compinit ran above
+zinit lucid for \
+  "$HOME/.config/zsh/plugins/aliases.zsh" \
+  "$HOME/.config/zsh/plugins/idl.zsh"
+
+# invalidated by devbox's global config, daily refresh
+_db="$_zsh_cache/devbox-shellenv.zsh"
+_fresh24 $_db || { command -v devbox >/dev/null && devbox global shellenv --init-hook >| "$_db" 2>/dev/null; }
+[[ -f $_db ]] && source "$_db"
