@@ -10,5 +10,6 @@
     dotDir = ".config/zsh";
     initExtraFirst = "source $HOME/.zshrc";
     completionInit = "";   # ~/.zshrc runs the (cached) compinit; suppress home-manager's
+    profileExtra = ''eval "$(/opt/homebrew/bin/brew shellenv)"'';
   };
 }

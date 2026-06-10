@@ -23,7 +23,7 @@
     "deny": [],
     "ask": []
   },
-  "model": "opus",
+  "model": "claude-fable-5[1m]",
   "hooks": {
     "PreToolUse": [
       {
@@ -37,6 +37,7 @@
       }
     ]
   },
+  "enableWorkflows": true,
   "statusLine": {
     "type": "command",
     "command": "sh /Users/zijin/.claude/statusline-command.sh"
@@ -47,7 +48,6 @@
   "effortLevel": "high",
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
-  "agentPushNotifEnabled": true,
   "remoteControlAtStartup": true,
-  "enableWorkflows": true
+  "agentPushNotifEnabled": true
 }

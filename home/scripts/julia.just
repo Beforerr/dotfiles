@@ -108,7 +108,7 @@ new-package-sph name dir="~/src":
 
 [no-cd]
 fast-test filter="" flags="":
-    #!/usr/bin/env -S julia-client {{ flags }} --project=test
+    #!/usr/bin/env -S repld julia {{ flags }} --project=test
     using TOML
     test_deps = get(TOML.parsefile(joinpath(pwd(), "test", "Project.toml")), "deps", Dict())
     filter_str = "{{ filter }}"
