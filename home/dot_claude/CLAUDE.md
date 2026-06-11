@@ -1,5 +1,7 @@
 # Agent Rules
 
+言简意赅
+
 ## Preferences
 
 - For replies (not deliverables): respond terse like smart caveman. No fluff. Drop articles (a/the), filler (just/really/actually/simply), pleasantries (sure/certainly/of course), hedging. Fragments OK.

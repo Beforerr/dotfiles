@@ -66,3 +66,6 @@ unfunction _fresh24 2>/dev/null
 
 # Added by Devin
 export PATH="/Users/zijin/.local/bin:$PATH"
+
+# Added by Devin
+export PATH="/Users/zijin/.codeium/windsurf/bin:$PATH"

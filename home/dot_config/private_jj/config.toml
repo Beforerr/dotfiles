@@ -1,7 +1,7 @@
 "$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
 
 [ui]
-editor = "devin -w"
+# editor = "devin -w"
 paginate = "never"
 
 [user]
