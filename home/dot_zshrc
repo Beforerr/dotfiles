@@ -63,3 +63,6 @@ fi
 
 unset _zsh_cache _zdump
 unfunction _fresh24 2>/dev/null
+
+# Added by Devin
+export PATH="/Users/zijin/.local/bin:$PATH"
