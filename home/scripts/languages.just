@@ -2,12 +2,12 @@ mod? julia
 mod? latex
 
 [no-cd]
-bump:
+bump bump_type="":
     #!/usr/bin/env sh
     if [ -f Project.toml ]; then
-        just --justfile ~/justfile julia bump
+        just --justfile ~/justfile julia bump "{{ bump_type }}"
     elif [ -f Cargo.toml ]; then
-        just --justfile ~/justfile rust bump
+        just --justfile ~/justfile rust bump "{{ bump_type }}"
     else
         echo "Unknown project language" && exit 1
     fi

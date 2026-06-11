@@ -160,10 +160,13 @@ clean:
     done
 
 [no-cd]
-bump:
+bump bump_type="":
     #!/usr/bin/env sh
     set -e
-    bump_type=$(just --justfile ~/justfile _bump-type)
+    bump_type="{{ bump_type }}"
+    if [ -z "$bump_type" ]; then
+        bump_type=$(just --justfile ~/justfile _bump-type)
+    fi
     julia --startup-file=no -e 'using Pkg; !haskey(Pkg.project().dependencies, "PkgBump") && Pkg.add(url="https://github.com/AtelierArith/PkgBump.jl")'
     new_version=$(julia --project --startup-file=no -e "
         using PkgBump, Pkg

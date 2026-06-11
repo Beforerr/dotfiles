@@ -23,7 +23,6 @@
     "deny": [],
     "ask": []
   },
-  "model": "claude-fable-5[1m]",
   "hooks": {
     "PreToolUse": [
       {
@@ -36,6 +35,10 @@
         ]
       }
     ]
+  },
+  "attribution": {
+    "commit": "",
+    "pr": ""
   },
   "enableWorkflows": true,
   "statusLine": {
