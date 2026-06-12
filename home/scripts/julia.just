@@ -108,7 +108,7 @@ new-package-sph name dir="~/src":
 
 [no-cd]
 fast-test filter="" flags="":
-    #!/usr/bin/env -S repld julia {{ flags }} --project=test
+    #!/usr/bin/env -S repld julia {{ flags }} --project=test --
     using TOML
     test_deps = get(TOML.parsefile(joinpath(pwd(), "test", "Project.toml")), "deps", Dict())
     filter_str = "{{ filter }}"
@@ -118,6 +118,7 @@ fast-test filter="" flags="":
         TestItemRunner.run_tests(pwd(); kw...)
     else
         runtests = joinpath(pwd(), "test", "runtests.jl")
+        @info filter_str
         if isempty(filter_str)
             include(runtests)
         else
