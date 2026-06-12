@@ -118,7 +118,6 @@ fast-test filter="" flags="":
         TestItemRunner.run_tests(pwd(); kw...)
     else
         runtests = joinpath(pwd(), "test", "runtests.jl")
-        @info filter_str
         if isempty(filter_str)
             include(runtests)
         else
