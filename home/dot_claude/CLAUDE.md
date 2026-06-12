@@ -13,7 +13,7 @@
 
 ## Code Style
 
-Optimize code for your own throughput and future agent maintenance.
+Optimize codes for your own throughput, token usage, and future agent maintenance.
 
 - Comments say non-derivable WHY (hidden constraint, assumptions, invariants, tradeoffs), not WHAT or HOW. Code shows what.
 - Docstrings: clear, concise, consistent. No narrating obvious code.
