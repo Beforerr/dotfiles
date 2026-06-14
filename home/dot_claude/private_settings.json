@@ -27,6 +27,7 @@
     "deny": [],
     "ask": []
   },
+  "model": "opus",
   "hooks": {
     "PreToolUse": [
       {
@@ -48,10 +49,9 @@
   "enabledPlugins": {
     "skill-creator@claude-plugins-official": true
   },
-  "effortLevel": "medium",
+  "effortLevel": "high",
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "remoteControlAtStartup": true,
-  "agentPushNotifEnabled": true,
-  "model": "claude-fable-5[1m]"
+  "agentPushNotifEnabled": true
 }

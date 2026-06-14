@@ -1,4 +1,4 @@
-#!/usr/bin/env -S uv run
+#!/usr/bin/env -S uv run --script
 # /// script
 # requires-python = ">=3.10"
 # dependencies = ["pymupdf", "pyzotero", "PyYAML"]
@@ -6,9 +6,9 @@
 """Extract figures from a Zotero PDF by citation key.
 
 Usage:
-    uv run extract_figures.py <key> [output_dir] [--figures SPEC] [--overwrite]
-    uv run extract_figures.py artemyevIonMotionCurrent2013
-    uv run extract_figures.py artemyevIonMotionCurrent2013 --figures "1,3,5-7,A1-A3"
+    extract_figures.py <key> [output_dir] [--figures SPEC] [--overwrite]
+    extract_figures.py artemyevIonMotionCurrent2013
+    extract_figures.py artemyevIonMotionCurrent2013 --figures "1,3,5-7,A1-A3"
 
 Requires Zotero to be running with Better BibTeX installed.
 
@@ -19,12 +19,12 @@ Output layout
   Pass an explicit output_dir to bypass the central directory entirely.
 
 Per-paper folder contents:
-  README.md  — YAML frontmatter (auto-merged) + Markdown body (user-editable)
+  README.md  — YAML frontmatter (auto-merged) + Abstract/Figures body (user-editable)
   paper.pdf  — symlink to the Zotero-managed PDF
   fig*.png   — extracted figures (raster + vector)
 
 README update policy
-  • First run: file is created with full frontmatter + figure sections.
+  • First run: file is created with full frontmatter + abstract/figure sections.
   • Later runs: only EMPTY frontmatter fields are filled in; existing values and
     the entire Markdown body are left untouched.
   • Use --overwrite to fully regenerate the file.
@@ -35,7 +35,7 @@ import os
 import re
 import sys
 from pathlib import Path
-from zotero_lib import lookup, find_attachment
+from zotero_lib import find_attachment, item_metadata, local_zotero, lookup
 
 DEFAULT_PAPERS_ROOT = Path("~/Documents/papers").expanduser()
 PROJECT_LINK_DIR    = Path("sources/papers")
@@ -51,8 +51,7 @@ MIN_SIZE_KB  = 8
 
 def find_pdf(query: str) -> tuple[Path, dict]:
     """Resolve a query (citekey, DOI, or partial title) to its local PDF path + metadata."""
-    from pyzotero import zotero as pyzotero
-    zot = pyzotero.Zotero(0, "user", local=True)
+    zot = local_zotero()
     item = lookup(zot, query)
     if item is None:
         sys.exit(f"'{query}' not found in Zotero.")
@@ -60,31 +59,8 @@ def find_pdf(query: str) -> tuple[Path, dict]:
     pdf_path, _ = find_attachment(children, content_types=("application/pdf",))
     if pdf_path is None:
         sys.exit(f"No local PDF found for '{query}' (item {item['key']}).")
-    return pdf_path, _meta_from_item(item)
+    return pdf_path, item_metadata(item, pdf="paper.pdf")
 
-
-def _meta_from_item(item: dict) -> dict:
-    d = item["data"]
-    creators = d.get("creators", [])
-    authors = [f"{c.get('firstName','')} {c.get('lastName','')}".strip()
-               for c in creators if c.get("creatorType") == "author"]
-    year = d.get("date", "")[:4] if d.get("date") else ""
-    return {
-        "citation_key": d.get("citationKey", ""),
-        "title":        d.get("title", ""),
-        "authors":      authors,
-        "year":         year,
-        "journal":      d.get("publicationTitle", d.get("bookTitle", "")),
-        "doi":          d.get("DOI", ""),
-        "url":          d.get("url", ""),
-        "zotero":       f"zotero://select/library/items/{item['key']}",
-        "pdf":          "paper.pdf",
-    }
-
-
-
-
-# ── Figure extraction ─────────────────────────────────────────────────────────
 
 def _clean_caption(text):
     """Join soft-hyphenated line breaks, normalize whitespace."""
@@ -415,8 +391,8 @@ def write_readme(
     body_lines = [
         f"\n# {title}\n",
         f"{links}\n",
-        "## Figures\n",
     ]
+    body_lines.append("## Figures\n")
     for r in _labeled(figures):
         caption = r["caption"] or f"Figure {r['label']}"
         body_lines.append(f"![{caption}]({r['path'].name})\n")
@@ -425,10 +401,7 @@ def write_readme(
     return readme, "created"
 
 
-# ── CLI ───────────────────────────────────────────────────────────────────────
-
 def _papers_root() -> Path:
-    """Central directory for extracted papers ($PAPERS_DIR or ~/Documents/papers)."""
     env = os.environ.get("PAPERS_DIR")
     return Path(env).expanduser() if env else DEFAULT_PAPERS_ROOT
 

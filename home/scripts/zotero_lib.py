@@ -12,6 +12,13 @@ def _sqlite_connect():
     return sqlite3.connect(f"file:{_ZOTERO_DB}?mode=ro&immutable=1", uri=True)
 
 
+def local_zotero():
+    """Return a pyzotero client for the local Zotero API."""
+    from pyzotero import zotero
+
+    return zotero.Zotero(0, "user", local=True)
+
+
 def sqlite_lookup_citekey(citation_key) -> str | None:
     """Return the Zotero item key for *citation_key*"""
     try:
@@ -69,6 +76,32 @@ def lookup(zot, query: str) -> dict | None:
          if ql in i["data"].get("title", "").lower()),
         None,
     )
+
+
+def item_metadata(item: dict, pdf: str | None = None) -> dict:
+    """Return stable paper metadata from a pyzotero item dict."""
+    d = item["data"]
+    creators = d.get("creators", [])
+    authors = [
+        f"{c.get('firstName', '')} {c.get('lastName', '')}".strip()
+        for c in creators
+        if c.get("creatorType") == "author"
+    ]
+    year = d.get("date", "")[:4] if d.get("date") else ""
+    meta = {
+        "citation_key": d.get("citationKey", ""),
+        "title": d.get("title", ""),
+        "authors": authors,
+        "year": year,
+        "journal": d.get("publicationTitle", d.get("bookTitle", "")),
+        "doi": d.get("DOI", ""),
+        "url": d.get("url", ""),
+        "abstract": d.get("abstractNote", ""),
+        "zotero": f"zotero://select/library/items/{item['key']}",
+    }
+    if pdf:
+        meta["pdf"] = pdf
+    return meta
 
 
 DEFAULT_ATTACHMENT_TYPES = ("application/pdf", "application/epub+zip")

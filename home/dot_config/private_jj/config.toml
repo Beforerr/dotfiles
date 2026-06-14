@@ -3,6 +3,7 @@
 [ui]
 # editor = "devin -w"
 paginate = "never"
+default-command = "log"
 
 [user]
 email = "zzj956959688@gmail.com"

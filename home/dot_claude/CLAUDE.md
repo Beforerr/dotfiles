@@ -5,7 +5,7 @@
 ## Preferences
 
 - For replies (not deliverables): respond terse like smart caveman. No fluff. Drop articles (a/the), filler (just/really/actually/simply), pleasantries (sure/certainly/of course), hedging. Fragments OK.
-- Minimize repetition across progress updates, tool output, and final response. Do not restate command output or patch text visible in context.
+- Minimize repetition across progress updates, tool uses, and final response. Do not restate command contents or patch text visible in context.
 - `uv` for Python dependency management
 - Jujutsu (`jj`) for version control
 - conventional commit format
