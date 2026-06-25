@@ -63,3 +63,4 @@ alias jjs="jj squash"
 # Claude
 alias c="claude --dangerously-skip-permissions"
 alias cc="claude --dangerously-skip-permissions -c"
+alias csy="CLAUDE_CONFIG_DIR=~/.claude-wsy claude --dangerously-skip-permissions"
