@@ -56,12 +56,7 @@ def print_item(zot, match, query):
 
 
 def add(identifier, collection=None, force=False) -> dict:
-    """Add by DOI/arXiv id via Zotero's native Add-by-Identifier (+ Find Available PDF).
-
-    Uses Zotero's own translators (DOI Content Negotiation etc.) — same metadata
-    Add-by-Identifier produces in the UI — and awaits the PDF, so the saved item
-    already has it. Dedupes DOIs against the library (sqlite, read-only).
-    """
+    """Add by DOI/arXiv id via Zotero's native Add-by-Identifier (+ Find Available PDF)."""
     idtype, value = parse_identifier(identifier)
     if not force and idtype == "DOI" and (existing := sqlite_lookup_doi(value)):
         return {"status": "exists", "key": existing, "identifier": value}
@@ -72,14 +67,11 @@ def add(identifier, collection=None, force=False) -> dict:
 def cmd_add(argv):
     import argparse
     import json
-    p = argparse.ArgumentParser(prog="zotero.py add",
-                                description="Add a DOI/arXiv id (or URL) to Zotero via native Add-by-Identifier.")
-    p.add_argument("identifier", help="DOI, arXiv id, or URL containing one")
-    p.add_argument("-c", "--collection", help="existing collection name to file into")
-    p.add_argument("--force", action="store_true", help="add even if the DOI is already present")
+    p = argparse.ArgumentParser(prog="zotero.py add")
+    p.add_argument("identifier")
+    p.add_argument("-c", "--collection")
+    p.add_argument("--force", action="store_true")
     a = p.parse_args(argv)
-    # Always JSON: result is structured (key/hasPDF/collection/status) — readable
-    # interactively, and ready to pipe/chain (e.g. into `rm` or note generation).
     print(json.dumps(add(a.identifier, a.collection, a.force), indent=2))
 
 

@@ -5,7 +5,6 @@ import json
 import os
 import re
 import sqlite3
-import subprocess
 import tempfile
 import time
 import urllib.parse
@@ -166,15 +165,6 @@ def parse_identifier(s: str) -> tuple[str, str]:
         return "arXiv", m.group(1)
     raise ValueError(f"unrecognized identifier: {s!r}")
 
-
-def parse_doi(s: str) -> str:
-    """Back-compat: DOI-only parse (used by the lookup CLI/tests)."""
-    t, v = parse_identifier(s)
-    if t != "DOI":
-        raise ValueError(f"not a DOI: {s!r}")
-    return v
-
-
 # JS template: params arrive as one `ARGS` literal, result/errors go out via a temp
 # file. Token-replace (not .format/f-string) so the JS bodies below stay plain — no
 # brace-escaping. Each body is ordinary JS that reads `ARGS` and `return`s a value.
@@ -194,6 +184,8 @@ def bridge_exec(body: str, args: dict | None = None, timeout=90):
     TimeoutError if Zotero isn't running / the password pref isn't set, RuntimeError
     on a JS exception.
     """
+    import subprocess
+
     fd, out = tempfile.mkstemp(suffix=".json", prefix="zbridge_")
     os.close(fd); os.unlink(out)
     js = (_WRAP.replace("__ARGS__", json.dumps(args or {}))
