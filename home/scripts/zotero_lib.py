@@ -1,6 +1,14 @@
 """Zotero utilities"""
+from __future__ import annotations
+
+import json
+import os
 import re
 import sqlite3
+import subprocess
+import tempfile
+import time
+import urllib.parse
 from pathlib import Path
 
 _DOI_RE   = re.compile(r'^(https?://doi\.org/|doi:)?10\.\d{4,}/', re.I)
@@ -129,3 +137,104 @@ def find_attachment(
 
 # Backwards-compatible alias.
 find_local_pdf = find_attachment
+
+
+# ── Debug bridge: run JS inside Zotero ───────────────────────────────────────
+# zotero-plugin-toolkit (bundled in Better BibTeX) registers a `zotero://ztoolkit-debug`
+# URL handler that runs arbitrary async JS with `Zotero` in scope. This is the ONLY
+# headless route to Zotero's native "Add by Identifier" (Zotero.Translate.Search),
+# "Find Available PDF" (Zotero.Attachments.addAvailablePDF) and item deletion — the
+# connector saves only what you hand it, and the local /api is read-only (DELETE → 501).
+#
+# Setup (once): set pref `extensions.zotero.debug-bridge.password` (Zotero closed,
+# edit prefs.js, or accept the one-time confirm dialog) and export the same value as
+# ZOTERO_BRIDGE_PASSWORD. The channel is fire-and-forget (noContent), so results come
+# back via a temp file the injected JS writes.
+
+_DOI_FIND = re.compile(r"10\.\d{4,9}/[^\s\"<>]+")
+_ARXIV_RE = re.compile(r"(?:arxiv:)?(\d{4}\.\d{4,5}(?:v\d+)?|[a-z-]+/\d{7})", re.I)
+_BRIDGE_PW = os.environ.get("ZOTERO_BRIDGE_PASSWORD", "claude-bridge")
+
+
+def parse_identifier(s: str) -> tuple[str, str]:
+    """(idType, value) from a DOI / arXiv id / DOI-or-arXiv URL. idType ∈ Zotero's
+    Translate.Search keys ('DOI', 'arXiv')."""
+    s = s.strip()
+    if m := _DOI_FIND.search(s):
+        return "DOI", m.group(0).rstrip(").,;").lower()
+    if m := _ARXIV_RE.search(s):
+        return "arXiv", m.group(1)
+    raise ValueError(f"unrecognized identifier: {s!r}")
+
+
+def parse_doi(s: str) -> str:
+    """Back-compat: DOI-only parse (used by the lookup CLI/tests)."""
+    t, v = parse_identifier(s)
+    if t != "DOI":
+        raise ValueError(f"not a DOI: {s!r}")
+    return v
+
+
+def bridge_exec(body: str, timeout=90):
+    """Run async JS `body` (may `return` a JSON-serializable value) inside Zotero.
+
+    Raises TimeoutError if Zotero isn't running / the password pref isn't set, and
+    RuntimeError on a JS exception. `Zotero` and `window` are in scope in `body`.
+    """
+    fd, out = tempfile.mkstemp(suffix=".json", prefix="zbridge_")
+    os.close(fd); os.unlink(out)
+    op = json.dumps(out)
+    js = (f"async function __run(){{ {body} }}\n"
+          f"try{{ const __r=await __run();"
+          f" await Zotero.File.putContentsAsync({op}, JSON.stringify(__r===undefined?null:__r)); }}"
+          f"catch(e){{ await Zotero.File.putContentsAsync({op}, JSON.stringify({{__error:String(e),stack:(e&&e.stack)||''}})); }}")
+    url = "zotero://ztoolkit-debug?password=" + urllib.parse.quote(_BRIDGE_PW) + "&run=" + urllib.parse.quote(js)
+    subprocess.run(["open", url], check=True)
+    deadline = time.time() + timeout
+    while time.time() < deadline:
+        if os.path.exists(out):
+            r = json.loads(open(out).read()); os.unlink(out)
+            if isinstance(r, dict) and "__error" in r:
+                raise RuntimeError(f"bridge JS error: {r['__error']}")
+            return r
+        time.sleep(0.4)
+    raise TimeoutError("debug-bridge timed out — Zotero running and password pref set?")
+
+
+def add_by_identifier(idtype: str, value: str, collection: str | None = None) -> dict:
+    """Zotero's native Add-by-Identifier + Find Available PDF, filing into *collection*.
+
+    PDF download is awaited, so the returned item already has it (unlike the
+    connector). Returns {items:[{key,title,itemType}], collection, collectionMissing}.
+    """
+    js = f"""
+      const lib = Zotero.Libraries.userLibraryID;
+      const want = {json.dumps(collection)};
+      let col = null, missing = false;
+      if (want) {{ col = Zotero.Collections.getByLibrary(lib, true).find(c => c.name === want); missing = !col; }}
+      const t = new Zotero.Translate.Search();
+      t.setIdentifier({{ {idtype}: {json.dumps(value)} }});
+      const trs = await t.getTranslators();
+      if (!trs.length) return {{ items: [], translator: null }};
+      const items = await t.translate({{ libraryID: lib, collections: col ? [col.id] : [], saveAttachments: false }});
+      for (const it of items) {{ try {{ await Zotero.Attachments.addAvailablePDF(it); }} catch (e) {{}} }}
+      return {{ collection: col ? col.name : null, collectionMissing: missing,
+                translator: trs[0].label,
+                items: items.map(it => ({{ key: it.key, title: it.getField('title'),
+                                           itemType: it.itemType, hasPDF: it.getAttachments().length > 0 }})) }};
+    """
+    return bridge_exec(js)
+
+
+def erase_items(keys) -> dict:
+    """Permanently delete items by key (bypasses trash). Returns {erased, missing}."""
+    js = f"""
+      const lib = Zotero.Libraries.userLibraryID;
+      const erased=[], missing=[];
+      for (const k of {json.dumps(list(keys))}) {{
+        const it = await Zotero.Items.getByLibraryAndKeyAsync(lib, k);
+        if (it) {{ await it.eraseTx(); erased.push(k); }} else missing.push(k);
+      }}
+      return {{ erased, missing }};
+    """
+    return bridge_exec(js)

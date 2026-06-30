@@ -3,12 +3,21 @@
 # requires-python = ">=3.11"
 # dependencies = ["pyzotero", "pytest"]
 # ///
-"""Lookup a Zotero item by citekey, DOI, or partial title; print metadata + local PDF path."""
+"""Zotero CLI: look up items, `add` a paper by identifier, or `rm` items.
+
+  zotero.py <citekey|DOI|title> ...          # look up + print metadata/PDF path
+  zotero.py add <doi|arXiv|url> -c EMIC_ERG  # native Add-by-Identifier + PDF, file into collection
+  zotero.py rm <itemKey> ...                 # permanently delete items
+
+`add`/`rm` drive Zotero's native machinery through the debug bridge (see zotero_lib);
+Zotero must be running with the debug-bridge password pref set.
+"""
 
 import sys
 import os
 from pyzotero import zotero
-from zotero_lib import lookup, find_attachment
+from zotero_lib import (lookup, find_attachment, parse_identifier,
+                        sqlite_lookup_doi, add_by_identifier, erase_items)
 
 def print_item(zot, match, query):
     d = match["data"]
@@ -44,6 +53,62 @@ def print_item(zot, match, query):
         print(f"File:    {str(path).replace(os.path.expanduser('~'), '~', 1)}")
     elif filename:
         print(f"File:    (not downloaded; filename: {filename})")
+
+
+def add(identifier, collection=None, force=False) -> dict:
+    """Add by DOI/arXiv id via Zotero's native Add-by-Identifier (+ Find Available PDF).
+
+    Uses Zotero's own translators (DOI Content Negotiation etc.) — same metadata
+    Add-by-Identifier produces in the UI — and awaits the PDF, so the saved item
+    already has it. Dedupes DOIs against the library (sqlite, read-only).
+    """
+    idtype, value = parse_identifier(identifier)
+    if not force and idtype == "DOI" and (existing := sqlite_lookup_doi(value)):
+        return {"status": "exists", "key": existing, "identifier": value}
+    r = add_by_identifier(idtype, value, collection)
+    return {"status": "saved", "idtype": idtype, "identifier": value, **r}
+
+
+def cmd_add(argv):
+    import argparse
+    import json
+    p = argparse.ArgumentParser(prog="zotero.py add",
+                                description="Add a DOI/arXiv id (or URL) to Zotero via native Add-by-Identifier.")
+    p.add_argument("identifier", help="DOI, arXiv id, or URL containing one")
+    p.add_argument("-c", "--collection", help="existing collection name to file into")
+    p.add_argument("--force", action="store_true", help="add even if the DOI is already present")
+    p.add_argument("--json", action="store_true")
+    a = p.parse_args(argv)
+    r = add(a.identifier, a.collection, a.force)
+    if a.json:
+        print(json.dumps(r, indent=2)); return
+    if r["status"] == "exists":
+        print(f"• already in library: {r['key']} ({r['identifier']}) — use --force to re-add"); return
+    items = r.get("items", [])
+    if not items:
+        print(f"✗ no translator/result for {r['identifier']}"); return
+    for it in items:
+        print(f"✓ {it['key']}  {it['title']}  [{'PDF' if it.get('hasPDF') else 'no PDF'}]")
+    if a.collection and r.get("collectionMissing"):
+        print(f"  ⚠ collection {a.collection!r} not found — left in My Library")
+    elif r.get("collection"):
+        print(f"  collection: {r['collection']}")
+    print(f"  (via {r.get('translator')})")
+
+
+def cmd_rm(argv):
+    import argparse
+    import json
+    p = argparse.ArgumentParser(prog="zotero.py rm", description="Permanently delete items by key.")
+    p.add_argument("keys", nargs="+", help="Zotero item keys (8 chars)")
+    p.add_argument("--json", action="store_true")
+    a = p.parse_args(argv)
+    r = erase_items(a.keys)
+    if a.json:
+        print(json.dumps(r, indent=2)); return
+    print(f"erased {len(r['erased'])}: {', '.join(r['erased']) or '-'}")
+    if r["missing"]:
+        print(f"not found: {', '.join(r['missing'])}")
 
 
 def main():
@@ -112,5 +177,9 @@ if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "--test":
         import pytest
         sys.exit(pytest.main([__file__, "-v"]))
+    elif len(sys.argv) > 1 and sys.argv[1] == "add":
+        cmd_add(sys.argv[2:])
+    elif len(sys.argv) > 1 and sys.argv[1] == "rm":
+        cmd_rm(sys.argv[2:])
     else:
         main()
