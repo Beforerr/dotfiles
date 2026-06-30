@@ -175,19 +175,30 @@ def parse_doi(s: str) -> str:
     return v
 
 
-def bridge_exec(body: str, timeout=90):
-    """Run async JS `body` (may `return` a JSON-serializable value) inside Zotero.
+# JS template: params arrive as one `ARGS` literal, result/errors go out via a temp
+# file. Token-replace (not .format/f-string) so the JS bodies below stay plain — no
+# brace-escaping. Each body is ordinary JS that reads `ARGS` and `return`s a value.
+_WRAP = """\
+const ARGS = __ARGS__;
+async function __run(){ __BODY__ }
+__run().then(
+  r => Zotero.File.putContentsAsync(__OUT__, JSON.stringify(r === undefined ? null : r)),
+  e => Zotero.File.putContentsAsync(__OUT__, JSON.stringify({__error: String(e), stack: (e && e.stack) || ""}))
+);"""
 
-    Raises TimeoutError if Zotero isn't running / the password pref isn't set, and
-    RuntimeError on a JS exception. `Zotero` and `window` are in scope in `body`.
+
+def bridge_exec(body: str, args: dict | None = None, timeout=90):
+    """Run async JS `body` inside Zotero with `ARGS` bound to *args*; return its value.
+
+    `body` reads `ARGS.<key>` and `return`s a JSON-serializable value. Raises
+    TimeoutError if Zotero isn't running / the password pref isn't set, RuntimeError
+    on a JS exception.
     """
     fd, out = tempfile.mkstemp(suffix=".json", prefix="zbridge_")
     os.close(fd); os.unlink(out)
-    op = json.dumps(out)
-    js = (f"async function __run(){{ {body} }}\n"
-          f"try{{ const __r=await __run();"
-          f" await Zotero.File.putContentsAsync({op}, JSON.stringify(__r===undefined?null:__r)); }}"
-          f"catch(e){{ await Zotero.File.putContentsAsync({op}, JSON.stringify({{__error:String(e),stack:(e&&e.stack)||''}})); }}")
+    js = (_WRAP.replace("__ARGS__", json.dumps(args or {}))
+               .replace("__OUT__", json.dumps(out))
+               .replace("__BODY__", body))
     url = "zotero://ztoolkit-debug?password=" + urllib.parse.quote(_BRIDGE_PW) + "&run=" + urllib.parse.quote(js)
     subprocess.run(["open", url], check=True)
     deadline = time.time() + timeout
@@ -201,40 +212,44 @@ def bridge_exec(body: str, timeout=90):
     raise TimeoutError("debug-bridge timed out — Zotero running and password pref set?")
 
 
+_JS_ADD = """
+const lib = Zotero.Libraries.userLibraryID;
+let col = null, missing = false;
+if (ARGS.collection) {
+  col = Zotero.Collections.getByLibrary(lib, true).find(c => c.name === ARGS.collection);
+  missing = !col;
+}
+const t = new Zotero.Translate.Search();
+t.setIdentifier({ [ARGS.idtype]: ARGS.value });
+const trs = await t.getTranslators();
+if (!trs.length) return { items: [], translator: null };
+const items = await t.translate({ libraryID: lib, collections: col ? [col.id] : [], saveAttachments: false });
+for (const it of items) { try { await Zotero.Attachments.addAvailablePDF(it); } catch (e) {} }
+return {
+  collection: col ? col.name : null, collectionMissing: missing, translator: trs[0].label,
+  items: items.map(it => ({ key: it.key, title: it.getField("title"),
+                            itemType: it.itemType, hasPDF: it.getAttachments().length > 0 })),
+};"""
+
+_JS_ERASE = """
+const lib = Zotero.Libraries.userLibraryID;
+const erased = [], missing = [];
+for (const k of ARGS.keys) {
+  const it = await Zotero.Items.getByLibraryAndKeyAsync(lib, k);
+  if (it) { await it.eraseTx(); erased.push(k); } else missing.push(k);
+}
+return { erased, missing };"""
+
+
 def add_by_identifier(idtype: str, value: str, collection: str | None = None) -> dict:
     """Zotero's native Add-by-Identifier + Find Available PDF, filing into *collection*.
 
     PDF download is awaited, so the returned item already has it (unlike the
-    connector). Returns {items:[{key,title,itemType}], collection, collectionMissing}.
+    connector). Returns {items:[{key,title,itemType,hasPDF}], collection, collectionMissing}.
     """
-    js = f"""
-      const lib = Zotero.Libraries.userLibraryID;
-      const want = {json.dumps(collection)};
-      let col = null, missing = false;
-      if (want) {{ col = Zotero.Collections.getByLibrary(lib, true).find(c => c.name === want); missing = !col; }}
-      const t = new Zotero.Translate.Search();
-      t.setIdentifier({{ {idtype}: {json.dumps(value)} }});
-      const trs = await t.getTranslators();
-      if (!trs.length) return {{ items: [], translator: null }};
-      const items = await t.translate({{ libraryID: lib, collections: col ? [col.id] : [], saveAttachments: false }});
-      for (const it of items) {{ try {{ await Zotero.Attachments.addAvailablePDF(it); }} catch (e) {{}} }}
-      return {{ collection: col ? col.name : null, collectionMissing: missing,
-                translator: trs[0].label,
-                items: items.map(it => ({{ key: it.key, title: it.getField('title'),
-                                           itemType: it.itemType, hasPDF: it.getAttachments().length > 0 }})) }};
-    """
-    return bridge_exec(js)
+    return bridge_exec(_JS_ADD, {"idtype": idtype, "value": value, "collection": collection})
 
 
 def erase_items(keys) -> dict:
     """Permanently delete items by key (bypasses trash). Returns {erased, missing}."""
-    js = f"""
-      const lib = Zotero.Libraries.userLibraryID;
-      const erased=[], missing=[];
-      for (const k of {json.dumps(list(keys))}) {{
-        const it = await Zotero.Items.getByLibraryAndKeyAsync(lib, k);
-        if (it) {{ await it.eraseTx(); erased.push(k); }} else missing.push(k);
-      }}
-      return {{ erased, missing }};
-    """
-    return bridge_exec(js)
+    return bridge_exec(_JS_ERASE, {"keys": list(keys)})
