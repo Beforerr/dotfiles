@@ -77,35 +77,18 @@ def cmd_add(argv):
     p.add_argument("identifier", help="DOI, arXiv id, or URL containing one")
     p.add_argument("-c", "--collection", help="existing collection name to file into")
     p.add_argument("--force", action="store_true", help="add even if the DOI is already present")
-    p.add_argument("--json", action="store_true")
     a = p.parse_args(argv)
-    r = add(a.identifier, a.collection, a.force)
-    if a.json:
-        print(json.dumps(r, indent=2)); return
-    if r["status"] == "exists":
-        print(f"• already in library: {r['key']} ({r['identifier']}) — use --force to re-add"); return
-    items = r.get("items", [])
-    if not items:
-        print(f"✗ no translator/result for {r['identifier']}"); return
-    for it in items:
-        print(f"✓ {it['key']}  {it['title']}  [{'PDF' if it.get('hasPDF') else 'no PDF'}]")
-    if a.collection and r.get("collectionMissing"):
-        print(f"  ⚠ collection {a.collection!r} not found — left in My Library")
-    elif r.get("collection"):
-        print(f"  collection: {r['collection']}")
-    print(f"  (via {r.get('translator')})")
+    # Always JSON: result is structured (key/hasPDF/collection/status) — readable
+    # interactively, and ready to pipe/chain (e.g. into `rm` or note generation).
+    print(json.dumps(add(a.identifier, a.collection, a.force), indent=2))
 
 
 def cmd_rm(argv):
     import argparse
-    import json
     p = argparse.ArgumentParser(prog="zotero.py rm", description="Permanently delete items by key.")
     p.add_argument("keys", nargs="+", help="Zotero item keys (8 chars)")
-    p.add_argument("--json", action="store_true")
     a = p.parse_args(argv)
     r = erase_items(a.keys)
-    if a.json:
-        print(json.dumps(r, indent=2)); return
     print(f"erased {len(r['erased'])}: {', '.join(r['erased']) or '-'}")
     if r["missing"]:
         print(f"not found: {', '.join(r['missing'])}")
