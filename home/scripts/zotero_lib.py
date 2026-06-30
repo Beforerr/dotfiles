@@ -214,11 +214,11 @@ if (ARGS.collection) {
 const t = new Zotero.Translate.Search();
 t.setIdentifier({ [ARGS.idtype]: ARGS.value });
 const trs = await t.getTranslators();
-if (!trs.length) return { items: [], translator: null };
+if (!trs.length) return { items: [], };
 const items = await t.translate({ libraryID: lib, collections: col ? [col.id] : [], saveAttachments: false });
 for (const it of items) { try { await Zotero.Attachments.addAvailablePDF(it); } catch (e) {} }
 return {
-  collection: col ? col.name : null, collectionMissing: missing, translator: trs[0].label,
+  collection: col ? col.name : null, collectionMissing: missing,
   items: items.map(it => ({ key: it.key, title: it.getField("title"),
                             itemType: it.itemType, hasPDF: it.getAttachments().length > 0 })),
 };"""

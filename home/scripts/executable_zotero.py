@@ -6,7 +6,7 @@
 """Zotero CLI: look up items, `add` a paper by identifier, or `rm` items.
 
   zotero.py <citekey|DOI|title> ...          # look up + print metadata/PDF path
-  zotero.py add <doi|arXiv|url> -c EMIC_ERG  # native Add-by-Identifier + PDF, file into collection
+  zotero.py add <doi|arXiv|url> ... -c EMIC_ERG  # native Add-by-Identifier + PDF, file into collection
   zotero.py rm <itemKey> ...                 # permanently delete items
 
 `add`/`rm` drive Zotero's native machinery through the debug bridge (see zotero_lib);
@@ -68,11 +68,12 @@ def cmd_add(argv):
     import argparse
     import json
     p = argparse.ArgumentParser(prog="zotero.py add")
-    p.add_argument("identifier")
+    p.add_argument("identifier", nargs="+")
     p.add_argument("-c", "--collection")
     p.add_argument("--force", action="store_true")
     a = p.parse_args(argv)
-    print(json.dumps(add(a.identifier, a.collection, a.force), indent=2))
+    results = [add(i, a.collection, a.force) for i in a.identifier]
+    print(json.dumps(results if len(results) > 1 else results[0], indent=2))
 
 
 def cmd_rm(argv):
@@ -86,29 +87,33 @@ def cmd_rm(argv):
         print(f"not found: {', '.join(r['missing'])}")
 
 
-def main():
-    if len(sys.argv) < 2:
+def query_item(zot, query, seen, first):
+    """Look up + print one query. Returns updated `first` flag; skips dupes via `seen`."""
+    match = lookup(zot, query)
+    if match is None:
+        print(f"No item found for: {query}", file=sys.stderr)
+        return first
+    key = match["key"]
+    if key in seen:
+        return first
+    seen.add(key)
+    if not first:
+        print()
+    print_item(zot, match, query)
+    return False
+
+
+def cmd_query(argv):
+    if not argv:
         print("Usage: zotero.py <citekey|DOI|partial title> [...]", file=sys.stderr)
         sys.exit(1)
 
     zot = zotero.Zotero(0, "user", local=True)
-    queries = sys.argv[1:]
 
     seen = set()
     first = True
-    for query in queries:
-        match = lookup(zot, query)
-        if match is None:
-            print(f"No item found for: {query}", file=sys.stderr)
-            continue
-        key = match["key"]
-        if key in seen:
-            continue
-        seen.add(key)
-        if not first:
-            print()
-        first = False
-        print_item(zot, match, query)
+    for query in argv:
+        first = query_item(zot, query, seen, first)
 
 
 _zot = None
@@ -157,4 +162,4 @@ if __name__ == "__main__":
     elif len(sys.argv) > 1 and sys.argv[1] == "rm":
         cmd_rm(sys.argv[2:])
     else:
-        main()
+        cmd_query(sys.argv[1:])
