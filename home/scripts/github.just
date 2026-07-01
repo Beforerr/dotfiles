@@ -48,7 +48,7 @@ merge pr_number="":
     BRANCH_NAME=$(gh pr view $PR_NUMBER --json headRefName --jq '.headRefName')
     git push origin --delete "$BRANCH_NAME"
     jj git fetch
-    jj rebase -s @ -d main
+    jj rebase -d main
 
 [no-cd]
 track-branch branch="":

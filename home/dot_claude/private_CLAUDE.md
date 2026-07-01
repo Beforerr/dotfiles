@@ -1,6 +1,6 @@
 # Agent Rules
 
-言简意赅
+言简意赅, Disagree when confident, no sycophancy
 
 ## Preferences
 
@@ -36,6 +36,6 @@ Recipes are guidelines, not fixed rules — add or improve them as needed to fit
 - Run focused tests for touched behavior, and optional full test suite before handoff:
     - `using TestRunner` with `@testset`: `runtest("test/runtests.jl", ["TestSetName", r"TestSetRegex"])`
     - `using TestItemRunner` with `@testitem`: `TestItemRunner.run_tests(pwd(); filter = ti -> ti.name == "TestItemName")`
-- Prefer `Chairmarks.jl` for fast benchmarking. Examples: `@b rand(1000)`, `@b rand(100) sort`, `@b rand(1000) _.*5` (use `_` to refer to setup)
+- Prefer `Chairmarks.jl` (globally installed) for fast benchmarking. Examples: `@b rand(1000)`, `@b rand(100) sort`, `@b rand(1000) _.*5` (use `_` to refer to setup)
 
 @RTK.md
