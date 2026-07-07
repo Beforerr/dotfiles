@@ -192,7 +192,7 @@ def bridge_exec(body: str, args: dict | None = None, timeout=90):
                .replace("__OUT__", json.dumps(out))
                .replace("__BODY__", body))
     url = "zotero://ztoolkit-debug?password=" + urllib.parse.quote(_BRIDGE_PW) + "&run=" + urllib.parse.quote(js)
-    subprocess.run(["open", url], check=True)
+    subprocess.run(["open", "-g", url], check=True)
     deadline = time.time() + timeout
     while time.time() < deadline:
         if os.path.exists(out):

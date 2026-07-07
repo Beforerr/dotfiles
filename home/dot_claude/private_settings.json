@@ -7,8 +7,6 @@
     "allow": [
       "Bash(jj:*)",
       "Bash(julia:*)",
-      "Bash(julia-client:*)",
-      "Bash(julia-client *)",
       "Bash(gh:*)",
       "Bash(gh pr:*)",
       "Bash(gh api:*)",
@@ -57,6 +55,8 @@
   },
   "skipDangerousModePermissionPrompt": true,
   "remoteControlAtStartup": true,
+  "respondToBashCommands": false,
   "agentPushNotifEnabled": true,
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "awaySummaryEnabled": false
 }
