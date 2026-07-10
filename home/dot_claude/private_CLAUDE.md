@@ -37,5 +37,3 @@ Recipes are guidelines, not fixed rules — add or improve them as needed to fit
     - `using TestRunner` with `@testset`: `runtest("test/runtests.jl", ["TestSetName", r"TestSetRegex"])`
     - `using TestItemRunner` with `@testitem`: `TestItemRunner.run_tests(pwd(); filter = ti -> ti.name == "TestItemName")`
 - Prefer `Chairmarks.jl` (globally installed) for fast benchmarking. Examples: `@b rand(1000)`, `@b rand(100) sort`, `@b rand(1000) _.*5` (use `_` to refer to setup)
-
-@RTK.md

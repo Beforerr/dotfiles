@@ -25,7 +25,7 @@
     "deny": [],
     "ask": []
   },
-  "model": "opus",
+  "model": "claude-fable-5[1m]",
   "hooks": {
     "PreToolUse": [
       {
@@ -40,6 +40,7 @@
     ]
   },
   "enableWorkflows": true,
+  "respondToBashCommands": false,
   "statusLine": {
     "type": "command",
     "command": "sh /Users/zijin/.claude/statusline-command.sh"
@@ -48,6 +49,7 @@
     "skill-creator@claude-plugins-official": true
   },
   "effortLevel": "high",
+  "awaySummaryEnabled": false,
   "tui": "fullscreen",
   "voice": {
     "enabled": true,
@@ -55,8 +57,6 @@
   },
   "skipDangerousModePermissionPrompt": true,
   "remoteControlAtStartup": true,
-  "respondToBashCommands": false,
   "agentPushNotifEnabled": true,
-  "voiceEnabled": true,
-  "awaySummaryEnabled": false
+  "voiceEnabled": true
 }
