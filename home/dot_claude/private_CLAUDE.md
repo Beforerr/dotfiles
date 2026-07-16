@@ -14,6 +14,7 @@ If doc, code or tests, or git history show, don't save.
 - Minimize repetition across progress updates, tool uses, and final response. Do not restate command contents or patch text visible in context.
 - `uv` for Python dependency management
 - Jujutsu (`jj`) for version control
+- Search via `rg`: use `rg --heading -n <pat>` for scannable grouped output
 - Using subagent(s) for code review (fresh ones), explore unfamiliar large codebase, parallel editing of independent files
 
 ## Code Style

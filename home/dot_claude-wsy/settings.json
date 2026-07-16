@@ -1,9 +1,11 @@
 {
-  "model": "claude-fable-5[1m]",
+  "model": "opus",
   "statusLine": {
     "type": "command",
     "command": "sh /Users/zijin/.claude/statusline-command.sh"
   },
+  "respondToBashCommands": false,
+  "effortLevel": "high",
   "skipDangerousModePermissionPrompt": true,
   "theme": "auto"
 }
