@@ -106,25 +106,15 @@ new-package-sph name dir="~/src":
         ]
     )("{{ name }}")
 
+# Focused tests, plain julia (cold start). Filters @testitem/@testset by name.
+[no-cd]
+test filter="" flags="":
+    julia {{ flags }} --project=test ~/scripts/focused_test.jl "{{ filter }}"
+
+# Focused tests via repld (persistent session — fast re-runs). Same script, layered.
 [no-cd]
 fast-test filter="" flags="":
-    #!/usr/bin/env -S repld julia {{ flags }} --project=test --
-    using TOML
-    test_deps = get(TOML.parsefile(joinpath(pwd(), "test", "Project.toml")), "deps", Dict())
-    filter_str = "{{ filter }}"
-    if haskey(test_deps, "TestItems") || haskey(test_deps, "TestItemRunner")
-        using TestItemRunner
-        kw = isempty(filter_str) ? (;) : (; filter = ti -> occursin(filter_str, ti.name))
-        TestItemRunner.run_tests(pwd(); kw...)
-    else
-        runtests = joinpath(pwd(), "test", "runtests.jl")
-        if isempty(filter_str)
-            include(runtests)
-        else
-            using TestRunner
-            TestRunner.runtest(runtests, [Regex(filter_str)])
-        end
-    end
+    repld julia {{ flags }} --project=test -- ~/scripts/focused_test.jl "{{ filter }}"
 
 [no-cd]
 time-import:

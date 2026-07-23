@@ -1,10 +1,10 @@
 {
   "model": "opus",
+  "respondToBashCommands": false,
   "statusLine": {
     "type": "command",
     "command": "sh /Users/zijin/.claude/statusline-command.sh"
   },
-  "respondToBashCommands": false,
   "effortLevel": "high",
   "skipDangerousModePermissionPrompt": true,
   "theme": "auto"

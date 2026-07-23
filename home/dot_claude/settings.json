@@ -1,0 +1,172 @@
+{
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "permissions": {
+    "allow": [
+      "Bash(jj:*)",
+      "Bash(julia:*)",
+      "Bash(gh:*)",
+      "Bash(gh pr:*)",
+      "Bash(gh api:*)",
+      "Bash(grep:*)",
+      "Bash(mkdir:*)",
+      "Bash(npx skills:*)",
+      "Bash(uv run --with openpyxl python3 -c ':*)",
+      "Bash(typst:*)",
+      "mcp__claude_ai_Gmail__gmail_search_messages",
+      "mcp__claude_ai_Gmail__gmail_create_draft",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:api.github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:juliaspacephysics.github.io)"
+    ],
+    "deny": [],
+    "ask": []
+  },
+  "model": "opus",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "rtk hook claude"
+          }
+        ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/zijin/.orca/agent-hooks/claude-hook.sh'; else cat >/dev/null 2>&1 || :; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/zijin/.orca/agent-hooks/claude-hook.sh'; else cat >/dev/null 2>&1 || :; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/zijin/.orca/agent-hooks/claude-hook.sh'; else cat >/dev/null 2>&1 || :; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "StopFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/zijin/.orca/agent-hooks/claude-hook.sh'; else cat >/dev/null 2>&1 || :; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/zijin/.orca/agent-hooks/claude-hook.sh'; else cat >/dev/null 2>&1 || :; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/zijin/.orca/agent-hooks/claude-hook.sh'; else cat >/dev/null 2>&1 || :; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "TeammateIdle": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/zijin/.orca/agent-hooks/claude-hook.sh'; else cat >/dev/null 2>&1 || :; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/zijin/.orca/agent-hooks/claude-hook.sh'; else cat >/dev/null 2>&1 || :; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/zijin/.orca/agent-hooks/claude-hook.sh'; else cat >/dev/null 2>&1 || :; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/zijin/.orca/agent-hooks/claude-hook.sh'; else cat >/dev/null 2>&1 || :; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  },
+  "enableWorkflows": true,
+  "respondToBashCommands": false,
+  "statusLine": {
+    "type": "command",
+    "command": "sh /Users/zijin/.claude/statusline-command.sh"
+  },
+  "enabledPlugins": {
+    "skill-creator@claude-plugins-official": true
+  },
+  "effortLevel": "high",
+  "tui": "fullscreen",
+  "voice": {
+    "enabled": true,
+    "mode": "hold"
+  },
+  "skipDangerousModePermissionPrompt": true,
+  "remoteControlAtStartup": true,
+  "agentPushNotifEnabled": true
+}
