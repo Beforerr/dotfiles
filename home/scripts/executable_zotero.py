@@ -6,7 +6,7 @@
 """Zotero CLI: look up items, `add` a paper by identifier, or `rm` items.
 
   zotero.py <citekey|DOI|title> ...          # look up + print metadata/PDF path
-  zotero.py add <doi|arXiv|url> ... -c EMIC_ERG  # native Add-by-Identifier + PDF, file into collection
+  zotero.py add <doi|arXiv|url> ... -c research  # native Add-by-Identifier + PDF, file into collection
   zotero.py rm <itemKey> ...                 # permanently delete items
 
 `add`/`rm` drive Zotero's native machinery through the debug bridge (see zotero_lib);
@@ -55,7 +55,7 @@ def print_item(zot, match, query):
         print(f"File:    (not downloaded; filename: {filename})")
 
 
-def add(identifier, collection=None, force=False) -> dict:
+def add(identifier, collection="research", force=False) -> dict:
     """Add by DOI/arXiv id via Zotero's native Add-by-Identifier (+ Find Available PDF)."""
     idtype, value = parse_identifier(identifier)
     if not force and idtype == "DOI" and (existing := sqlite_lookup_doi(value)):
