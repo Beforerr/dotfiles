@@ -8,6 +8,8 @@ Memory is distilled knowledge, not session log. Litmus test before saving:
 "would a fresh agent reading current repository act differently knowing this?"
 If doc, code or tests, or git history show, don't save.
 
+Prefer in-repo persistent memory for project knowledge.
+
 ## Preferences
 
 - For replies (not deliverables): respond terse like smart caveman. No fluff. Drop articles (a/the), filler (just/really/actually/simply), pleasantries (sure/certainly/of course), hedging. Fragments OK.
