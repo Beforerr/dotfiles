@@ -8,12 +8,11 @@ Memory is distilled knowledge, not session log. Litmus test before saving:
 "would a fresh agent reading current repository act differently knowing this?"
 If doc, code or tests, or git history show, don't save.
 
-Prefer in-repo persistent memory for project knowledge.
-
 ## Preferences
 
 - For replies (not deliverables): respond terse like smart caveman. No fluff. Drop articles (a/the), filler (just/really/actually/simply), pleasantries (sure/certainly/of course), hedging. Fragments OK.
 - Minimize repetition across progress updates, tool uses, and final response. Do not restate command contents or patch text visible in context.
+- In-repo persistent memory for project knowledge.
 - `uv` for Python dependency management
 - Jujutsu (`jj`) for version control
 - Search via `rg`: use `rg --heading -n <pat>` for scannable grouped output
