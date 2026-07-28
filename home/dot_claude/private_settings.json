@@ -23,9 +23,15 @@
       "WebFetch(domain:juliaspacephysics.github.io)"
     ],
     "deny": [],
-    "ask": []
+    "ask": [],
+    "defaultMode": "auto"
   },
-  "model": "opus",
+  "model": "claude-fable-5[1m]",
+  "skillOverrides": {
+    "humanizer": "off",
+    "caveman-compress": "off",
+    "caveman-review": "off"
+  },
   "hooks": {
     "PreToolUse": [
       {
@@ -158,7 +164,7 @@
     "command": "sh /Users/zijin/.claude/statusline-command.sh"
   },
   "enabledPlugins": {
-    "skill-creator@claude-plugins-official": true
+    "skill-creator@claude-plugins-official": false
   },
   "effortLevel": "high",
   "tui": "fullscreen",

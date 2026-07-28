@@ -16,7 +16,6 @@ If doc, code or tests, or git history show, don't save.
 - `uv` for Python dependency management
 - Jujutsu (`jj`) for version control
 - Search via `rg`: use `rg --heading -n <pat>` for scannable grouped output
-- Using subagent(s) for code review (fresh ones), explore unfamiliar large codebase, parallel editing of independent files
 
 ## Code Style
 
