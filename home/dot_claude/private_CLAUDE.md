@@ -25,8 +25,12 @@ Every fact has exactly one home. Elsewhere, link.
 - Search: `rg`
 - Version control: Jujutsu (`jj`) + Git
 - Task automation: `just`
-  - user-level justfile at `~/justfile`. Use `--justfile ~/justfile` when calling from project directory.
+- User-level justfile at `~/justfile`
+  - Use `--justfile ~/justfile` when calling from project directory
   - Some recipes: `julia fast-test [regex]`, `julia time-import`, `github push-and-pr`
+- References management: `zotero`
+  - `~/scripts/zotero.py [CitationKey] [DOI]` to queue paper(s) metadata.
+  - `~/scripts/zotero.py add [DOI]` to add paper(s) to Zotero
 
 ## Code Style
 
@@ -47,12 +51,11 @@ Tests: each one should fail if the implementation were subtly wrong. A trivial t
 
 ## Julia development
 
+- Available global tools: `Revise`
+  - `Chairmarks` for fast benchmarking: `@b rand(1000)`, `@b rand(100) sort`, `@b rand(1000) _.*5`.
+  - `ReferenceRevision` for checking out code at different revisions: `head = open_process(rev = "HEAD"); head.func()`
 - When writing functions, avoid over-narrow signatures blocking user types
 - Prefer `Pkg.add` for new packages; `Pkg.resolve()` when `Project.toml` changes; use `io = devnull` keyword for suppressing output;
-- To run focused tests for touched behavior in test environment:
-  - `using TestRunner` with `@testset`: `runtest("test/runtests.jl", ["TestSetName", r"TestSetRegex"])`
-  - `using TestItemRunner` with `@testitem`: `TestItemRunner.run_tests(pwd(); filter = ti -> ti.name == "TestItemName")`
-- Prefer `Chairmarks.jl` (globally installed) for fast benchmarking. Examples: `@b rand(1000)`, `@b rand(100) sort`, `@b rand(1000) _.*5` (use `_` to refer to setup)
 
 ## Memory
 
