@@ -29,8 +29,8 @@ Every fact has exactly one home. Elsewhere, link.
   - Use `--justfile ~/justfile` when calling from project directory
   - Some recipes: `julia fast-test [regex]`, `julia time-import`, `github push-and-pr`
 - References management: `zotero`
-  - `~/scripts/zotero.py [CitationKey] [DOI]` to queue paper(s) metadata.
-  - `~/scripts/zotero.py add [DOI]` to add paper(s) to Zotero
+  - `~/scripts/zotero.py [citekey] [DOI] [title] ...` to queue paper(s) metadata.
+  - `~/scripts/zotero.py add [DOI] -c CollectionName` to add paper(s) to Zotero
 
 ## Code Style
 
