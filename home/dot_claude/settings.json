@@ -155,6 +155,17 @@
           }
         ]
       }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/zijin/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/zijin/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "timeout": 10
+          }
+        ]
+      }
     ]
   },
   "enableWorkflows": true,
