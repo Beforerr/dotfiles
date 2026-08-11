@@ -14,8 +14,7 @@ When it's cheap to undo, understand the motivation, pick the likely reading, sta
 
 Every fact has exactly one home. Elsewhere, link.
 
-- Same fact in two places is the signal to consolidate and leave a pointer —
-  not to edit both copies.
+- Same fact in two places is the signal to consolidate and leave a pointer.
 - Source files document the system as it is, not the change that made it.
   Update in place; never append "NEW:" or "(updated)". History lives in VCS.
 
@@ -29,7 +28,7 @@ Every fact has exactly one home. Elsewhere, link.
   - Use `--justfile ~/justfile` when calling from project directory
   - Some recipes: `julia fast-test [regex]`, `julia time-import`, `github push-and-pr`
 - References management: `zotero`
-  - `~/scripts/zotero.py [citekey] [DOI] [title] ...` to queue paper(s) metadata.
+  - `~/scripts/zotero.py [citekey] [DOI] [title] ...` to queue paper(s) metadata
   - `~/scripts/zotero.py add [DOI] -c CollectionName` to add paper(s) to Zotero
   - auto-updated `research.bib` contains all Zotero entries
 
