@@ -17,7 +17,8 @@ import sys
 import os
 from pyzotero import zotero
 from zotero_lib import (lookup, find_attachment, parse_identifier,
-                        sqlite_lookup_doi, add_by_identifier, erase_items)
+                        sqlite_lookup_doi, add_by_identifier, erase_items,
+                        file_into_collection)
 
 def print_item(zot, match, query):
     d = match["data"]
@@ -56,10 +57,17 @@ def print_item(zot, match, query):
 
 
 def add(identifier, collection="research", force=False) -> dict:
-    """Add by DOI/arXiv id via Zotero's native Add-by-Identifier (+ Find Available PDF)."""
+    """Add by DOI/arXiv id via Zotero's native Add-by-Identifier (+ Find Available PDF).
+
+    If the DOI is already in the library, file the existing item into *collection*
+    (no duplicate created) rather than re-adding.
+    """
     idtype, value = parse_identifier(identifier)
     if not force and idtype == "DOI" and (existing := sqlite_lookup_doi(value)):
-        return {"status": "exists", "key": existing, "identifier": value}
+        result = {"status": "exists", "key": existing, "identifier": value}
+        if collection:
+            result["filed"] = file_into_collection([existing], collection)
+        return result
     r = add_by_identifier(idtype, value, collection)
     return {"status": "saved", "idtype": idtype, "identifier": value, **r}
 

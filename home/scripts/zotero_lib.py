@@ -223,6 +223,20 @@ return {
                             itemType: it.itemType, hasPDF: it.getAttachments().length > 0 })),
 };"""
 
+_JS_FILE = """
+const lib = Zotero.Libraries.userLibraryID;
+const col = Zotero.Collections.getByLibrary(lib, true).find(c => c.name === ARGS.collection);
+if (!col) return { collection: ARGS.collection, collectionMissing: true, filed: [], missing: ARGS.keys };
+const filed = [], missing = [];
+for (const k of ARGS.keys) {
+  const it = await Zotero.Items.getByLibraryAndKeyAsync(lib, k);
+  if (!it) { missing.push(k); continue; }
+  it.addToCollection(col.id);
+  await it.saveTx();
+  filed.push(k);
+}
+return { collection: col.name, collectionMissing: false, filed, missing };"""
+
 _JS_ERASE = """
 const lib = Zotero.Libraries.userLibraryID;
 const erased = [], missing = [];
@@ -240,6 +254,14 @@ def add_by_identifier(idtype: str, value: str, collection: str | None = None) ->
     connector). Returns {items:[{key,title,itemType,hasPDF}], collection, collectionMissing}.
     """
     return bridge_exec(_JS_ADD, {"idtype": idtype, "value": value, "collection": collection})
+
+
+def file_into_collection(keys, collection: str) -> dict:
+    """File existing items (by key) into *collection* by name, no duplication.
+
+    Returns {collection, collectionMissing, filed, missing}.
+    """
+    return bridge_exec(_JS_FILE, {"keys": list(keys), "collection": collection})
 
 
 def erase_items(keys) -> dict:
