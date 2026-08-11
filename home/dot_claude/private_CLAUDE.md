@@ -31,7 +31,7 @@ Every fact has exactly one home. Elsewhere, link.
 - References management: `zotero`
   - `~/scripts/zotero.py [citekey] [DOI] [title] ...` to queue paper(s) metadata.
   - `~/scripts/zotero.py add [DOI] -c CollectionName` to add paper(s) to Zotero
-  - research.bib contains all Zotero library
+  - auto-updated `research.bib` contains all Zotero entries
 
 ## Code Style
 
