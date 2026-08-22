@@ -8,7 +8,7 @@
     "type": "command",
     "command": "sh /Users/zijin/.claude/statusline-command.sh"
   },
-  "effortLevel": "high",
+  "effortLevel": "xhigh",
   "skipDangerousModePermissionPrompt": true,
   "theme": "auto"
 }

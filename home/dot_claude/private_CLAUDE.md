@@ -47,7 +47,7 @@ Comments:
 - Cut: section dividers, headers restating the task, docstrings that restate signatures.
 - A contradicting comment is a bug. Fix or delete it — never route around it.
 
-Tests: each one should fail if the implementation were subtly wrong. A trivial test is deleted, not written.
+Tests: Only add tests that would fail if the implementation were subtly wrong. A trivial test is deleted, not written.
 
 ## Julia development
 

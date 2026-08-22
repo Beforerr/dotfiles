@@ -177,7 +177,7 @@
   "enabledPlugins": {
     "skill-creator@claude-plugins-official": false
   },
-  "effortLevel": "xhigh",
+  "effortLevel": "high",
   "tui": "fullscreen",
   "voice": {
     "enabled": true,
