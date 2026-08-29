@@ -53,10 +53,13 @@ Tests: Only add tests that would fail if the implementation were subtly wrong. A
 
 - Available global tools: `Revise`
   - `Chairmarks` for fast benchmarking: `@b rand(1000)`, `@b rand(100) sort`, `@b rand(1000) _.*5`.
+  - `CodeTracking`: `@code_string` for inspecting method definitions
   - `ReferenceRevision` for checking out code at different revisions: `head = open_process(rev = "HEAD"); head.func()`
+- To inspect installed packages from Julia: `@doc` for docstring (Module `@doc` falls back to README), `pkgdir(Foo)` for location, `methods(f)` to enumerate.
 - Run `@run_package_tests` from `test/` directory; from the repo root it scans all sibling packages
 - When writing functions, avoid over-narrow signatures blocking user types
 - Prefer `Pkg.add` for new packages; `Pkg.resolve()` when `Project.toml` changes; use `io = devnull` keyword for suppressing output;
+- Don't split facts across README + docs/src/*.md + docstrings, reduce overlap, consolidate when possible.
 
 ## Memory
 
