@@ -33,7 +33,7 @@ _bump-type:
     #!/usr/bin/env sh
     last_tag=$(git tag --sort=-version:refname | grep -E '^v[0-9]' | head -1)
     commits=$(git log "${last_tag:+${last_tag}..}HEAD" --format="%s%n%b")
-    if echo "$commits" | grep -qE '^[a-z]+(\([^)]*\))?!:|^BREAKING CHANGE:'; then
+    if echo "$commits" | grep -qE '^[a-z]+(!(\([^)]*\))?|\([^)]*\)!):|^BREAKING CHANGE:'; then
         echo "minor"
     else
         echo "patch"
@@ -46,7 +46,7 @@ check-bump:
     if [ "$bump_type" = "minor" ]; then
         last_tag=$(git tag --sort=-version:refname | grep -E '^v[0-9]' | head -1)
         git log "${last_tag:+${last_tag}..}HEAD" --format="%s%n%b" \
-            | grep -E '^[a-z]+(\([^)]*\))?!:|^BREAKING CHANGE:' \
+            | grep -E '^[a-z]+(!(\([^)]*\))?|\([^)]*\)!):|^BREAKING CHANGE:' \
             | sed 's/^/  /; 1s/^  /minor: /'
     else
         echo "patch"
