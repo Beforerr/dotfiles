@@ -6,14 +6,14 @@
   "permissions": {
     "defaultMode": "dontAsk"
   },
-  "skipDangerousModePermissionPrompt": true,
-  "theme": "auto",
-  "switchModelsOnFlag": false,
-  "remoteControlAtStartup": false,
+  "model": "claude-fable-5[1m]",
   "respondToBashCommands": false,
   "statusLine": {
     "type": "command",
     "command": "sh /Users/zijin/.claude/statusline-command.sh"
   },
-  "model": "claude-fable-5[1m]"
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "auto",
+  "switchModelsOnFlag": false,
+  "remoteControlAtStartup": false
 }
