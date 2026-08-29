@@ -54,6 +54,7 @@ Tests: Only add tests that would fail if the implementation were subtly wrong. A
 - Available global tools: `Revise`
   - `Chairmarks` for fast benchmarking: `@b rand(1000)`, `@b rand(100) sort`, `@b rand(1000) _.*5`.
   - `ReferenceRevision` for checking out code at different revisions: `head = open_process(rev = "HEAD"); head.func()`
+- Run `@run_package_tests` from `test/` directory; from the repo root it scans all sibling packages
 - When writing functions, avoid over-narrow signatures blocking user types
 - Prefer `Pkg.add` for new packages; `Pkg.resolve()` when `Project.toml` changes; use `io = devnull` keyword for suppressing output;
 
