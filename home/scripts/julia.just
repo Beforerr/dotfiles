@@ -179,6 +179,7 @@ bump bump_type="":
         echo "⚠️  Breaking change detected — register manually:"
         echo "https://github.com/$OWNER/$REPO_NAME/commit/$COMMIT_HASH"
     fi
+    jj new
 
 [no-cd]
 register:
