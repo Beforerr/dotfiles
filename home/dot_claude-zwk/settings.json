@@ -6,7 +6,7 @@
   "permissions": {
     "defaultMode": "dontAsk"
   },
-  "model": "claude-fable-5[1m]",
+  "model": "fable[1m]",
   "respondToBashCommands": false,
   "statusLine": {
     "type": "command",

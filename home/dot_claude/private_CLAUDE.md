@@ -20,6 +20,8 @@ Every fact has exactly one home. Elsewhere, link.
 
 ## Available tools and scripts
 
+You may install tools using `brew` or `uv` as needed.
+
 - Python deps: `uv`
 - Search: `rg`
 - Version control: Jujutsu (`jj`) + Git
@@ -31,6 +33,9 @@ Every fact has exactly one home. Elsewhere, link.
   - `~/scripts/zotero.py [citekey] [DOI] [title] ...` to queue paper(s) metadata
   - `~/scripts/zotero.py add [DOI] -c CollectionName` to add paper(s) to Zotero
   - auto-updated `research.bib` contains all Zotero entries
+- PDF extraction:
+  - Quick text/grep: `pdftotext -layout in.pdf out.txt`
+  - Equations, tables, figures (papers): `uvx --from marker-pdf marker_single in.pdf --output_dir out --output_format markdown` → `out/<stem>/<stem>.md` with LaTeX math, figures as JPEG. ~30 s/paper.
 
 ## Code Style
 
@@ -59,7 +64,7 @@ Tests: Only add tests that would fail if the implementation were subtly wrong. A
 - Run `@run_package_tests` from `test/` directory; from the repo root it scans all sibling packages
 - When writing functions, avoid over-narrow signatures blocking user types
 - Prefer `Pkg.add` for new packages; `Pkg.resolve()` when `Project.toml` changes; use `io = devnull` keyword for suppressing output;
-- Don't split facts across README + docs/src/*.md + docstrings, reduce overlap, consolidate when possible.
+- Don't split facts across README + docs/src/\*.md + docstrings, reduce overlap, consolidate when possible.
 
 ## Memory
 
