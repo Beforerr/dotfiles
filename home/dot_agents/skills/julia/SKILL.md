@@ -1,6 +1,6 @@
 ---
 name: julia
-description: Julia conventions and global tools — benchmarking, inspecting methods, comparing revisions, running package tests, adding deps. Use when editing or testing Julia code or packages.
+description: Julia globals (benchmark, inspect, revisions, tests) and package conventions. Use for any Julia code.
 ---
 
 - Global: `Revise`; `Chairmarks` (`@b rand(1000) sort`); `CodeTracking` (`@code_string f(x)`);
