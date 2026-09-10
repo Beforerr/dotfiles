@@ -24,6 +24,7 @@ You may install tools using `brew` or `uv` as needed.
 
 - Python deps: `uv`
 - Search: `rg`
+- Gmail: prefer `gog`; follow [gog-gmail](skills/gog-gmail/SKILL.md).
 - Version control: Jujutsu (`jj`) + Git
 - Task automation: `just`
 - User-level justfile at `~/justfile`
@@ -36,6 +37,16 @@ You may install tools using `brew` or `uv` as needed.
 - PDF extraction:
   - Quick text/grep: `pdftotext -layout in.pdf out.txt`
   - Equations, tables, figures (papers): `uvx --from marker-pdf marker_single in.pdf --output_dir out --output_format markdown` → `out/<stem>/<stem>.md` with LaTeX math, figures as JPEG. ~30 s/paper.
+
+## Dotfiles
+
+`~` is partly chezmoi-managed (source `~/.local/share/chezmoi/home`, `autoCommit`/`autoPush` on —
+every `chezmoi add`/`re-add` commits and pushes immediately). Before editing a file under `~`,
+check `chezmoi managed`. If managed, edit in place then `chezmoi re-add <path>`; otherwise the
+next `chezmoi apply` reverts it.
+
+Skills live once, at `~/.agents/skills/<name>/`, symlinked into `~/.claude/skills/`. Skills listed
+in `~/.agents/.skill-lock.json` are owned by the installer — edit those upstream, not in place.
 
 ## Code Style
 
