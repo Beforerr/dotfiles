@@ -24,7 +24,7 @@ You may install tools using `brew` or `uv` as needed.
 
 - Python deps: `uv`
 - Search: `rg`
-- Gmail: prefer `gog`; follow [gog-gmail](skills/gog-gmail/SKILL.md).
+- Gmail: `gog`; follow [gog-gmail](~/.claude/skills/gog-gmail/SKILL.md).
 - Version control: Jujutsu (`jj`) + Git
 - Task automation: `just`
 - User-level justfile at `~/justfile`
@@ -40,13 +40,8 @@ You may install tools using `brew` or `uv` as needed.
 
 ## Dotfiles
 
-`~` is partly chezmoi-managed (source `~/.local/share/chezmoi/home`, `autoCommit`/`autoPush` on —
-every `chezmoi add`/`re-add` commits and pushes immediately). Before editing a file under `~`,
-check `chezmoi managed`. If managed, edit in place then `chezmoi re-add <path>`; otherwise the
-next `chezmoi apply` reverts it.
-
-Skills live once, at `~/.agents/skills/<name>/`, symlinked into `~/.claude/skills/`. Skills listed
-in `~/.agents/.skill-lock.json` are owned by the installer — edit those upstream, not in place.
+- Much of `~` is chezmoi-managed with `autoCommit`/`autoPush` on: edit in place, then `chezmoi re-add <path>` (which commits and pushes) or the next `apply` reverts it. `chezmoi managed <path>` prints the path if managed. Covers `~/.agents` and every `~/.claude*` dir — these instructions included.
+- Skills live once at `~/.agents/skills/<name>/`, symlinked into `~/.claude/skills/`; those in `~/.agents/.skill-lock.json` are installer-owned — edit upstream.
 
 ## Code Style
 
