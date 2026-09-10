@@ -8,6 +8,7 @@
   zotero.py <citekey|DOI|title> ...          # look up + print metadata/PDF path
   zotero.py add <doi|arXiv|url> ... -c research  # native Add-by-Identifier + PDF, file into collection
   zotero.py rm <itemKey> ...                 # permanently delete items
+  zotero.py grep <regex> [-n 20]             # full-text search over Zotero's index -> citekeys + snippets
 
 `add`/`rm` drive Zotero's native machinery through the debug bridge (see zotero_lib);
 Zotero must be running with the debug-bridge password pref set.
@@ -18,7 +19,7 @@ import os
 from pyzotero import zotero
 from zotero_lib import (lookup, find_attachment, parse_identifier,
                         sqlite_lookup_doi, add_by_identifier, erase_items,
-                        file_into_collection)
+                        file_into_collection, fulltext_grep)
 
 def print_item(zot, match, query):
     d = match["data"]
@@ -82,6 +83,17 @@ def cmd_add(argv):
     a = p.parse_args(argv)
     results = [add(i, a.collection, a.force) for i in a.identifier]
     print(json.dumps(results if len(results) > 1 else results[0], indent=2))
+
+
+def cmd_grep(argv):
+    import argparse
+    p = argparse.ArgumentParser(prog="zotero.py grep",
+                                description="Case-insensitive regex over Zotero's full-text index (indexed PDFs only).")
+    p.add_argument("pattern")
+    p.add_argument("-n", type=int, default=20)
+    a = p.parse_args(argv)
+    for h in fulltext_grep(a.pattern, a.n):
+        print(f"{h['citekey'] or h['key']} | {(h['title'] or '')[:70]} | {h['snippet']}")
 
 
 def cmd_rm(argv):
@@ -169,5 +181,7 @@ if __name__ == "__main__":
         cmd_add(sys.argv[2:])
     elif len(sys.argv) > 1 and sys.argv[1] == "rm":
         cmd_rm(sys.argv[2:])
+    elif len(sys.argv) > 1 and sys.argv[1] == "grep":
+        cmd_grep(sys.argv[2:])
     else:
         cmd_query(sys.argv[1:])

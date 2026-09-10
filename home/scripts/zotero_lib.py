@@ -64,6 +64,45 @@ def sqlite_lookup_doi(doi) -> str | None:
         return None
 
 
+def fulltext_grep(pattern: str, max_hits=20, snippet=True) -> list[dict]:
+    """Search Zotero's own full-text index (`storage/<att>/.zotero-ft-cache`).
+
+    Only PDFs Zotero has indexed are covered, but this never touches the PDFs:
+    storage lives on Box files-on-demand, so tools like rga would download the
+    whole library. Returns [{citekey, title, key, snippet}] per parent item.
+    """
+    import subprocess
+    rg = ["rg", "-il", "--no-ignore", "--hidden", "-g", ".zotero-ft-cache", pattern, str(ZOTERO_STORAGE)]
+    files = subprocess.run(rg, capture_output=True, text=True).stdout.split()
+    con = _sqlite_connect()
+    out, seen = [], set()
+    for f in files:
+        att = Path(f).parent.name
+        row = con.execute(
+            "SELECT p.key, cv.value, tv.value FROM items a "
+            "JOIN itemAttachments ia ON ia.itemID = a.itemID "
+            "JOIN items p ON p.itemID = ia.parentItemID "
+            "LEFT JOIN itemData cd ON cd.itemID = p.itemID AND cd.fieldID = "
+            "  (SELECT fieldID FROM fields WHERE fieldName = 'citationKey') "
+            "LEFT JOIN itemDataValues cv ON cv.valueID = cd.valueID "
+            "LEFT JOIN itemData td ON td.itemID = p.itemID AND td.fieldID = "
+            "  (SELECT fieldID FROM fields WHERE fieldName = 'title') "
+            "LEFT JOIN itemDataValues tv ON tv.valueID = td.valueID "
+            "WHERE a.key = ?", (att,)).fetchone()
+        if not row or row[0] in seen:
+            continue
+        seen.add(row[0])
+        snip = ""
+        if snippet:
+            snip = subprocess.run(["rg", "-io", "-m1", f".{{0,70}}(?:{pattern}).{{0,70}}", f],
+                                  capture_output=True, text=True).stdout.strip().replace("\n", " ")
+        out.append({"key": row[0], "citekey": row[1], "title": row[2], "snippet": snip})
+        if len(out) >= max_hits:
+            break
+    con.close()
+    return out
+
+
 def lookup(zot, query: str) -> dict | None:
     """Resolve *query* (citekey, DOI, or partial title) to a pyzotero item dict."""
     # DOI — precise pattern, go straight to SQLite
