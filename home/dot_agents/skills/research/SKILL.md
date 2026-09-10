@@ -1,6 +1,6 @@
 ---
 name: research
-description: Zotero, paper notes vault, PDF/EPUB extraction, research.bib, Quarto/LaTeX manuscripts. Use for papers, citations, literature.
+description: Zotero, paper notes vault, PDF extraction, research.bib, LaTeX/Typst manuscripts. Use for papers, citations, literature.
 ---
 
 - Zotero (must be running): `~/scripts/zotero.py <citekey|DOI|title>...` → metadata + local PDF path;
@@ -10,6 +10,5 @@ description: Zotero, paper notes vault, PDF/EPUB extraction, research.bib, Quart
   (also symlinks `./sources/papers/<citekey>` into cwd).
 - `research.bib`: master at `~/projects/share/bibliography/research.bib` (Better BibTeX auto-export); paper repos symlink it.
 - PDF text: `pdftotext -layout in.pdf out.txt`. Equations/tables/figures: `uvx --from marker-pdf marker_single in.pdf
-  --output_dir out --output_format markdown` → `out/<stem>/<stem>.md`, ~30 s. EPUB: `~/scripts/epub2txt.py book.epub`.
-- Manuscripts: Quarto (`index.qmd`, `quarto render index.qmd --to typst|pdf`) or LaTeX.
-  `just --justfile ~/justfile latex strip f.tex` drops trackchanges + comments; `~/scripts/latex/clean_unicode.py` unicode → LaTeX.
+  --output_dir out --output_format markdown` → `out/<stem>/<stem>.md`, ~30 s.
+- Manuscripts: LaTeX or Typst. `just --justfile ~/justfile latex strip f.tex` drops trackchanges + comments; `~/scripts/latex/clean_unicode.py` unicode → LaTeX.
