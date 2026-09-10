@@ -21,10 +21,7 @@ Every fact has exactly one home. Elsewhere, link.
 ## Tools
 
 Install with `brew`/`uv` as needed. Python deps: `uv`. VCS: Jujutsu (`jj`) + Git.
-
-- `just --justfile ~/justfile`: `julia fast-test [regex]`, `julia time-import`, `push-and-pr`, … (`--list`; modules hide behind `julia ...`).
-- `~/scripts/zotero.py <citekey|DOI|title>...` prints metadata + PDF path; `add <DOI|arXiv|url>... -c Collection` imports. Needs Zotero running. `research.bib` in paper repos is an auto-export of the whole library.
-- PDF: `pdftotext -layout in.pdf out.txt` for text; `uvx --from marker-pdf marker_single in.pdf --output_dir out --output_format markdown` for equations/tables/figures → `out/<stem>/<stem>.md`, ~30 s.
+`just --justfile ~/justfile`: user recipes (`--list`; modules hide behind `julia ...`).
 
 ## Dotfiles
 
@@ -47,12 +44,6 @@ Comments:
 - A contradicting comment is a bug. Fix or delete it — never route around it.
 
 Tests: Only add tests that would fail if the implementation were subtly wrong. A trivial test is deleted, not written.
-
-## Julia
-
-- Global: `Revise`; `Chairmarks` (`@b rand(1000) sort`); `CodeTracking` (`@code_string f(x)`); `ReferenceRevision` (`head = open_process(rev = "HEAD"); head.func()`).
-- `@run_package_tests` from `test/`; from the repo root it scans all sibling packages.
-- Add deps with `Pkg.add`, not by editing `Project.toml`. Don't over-narrow signatures; users bring their own types.
 
 ## Memory
 
