@@ -22,7 +22,7 @@ Every fact has exactly one home. Elsewhere, link.
 
 Install with `brew`/`uv` as needed. Python deps: `uv`. VCS: Jujutsu (`jj`) + Git.
 `just --justfile ~/justfile`: user recipes (`--list`; modules hide behind `julia ...`).
-`rga`: rg inside PDFs/docx/archives; not on cloud files-on-demand paths (`~/Library/CloudStorage`, `~/Zotero/storage`).
+`rga`: rg inside PDFs/docx/archives; not under `~/Library/CloudStorage` (files-on-demand, it downloads everything).
 
 ## Dotfiles
 
