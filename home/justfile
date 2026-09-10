@@ -65,10 +65,6 @@ disk-usage:
     gdu --ignore-dirs-pattern '.*CloudStorage'
     gdu / -I '.*CloudStorage'
 
-# Lookup a Zotero item by citekey, DOI, or partial title; prints metadata and local PDF path
-zotero +query:
-    ~/scripts/zotero.py {{ query }}
-
 # extract_figures from a PDF file
 extract_figures +pdf_file:
     ~/scripts/extract_figures.py {{ pdf_file }}
