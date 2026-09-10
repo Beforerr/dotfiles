@@ -40,8 +40,8 @@ You may install tools using `brew` or `uv` as needed.
 
 ## Dotfiles
 
-- Much of `~` is chezmoi-managed with `autoCommit`/`autoPush` on: edit in place, then `chezmoi re-add <path>` (which commits and pushes) or the next `apply` reverts it. `chezmoi managed <path>` prints the path if managed. Covers `~/.agents` and every `~/.claude*` dir — these instructions included.
-- Skills live once at `~/.agents/skills/<name>/`, symlinked into `~/.claude/skills/`; those in `~/.agents/.skill-lock.json` are installer-owned — edit upstream.
+- chezmoi-managed, incl. `~/.agents` and `~/.claude*` (`chezmoi managed <path>` to check). Edit in place, then `chezmoi re-add <path>` (auto-commits + pushes) or next `apply` reverts.
+- Skills: `~/.agents/skills/<name>/`, symlinked into `~/.claude/skills/`. Listed in `~/.agents/.skill-lock.json` = installer-owned, edit upstream.
 
 ## Code Style
 

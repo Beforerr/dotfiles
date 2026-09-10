@@ -7,6 +7,7 @@ emits one envelope-level marker for the whole block instead.
 """
 import argparse
 import json
+import os
 import pathlib
 import re
 import subprocess
@@ -23,12 +24,22 @@ def clean(s):
 
 
 def gog(account, *args, wrap=True):
-    cmd = ["gog", "--account", account, "--readonly", *args,
+    cmd = ["gog", *(["--account", account] if account else []), "--readonly", *args,
            "--json", "--no-input", *(["--wrap-untrusted"] if wrap else [])]
     p = subprocess.run(cmd, capture_output=True, text=True)
     if p.returncode:
         sys.exit(f"{' '.join(cmd)}\n{p.stderr.strip()}")
     return json.loads(p.stdout)
+
+
+def default_account():
+    """gog itself refuses to guess even with one token stored."""
+    if a := os.environ.get("GOG_ACCOUNT"):
+        return a
+    accts = [x["email"] for x in gog(None, "auth", "list", wrap=False).get("accounts", [])]
+    if len(accts) != 1:
+        sys.exit(f"pass -a; accounts: {accts}")
+    return accts[0]
 
 
 def raw_files(account, mid):
@@ -58,7 +69,7 @@ def search(a):
     print(BEGIN)
     for t in d.get("threads", []):
         n = t.get("messageCount", 1)
-        print(f"{t['date']} | {t['id']} | {n:>2} msg | {clean(t.get('from'))} | {clean(t.get('subject'))[:100]}")
+        print(f"{t['date']} | {t['id']} | {n:>2} msg | {clean(t.get('from'))[:60]} | {clean(t.get('subject'))[:100]}")
     if tok := d.get("nextPageToken"):
         print(f"[more: --page {tok}]")
     print(END)
@@ -114,7 +125,7 @@ def fetch(a):
 
 
 p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-p.add_argument("-a", "--account", required=True)
+p.add_argument("-a", "--account", help="default: $GOG_ACCOUNT, else the sole authenticated account")
 sub = p.add_subparsers(required=True)
 
 s = sub.add_parser("search", help="one line per thread")
@@ -123,7 +134,7 @@ s.add_argument("--max", type=int, default=10)
 s.add_argument("--page", help="page token from a previous run")
 s.set_defaults(func=search)
 
-s = sub.add_parser("show", help="full thread bodies; quoted tails truncated")
+s = sub.add_parser("show", help="thread bodies, HTML and URLs stripped, capped per message")
 s.add_argument("ids", nargs="+")
 s.add_argument("--chars", type=int, default=1200, help="per-message body cap")
 s.add_argument("--files", action="store_true",
@@ -141,4 +152,5 @@ s.add_argument("-o", "--out", help="destination path (default: real filename in 
 s.set_defaults(func=fetch)
 
 a = p.parse_args()
+a.account = a.account or default_account()
 a.func(a)
