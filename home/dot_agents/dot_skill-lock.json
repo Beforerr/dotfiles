@@ -1,0 +1,79 @@
+{
+  "version": 3,
+  "skills": {
+    "caveman": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/JuliusBrussee/caveman.git",
+      "skillPath": "caveman/SKILL.md",
+      "skillFolderHash": "825e13085d1515fe67881b2123f3bf9b34c26154",
+      "installedAt": "2026-04-10T19:42:54.320Z",
+      "updatedAt": "2026-04-15T03:29:21.747Z"
+    },
+    "caveman-review": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/JuliusBrussee/caveman.git",
+      "skillPath": "skills/caveman-review/SKILL.md",
+      "skillFolderHash": "2147719da5f81255dbf960d6ce46d5a7ee9d0860",
+      "installedAt": "2026-04-10T19:42:54.696Z",
+      "updatedAt": "2026-04-15T03:29:22.487Z"
+    },
+    "compress": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/JuliusBrussee/caveman.git",
+      "skillPath": "caveman-compress/SKILL.md",
+      "skillFolderHash": "6e49c02b7e2b2f656556815df470bdec4d7e9c8b",
+      "installedAt": "2026-04-10T19:42:55.161Z",
+      "updatedAt": "2026-04-10T19:42:55.161Z"
+    },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/skills.git",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "skillFolderHash": "3013fdeb8a11b10b1eb795ec3ae8bfca38f7c26d",
+      "installedAt": "2026-04-10T19:43:02.527Z",
+      "updatedAt": "2026-04-10T19:43:02.527Z"
+    },
+    "caveman-compress": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/JuliusBrussee/caveman.git",
+      "skillPath": "caveman-compress/SKILL.md",
+      "skillFolderHash": "85fc4f66717ab4f24a5b8d72fab3641b6be37a5f",
+      "installedAt": "2026-04-15T03:29:22.151Z",
+      "updatedAt": "2026-04-15T03:29:22.151Z"
+    },
+    "humanizer": {
+      "source": "blader/humanizer",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/blader/humanizer.git",
+      "skillPath": "SKILL.md",
+      "skillFolderHash": "e2e92e7b4b8229253ed5c8e81dc65463fdeddda5",
+      "pluginName": "humanizer",
+      "installedAt": "2026-08-27T02:05:17.033Z",
+      "updatedAt": "2026-08-27T02:05:17.033Z"
+    }
+  },
+  "dismissed": {
+    "findSkillsPrompt": true
+  },
+  "lastSelectedAgents": [
+    "amp",
+    "antigravity",
+    "antigravity-cli",
+    "cline",
+    "codex",
+    "cursor",
+    "deepagents",
+    "gemini-cli",
+    "github-copilot",
+    "kimi-code-cli",
+    "opencode",
+    "warp",
+    "zed",
+    "claude-code"
+  ]
+}
