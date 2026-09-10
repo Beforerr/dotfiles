@@ -22,8 +22,8 @@ Every fact has exactly one home. Elsewhere, link.
 
 Install with `brew`/`uv` as needed. Python deps: `uv`. VCS: Jujutsu (`jj`) + Git.
 
-- `just --justfile ~/justfile`: user recipes (`push-and-pr`, `zotero`, …; `--list` to see).
-- Zotero: `~/scripts/zotero.py` (usage in its docstring; Zotero must be running). `research.bib` in paper repos is an auto-export of the whole library.
+- `just --justfile ~/justfile`: `julia fast-test [regex]`, `julia time-import`, `push-and-pr`, `zotero <query>`, … (`--list`; modules hide behind `julia ...`).
+- `~/scripts/zotero.py <citekey|DOI|title>...` prints metadata + PDF path; `add <DOI|arXiv|url>... -c Collection` imports. Needs Zotero running. `research.bib` in paper repos is an auto-export of the whole library.
 - PDF: `pdftotext -layout in.pdf out.txt` for text; `uvx --from marker-pdf marker_single in.pdf --output_dir out --output_format markdown` for equations/tables/figures → `out/<stem>/<stem>.md`, ~30 s.
 
 ## Dotfiles
