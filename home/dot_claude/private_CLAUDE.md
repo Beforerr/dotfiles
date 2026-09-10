@@ -24,7 +24,6 @@ You may install tools using `brew` or `uv` as needed.
 
 - Python deps: `uv`
 - Search: `rg`
-- Gmail: `gog`; follow [gog-gmail](~/.claude/skills/gog-gmail/SKILL.md).
 - Version control: Jujutsu (`jj`) + Git
 - Task automation: `just`
 - User-level justfile at `~/justfile`
@@ -41,7 +40,7 @@ You may install tools using `brew` or `uv` as needed.
 ## Dotfiles
 
 - chezmoi-managed, incl. `~/.agents` and `~/.claude*` (`chezmoi managed <path>` to check). Edit in place, then `chezmoi re-add <path>` (auto-commits + pushes) or next `apply` reverts.
-- Skills: `~/.agents/skills/<name>/`, symlinked into `~/.claude/skills/`. Listed in `~/.agents/.skill-lock.json` = installer-owned, edit upstream.
+- Skills: `~/.agents/skills/<name>/`, symlinked into `~/.claude*/skills/`.
 
 ## Code Style
 
