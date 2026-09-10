@@ -40,7 +40,7 @@ You may install tools using `brew` or `uv` as needed.
 ## Dotfiles
 
 - chezmoi-managed, incl. `~/.agents` and `~/.claude*` (`chezmoi managed <path>` to check). Edit in place, then `chezmoi re-add <path>` (auto-commits + pushes) or next `apply` reverts.
-- Skills: `~/.agents/skills/<name>/`, symlinked into `~/.claude*/skills/`.
+- Skills: `~/.agents/skills/<name>/`, symlinked into `~/.claude/skills/`; `~/.claude-*/skills` symlink there.
 
 ## Code Style
 
