@@ -12,7 +12,12 @@ Find available profiles with `ls "${PERSON_PROFILE_DIR}"` (Avoid hardcoding the 
   - Mark missing required fields
   - Note document expiration
 - Prefer `"YYYY-MM-DD"` date format
-- Organized profile into logical sections, i.e. `info`, `personal`, `passport`, `contact`, `occupation`. Use intuitive key names to match data (e.g. `date_of_birth`, `place_of_issue`, `visa_number`).
+- Organized profile into logical sections, i.e. `info`, `contact`, `documents`, `applications`, `education`, `occupation`, `travel`, `family`. Use intuitive key names to match data (e.g. `date_of_birth`, `place_of_issue`).
+- Anything that repeats or expires is a list item with an `id`, appended rather than overwritten:
+  - `documents[]`: passports, visas, permits, licenses, national/tax IDs — `type`, `country`, `number`, `status` (`current` | `replaced` | `inactive`), dates, `source` (scan path)
+  - `applications[]`: one entry per filed form (`kind`, `application_id`, `submitted`, `source`)
+  - `travel[]`: one entry per stay (`country`, `arrive`, `depart`); `occupation[]` / `education[]` carry `start_date`, `end_date`, address
+  - Older profiles may still have flat `passport` / `*_status` sections; migrate when next edited.
 
 ## Examples
 
@@ -21,8 +26,9 @@ Find available profiles with `ls "${PERSON_PROFILE_DIR}"` (Avoid hardcoding the 
 yq 'to_entries | .[] | .key + ": " + (.value | keys | tostring)' "${PERSON_PROFILE_DIR}/XXX.yaml"
 
 # Read specific fields — compose with downstream actions (e.g. pipe to form filling)
-yq '.passport.number, .info.date_of_birth' "${PERSON_PROFILE_DIR}/XXX.yaml" > form_fields.txt
+yq '(.documents[] | select(.type == "passport" and .status == "current") | .number), .info.date_of_birth' "${PERSON_PROFILE_DIR}/XXX.yaml" > form_fields.txt
 
 # Update in place rather than rewriting full file:
 yq -i '.contact.phone = "+1-555-0100"' "${PERSON_PROFILE_DIR}/XXX.yaml"
+yq -i '(.documents[] | select(.id == "passport_2026")).status = "replaced"' "${PERSON_PROFILE_DIR}/XXX.yaml"
 ```
