@@ -2,7 +2,6 @@
 name: person-profile
 description: Local vaults for personal information. Use this skill to query specific profile fields, fill forms and documents with personal details, and save or update information.
 ---
-
 Find available profiles with `ls "${PERSON_PROFILE_DIR}"` (Avoid hardcoding the path). If none exist, offer to create one.
 
 ## Guidelines
@@ -11,12 +10,12 @@ Find available profiles with `ls "${PERSON_PROFILE_DIR}"` (Avoid hardcoding the 
 - Validate before filling:
   - Mark missing required fields
   - Note document expiration
-- Prefer `"YYYY-MM-DD"` date format- Organized profile into logical sections, i.e. `info`, `contact`, `documents`, `applications`, `education`, `occupation`, `travel`, `family`. Use intuitive key names to match data (e.g. `date_of_birth`, `place_of_issue`).
+- Prefer `"YYYY-MM-DD"` date format
+- Organized profile into logical sections, i.e. `info`, `contact`, `documents`, `applications`, `education`, `occupation`, `travel`, `family`. Use intuitive key names to match data (e.g. `date_of_birth`, `place_of_issue`).
 - Anything that repeats or expires is a list item with an `id`, appended rather than overwritten:
-  - `documents[]`: passports, visas, permits, licenses, national/tax IDs — `type`, `country`, `number`, `status` (`current` | `replaced` | `inactive`), dates, `source` (scan path)
-  - `applications[]`: one entry per filed form (`kind`, `application_id`, `submitted`, `source`)
-  - `travel[]`: one entry per stay (`country`, `arrive`, `depart`); `occupation[]` / `education[]` carry `start_date`, `end_date`, address
-  - Older profiles may still have flat `passport` / `*_status` sections; migrate when next edited.
+  - `documents[]`: passports, visas, permits, licenses, IDs — `type`, `country`, `number`, `status` (`current` | `replaced` | `inactive`), dates, `source`
+  - `travel[]`: one entry per stay (`country`, `arrive`, `depart`); 
+  - `applications[]`: one entry per filed form (`kind`); `occupation[]` / `education[]`
 
 ## Examples
 
@@ -31,3 +30,4 @@ yq '(.documents[] | select(.type == "passport" and .status == "current") | .numb
 yq -i '.contact.phone = "+1-555-0100"' "${PERSON_PROFILE_DIR}/XXX.yaml"
 yq -i '(.documents[] | select(.id == "passport_2026")).status = "replaced"' "${PERSON_PROFILE_DIR}/XXX.yaml"
 ```
+
