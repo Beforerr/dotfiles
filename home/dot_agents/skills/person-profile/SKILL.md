@@ -12,6 +12,7 @@ Find available profiles with `ls "${PERSON_PROFILE_DIR}"` (Avoid hardcoding the 
   - Mark missing required fields
   - Note document expiration
 - Prefer `"YYYY-MM-DD"` date format
+- After any edit run `just validate` in `${PERSON_PROFILE_DIR}` (checks against `schema.yaml`). New section or document type: add it to the schema first.
 - Organized profile into logical sections, i.e. `info`, `contact`, `documents`, `applications`, `education`, `occupation`, `travel`, `family`. Use intuitive key names to match data (e.g. `date_of_birth`, `place_of_issue`).
 - Anything that repeats or expires is a list item with an `id`, appended rather than overwritten:
   - `documents[]`: passports, visas, permits, licenses, national/tax IDs — `type`, `country`, `number`, `status` (`current` | `replaced` | `inactive`), dates, `source` (scan path)
