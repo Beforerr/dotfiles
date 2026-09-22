@@ -1,6 +1,6 @@
 ---
 name: manuscript
-description: Scientific manuscript prose and figure conventions (LaTeX/Typst/Quarto papers, reports, theses). Use when writing, revising or reviewing paper text, captions, methods, abstracts, or paper figures. Tooling (Zotero, bib, PDF) is the research skill.
+description: Scientific manuscript prose and figure conventions (LaTeX/Typst papers). Use when writing, revising or reviewing paper text, captions, methods, abstracts, or paper figures. Tooling (Zotero, bib, PDF) is the research skill.
 ---
 
 Write for a referee reading cold. Defaults below are the ones models get wrong; ordinary scientific-writing practice is assumed.
@@ -12,8 +12,8 @@ Write for a referee reading cold. Defaults below are the ones models get wrong; 
 - State a fact where it first matters. A forward reference ("Section X describes...") marks a fact parked in the wrong section: move it.
 - One term per concept; do not alias for variety.
 - Prefer a stated number to an adjective. No intensifiers, no em dashes (commas, colons, parentheses, or a new sentence).
-- Results report; Discussion interprets. "This suggests" in Results is misplaced.
-- Methods state the choices a referee needs to judge the result. Implementation parameters (window lengths, tapers, thresholds, fallbacks) stay in the code; Methods points to it.
+- Results report; Discussion interprets.
+- Methods state the choices a referee needs to judge the result. Implementation parameters (window lengths, tapers, thresholds, fallbacks) stay in the code.
 
 ## Figures, tables, numbers
 
@@ -23,7 +23,3 @@ Generated, not authored. One script owns each; the manuscript only includes.
 - Never edit a generated file. Fix the script and rebuild.
 - Figures carry no interpretive prose: panel titles, axis labels, legends and data annotations only. Reading and meaning belong in the text beside the figure.
 - Panel labels in-axis. Colors and markers from one shared palette so the same quantity looks the same in every figure.
-
-## Rebuttals
-
-Quote the comment, state the change, point to the location. No thanks, no argument beyond the fact.
