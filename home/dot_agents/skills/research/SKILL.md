@@ -13,6 +13,9 @@ description: Zotero lookup/full-text grep/import, OpenAlex literature search, pa
   Read it before re-reading a paper. Create/extend: `~/scripts/extract_figures.py <citekey> [--figures "1,3,5-7"]`
   (also symlinks `./sources/papers/<citekey>` into cwd).
 - `research.bib`: master at `~/projects/share/bibliography/research.bib` (Better BibTeX auto-export); paper repos symlink it.
+  Per-project auto-export (Zotero running): `curl -X POST -H 'Content-Type: application/json' localhost:23119/better-bibtex/json-rpc
+  -d '{"jsonrpc":"2.0","method":"autoexport.add","params":["//<parent>/<collection>","Better BibTeX","<abs path>.bib"]}'`
+  (`//` = personal library; full parent path required). Fix bad metadata in Zotero (`zotero_lib.bridge_exec`), not in the exported .bib.
 - PDF text: `pdftotext -layout in.pdf out.txt`. Equations/tables/figures: `uvx --from marker-pdf marker_single in.pdf
   --output_dir out --output_format markdown` → `out/<stem>/<stem>.md`, ~30 s.
 - Manuscripts: LaTeX or Typst. `just --justfile ~/justfile latex strip f.tex` drops trackchanges + comments; `~/scripts/latex/clean_unicode.py` unicode → LaTeX.
