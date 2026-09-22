@@ -49,3 +49,4 @@ Tests: Only add tests that would fail if the implementation were subtly wrong. A
 ## Memory
 
 Distilled knowledge, not session log. Save only what would change a fresh agent's actions and isn't in docs, code, tests, or VCS. Prefer in-repo memory for project knowledge.
+When a recorded bug or workaround is fixed, delete its note (CLAUDE.md, docs, memory); never keep it as "now fixed".
