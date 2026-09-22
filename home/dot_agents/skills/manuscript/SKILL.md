@@ -3,7 +3,7 @@ name: manuscript
 description: Scientific manuscript prose and figure conventions (LaTeX/Typst). Use when writing, revising or reviewing paper text, captions or figures.
 ---
 
-Write for a referee reading cold. Defaults below are the ones models get wrong; ordinary scientific-writing practice is assumed.
+Write for a referee reading cold.
 
 ## Prose
 
