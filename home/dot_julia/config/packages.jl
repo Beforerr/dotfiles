@@ -22,8 +22,5 @@ Pkg.add([
     # "Infiltrator",
 
     # Interactive
-    # "IJulia",
-    # "OhMyREPL",
-    # "Pluto",
     "BasicAutoloads",
 ])
