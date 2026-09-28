@@ -14,6 +14,7 @@ Write for a reader reading cold.
 - No intensifiers, no em dashes (use commas, colons, parentheses, or a new sentence).
 - Results report; Discussion interprets.
 - Methods state the choices a reader needs to judge the result. Implementation parameters (window lengths, tapers, thresholds, fallbacks) stay in the code.
+- Thresholds and detailed selection criteria stay out of the Abstract and Introduction.
 
 ## Figures
 

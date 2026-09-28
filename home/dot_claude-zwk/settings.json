@@ -12,6 +12,11 @@
     "type": "command",
     "command": "sh /Users/zijin/.claude/statusline-command.sh"
   },
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "xhigh"
+    }
+  },
   "skipDangerousModePermissionPrompt": true,
   "theme": "auto",
   "switchModelsOnFlag": false,
