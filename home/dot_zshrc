@@ -56,18 +56,20 @@ if [[ -o interactive && -t 1 ]]; then
   _cache_eval starship starship init zsh
 
   ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
-  [ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
-  [ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
-  source "${ZINIT_HOME}/zinit.zsh"
-  zinit wait lucid for \
-    OMZL::git.zsh \
-    OMZP::git \
-    OMZP::aliases \
-    hlissner/zsh-autopair \
-  atload'_zsh_autosuggest_start' \
-    zsh-users/zsh-autosuggestions \
-    zdharma-continuum/fast-syntax-highlighting
-  zinit cdreplay -q   # compinit ran above
+  # Clone can fail at login before the network is up; skip plugins rather than error.
+  [[ -d $ZINIT_HOME/.git ]] || git clone --quiet https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+  if [[ -r $ZINIT_HOME/zinit.zsh ]]; then
+    source "${ZINIT_HOME}/zinit.zsh"
+    zinit wait lucid for \
+      OMZL::git.zsh \
+      OMZP::git \
+      OMZP::aliases \
+      hlissner/zsh-autopair \
+    atload'_zsh_autosuggest_start' \
+      zsh-users/zsh-autosuggestions \
+      zdharma-continuum/fast-syntax-highlighting
+    zinit cdreplay -q   # compinit ran above
+  fi
 
   for f in $HOME/.config/zsh/plugins/*.zsh(N); do source $f; done
 fi

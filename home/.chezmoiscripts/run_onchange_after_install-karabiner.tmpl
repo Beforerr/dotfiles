@@ -2,4 +2,10 @@
 
 # karabiner.edn hash: {{ include "dot_config/private_karabiner.edn" | sha256sum }}
 echo "Setting up Karabiner-Elements"
+# goku edits the "Default" profile of an existing karabiner.json, which Karabiner only creates on first launch.
+f="$HOME/.config/karabiner/karabiner.json"
+if [ ! -f "$f" ]; then
+    mkdir -p "$(dirname "$f")"
+    echo '{"profiles": [{"name": "Default", "selected": true}]}' > "$f"
+fi
 goku
