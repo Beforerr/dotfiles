@@ -5,7 +5,12 @@ function alias_helper() {
 }
 
 # Shortcuts for common commands
-if command -v exa >/dev/null; then
+if command -v eza >/dev/null; then
+    alias ls=eza
+    alias la="eza -a"
+    alias ll="eza -l"
+    alias lla="eza -la"
+    alias lt="eza --tree"
 else
     colorflag="-G"
     alias l="ls -lF ${colorflag}"
@@ -37,10 +42,15 @@ alias_helper v nvim
 alias b="brew"
 alias bb="brew bundle"
 
-# Home manager
-alias hm="home-manager"
-alias hms="home-manager switch"
-alias hme="home-manager edit"
+# yazi, cd to its last dir on exit
+function yy() {
+    local tmp="$(mktemp -t "yazi-cwd.XXXXX")" cwd
+    yazi "$@" --cwd-file="$tmp"
+    if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+        builtin cd -- "$cwd"
+    fi
+    rm -f -- "$tmp"
+}
 
 # Chezmoi
 alias cm="chezmoi"

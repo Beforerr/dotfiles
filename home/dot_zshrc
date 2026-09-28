@@ -8,6 +8,7 @@ path=(
   "$HOME/.local/bin"
   "$HOME/.cargo/bin"
   "$HOME/.julia/bin"
+  /opt/homebrew/opt/coreutils/libexec/gnubin(N)
   $path
 )
 fpath=("$HOME/.local/share/zsh/site-functions" $fpath)
@@ -20,11 +21,12 @@ export PERSON_PROFILE_DIR="$HOME/Library/CloudStorage/Box-Box/profiles"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 
-_devbox_profile="$HOME/.local/share/devbox/global/default/.devbox/nix/profile/default/bin"
-[[ -d $_devbox_profile ]] && path=("$_devbox_profile" $path)
-unset _devbox_profile
-
 export PATH
+
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=10000
+SAVEHIST=10000
+setopt HIST_FCNTL_LOCK HIST_IGNORE_DUPS HIST_IGNORE_SPACE SHARE_HISTORY AUTO_CD
 
 _zsh_cache="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
 [[ -d $_zsh_cache ]] || mkdir -p "$_zsh_cache"
@@ -38,14 +40,20 @@ if [[ -o interactive && -t 1 ]]; then
   _zdump="${ZDOTDIR:-$HOME}/.zcompdump"
   if _fresh24 $_zdump; then compinit -C -d "$_zdump"; else compinit -d "$_zdump"; fi
 
-  _cache_comp() {
+  _cache_eval() {
     local f="$_zsh_cache/$1.zsh" bin
     bin=$(command -v "$1" 2>/dev/null) || return
     [[ -f $f && $f -nt $bin ]] || "${@:2}" >| "$f" 2>/dev/null
     source "$f"
   }
-  _cache_comp jj jj util completion zsh
-  _cache_comp juliaup juliaup completions zsh
+  _cache_eval jj jj util completion zsh
+  _cache_eval juliaup juliaup completions zsh
+  _cache_eval fzf fzf --zsh
+  _cache_eval atuin atuin init zsh  # after fzf: both bind ^R
+  _cache_eval zoxide zoxide init zsh
+  _cache_eval direnv direnv hook zsh
+  _cache_eval broot broot --print-shell-function zsh
+  _cache_eval starship starship init zsh
 
   ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
   [ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
@@ -55,7 +63,10 @@ if [[ -o interactive && -t 1 ]]; then
     OMZL::git.zsh \
     OMZP::git \
     OMZP::aliases \
-    hlissner/zsh-autopair
+    hlissner/zsh-autopair \
+  atload'_zsh_autosuggest_start' \
+    zsh-users/zsh-autosuggestions \
+    zdharma-continuum/fast-syntax-highlighting
   zinit cdreplay -q   # compinit ran above
 
   for f in $HOME/.config/zsh/plugins/*.zsh(N); do source $f; done

@@ -1,0 +1,27 @@
+[user]
+	name = Beforerr
+	email = zzj956959688@gmail.com
+[github]
+	user = Beforerr
+[core]
+	autocrlf = input
+	editor = vim
+[init]
+	defaultBranch = main
+[pull]
+	rebase = true
+[rebase]
+	autoStash = true
+[push]
+	followTags = true
+[http]
+	postBuffer = 157286400
+[alias]
+	co = checkout
+	s = status
+	st = status
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

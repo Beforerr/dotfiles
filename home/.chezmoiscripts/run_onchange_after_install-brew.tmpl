@@ -2,5 +2,10 @@
 
 # Brewfile hash: {{ include "packages/Brewfile" | sha256sum }}
 if command -v brew &>/dev/null; then
+    # Homebrew refuses untrusted third-party taps; trust every user/repo named in the Brewfile.
+    grep -oE '^(brew|cask) "[^"/]+/[^"/]+/' packages/Brewfile | cut -d'"' -f2 | sed 's:/$::' | sort -u | xargs brew trust --tap
     brew bundle --no-upgrade --file=packages/Brewfile || true
+    # Formulae only: many installed casks are deliberately not in the Brewfile.
+    brew bundle cleanup --formula --force --file=packages/Brewfile
+    brew autoremove
 fi

@@ -2,9 +2,8 @@
 
 ## Introducation
 
-- Dotfiles are managed by [chezmoi](https://www.chezmoi.io/) and Nix;
-- Use `Nix` for packages & command line tools;
-- Use `Homebrew` exclusively for casks (applications);
+- Dotfiles are managed by [chezmoi](https://www.chezmoi.io/);
+- Use `Homebrew` for CLI tools and apps via [Brewfile](./home/packages/Brewfile); unlisted formulae are removed on apply, unlisted casks are kept;
 - Use [just](https://just.systems) for automation (see [Justfile](./home/justfile)).
 - Sync application settings with [mackup](https://github.com/lra/mackup) (see [mackup.cfg](./home/private_dot_mackup.cfg)).
   - Note:
@@ -25,8 +24,6 @@ One-line install:
 ```bash
 curl https://raw.githubusercontent.com/Beforerr/dotfiles/main/install.sh | bash
 ```
-
-Note we need to restart the terminal after the installation of `nix`, so the script will fail on the first run as expected.
 
 ## Apps
 
@@ -66,11 +63,10 @@ atuin login -u Beforerr
 ## Languages
 
 - [Julia](https://julialang.org/) (via `juliaup`)
-- [Python](https://www.python.org/) (via `mamba`)
+- [Python](https://www.python.org/) (via `uv` / `pixi`)
 - [R](https://www.r-project.org/) (via `brew`)
 - [Rust](https://www.rust-lang.org/) (via `rustup`)
 
 ## Notes
 
 - [zsh - What should/shouldn't go in .zshenv, .zshrc, .zlogin, .zprofile, .zlogout? - Unix & Linux Stack Exchange](https://unix.stackexchange.com/questions/71253/what-should-shouldnt-go-in-zshenv-zshrc-zlogin-zprofile-zlogout)
-- `dockutil` requires `swift` to be built from source which takes a long time, so it is not included in the configuration.

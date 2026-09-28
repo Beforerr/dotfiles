@@ -1,5 +1,5 @@
 docks:
-  command -v dockutil || nix-env -i dockutil
+  command -v dockutil || brew install dockutil
   dockutil --remove all --no-restart
   dockutil --add /System/Applications/Launchpad.app --no-restart
   dockutil --add '~/projects' --no-restart

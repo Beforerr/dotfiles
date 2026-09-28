@@ -2,10 +2,10 @@ zotero-link:
     ln -s ~/Library/CloudStorage/Box-Box/storage ~/Zotero/storage
 
 zotero-addons:
-    aria2c https://github.com/syt2/zotero-addons/releases/latest/download/zotero-addons.xpi
+    curl -LOJ https://github.com/syt2/zotero-addons/releases/latest/download/zotero-addons.xpi
 
 install-tana:
-    aria2c https://desktop-update.tana.inc/download/dmg
+    curl -LOJ https://desktop-update.tana.inc/download/dmg
     open Tana*.dmg
 
 popclip:

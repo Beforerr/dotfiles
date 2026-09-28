@@ -41,7 +41,6 @@
         :hide_app {:key :!Ch}
         :close_app {:key :!Cw}
         :quit_app {:key :!Cq}
-        :emacs {:shell "~/.nix-profile/bin/emacsclient --eval '(emacs-everywhere)'"}
     }
 
     :simlayers {
@@ -66,7 +65,6 @@
                 ;; messenger web
                 [:m "open 'https://www.messenger.com/'"]
                 [:t [:km "open: Telegram"]]
-                [:e :emacs]
                 ;; [:e [:km "open: Weather"]]
             ]
         }

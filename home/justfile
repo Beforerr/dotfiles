@@ -9,10 +9,6 @@ update: update-config sync-projects
 
 update-config:
     -chezmoi update
-    # nix flake update
-    # sudo mv /etc/zshrc /etc/zshrc.before-nix-darwin
-    # sudo mv /etc/zprofile /etc/zprofile.before-nix-darwin
-    cd ~/nixos-config && nix run .#build-switch
 
 update-pkgs:
     -cargo install garden-tools
@@ -55,15 +51,13 @@ migrate:
     ln -s "/Volumes/My Passport for Mac/data" ~/data
 
 clean:
-    -nix-collect-garbage -d
     -brew cleanup
     -pixi clean cache --yes
-    -rm ~/.condarc
 
 [private]
 disk-usage:
-    gdu --ignore-dirs-pattern '.*CloudStorage'
-    gdu / -I '.*CloudStorage'
+    gdu-go --ignore-dirs-pattern '.*CloudStorage'
+    gdu-go / -I '.*CloudStorage'
 
 # extract_figures from a PDF file
 extract_figures +pdf_file:
