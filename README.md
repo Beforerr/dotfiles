@@ -64,7 +64,6 @@ atuin login -u Beforerr
 
 - [Julia](https://julialang.org/) (via `juliaup`)
 - [Python](https://www.python.org/) (via `uv` / `pixi`)
-- [R](https://www.r-project.org/) (via `brew`)
 - [Rust](https://www.rust-lang.org/) (via `rustup`)
 
 ## Notes

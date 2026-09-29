@@ -1,5 +1,4 @@
 ## Tier-2 (programming)
-cask "r"
 cask "quarto"
 cask "xquartz"
 cask "veusz"
