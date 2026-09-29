@@ -33,8 +33,8 @@ brew "wget"
 brew "yazi"
 brew "yq"
 brew "zoxide"
-brew "openclaw/tap/gogcli"
-brew "yqrashawn/goku/goku"
+brew "openclaw/tap/gogcli", trusted: true
+brew "yqrashawn/goku/goku", trusted: true
 # goku runtime dep, but `brew autoremove` drops it anyway
 brew "joker"
 
@@ -68,12 +68,12 @@ cask "snipaste"
 cask "zed"
 cask "visual-studio-code"
 cask "codex"
-cask "stablyai/orca/orca"
+cask "stablyai/orca/orca", trusted: true
 cask "stats"
 # cask "tropy"
 cask "qlmarkdown"
 cask "zotero"
-cask "beforerr/beforerr/quarto-pre"
+cask "beforerr/beforerr/quarto-pre", trusted: true
 cask "mathpix-snipping-tool"
 cask "microsoft-powerpoint"
 cask "microsoft-word"
@@ -93,6 +93,7 @@ cask "iina"
 # cask "tor-browser"
 
 # Mac App Store Apps
+mas "Amphetamine", id: 937984704
 mas "Bitwarden", id: 1352778147
 mas "Flow", id: 1423210932
 mas "Gapplin", id: 768053424

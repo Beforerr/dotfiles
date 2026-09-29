@@ -39,6 +39,30 @@ chflags nohidden ~/Library
 
 defaults write com.apple.ActivityMonitor OpenMainWindow -bool true
 
+# Amphetamine rewrites its prefs on quit, so write while it's closed.
+osascript -e 'quit app "Amphetamine"' 2>/dev/null
+defaults write com.if.Amphetamine "Enable Triggers" -bool true
+defaults write com.if.Amphetamine "Allow Closed-Display Sleep" -bool false
+defaults write com.if.Amphetamine "Allow Display Sleep" -bool true
+defaults write com.if.Amphetamine "Allow Display Sleep When Screen Is Locked" -bool true
+defaults write com.if.Amphetamine "End Session On Low Battery" -bool true
+defaults write com.if.Amphetamine "Show Welcome Window" -bool false
+# TypeIDs 8 = Battery & Power Adapter criterion; RequireAC 1 = only while plugged in.
+defaults write com.if.Amphetamine "Trigger Data" -array '<dict>
+    <key>ActivateOnAC</key><string>0</string>
+    <key>ActivateOnNoAC</key><string>0</string>
+    <key>AllowDisplaySleep</key><true/>
+    <key>AllowSysSleepOnClsdDisp</key><false/>
+    <key>AndOr</key><string>0</string>
+    <key>BatteryThreshold</key><string>50.000000</string>
+    <key>Enabled</key><true/>
+    <key>Name</key><string>Power Adapter: connected</string>
+    <key>RequireAC</key><string>1</string>
+    <key>RequireNoAC</key><string>0</string>
+    <key>TypeIDs</key><array><string>8</string></array>
+</dict>'
+[ -d /Applications/Amphetamine.app ] && open -a Amphetamine
+
 for domain in com.apple.AppleMultitouchTrackpad com.apple.driver.AppleBluetoothMultitouch.trackpad; do
     defaults write $domain Clicking -bool true
     defaults write $domain TrackpadRightClick -bool true
