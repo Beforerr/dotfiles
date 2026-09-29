@@ -66,6 +66,7 @@ cask "snipaste"
 cask "zed"
 cask "visual-studio-code"
 cask "codex"
+cask "stablyai/orca/orca"
 cask "stats"
 # cask "tropy"
 cask "qlmarkdown"
@@ -91,5 +92,6 @@ cask "iina"
 
 # Mac App Store Apps
 mas "Bitwarden", id: 1352778147
+mas "DwellClick", id: 402414007
 mas "Flow", id: 1423210932
 mas "Gapplin", id: 768053424
