@@ -40,7 +40,6 @@ brew "joker"
 
 # Tier-1
 cask "arc"
-cask "google-chrome"
 cask "chatgpt"
 cask "raycast"
 
