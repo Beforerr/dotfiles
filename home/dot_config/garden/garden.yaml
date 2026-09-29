@@ -20,7 +20,6 @@ groups:
     - ~/src/TestParticle.jl
     - ~/src/JuliaPlasma/PlasmaFormulary.jl
     - ~/src/TimeseriesUtilities.jl
-  # clones + symlinks, so Pkg.develop("Name") resolves them; JuliaSpacePhysics.yaml trees are linked by the install script
   julia-dev:
     - ~/.julia/dev/*
   src:

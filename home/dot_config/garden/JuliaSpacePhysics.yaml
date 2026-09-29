@@ -18,7 +18,7 @@ trees:
   GeoAACGM.jl: {templates: jsp}
   GeoCotrans.jl: {templates: jsp}
   HAPIClient.jl: {templates: jsp}
-  IRBEM.jl: {url: "https://github.com/Beforerr/IRBEM.jl"}
+  IRBEM.jl: {templates: jsp}
   Madrigal.jl: {templates: jsp}
   MinimumVarianceAnalysis.jl: {templates: jsp}
   MultiSpacecraftAnalysis.jl: {templates: jsp}
@@ -36,3 +36,31 @@ trees:
   TsyganenkoModels.jl: {templates: jsp}
   VelocityDistributionFunctions.jl: {templates: jsp}
   VlasovMaxwellDispersion.jl: {templates: jsp}
+  ~/.julia/dev/CDAWeb: {symlink: CDAWeb.jl}
+  ~/.julia/dev/CDFDatasets: {symlink: CDFDatasets.jl}
+  ~/.julia/dev/CommonDataFormat: {symlink: CommonDataFormat.jl}
+  ~/.julia/dev/DMSPData: {symlink: DMSPData.jl}
+  ~/.julia/dev/EISCATData: {symlink: EISCATData.jl}
+  ~/.julia/dev/ELFINData: {symlink: ELFINData.jl}
+  ~/.julia/dev/ERGData: {symlink: ERGData.jl}
+  ~/.julia/dev/GeoAACGM: {symlink: GeoAACGM.jl}
+  ~/.julia/dev/GeoCotrans: {symlink: GeoCotrans.jl}
+  ~/.julia/dev/HAPIClient: {symlink: HAPIClient.jl}
+  ~/.julia/dev/IRBEM: {symlink: IRBEM.jl}
+  ~/.julia/dev/Madrigal: {symlink: Madrigal.jl}
+  ~/.julia/dev/MinimumVarianceAnalysis: {symlink: MinimumVarianceAnalysis.jl}
+  ~/.julia/dev/MultiSpacecraftAnalysis: {symlink: MultiSpacecraftAnalysis.jl}
+  ~/.julia/dev/PlanetaryMagneticFields: {symlink: PlanetaryMagneticFields.jl}
+  ~/.julia/dev/PlasmaBO: {symlink: PlasmaBO.jl}
+  ~/.julia/dev/PlasmaWaves: {symlink: PlasmaWaves.jl}
+  ~/.julia/dev/PySPEDAS: {symlink: PySPEDAS.jl}
+  ~/.julia/dev/SolarEnergeticParticle: {symlink: SolarEnergeticParticle.jl}
+  ~/.julia/dev/SpaceDataModel: {symlink: SpaceDataModel.jl}
+  ~/.julia/dev/SpacePhysicsMakie: {symlink: SpacePhysicsMakie.jl}
+  ~/.julia/dev/SpaceWeather: {symlink: SpaceWeather.jl}
+  ~/.julia/dev/Speasy: {symlink: Speasy.jl}
+  ~/.julia/dev/SPEDAS: {symlink: SPEDAS.jl}
+  ~/.julia/dev/TRACERSData: {symlink: TRACERSData.jl}
+  ~/.julia/dev/TsyganenkoModels: {symlink: TsyganenkoModels.jl}
+  ~/.julia/dev/VelocityDistributionFunctions: {symlink: VelocityDistributionFunctions.jl}
+  ~/.julia/dev/VlasovMaxwellDispersion: {symlink: VlasovMaxwellDispersion.jl}
