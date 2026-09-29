@@ -1,8 +1,5 @@
 #!/bin/bash
 if command -v pipx &> /dev/null; then
-    # mackup
-    pipx install mackup
-
     # Python environment
     pipx install nbqa
     pipx install black isort
