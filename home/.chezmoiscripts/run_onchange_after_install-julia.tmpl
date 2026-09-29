@@ -1,6 +1,6 @@
 #!/bin/bash
 
 # packages.jl hash: {{ include "dot_julia/config/packages.jl" | sha256sum }}
-if command -v julia &> /dev/null; then
-    julia .julia/config/packages.jl
-fi
+export PATH="$HOME/.juliaup/bin:$PATH"
+command -v juliaup &>/dev/null || curl -fsSL https://install.julialang.org | sh -s -- --yes --add-to-path no
+julia --threads=auto "$HOME/.julia/config/packages.jl"

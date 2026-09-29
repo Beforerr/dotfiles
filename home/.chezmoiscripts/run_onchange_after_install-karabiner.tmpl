@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # karabiner.edn hash: {{ include "dot_config/private_karabiner.edn" | sha256sum }}
+export PATH="/opt/homebrew/bin:$PATH"
 echo "Setting up Karabiner-Elements"
 # goku writes into the karabiner.json profile named in karabiner.edn (:goku) and errors if it is missing;
 # Karabiner only creates karabiner.json (with "Default profile") on first launch.

@@ -1,8 +1,15 @@
 #!/bin/bash
 
 # garden.yaml hash: {{ include "dot_config/garden/garden.yaml" | sha256sum }}
-if command -v garden &>/dev/null; then
-    garden grow "*"
-    garden cmd "*" pull -j4
-    garden cmd "*" status
-fi
+export PATH="$HOME/.cargo/bin:/opt/homebrew/bin:$PATH"
+export GIT_TERMINAL_PROMPT=0
+gh auth status &>/dev/null || gh auth login --web --git-protocol https
+command -v garden &>/dev/null || cargo install garden-tools
+
+# garden grow clones serially and can't do blobless clones; it then only adds symlinks and remotes.
+cfg="$HOME/.config/garden/garden.yaml"
+root=$(yq '.garden.root' "$cfg")
+yq '.trees | to_entries[] | select(.value.url) | .key + " " + .value.url' "$cfg" |
+    sed -e "s|^~|$HOME|" -e "s|^\([^/]\)|${root/#\~/$HOME}/\1|" |
+    xargs -P8 -n2 sh -c '[ -e "$0" ] || git clone --quiet --filter=blob:none "$1" "$0"'
+garden grow "*"

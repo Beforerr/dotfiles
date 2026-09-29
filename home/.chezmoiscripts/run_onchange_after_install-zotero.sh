@@ -1,6 +1,7 @@
 #!/bin/sh
 # Only seeds missing plugins: Zotero self-updates each one via its update_url.
 set -eu
+export PATH="/opt/homebrew/bin:$PATH"
 ext="$HOME/Library/Application Support/Zotero/Profiles/default/extensions"
 mkdir -p "$ext"
 

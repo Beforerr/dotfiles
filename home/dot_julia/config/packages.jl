@@ -24,3 +24,6 @@ Pkg.add([
     # Interactive
     "BasicAutoloads",
 ])
+
+Pkg.activate("runic"; shared=true)
+Pkg.add("Runic")

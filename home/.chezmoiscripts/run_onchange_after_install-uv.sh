@@ -1,4 +1,5 @@
 #!/bin/bash
+export PATH="$HOME/.local/bin:$PATH"
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
 if command -v uv &>/dev/null; then

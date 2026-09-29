@@ -17,7 +17,7 @@ install-juliaup:
     #!/usr/bin/env sh
     if ! command -v juliaup; then
         echo "Installing Juliaup - Julia version manager..."
-        curl -fsSL https://install.julialang.org | sh -s -- --yes
+        curl -fsSL https://install.julialang.org | sh -s -- --yes --add-to-path no
     fi
 
 [private]
@@ -25,8 +25,7 @@ update-julia:
     -juliaup update
 
 install-pkgs:
-    -julia ~/.julia/config/packages.jl --threads=auto
-    -julia --project=@runic -e 'using Pkg; Pkg.add("Runic")'
+    -julia --threads=auto ~/.julia/config/packages.jl
 
 [no-cd]
 add-docs:
@@ -203,32 +202,3 @@ register:
         --silent
     echo "✅ Registration comment posted successfully!"
     echo "Check the commit page: https://github.com/$OWNER/$REPO_NAME/commit/$COMMIT_HASH"
-
-link:
-    ln -s ~/src/IRBEM.jl ~/.julia/dev/IRBEM
-    ln -s ~/src/GeoAACGM.jl ~/.julia/dev/GeoAACGM
-    ln -s ~/src/GeoCotrans.jl ~/.julia/dev/GeoCotrans
-    ln -s ~/src/Madrigal.jl ~/.julia/dev/Madrigal
-    ln -s ~/src/TimeseriesUtilities.jl ~/.julia/dev/TimeseriesUtilities
-    ln -s ~/src/SPEDAS.jl ~/.julia/dev/SPEDAS
-    ln -s ~/src/SpaceDataModel.jl ~/.julia/dev/SpaceDataModel
-    ln -s ~/src/SpacePhysicsMakie.jl ~/.julia/dev/SpacePhysicsMakie
-    ln -s ~/src/PySPEDAS.jl ~/.julia/dev/PySPEDAS
-    ln -s ~/src/SolarEnergeticParticle.jl ~/.julia/dev/SolarEnergeticParticle
-    ln -s ~/src/Speasy.jl ~/.julia/dev/Speasy
-    ln -s ~/src/CDFDatasets.jl ~/.julia/dev/CDFDatasets
-    ln -s ~/src/CommonDataFormat.jl ~/.julia/dev/CommonDataFormat
-    ln -s ~/src/HAPIClient.jl ~/.julia/dev/HAPIClient
-    ln -s ~/src/CDAWeb.jl ~/.julia/dev/CDAWeb
-    ln -s ~/src/ELFINData.jl ~/.julia/dev/ELFINData
-    ln -s ~/src/DMSPData.jl ~/.julia/dev/DMSPData
-    ln -s ~/src/ERGData.jl ~/.julia/dev/ERGData
-    ln -s ~/src/VelocityDistributionFunctions.jl ~/.julia/dev/VelocityDistributionFunctions
-    ln -s ~/src/MinimumVarianceAnalysis.jl ~/.julia/dev/MinimumVarianceAnalysis
-    ln -s ~/src/PlasmaWaves.jl ~/.julia/dev/PlasmaWaves
-    ln -s ~/src/PlasmaBO.jl ~/.julia/dev/PlasmaBO
-    ln -s ~/src/PlasmaFormulary.jl ~/.julia/dev/PlasmaFormulary
-    ln -s ~/src/MultiSpacecraftAnalysis.jl ~/.julia/dev/MultiSpacecraftAnalysis
-    ln -s ~/src/SpaceWeather.jl ~/.julia/dev/SpaceWeather
-    ln -s ~/src/TsyganenkoModels.jl ~/.julia/dev/TsyganenkoModels
-    ln -s ~/src/PlanetaryMagneticFields.jl ~/.julia/dev/PlanetaryMagneticFields
