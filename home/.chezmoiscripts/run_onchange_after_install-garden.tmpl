@@ -1,15 +1,24 @@
 #!/bin/bash
 
-# garden.yaml hash: {{ include "dot_config/garden/garden.yaml" | sha256sum }}
+# garden hash: {{ range list "garden" "JuliaSpacePhysics" "commands" }}{{ include (printf "dot_config/garden/%s.yaml" .) | sha256sum }} {{ end }}
 export PATH="$HOME/.cargo/bin:/opt/homebrew/bin:$PATH"
 export GIT_TERMINAL_PROMPT=0
 gh auth status &>/dev/null || gh auth login --web --git-protocol https
 command -v garden &>/dev/null || cargo install garden-tools
 
 # garden grow clones serially and can't do blobless clones; it then only adds symlinks and remotes.
-cfg="$HOME/.config/garden/garden.yaml"
-root=$(yq '.garden.root' "$cfg")
-yq '.trees | to_entries[] | select(.value.url) | .key + " " + .value.url' "$cfg" |
-    sed -e "s|^~|$HOME|" -e "s|^\([^/]\)|${root/#\~/$HOME}/\1|" |
-    xargs -P8 -n2 sh -c '[ -e "$0" ] || git clone --quiet --filter=blob:none "$1" "$0"'
-garden grow "*"
+# garden takes one config per run, so each top-level garden is grown separately.
+for cfg in "$HOME/.config/garden/garden.yaml" "$HOME/.config/garden/JuliaSpacePhysics.yaml"; do
+    root=$(yq '.garden.root' "$cfg")
+    yq '.templates as $t | .trees | to_entries[] | .key as $k |
+        (.value.url // $t[.value.templates].url // "") | select(. != "") | $k + " " + sub("\$\{TREE_NAME\}"; $k)' "$cfg" |
+        sed -e "s|^~|$HOME|" -e "s|^\([^/]\)|${root/#\~/$HOME}/\1|" |
+        xargs -P8 -n2 sh -c '[ -e "$0" ] || git clone --quiet --filter=blob:none "$1" "$0"'
+    garden -c "$cfg" grow "*"
+done
+
+# ~/.julia/dev/<Name> so Pkg.develop("Name") resolves; existing real dirs are left alone.
+for n in $(yq '.trees | keys | .[] | select(test("\.jl$"))' "$HOME/.config/garden/JuliaSpacePhysics.yaml"); do
+    l="$HOME/.julia/dev/${n%.jl}"
+    [ -e "$l" ] && [ ! -L "$l" ] || ln -sfn "$HOME/src/JuliaSpacePhysics/$n" "$l"
+done

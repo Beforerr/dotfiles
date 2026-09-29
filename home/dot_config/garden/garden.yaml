@@ -1,11 +1,6 @@
 garden:
   root: ~/projects
-commands:
-  pull:
-    - "[ -d .jj ] && jj git fetch --quiet || git pull --quiet"
-    - git submodule update --init --recursive
-  status:
-    - "[ -d .jj ] && (jj st | grep -E '^(Working copy changes:|Parent commit changes:)' || true) || git status -s"
+  includes: [commands.yaml]
 groups:
   projects:
     - beforerr
@@ -22,37 +17,10 @@ groups:
     - AKR
   julia:
     - ~/src/julia-client
-    - ~/src/JuliaSpacePhysics/HAPIClient.jl
     - ~/src/TestParticle.jl
-    - ~/src/JuliaSpacePhysics/Speasy.jl
-    - ~/src/JuliaSpacePhysics/IRBEM.jl
-    - ~/src/JuliaSpacePhysics/TsyganenkoModels.jl
-    - ~/src/JuliaSpacePhysics/PlanetaryMagneticFields.jl
-    - ~/src/JuliaSpacePhysics/GeoAACGM.jl
-    - ~/src/JuliaSpacePhysics/GeoCotrans.jl
-    - ~/src/JuliaSpacePhysics/Madrigal.jl
-    - ~/src/JuliaSpacePhysics/PlasmaWaves.jl
-    - ~/src/JuliaSpacePhysics/PlasmaBO.jl
     - ~/src/JuliaPlasma/PlasmaFormulary.jl
-    - ~/src/JuliaSpacePhysics/juliaspacephysics.github.io
-    - ~/src/JuliaSpacePhysics/actions
     - ~/src/TimeseriesUtilities.jl
-    - ~/src/JuliaSpacePhysics/SpaceDataModel.jl
-    - ~/src/JuliaSpacePhysics/SpacePhysicsMakie.jl
-    - ~/src/JuliaSpacePhysics/SPEDAS.jl
-    - ~/src/JuliaSpacePhysics/PySPEDAS.jl
-    - ~/src/JuliaSpacePhysics/SolarEnergeticParticle.jl
-    - ~/src/JuliaSpacePhysics/MinimumVarianceAnalysis.jl
-    - ~/src/JuliaSpacePhysics/MultiSpacecraftAnalysis.jl
-    - ~/src/JuliaSpacePhysics/CommonDataFormat.jl
-    - ~/src/JuliaSpacePhysics/CDFDatasets.jl
-    - ~/src/JuliaSpacePhysics/CDAWeb.jl
-    - ~/src/JuliaSpacePhysics/ELFINData.jl
-    - ~/src/JuliaSpacePhysics/ERGData.jl
-    - ~/src/JuliaSpacePhysics/DMSPData.jl
-    - ~/src/JuliaSpacePhysics/VelocityDistributionFunctions.jl
-    - ~/src/JuliaSpacePhysics/SpaceWeather.jl
-  # clones + symlinks to ~/src/<org>/*.jl, so Pkg.develop("Name") resolves them
+  # clones + symlinks, so Pkg.develop("Name") resolves them; JuliaSpacePhysics.yaml trees are linked by the install script
   julia-dev:
     - ~/.julia/dev/*
   src:
@@ -104,92 +72,13 @@ trees:
     url: "https://github.com/Beforerr/PermuteArgs.jl"
   ~/src/julia-client:
     url: https://github.com/Beforerr/julia-client
-  ~/src/JuliaSpacePhysics/SPEDAS.jl:
-    url: "https://github.com/JuliaSpacePhysics/SPEDAS.jl"
-  ~/src/JuliaSpacePhysics/SpaceDataModel.jl:
-    url: "https://github.com/JuliaSpacePhysics/SpaceDataModel.jl"
-  ~/src/JuliaSpacePhysics/PySPEDAS.jl:
-    url: "https://github.com/JuliaSpacePhysics/PySPEDAS.jl"
-  ~/src/JuliaSpacePhysics/Speasy.jl:
-    url: "https://github.com/SciQLop/Speasy.jl"
-  ~/src/JuliaSpacePhysics/HAPIClient.jl:
-    url: "https://github.com/JuliaSpacePhysics/HAPIClient.jl"
   /opt/homebrew/Library/Taps/beforerr/homebrew-beforerr:
     url: "https://github.com/Beforerr/homebrew-beforerr"
-  ~/src/JuliaSpacePhysics/IRBEM.jl:
-    url: "https://github.com/Beforerr/IRBEM.jl"
-  ~/src/JuliaSpacePhysics/GeoAACGM.jl:
-    url: "https://github.com/JuliaSpacePhysics/GeoAACGM.jl"
   ~/src/TestParticle.jl:
     url: "https://github.com/henry2004y/TestParticle.jl"
-  ~/src/JuliaSpacePhysics/Madrigal.jl:
-    url: "https://github.com/JuliaSpacePhysics/Madrigal.jl"
-  ~/src/JuliaSpacePhysics/juliaspacephysics.github.io:
-    url: "https://github.com/JuliaSpacePhysics/juliaspacephysics.github.io"
-  ~/src/JuliaSpacePhysics/actions:
-    url: "https://github.com/JuliaSpacePhysics/actions"
-  ~/src/JuliaSpacePhysics/GeoCotrans.jl:
-    url: "https://github.com/JuliaSpacePhysics/GeoCotrans.jl"
   ~/src/TimeseriesUtilities.jl:
     url: "https://github.com/Beforerr/TimeseriesUtilities.jl"
-  ~/src/JuliaSpacePhysics/SpacePhysicsMakie.jl:
-    url: "https://github.com/JuliaSpacePhysics/SpacePhysicsMakie.jl"
-  ~/src/JuliaSpacePhysics/SpaceWeather.jl:
-    url: "https://github.com/JuliaSpacePhysics/SpaceWeather.jl"
-  ~/src/JuliaSpacePhysics/PlasmaWaves.jl:
-    url: "https://github.com/JuliaSpacePhysics/PlasmaWaves.jl"
-  ~/src/JuliaSpacePhysics/PlasmaBO.jl:
-    url: "https://github.com/JuliaSpacePhysics/PlasmaBO.jl"
   ~/src/JuliaPlasma/PlasmaFormulary.jl:
     url: "https://github.com/JuliaPlasma/PlasmaFormulary.jl"
-  ~/src/JuliaSpacePhysics/SolarEnergeticParticle.jl:
-    url: "https://github.com/JuliaSpacePhysics/SolarEnergeticParticle.jl"
-  ~/src/JuliaSpacePhysics/MinimumVarianceAnalysis.jl:
-    url: "https://github.com/JuliaSpacePhysics/MinimumVarianceAnalysis.jl"
-  ~/src/JuliaSpacePhysics/MultiSpacecraftAnalysis.jl:
-    url: "https://github.com/JuliaSpacePhysics/MultiSpacecraftAnalysis.jl"
-  ~/src/JuliaSpacePhysics/CommonDataFormat.jl:
-    url: "https://github.com/JuliaSpacePhysics/CommonDataFormat.jl"
-  ~/src/JuliaSpacePhysics/CDFDatasets.jl:
-    url: "https://github.com/JuliaSpacePhysics/CDFDatasets.jl"
-  ~/src/JuliaSpacePhysics/CDAWeb.jl:
-    url: "https://github.com/JuliaSpacePhysics/CDAWeb.jl"
-  ~/src/JuliaSpacePhysics/ELFINData.jl:
-    url: https://github.com/JuliaSpacePhysics/ELFINData.jl
-  ~/src/JuliaSpacePhysics/ERGData.jl:
-    url: https://github.com/JuliaSpacePhysics/ERGData.jl
-  ~/src/JuliaSpacePhysics/DMSPData.jl:
-    url: https://github.com/JuliaSpacePhysics/DMSPData.jl
-  ~/src/JuliaSpacePhysics/VelocityDistributionFunctions.jl:
-    url: "https://github.com/JuliaSpacePhysics/VelocityDistributionFunctions.jl"
-  ~/src/JuliaSpacePhysics/TsyganenkoModels.jl:
-    url: "https://github.com/JuliaSpacePhysics/TsyganenkoModels.jl"
-  ~/src/JuliaSpacePhysics/PlanetaryMagneticFields.jl:
-    url: "https://github.com/JuliaSpacePhysics/PlanetaryMagneticFields.jl"
-  ~/.julia/dev/IRBEM: {symlink: ~/src/JuliaSpacePhysics/IRBEM.jl}
-  ~/.julia/dev/GeoAACGM: {symlink: ~/src/JuliaSpacePhysics/GeoAACGM.jl}
-  ~/.julia/dev/GeoCotrans: {symlink: ~/src/JuliaSpacePhysics/GeoCotrans.jl}
-  ~/.julia/dev/Madrigal: {symlink: ~/src/JuliaSpacePhysics/Madrigal.jl}
   ~/.julia/dev/TimeseriesUtilities: {symlink: ~/src/TimeseriesUtilities.jl}
-  ~/.julia/dev/SPEDAS: {symlink: ~/src/JuliaSpacePhysics/SPEDAS.jl}
-  ~/.julia/dev/SpaceDataModel: {symlink: ~/src/JuliaSpacePhysics/SpaceDataModel.jl}
-  ~/.julia/dev/SpacePhysicsMakie: {symlink: ~/src/JuliaSpacePhysics/SpacePhysicsMakie.jl}
-  ~/.julia/dev/PySPEDAS: {symlink: ~/src/JuliaSpacePhysics/PySPEDAS.jl}
-  ~/.julia/dev/SolarEnergeticParticle: {symlink: ~/src/JuliaSpacePhysics/SolarEnergeticParticle.jl}
-  ~/.julia/dev/Speasy: {symlink: ~/src/JuliaSpacePhysics/Speasy.jl}
-  ~/.julia/dev/CDFDatasets: {symlink: ~/src/JuliaSpacePhysics/CDFDatasets.jl}
-  ~/.julia/dev/CommonDataFormat: {symlink: ~/src/JuliaSpacePhysics/CommonDataFormat.jl}
-  ~/.julia/dev/HAPIClient: {symlink: ~/src/JuliaSpacePhysics/HAPIClient.jl}
-  ~/.julia/dev/CDAWeb: {symlink: ~/src/JuliaSpacePhysics/CDAWeb.jl}
-  ~/.julia/dev/ELFINData: {symlink: ~/src/JuliaSpacePhysics/ELFINData.jl}
-  ~/.julia/dev/DMSPData: {symlink: ~/src/JuliaSpacePhysics/DMSPData.jl}
-  ~/.julia/dev/ERGData: {symlink: ~/src/JuliaSpacePhysics/ERGData.jl}
-  ~/.julia/dev/VelocityDistributionFunctions: {symlink: ~/src/JuliaSpacePhysics/VelocityDistributionFunctions.jl}
-  ~/.julia/dev/MinimumVarianceAnalysis: {symlink: ~/src/JuliaSpacePhysics/MinimumVarianceAnalysis.jl}
-  ~/.julia/dev/PlasmaWaves: {symlink: ~/src/JuliaSpacePhysics/PlasmaWaves.jl}
-  ~/.julia/dev/PlasmaBO: {symlink: ~/src/JuliaSpacePhysics/PlasmaBO.jl}
   ~/.julia/dev/PlasmaFormulary: {symlink: ~/src/JuliaPlasma/PlasmaFormulary.jl}
-  ~/.julia/dev/MultiSpacecraftAnalysis: {symlink: ~/src/JuliaSpacePhysics/MultiSpacecraftAnalysis.jl}
-  ~/.julia/dev/SpaceWeather: {symlink: ~/src/JuliaSpacePhysics/SpaceWeather.jl}
-  ~/.julia/dev/TsyganenkoModels: {symlink: ~/src/JuliaSpacePhysics/TsyganenkoModels.jl}
-  ~/.julia/dev/PlanetaryMagneticFields: {symlink: ~/src/JuliaSpacePhysics/PlanetaryMagneticFields.jl}

@@ -1,0 +1,38 @@
+# Separate garden because an included file's garden.root is ignored.
+garden:
+  root: ~/src/JuliaSpacePhysics
+  includes: [commands.yaml]
+templates:
+  jsp:
+    url: "https://github.com/JuliaSpacePhysics/${TREE_NAME}"
+trees:
+  actions: {templates: jsp}
+  juliaspacephysics.github.io: {templates: jsp}
+  CDAWeb.jl: {templates: jsp}
+  CDFDatasets.jl: {templates: jsp}
+  CommonDataFormat.jl: {templates: jsp}
+  DMSPData.jl: {templates: jsp}
+  EISCATData.jl: {templates: jsp}
+  ELFINData.jl: {templates: jsp}
+  ERGData.jl: {templates: jsp}
+  GeoAACGM.jl: {templates: jsp}
+  GeoCotrans.jl: {templates: jsp}
+  HAPIClient.jl: {templates: jsp}
+  IRBEM.jl: {url: "https://github.com/Beforerr/IRBEM.jl"}
+  Madrigal.jl: {templates: jsp}
+  MinimumVarianceAnalysis.jl: {templates: jsp}
+  MultiSpacecraftAnalysis.jl: {templates: jsp}
+  PlanetaryMagneticFields.jl: {templates: jsp}
+  PlasmaBO.jl: {templates: jsp}
+  PlasmaWaves.jl: {templates: jsp}
+  PySPEDAS.jl: {templates: jsp}
+  SolarEnergeticParticle.jl: {templates: jsp}
+  SpaceDataModel.jl: {templates: jsp}
+  SpacePhysicsMakie.jl: {templates: jsp}
+  SpaceWeather.jl: {templates: jsp}
+  Speasy.jl: {url: "https://github.com/SciQLop/Speasy.jl"}
+  SPEDAS.jl: {templates: jsp}
+  TRACERSData.jl: {templates: jsp}
+  TsyganenkoModels.jl: {templates: jsp}
+  VelocityDistributionFunctions.jl: {templates: jsp}
+  VlasovMaxwellDispersion.jl: {templates: jsp}

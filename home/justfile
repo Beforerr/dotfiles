@@ -18,9 +18,12 @@ update-pkgs:
 sync: sync-projects sync-overleaf
 
 sync-projects:
-    garden grow "*"
-    -garden cmd "*" pull -j4
-    garden cmd "*" status
+    #!/usr/bin/env bash
+    for cfg in ~/.config/garden/{garden,JuliaSpacePhysics}.yaml; do
+        garden -c "$cfg" grow "*"
+        garden -c "$cfg" cmd "*" pull -j4
+        garden -c "$cfg" cmd "*" status
+    done
 
 [private]
 sync-overleaf:
