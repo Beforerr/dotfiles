@@ -16,6 +16,9 @@ defaults write com.apple.dock autohide-time-modifier -float 0
 defaults write com.apple.dock launchanim -bool true
 defaults write com.apple.dock orientation -string bottom
 # Hot corners (modifier 0 = none): TL Mission Control, TR Desktop, BL screen saver, BR Notification Center
+if command -v dockutil >/dev/null; then
+    for app in Contacts Photos; do dockutil --remove "$app" --no-restart 2>/dev/null; done
+fi
 defaults write com.apple.dock wvous-tl-corner -int 2
 defaults write com.apple.dock wvous-tl-modifier -int 0
 defaults write com.apple.dock wvous-tr-corner -int 4
@@ -73,6 +76,15 @@ done
 if ! grep -q pam_tid /etc/pam.d/sudo_local 2>/dev/null; then
     echo "auth       sufficient     pam_tid.so" | sudo tee /etc/pam.d/sudo_local >/dev/null
 fi
+
+# Pinyin – Simplified. TISEnableInputSource updates the running input menu; `defaults write` to
+# HIToolbox only lands after relogin. The parent SCIM method must be enabled too, or the mode stays inert.
+osascript -l JavaScript -e '
+ObjC.import("Carbon");
+for (const id of ["com.apple.inputmethod.SCIM", "com.apple.inputmethod.SCIM.ITABC"]) {
+    const f = $.NSDictionary.dictionaryWithObjectForKey(id, "TISPropertyInputSourceID");
+    $.TISEnableInputSource(ObjC.castRefToObject($.TISCreateInputSourceList(f, true)).objectAtIndex(0));
+}' >/dev/null
 
 /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
 killall Dock Finder 2>/dev/null || true
