@@ -188,7 +188,8 @@
     "command": "sh /Users/zijin/.claude/statusline-command.sh"
   },
   "enabledPlugins": {
-    "skill-creator@claude-plugins-official": false
+    "skill-creator@claude-plugins-official": false,
+    "finance@synced": false
   },
   "effortLevel": "high",
   "modelSettings": {
