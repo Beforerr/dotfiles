@@ -189,7 +189,8 @@
   },
   "enabledPlugins": {
     "skill-creator@claude-plugins-official": false,
-    "finance@synced": false
+    "finance@synced": false,
+    "cowork-plugin-management@synced": false
   },
   "effortLevel": "high",
   "modelSettings": {
