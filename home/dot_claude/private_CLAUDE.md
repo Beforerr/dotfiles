@@ -42,7 +42,8 @@ Comments:
   alone, delete it. Density tracks surprise.
 - Keep: non-derivable WHY. Hidden constraints, undocumented data quirks,
   invariants and deliberate tradeoffs.
-- Cut: section dividers, headers restating the task, docstrings that restate signatures.
+- Cut: section dividers, headers restating the task, docstrings that restate signatures,
+  incident history (versions, past failures), and constraints a test already enforces.
 - A contradicting comment is a bug. Fix or delete it — never route around it.
 
 Tests: Only add tests that would fail if the implementation were subtly wrong. A trivial test is deleted, not written.
