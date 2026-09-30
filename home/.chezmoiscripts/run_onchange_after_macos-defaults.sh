@@ -86,5 +86,10 @@ for (const id of ["com.apple.inputmethod.SCIM", "com.apple.inputmethod.SCIM.ITAB
     $.TISEnableInputSource(ObjC.castRefToObject($.TISCreateInputSourceList(f, true)).objectAtIndex(0));
 }' >/dev/null
 
+# Preinstalled apps plus their shared content
+sudo rm -rf /Applications/GarageBand.app /Applications/iMovie.app \
+    "/Library/Application Support/GarageBand" "/Library/Application Support/logic" \
+    "/Library/Audio/Apple Loops/Apple"
+
 /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
 killall Dock Finder 2>/dev/null || true
