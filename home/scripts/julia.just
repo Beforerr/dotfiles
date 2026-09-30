@@ -88,7 +88,7 @@ new-package name dir="~/.julia/dev":
     )("{{ name }}")
 
 [no-cd]
-new-package-sph name dir="~/src":
+new-package-sph name dir="~/src/JuliaSpacePhysics":
     #!/usr/bin/env -S julia --threads=auto
     using PkgTemplates
     Template(; 
@@ -98,7 +98,7 @@ new-package-sph name dir="~/src":
         plugins=[
             Tests(; project=true, aqua=true),
             GitHubActions(; 
-                file="/Users/zijin/src/juliaspacephysics.github.io/templates/github/workflows/CI.yml",
+                file="/Users/zijin/src/JuliaSpacePhysics/juliaspacephysics.github.io/templates/github/workflows/CI.yml",
             ),
             Codecov(),
             Documenter{GitHubActions}(),
