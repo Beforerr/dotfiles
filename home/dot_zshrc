@@ -8,7 +8,6 @@ path=(
   "$HOME/.local/bin"
   "$HOME/.cargo/bin"
   "$HOME/.julia/bin"
-  /opt/homebrew/opt/coreutils/libexec/gnubin(N)
   $path
 )
 fpath=("$HOME/.local/share/zsh/site-functions" $fpath)

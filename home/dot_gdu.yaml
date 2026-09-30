@@ -1,0 +1,3 @@
+ignore-dir-patterns:
+  - '.*CloudStorage'
+  - '.*Mobile Documents'
