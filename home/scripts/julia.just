@@ -156,14 +156,31 @@ bump bump_type="":
     if [ -z "$bump_type" ]; then
         bump_type=$(just --justfile ~/justfile _bump-type)
     fi
-    julia --startup-file=no -e 'using Pkg; !haskey(Pkg.project().dependencies, "PkgBump") && Pkg.add(url="https://github.com/AtelierArith/PkgBump.jl")'
-    new_version=$(julia --project --startup-file=no -e "
-        using PkgBump, Pkg
-        project_file = Base.active_project()
-        project = Pkg.Types.read_project(project_file)
-        PkgBump.updateversion!(project, project_file, :$bump_type)
-        print(project.version)
-    ")
+    parent=$(jj log -r @- --no-graph -T commit_id)
+    repo=$(gh repo view --json nameWithOwner -q .nameWithOwner)
+    ci=$(gh run list -R "$repo" -c "$parent" --json databaseId,workflowName,status,conclusion \
+        -q '[.[] | select(.workflowName == "CI")][0]')
+    if [ -z "$ci" ]; then
+        echo "⚠️  No CI run for $(echo "$parent" | cut -c1-8); releasing unchecked"
+    else
+        id=$(echo "$ci" | jq -r .databaseId)
+        [ "$(echo "$ci" | jq -r .status)" = completed ] || gh run watch -R "$repo" "$id" --exit-status >/dev/null || true
+        conclusion=$(gh run view -R "$repo" "$id" --json conclusion -q .conclusion)
+        if [ "$conclusion" != success ]; then
+            echo "❌ CI $conclusion on release base: https://github.com/$repo/actions/runs/$id"
+            exit 1
+        fi
+    fi
+    version=$(sed -n 's/^version = "\(.*\)"$/\1/p' Project.toml)
+    IFS=. ; set -- ${version%%[-+]*}; unset IFS
+    major=$1 minor=$2 patch=$3
+    case "$bump_type" in
+        major) new_version="$((major + 1)).0.0" ;;
+        minor) new_version="$major.$((minor + 1)).0" ;;
+        patch) new_version="$major.$minor.$((patch + 1))" ;;
+        *) echo "unknown bump type: $bump_type"; exit 1 ;;
+    esac
+    sed -i '' "s/^version = \"$version\"$/version = \"$new_version\"/" Project.toml
     echo "Bumped to v$new_version ($bump_type)"
     jj desc -m "build(release): 🔖 $new_version"
     jj bookmark move main --to=@

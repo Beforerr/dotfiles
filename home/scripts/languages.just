@@ -31,6 +31,8 @@ coverage:
 [private]
 _bump-type:
     #!/usr/bin/env sh
+    # TagBot creates tags on GitHub; stale local tags widen the range.
+    git fetch --tags --quiet 2>/dev/null || true
     last_tag=$(git tag --sort=-version:refname | grep -E '^v[0-9]' | head -1)
     commits=$(git log "${last_tag:+${last_tag}..}HEAD" --format="%s%n%b")
     if echo "$commits" | grep -qE '^[a-z]+(!(\([^)]*\))?|\([^)]*\)!):|^BREAKING CHANGE:'; then
