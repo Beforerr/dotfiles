@@ -16,17 +16,15 @@ groups:
     - SPEDAS_paper
     - AKR
   julia:
-    - ~/src/julia-client
     - ~/src/TestParticle.jl
     - ~/src/JuliaPlasma/PlasmaFormulary.jl
     - ~/src/TimeseriesUtilities.jl
   julia-dev:
     - ~/.julia/dev/*
   src:
+    - ~/src/repld
     - ~/src/beforerr_dev
-    - ~/src/space-analysis.py
     - ~/src/workflows
-    - ~/src/Beforerr.m
     - /opt/homebrew/Library/Taps/beforerr/homebrew-beforerr
 trees:
   beforerr:
@@ -55,12 +53,8 @@ trees:
     url: "https://github.com/Beforerr/AKR"
   ~/src/workflows:
     url: "https://github.com/Beforerr/workflows.git"
-  ~/src/Beforerr.m:
-    url: "https://github.com/Beforerr/Beforerr.m.git"
   ~/src/beforerr_dev:
     url: "https://github.com/Beforerr/beforerr_dev.git"
-  ~/src/space-analysis.py:
-    url: "https://github.com/Beforerr/space-analysis.py"
   ~/.julia/dev/Discontinuity:
     url: "https://github.com/Beforerr/Discontinuity.jl"
   ~/.julia/dev/beforerr:
@@ -69,8 +63,8 @@ trees:
     url: "https://github.com/JuliaPlasma/ChargedParticles.jl"
   ~/.julia/dev/PermuteArgs:
     url: "https://github.com/Beforerr/PermuteArgs.jl"
-  ~/src/julia-client:
-    url: https://github.com/Beforerr/julia-client
+  ~/src/repld:
+    url: https://github.com/Beforerr/repld
   /opt/homebrew/Library/Taps/beforerr/homebrew-beforerr:
     url: "https://github.com/Beforerr/homebrew-beforerr"
   ~/src/TestParticle.jl:
