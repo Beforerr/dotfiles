@@ -1,4 +1,4 @@
-- Several sessions may run concurrently against these checkouts. Before switching branches or editing a sub-repo, check whether it's dirty or off its default branch; if so, it's likely in use, so work in a worktree instead.
+- Other sessions may be working in these checkouts concurrently; uncommitted changes or a non-default branch may be theirs.
 - The user is usually on a phone via Remote Control and can't see local changes: deliver code as a pushed branch or PR link.
 - Upstream hubs, where a change can break dependents (exact edges: `grep -l '^<Pkg> = ' */Project.toml`):
   - SpaceDataModel: most packages.
@@ -7,4 +7,4 @@
   - Madrigal → DMSPData, EISCATData.
   - `actions`: shared CI/docs workflows used by nearly every repo.
   - `juliaspacephysics.github.io`: Quarto site whose tutorials execute several packages, so API changes can break its build.
-- `~/.julia/dev/<Pkg>` symlinks to the sub-repo checkouts here, so a cross-repo change is picked up by any env that `dev`s the package by name, but only while that checkout is on your branch.
+- `~/.julia/dev/<Pkg>` symlinks to the checkouts here, so whatever branch a checkout is on is what any env that `dev`s the package loads; leaving a branch checked out is how downstream packages see a cross-repo change.
