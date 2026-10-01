@@ -1,6 +1,7 @@
 # CLI
 brew "atuin"
 brew "bat"
+brew "bitwarden-cli"
 brew "broot"
 brew "btop"
 brew "direnv"
