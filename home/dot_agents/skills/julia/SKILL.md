@@ -10,3 +10,5 @@ description: Load BEFORE any `julia` command, especially tests. Test invocation,
   Tests: `just --justfile ~/justfile julia fast-test [regex]` (repld-backed).
   Load latency: `just --justfile ~/justfile julia time-import`.
 - Don't over-narrow signatures; users bring their own types.
+- Multi-step checks (anything loading Makie, before/after comparisons): one `repld` session, not
+  repeated `julia -e`; each cold start re-pays precompile. Old-vs-new output: `ReferenceRevision`.
