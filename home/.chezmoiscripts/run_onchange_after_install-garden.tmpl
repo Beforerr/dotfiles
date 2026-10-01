@@ -16,3 +16,5 @@ for cfg in "$HOME/.config/garden/garden.yaml" "$HOME/.config/garden/JuliaSpacePh
         xargs -P8 -n2 sh -c '[ -e "$0" ] || git clone --quiet --filter=blob:none "$1" "$0"'
     garden -c "$cfg" grow "*"
 done
+# garden has no post-grow hook.
+garden -c "$HOME/.config/garden/JuliaSpacePhysics.yaml" jj-init "*"

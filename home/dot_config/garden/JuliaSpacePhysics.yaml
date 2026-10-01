@@ -2,10 +2,8 @@
 garden:
   root: ~/src/JuliaSpacePhysics
   includes: [commands.yaml]
-# garden has no post-grow hook; `garden pull` after `garden grow` colocates jj.
 commands:
   jj-init: "[ -d .jj ] || (jj git init --colocate && jj bookmark track main --remote origin)"
-  pull<: jj-init
 templates:
   jsp:
     url: "https://github.com/JuliaSpacePhysics/${TREE_NAME}"
