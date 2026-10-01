@@ -1,6 +1,6 @@
 ---
 name: julia
-description: Julia globals (benchmark, inspect, revisions, tests) and package conventions. Use for any Julia code.
+description: Load BEFORE any `julia` command (tests, Pkg, REPL, benchmarks). Test invocation, Revise, package conventions.
 ---
 
 - Global: `Revise`; `Chairmarks` (`@b rand(1000) sort`); `CodeTracking` (`@code_string f(x)`);
