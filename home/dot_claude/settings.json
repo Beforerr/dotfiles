@@ -211,7 +211,7 @@
   },
   "tui": "fullscreen",
   "voice": {
-    "enabled": true,
+    "enabled": false,
     "mode": "hold"
   },
   "skipDangerousModePermissionPrompt": true,
