@@ -11,7 +11,7 @@
     }
 
     :applications {
-        :arc [ "^company.thebrowser.Browser" ]
+        :zen [ "^app.zen-browser.zen" ]
         :chatgpt [ "^com.lencx.chatgpt$" ]
         :eudic [ "com.eusoft.eudic" ]
 
@@ -71,9 +71,9 @@
         {
             :des "Power Combos"
             :rules [
-            	;; arc
-                [:left_command :left_command :arc {:alone :!Ct}]
-                [:right_command :right_command :arc {:alone :!Cs}]
+            	;; zen
+                [:left_command :left_command :zen {:alone :!Ct}]
+                [:right_command :right_command :zen {:alone :!Cs}]
                 ;; vivaldi
                 [:left_command :left_command :vivaldi {:alone :left_command}]
                 [:right_command :left_command :vivaldi {:alone [:km "Viv: Command Key"]}]

@@ -39,7 +39,7 @@ brew "yqrashawn/goku/goku", trusted: true
 brew "joker"
 
 # Tier-1
-cask "arc"
+cask "zen"
 cask "chatgpt"
 cask "raycast"
 
@@ -65,6 +65,7 @@ cask "shortcat"
 cask "snipaste"
 cask "zed"
 cask "visual-studio-code"
+cask "obsidian"
 cask "codex"
 cask "stablyai/orca/orca", trusted: true
 cask "stats"
