@@ -17,6 +17,8 @@ export HOMEBREW_NO_INSTALL_UPGRADE=1
 
 export PERSON_PROFILE_DIR="$HOME/Library/CloudStorage/Box-Box/profiles"
 
+export GOG_ACCOUNT=zzj956959688@gmail.com
+
 # bun
 export BUN_INSTALL="$HOME/.bun"
 

@@ -25,6 +25,25 @@ sync-projects:
         garden -c "$cfg" cmd "*" status
     done
 
+# Upload local gog OAuth client + refresh tokens to Bitwarden item "gog"; other machines pull on `chezmoi apply`.
+# First run, or rotating the client: `just gog-push ~/Downloads/client_secret_*.json`.
+gog-push client="":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    : "${BW_SESSION:?run: export BW_SESSION=\$(bw unlock --raw)}"
+    bw sync >/dev/null
+    id=$(bw get item gog 2>/dev/null | jq -r .id || true)
+    if [ -n "{{client}}" ]; then c=$(jq -c . "{{client}}"); else c=$(bw get notes gog | jq -c .client); fi
+    d=$(mktemp -d); trap 'rm -rf "$d"' EXIT
+    for e in $(gog auth list --plain | cut -f1); do gog auth tokens export "$e" --out "$d/$e.json" 2>/dev/null; done
+    note=$(jq -n --argjson c "$c" '{client: $c, tokens: [inputs | del(.access_token, .access_token_expires_at)]}' "$d"/*.json)
+    if [ -n "$id" ]; then
+        bw get item "$id" | jq --arg n "$note" '.notes = $n' | bw encode | bw edit item "$id" >/dev/null
+    else
+        bw get template item | jq --arg n "$note" '.type = 2 | .secureNote = {type: 0} | .name = "gog" | .notes = $n | .login = null' | bw encode | bw create item >/dev/null
+    fi
+    echo "pushed $(jq '.tokens | length' <<<"$note") accounts"
+
 [private]
 sync-overleaf:
     cd ~/projects/share && just sync-overleaf
