@@ -20,5 +20,17 @@
   "skipDangerousModePermissionPrompt": true,
   "theme": "auto",
   "switchModelsOnFlag": false,
-  "remoteControlAtStartup": false
+  "remoteControlAtStartup": false,
+  "disableClaudeAiConnectors": true,
+  "skillOverrides": {
+    "anthropic-skills:docs": "off",
+    "anthropic-skills:docx": "off",
+    "anthropic-skills:google-workspace": "off",
+    "anthropic-skills:import-memory": "off",
+    "anthropic-skills:my-writing-style": "off",
+    "anthropic-skills:pptx": "off",
+    "anthropic-skills:setup-writing-style": "off",
+    "anthropic-skills:skill-creator": "off",
+    "anthropic-skills:xlsx": "off"
+  }
 }
