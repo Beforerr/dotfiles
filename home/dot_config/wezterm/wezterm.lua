@@ -2,8 +2,6 @@
 local wezterm = require 'wezterm'
 
 local config = {
-  -- default_prog = { '/Users/zijin/.nix-profile/bin/nu', '-l' },
-
   font_size = 18.0,
   color_scheme = "Catppuccin Mocha",   -- or Macchiato, Frappe, Latte
 
