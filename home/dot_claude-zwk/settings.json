@@ -32,6 +32,9 @@
     "anthropic-skills:setup-writing-style": "off",
     "anthropic-skills:skill-creator": "off",
     "anthropic-skills:xlsx": "off",
-    "anthropic-skills:morning": "off"
+    "anthropic-skills:morning": "off",
+    "anthropic-skills:pdf": "off",
+    "caveman-compress": "off",
+    "caveman-review": "off"
   }
 }
