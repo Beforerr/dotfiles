@@ -8,15 +8,12 @@
       "Bash(jj:*)",
       "Bash(julia:*)",
       "Bash(gh:*)",
-      "Bash(gh pr:*)",
       "Bash(gh api:*)",
       "Bash(grep:*)",
       "Bash(mkdir:*)",
       "Bash(npx skills:*)",
       "Bash(uv run --with openpyxl python3 -c ':*)",
       "Bash(typst:*)",
-      "mcp__claude_ai_Gmail__gmail_search_messages",
-      "mcp__claude_ai_Gmail__gmail_create_draft",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:api.github.com)",
       "WebFetch(domain:raw.githubusercontent.com)",
@@ -30,7 +27,14 @@
   "skillOverrides": {
     "humanizer": "off",
     "caveman-compress": "off",
-    "caveman-review": "off"
+    "caveman-review": "off",
+    "docs": "off",
+    "google-workspace": "off",
+    "morning": "off",
+    "import-memory": "off",
+    "xlsx": "off",
+    "docx": "off",
+    "pptx": "off"
   },
   "hooks": {
     "PreToolUse": [
