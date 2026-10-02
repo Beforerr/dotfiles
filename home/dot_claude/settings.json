@@ -198,7 +198,8 @@
   "enabledPlugins": {
     "skill-creator@claude-plugins-official": false,
     "finance@synced": false,
-    "cowork-plugin-management@synced": false
+    "cowork-plugin-management@synced": false,
+    "pdf-viewer@synced": false
   },
   "effortLevel": "high",
   "modelSettings": {
