@@ -15,7 +15,7 @@ Write for a reader reading cold.
 - Results report; Discussion interprets.
 - Methods state the choices a reader needs to judge the result. Implementation parameters (window lengths, tapers, thresholds, fallbacks) stay in the code.
 - Thresholds and detailed selection criteria stay out of the Abstract and Introduction.
-- A citation must support the specific claim it is attached to, not just the topic. When adding or reviewing one you have not read, check the source (notes vault or Zotero full text, see the research skill); flag a mismatch.
+- A citation must support the specific claim it is attached to, not just the topic. When adding or reviewing one you have not read, check the source; flag a mismatch.
 
 ## Figures
 
