@@ -31,6 +31,7 @@
     "anthropic-skills:pptx": "off",
     "anthropic-skills:setup-writing-style": "off",
     "anthropic-skills:skill-creator": "off",
-    "anthropic-skills:xlsx": "off"
+    "anthropic-skills:xlsx": "off",
+    "anthropic-skills:morning": "off"
   }
 }
