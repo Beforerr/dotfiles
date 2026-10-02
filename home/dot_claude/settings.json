@@ -203,7 +203,9 @@
     "skill-creator@claude-plugins-official": false,
     "finance@synced": false,
     "cowork-plugin-management@synced": false,
-    "pdf-viewer@synced": false
+    "pdf-viewer@synced": false,
+    "cc-plugin-diff@builtin": true,
+    "cc-plugin-telemetry@builtin": false
   },
   "effortLevel": "high",
   "modelSettings": {
