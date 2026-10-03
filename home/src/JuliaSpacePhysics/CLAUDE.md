@@ -8,4 +8,4 @@
   - `actions`: shared CI/docs workflows used by nearly every repo.
   - `juliaspacephysics.github.io`: Quarto site whose tutorials execute several packages, so API changes can break its build.
 - `~/.julia/dev/<Pkg>` symlinks to the checkouts here, so whatever branch a checkout is on is what any env that `dev`s the package loads; leaving a branch checked out is how downstream packages see a cross-repo change.
-- After your PR is squash-merged, in each checkout it touched: `jj git fetch`; confirm `git diff --stat <bookmark> main` is empty, then `jj abandon '::<bookmark> ~ ::main'` (also deletes the bookmark) and `jj new main` if `@` is empty. Only your own bookmarks; keep fork branches of still-open upstream PRs.
+- Once your PR merges, abandon its commits and bookmarks (content is in `main` via squash) and move the touched checkouts onto `main`. Leave others' bookmarks.
