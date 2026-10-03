@@ -1,5 +1,5 @@
 - Other sessions may be working in these checkouts concurrently; uncommitted changes or a non-default branch may be theirs.
-- The user is usually on a phone via Remote Control and can't see local changes: deliver code as a pushed branch or PR link.
+- The user is usually on a phone via Remote Control and can't see local changes: push your work and link it — straight to `main` for confident fixes, otherwise as a PR.
 - Upstream hubs, where a change can break dependents (exact edges: `grep -l '^<Pkg> = ' */Project.toml`):
   - SpaceDataModel: most packages.
   - GeoCotrans: GeoAACGM, PlanetaryMagneticFields, TsyganenkoModels, SPEDAS.
@@ -8,4 +8,4 @@
   - `actions`: shared CI/docs workflows used by nearly every repo.
   - `juliaspacephysics.github.io`: Quarto site whose tutorials execute several packages, so API changes can break its build.
 - `~/.julia/dev/<Pkg>` symlinks to the checkouts here, so whatever branch a checkout is on is what any env that `dev`s the package loads; leaving a branch checked out is how downstream packages see a cross-repo change.
-- Once your PR merges, abandon its commits and bookmarks (content is in `main` via squash) and move the touched checkouts onto `main`. Leave others' bookmarks.
+- Once your work lands on `main`, abandon its leftover commits and bookmarks and move the touched checkouts onto `main`. Leave others' bookmarks.
