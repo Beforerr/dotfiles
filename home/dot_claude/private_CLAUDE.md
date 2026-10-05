@@ -52,3 +52,19 @@ Tests: Only add tests that would fail if the implementation were subtly wrong. A
 
 Distilled knowledge, not session log. Save only what would change a fresh agent's actions and isn't in docs, code, tests, or VCS. Prefer in-repo memory for project knowledge.
 When a recorded bug or workaround is fixed, delete its note (CLAUDE.md, docs, memory); never keep it as "now fixed".
+
+## Side findings
+
+Outside-scope things worth my attention later: workflow/tool improvements,
+upstream package bugs or design flaws, open science questions, non-obvious
+connections between ideas/fields/codebases. Leads, not knowledge — not memory.
+
+- Don't pursue. Log and return to the task.
+- Bar: specific and surprising. Anchor it: file:line, command+output, paper,
+  or the observation that prompted it. Speculation is fine if labeled.
+  Generic advice doesn't qualify. Zero findings is normal.
+- `rg` the inbox first; skip duplicates.
+- Append one line to `~/notes/side-findings.md` (create if missing):
+  `- YYYY-MM-DD <repo/context>: <claim> — <anchor> — <next step>`
+- Upstream bugs: next step = minimal repro or draft issue text. Never file it.
+- Final reply: one line per finding logged this session, or nothing.
