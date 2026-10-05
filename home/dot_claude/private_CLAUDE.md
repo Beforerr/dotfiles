@@ -60,7 +60,7 @@ upstream package bugs or design flaws, open science questions, non-obvious
 connections between ideas/fields/codebases. Leads, not knowledge — not memory.
 
 - Don't pursue. Log and return to the task.
-- Bar: specific and surprising. Anchor it: file:line, command+output, paper,
+- Bar: specific, surprising and outlasting this task. Anchor it: file:line, command+output, paper,
   or the observation that prompted it. Speculation is fine if labeled.
   Generic advice doesn't qualify. Zero findings is normal.
 - Check the inbox first; skip duplicates.
