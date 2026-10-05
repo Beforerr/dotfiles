@@ -63,7 +63,7 @@ connections between ideas/fields/codebases. Leads, not knowledge — not memory.
 - Bar: specific and surprising. Anchor it: file:line, command+output, paper,
   or the observation that prompted it. Speculation is fine if labeled.
   Generic advice doesn't qualify. Zero findings is normal.
-- `rg` the inbox first; skip duplicates.
+- Check the inbox first; skip duplicates.
 - Append one line to `~/notes/side-findings.md`:
   `- YYYY-MM-DD <repo/context>: <claim> — <anchor> — <next step>`
 - Upstream bugs: next step = minimal repro or draft issue text. Never file it.
