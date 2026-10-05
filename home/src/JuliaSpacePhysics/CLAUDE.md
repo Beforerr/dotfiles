@@ -1,5 +1,6 @@
 - Other sessions may be working in these checkouts concurrently; uncommitted changes or a non-default branch may be theirs.
 - The user is usually on a phone via Remote Control and can't see local changes: push your work and link it — straight to `main` for confident fixes, otherwise as a PR.
+- PR fixes: amend the commit being fixed rather than appending fixup commits; history should read as the intended change, not the path to it.
 - Upstream hubs, where a change can break dependents (exact edges: `grep -l '^<Pkg> = ' */Project.toml`):
   - SpaceDataModel: most packages.
   - GeoCotrans: GeoAACGM, PlanetaryMagneticFields, TsyganenkoModels, SPEDAS.
