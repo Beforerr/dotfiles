@@ -9,6 +9,4 @@ description: Load BEFORE any `julia` command, especially tests. Test invocation,
 - Iterate via the `repld` skill, not repeated `julia -e`; go fresh only when session state could affect the result.
   Tests: `just --justfile ~/justfile julia fast-test [regex]` (repld-backed).
   Load latency: `just --justfile ~/justfile julia time-import`.
-- Benchmarks: `$`-interpolate globals, or dynamic dispatch is timed; a literal standing in for a runtime value
-  constant-folds and can hide its cost.
 - Don't over-narrow signatures; users bring their own types.
