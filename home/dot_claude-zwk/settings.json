@@ -25,6 +25,9 @@
   "skillOverrides": {
     "anthropic-skills:docs": "off",
     "anthropic-skills:docx": "off",
+    "computer-use": "off",
+    "chrome-browser": "off",
+    "built-in-browser": "off",
     "anthropic-skills:google-workspace": "off",
     "anthropic-skills:import-memory": "off",
     "anthropic-skills:my-writing-style": "off",
