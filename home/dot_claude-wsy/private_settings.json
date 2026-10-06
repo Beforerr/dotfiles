@@ -10,6 +10,8 @@
   },
   "effortLevel": "xhigh",
   "skipDangerousModePermissionPrompt": true,
+  "remoteControlAtStartup": false,
+  "disableClaudeAiConnectors": true,
   "theme": "auto",
   "agentPushNotifEnabled": true
 }
