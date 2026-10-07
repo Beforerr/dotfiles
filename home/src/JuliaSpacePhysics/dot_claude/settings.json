@@ -1,0 +1,12 @@
+{
+  "skillOverrides": {
+    "gog-gmail": "off",
+    "person-profile": "off",
+    "fewer-permission-prompts": "off",
+    "init": "off",
+    "anthropic-skills:pdf": "off",
+    "security-review": "off",
+    "run": "off",
+    "claude-in-chrome": "off"
+  }
+}
