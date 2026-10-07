@@ -44,7 +44,8 @@
     "anthropic-skills:computer-use": "off",
     "artifact-design": "off",
     "artifact-diagramming": "off",
-    "artifact-capabilities": "off"
+    "artifact-capabilities": "off",
+    "claude-api": "off"
   },
   "hooks": {
     "PreToolUse": [
@@ -233,5 +234,6 @@
   "skipDangerousModePermissionPrompt": true,
   "remoteControlAtStartup": true,
   "agentPushNotifEnabled": true,
-  "enableArtifact": false
+  "enableArtifact": false,
+  "feedbackDrafts": "off"
 }
