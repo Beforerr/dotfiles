@@ -41,7 +41,9 @@
     "import-memory": "off",
     "xlsx": "off",
     "docx": "off",
-    "pptx": "off"
+    "pptx": "off",
+    "anthropic-skills:built-in-browser": "off",
+    "anthropic-skills:computer-use": "off"
   },
   "hooks": {
     "PreToolUse": [
@@ -219,7 +221,7 @@
       "effortLevel": "high"
     },
     "claude-opus-5-5": {
-      "effortLevel": "high"
+      "effortLevel": "medium"
     }
   },
   "tui": "fullscreen",
