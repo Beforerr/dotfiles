@@ -20,9 +20,7 @@
       "WebFetch(domain:raw.githubusercontent.com)",
       "WebFetch(domain:juliaspacephysics.github.io)"
     ],
-    "deny": [
-      "Artifact"
-    ],
+    "deny": [],
     "ask": [],
     "defaultMode": "auto"
   },
@@ -234,5 +232,6 @@
   },
   "skipDangerousModePermissionPrompt": true,
   "remoteControlAtStartup": true,
-  "agentPushNotifEnabled": true
+  "agentPushNotifEnabled": true,
+  "enableArtifact": false
 }
