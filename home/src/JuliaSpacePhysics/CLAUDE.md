@@ -9,3 +9,4 @@
   - `juliaspacephysics.github.io`: Quarto site whose tutorials execute several packages, so API changes can break its build.
 - `~/.julia/dev/<Pkg>` symlinks here, so envs that `dev` a package load whatever its checkout is on; that's how downstream sees a cross-repo change.
 - Once your work lands on `main`, abandon its leftover commits and bookmarks and move the touched checkouts onto `main`. Leave others' bookmarks.
+- Docs audience is agents reading files cold.  README is the API reference;  Docstrings only for what the README doesn't cover; never restate it,
