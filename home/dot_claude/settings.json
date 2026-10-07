@@ -204,7 +204,7 @@
       }
     ]
   },
-  "enableWorkflows": true,
+  "enableWorkflows": false,
   "respondToBashCommands": false,
   "statusLine": {
     "type": "command",
