@@ -23,7 +23,11 @@
   "switchModelsOnFlag": false,
   "remoteControlAtStartup": false,
   "disableClaudeAiConnectors": true,
+  "enableArtifact": false,
   "skillOverrides": {
+    "artifact-design": "off",
+    "artifact-diagramming": "off",
+    "artifact-capabilities": "off",
     "anthropic-skills:docs": "off",
     "anthropic-skills:docx": "off",
     "computer-use": "off",
