@@ -14,7 +14,7 @@ description: Load BEFORE any `julia` command, especially tests. Test invocation,
 
 ## Performance
 
-- Profile line attribution inside inlined code misleads (both ways). Keep a change only if a fresh-process A/B shows it (`@b f($x) seconds=3`); revert the rest.
+- Profile line attribution inside inlined code misleads (both ways): A/B-benchmark speedups that cost readability before keeping them.
 - `@b` on literal arguments constant-folds; interpolate non-constant values.
-- Hot loops over tiny arrays (3×3, short tuples): generic `tr`, in-place broadcast (`S .*= c`), `argmax(f, tuple)` cost 2–6 ns fixed overhead each, comparable to the math itself; it is work, not call overhead, so `@inline` doesn't recover it. Use explicit `@inbounds` loops / comparisons there.
+- Hot loops over tiny arrays (3×3, short tuples): generic `tr`, in-place broadcast (`S .*= c`), `argmax(f, tuple)` cost 2–6 ns fixed overhead each, comparable to the math itself. Use explicit `@inbounds` loops / comparisons there.
 - `abs(::Complex)` is `hypot` (range-safe, slow); `sqrt(abs2(z))` when magnitudes are known bounded.
