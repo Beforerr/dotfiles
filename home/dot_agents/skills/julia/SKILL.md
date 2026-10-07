@@ -16,5 +16,5 @@ description: Load BEFORE any `julia` command, especially tests. Test invocation,
 
 - Profile line attribution inside inlined code misleads (both ways): A/B-benchmark speedups that cost readability before keeping them.
 - `@b` on literal arguments constant-folds; interpolate non-constant values.
-- Hot loops over tiny arrays (3×3, short tuples): generic `tr`, in-place broadcast (`S .*= c`), `argmax(f, tuple)` cost 2–6 ns fixed overhead each, comparable to the math itself. Use explicit `@inbounds` loops / comparisons there.
+- Generic Base calls (broadcast, reductions, `tr`, folds over tuples) carry a few ns of fixed overhead; on tiny arrays in hot loops that rivals the math, so write explicit loops there.
 - `abs(::Complex)` is `hypot` (range-safe, slow); `sqrt(abs2(z))` when magnitudes are known bounded.
