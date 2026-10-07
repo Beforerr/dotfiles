@@ -1,6 +1,6 @@
 ---
 name: julia
-description: Load BEFORE any `julia` command, especially tests. Test invocation, Revise, package conventions.
+description: Load BEFORE any `julia` command, especially tests. Test invocation, Revise, package conventions, performance tuning.
 ---
 
 - Global: `Revise`; `Chairmarks` (`@b rand(1000) sort`); `CodeTracking` (`@code_string f(x)`);
