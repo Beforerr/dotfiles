@@ -2,6 +2,8 @@
 - The user is usually on a phone via Remote Control and can't see local changes: push your work and link it — straight to `main` for confident fixes, otherwise as a PR.
 - PR fixes: amend the commit being fixed rather than appending fixup commits; history should read as the intended change, not the path to it.
 - No tests that restate a definition (checking a small method against the cases it's written from); test behavior callers rely on, or nothing.
+- CHANGELOG lists only what users would notice; skip deps/compat, CI, internal refactors.
+- Don't re-run tests for changes CI or registry checks already cover (e.g. compat-only releases).
 - Upstream hubs, where a change can break dependents (exact edges: `grep -l '^<Pkg> = ' */Project.toml`):
   - SpaceDataModel: most packages.
   - GeoCotrans: GeoAACGM, PlanetaryMagneticFields, TsyganenkoModels, SPEDAS.
