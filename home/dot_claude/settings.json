@@ -20,7 +20,9 @@
       "WebFetch(domain:raw.githubusercontent.com)",
       "WebFetch(domain:juliaspacephysics.github.io)"
     ],
-    "deny": [],
+    "deny": [
+      "Artifact"
+    ],
     "ask": [],
     "defaultMode": "auto"
   },
@@ -28,6 +30,9 @@
   "disableClaudeAiConnectors": true,
   "skillOverrides": {
     "humanizer": "off",
+    "plugin-authoring": "off",
+    "dataviz": "off",
+    "keybindings-help": "off",
     "caveman-compress": "off",
     "caveman-review": "off",
     "docs": "off",
