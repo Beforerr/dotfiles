@@ -206,6 +206,7 @@
       }
     ]
   },
+  "enableArtifact": false,
   "enableWorkflows": false,
   "respondToBashCommands": false,
   "statusLine": {
@@ -219,13 +220,14 @@
     "pdf-viewer@synced": false,
     "cc-plugin-telemetry@builtin": false
   },
+  "feedbackDrafts": "off",
   "effortLevel": "high",
   "modelSettings": {
     "claude-opus-5": {
       "effortLevel": "high"
     },
     "claude-opus-5-5": {
-      "effortLevel": "medium"
+      "effortLevel": "high"
     }
   },
   "tui": "fullscreen",
@@ -235,7 +237,5 @@
   },
   "skipDangerousModePermissionPrompt": true,
   "remoteControlAtStartup": true,
-  "agentPushNotifEnabled": true,
-  "enableArtifact": false,
-  "feedbackDrafts": "off"
+  "agentPushNotifEnabled": true
 }
