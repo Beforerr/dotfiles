@@ -7,6 +7,12 @@
     "anthropic-skills:pdf": "off",
     "security-review": "off",
     "run": "off",
-    "claude-in-chrome": "off"
+    "claude-in-chrome": "off",
+    "loop": "off"
+  },
+  "permissions": {
+    "deny": [
+      "ScheduleWakeup"
+    ]
   }
 }
