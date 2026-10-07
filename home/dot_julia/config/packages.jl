@@ -1,7 +1,10 @@
 using Pkg
 Pkg.add([
     "Revise",
-    "PkgTemplates",
+
+    "SnoopCompileCore",
+    "SnoopCompile",
+    "AbstractTrees",
 
     # Development
     # "About",
