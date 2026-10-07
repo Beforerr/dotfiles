@@ -71,6 +71,15 @@ alias js="jj status"
 alias jjs="jj squash"
 
 # Claude
+# Claude Code only reads .claude/settings.json at the project root; pass the nearest ancestor's (below $HOME) too.
+claude() {
+  local d=${PWD:h}
+  while [[ $d == $HOME/?* ]]; do
+    [[ -f $d/.claude/settings.json ]] && { command claude --settings $d/.claude/settings.json "$@"; return }
+    d=${d:h}
+  done
+  command claude "$@"
+}
 alias c="claude --dangerously-skip-permissions"
 alias cc="claude --dangerously-skip-permissions -c"
 alias csy="CLAUDE_CONFIG_DIR=~/.claude-wsy claude --dangerously-skip-permissions"

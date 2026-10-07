@@ -33,6 +33,7 @@ trees:
   SpacePhysicsMakie.jl: {templates: jsp}
   SpaceWeather.jl: {templates: jsp}
   Speasy.jl: {url: "https://github.com/SciQLop/Speasy.jl"}
+  SSCWeb.jl: {templates: jsp}
   SPEDAS.jl: {templates: jsp}
   TRACERSData.jl: {templates: jsp}
   TsyganenkoModels.jl: {templates: jsp}
@@ -61,6 +62,7 @@ trees:
   ~/.julia/dev/SpacePhysicsMakie: {symlink: SpacePhysicsMakie.jl}
   ~/.julia/dev/SpaceWeather: {symlink: SpaceWeather.jl}
   ~/.julia/dev/Speasy: {symlink: Speasy.jl}
+  ~/.julia/dev/SSCWeb: {symlink: SSCWeb.jl}
   ~/.julia/dev/SPEDAS: {symlink: SPEDAS.jl}
   ~/.julia/dev/TRACERSData: {symlink: TRACERSData.jl}
   ~/.julia/dev/TsyganenkoModels: {symlink: TsyganenkoModels.jl}
