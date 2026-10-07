@@ -43,7 +43,10 @@
     "docx": "off",
     "pptx": "off",
     "anthropic-skills:built-in-browser": "off",
-    "anthropic-skills:computer-use": "off"
+    "anthropic-skills:computer-use": "off",
+    "artifact-design": "off",
+    "artifact-diagramming": "off",
+    "artifact-capabilities": "off"
   },
   "hooks": {
     "PreToolUse": [
