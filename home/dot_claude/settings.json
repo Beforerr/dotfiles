@@ -67,7 +67,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo \"Chat replies: terse. Files and deliverables (papers, docs, code): normal style.\""
+            "command": "echo \"Chat replies: terse; drop articles, filler (just/really/actually/simply), pleasantries, hedging; fragments fine. Files and deliverables (papers, docs, code): normal style.\""
           }
         ]
       },

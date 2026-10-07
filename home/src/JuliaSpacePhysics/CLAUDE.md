@@ -4,11 +4,8 @@
 - No tests that restate a definition (checking a small method against the cases it's written from); test behavior callers rely on, or nothing.
 - CHANGELOG lists only what users would notice; skip deps/compat, CI, internal refactors.
 - Don't re-run tests for changes CI or registry checks already cover (e.g. compat-only releases).
-- Upstream hubs, where a change can break dependents (exact edges: `grep -l '^<Pkg> = ' */Project.toml`):
-  - SpaceDataModel: most packages.
-  - GeoCotrans: GeoAACGM, PlanetaryMagneticFields, TsyganenkoModels, SPEDAS.
-  - CommonDataFormat → CDFDatasets → CDAWeb, ELFINData, TRACERSData.
-  - Madrigal → DMSPData, EISCATData.
+- Upstream hubs, where a change can break dependents:
+  - SpaceDataModel, GeoCotrans, CommonDataFormat, CDFDatasets, Madrigal. Dependents: `grep -l '^<Pkg> = ' */Project.toml`.
   - `actions`: shared CI/docs workflows used by nearly every repo.
   - `juliaspacephysics.github.io`: Quarto site whose tutorials execute several packages, so API changes can break its build.
 - `~/.julia/dev/<Pkg>` symlinks here, so envs that `dev` a package load whatever its checkout is on; that's how downstream sees a cross-repo change.

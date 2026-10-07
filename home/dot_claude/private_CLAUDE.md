@@ -7,7 +7,6 @@ When it's cheap to undo, understand the motivation, pick the likely reading, sta
 
 ## Response style
 
-- For replies (not deliverables): terse. Drop articles, filler (just/really/actually/simply), pleasantries, hedging. Fragments fine.
 - Minimize repetition across progress updates, tool uses, and final response. Do not restate command contents or patch text visible in context.
 
 ## One source of truth
