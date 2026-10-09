@@ -5,25 +5,13 @@
     "sessionUrl": false
   },
   "permissions": {
-    "defaultMode": "dontAsk"
+    "deny": [
+      "ScheduleWakeup"
+    ],
+    "defaultMode": "auto"
   },
-  "model": "claude-fable-5-1",
-  "respondToBashCommands": false,
-  "statusLine": {
-    "type": "command",
-    "command": "sh /Users/zijin/.claude/statusline-command.sh"
-  },
-  "modelSettings": {
-    "claude-opus-5-5": {
-      "effortLevel": "xhigh"
-    }
-  },
-  "skipDangerousModePermissionPrompt": true,
-  "theme": "auto",
-  "switchModelsOnFlag": false,
-  "remoteControlAtStartup": false,
+  "model": "opus",
   "disableClaudeAiConnectors": true,
-  "enableArtifact": false,
   "skillOverrides": {
     "artifact-design": "off",
     "artifact-diagramming": "off",
@@ -33,6 +21,10 @@
     "computer-use": "off",
     "chrome-browser": "off",
     "built-in-browser": "off",
+    "claude-in-chrome": "off",
+    "claude-api": "off",
+    "security-review": "off",
+    "loop": "off",
     "anthropic-skills:google-workspace": "off",
     "anthropic-skills:import-memory": "off",
     "anthropic-skills:my-writing-style": "off",
@@ -43,6 +35,25 @@
     "anthropic-skills:morning": "off",
     "anthropic-skills:pdf": "off",
     "caveman-compress": "off",
-    "caveman-review": "off"
-  }
+    "caveman-review": "off",
+    "caveman": "off"
+  },
+  "enableArtifact": false,
+  "enableWorkflows": false,
+  "respondToBashCommands": false,
+  "statusLine": {
+    "type": "command",
+    "command": "sh /Users/zijin/.claude/statusline-command.sh"
+  },
+  "feedbackDrafts": "off",
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    }
+  },
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "auto",
+  "switchModelsOnFlag": false,
+  "remoteControlAtStartup": false,
+  "agentPushNotifEnabled": false
 }
