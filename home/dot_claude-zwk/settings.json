@@ -51,6 +51,12 @@
     "type": "command",
     "command": "sh /Users/zijin/.claude/statusline-command.sh"
   },
+  "enabledPlugins": {
+    "cc-plugin-plugin-authoring@builtin": false,
+    "cc-plugin-telemetry@builtin": false,
+    "cc-plugin-diff@builtin": true,
+    "cc-plugin-you-should-know@builtin": true
+  },
   "feedbackDrafts": "off",
   "modelSettings": {
     "claude-opus-5-5": {
