@@ -30,6 +30,7 @@
     "dataviz": "off",
     "security-review": "off",
     "loop": "off",
+    "fewer-permission-prompts": "off",
     "anthropic-skills:google-workspace": "off",
     "anthropic-skills:import-memory": "off",
     "anthropic-skills:my-writing-style": "off",

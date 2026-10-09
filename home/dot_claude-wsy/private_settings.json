@@ -5,6 +5,12 @@
     "sessionUrl": false
   },
   "permissions": {
+    "deny": [
+      "ScheduleWakeup",
+      "AskUserQuestion",
+      "Agent(claude-code-guide)",
+      "Agent(statusline-setup)"
+    ],
     "defaultMode": "auto"
   },
   "model": "opus[1m]",
@@ -13,12 +19,41 @@
     "type": "command",
     "command": "sh /Users/zijin/.claude/statusline-command.sh"
   },
-  "effortLevel": "xhigh",
+  "effortLevel": "high",
   "enableArtifact": false,
   "feedbackDrafts": "off",
   "skipDangerousModePermissionPrompt": true,
   "remoteControlAtStartup": false,
   "disableClaudeAiConnectors": true,
+  "skillOverrides": {
+    "artifact-design": "off",
+    "artifact-diagramming": "off",
+    "artifact-capabilities": "off",
+    "anthropic-skills:docs": "off",
+    "anthropic-skills:docx": "off",
+    "computer-use": "off",
+    "chrome-browser": "off",
+    "built-in-browser": "off",
+    "claude-in-chrome": "off",
+    "claude-api": "off",
+    "plugin-authoring": "off",
+    "dataviz": "off",
+    "security-review": "off",
+    "loop": "off",
+    "fewer-permission-prompts": "off",
+    "anthropic-skills:google-workspace": "off",
+    "anthropic-skills:import-memory": "off",
+    "anthropic-skills:my-writing-style": "off",
+    "anthropic-skills:pptx": "off",
+    "anthropic-skills:setup-writing-style": "off",
+    "anthropic-skills:skill-creator": "off",
+    "anthropic-skills:xlsx": "off",
+    "anthropic-skills:morning": "off",
+    "anthropic-skills:pdf": "off",
+    "caveman-compress": "off",
+    "caveman-review": "off",
+    "caveman": "off"
+  },
   "theme": "auto",
   "agentPushNotifEnabled": true
 }
