@@ -14,6 +14,8 @@
     "command": "sh /Users/zijin/.claude/statusline-command.sh"
   },
   "effortLevel": "xhigh",
+  "enableArtifact": false,
+  "feedbackDrafts": "off",
   "skipDangerousModePermissionPrompt": true,
   "remoteControlAtStartup": false,
   "disableClaudeAiConnectors": true,
