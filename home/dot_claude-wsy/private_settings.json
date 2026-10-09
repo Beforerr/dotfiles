@@ -52,7 +52,11 @@
     "anthropic-skills:pdf": "off",
     "caveman-compress": "off",
     "caveman-review": "off",
-    "caveman": "off"
+    "caveman": "off",
+    "code-review": "name-only",
+    "update-config": "name-only",
+    "schedule": "name-only",
+    "anthropic-skills:deep-research": "name-only"
   },
   "theme": "auto",
   "agentPushNotifEnabled": true
