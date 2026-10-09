@@ -6,7 +6,9 @@
   },
   "permissions": {
     "deny": [
-      "ScheduleWakeup"
+      "ScheduleWakeup",
+      "Agent(claude-code-guide)",
+      "Agent(statusline-setup)"
     ],
     "defaultMode": "auto"
   },
@@ -23,6 +25,8 @@
     "built-in-browser": "off",
     "claude-in-chrome": "off",
     "claude-api": "off",
+    "plugin-authoring": "off",
+    "dataviz": "off",
     "security-review": "off",
     "loop": "off",
     "anthropic-skills:google-workspace": "off",
