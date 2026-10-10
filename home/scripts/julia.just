@@ -190,7 +190,7 @@ bump bump_type="":
         patch) new_version="$major.$minor.$((patch + 1))" ;;
         *) echo "unknown bump type: $bump_type"; exit 1 ;;
     esac
-    sed -i '' "s/^version = \"$version\"$/version = \"$new_version\"/" Project.toml
+    sed -i "s/^version = \"$version\"$/version = \"$new_version\"/" Project.toml
     echo "Bumped to v$new_version ($bump_type)"
     jj desc -m "build(release): 🔖 $new_version"
     jj bookmark move main --to=@
