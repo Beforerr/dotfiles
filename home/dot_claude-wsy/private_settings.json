@@ -55,7 +55,7 @@
     "command": "sh /Users/zijin/.claude/statusline-command.sh"
   },
   "enabledPlugins": {
-    "cc-plugin-telemetry@builtin": true
+    "cc-plugin-telemetry@builtin": false
   },
   "feedbackDrafts": "off",
   "effortLevel": "high",
