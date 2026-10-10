@@ -14,16 +14,6 @@
     "defaultMode": "auto"
   },
   "model": "opus[1m]",
-  "respondToBashCommands": false,
-  "statusLine": {
-    "type": "command",
-    "command": "sh /Users/zijin/.claude/statusline-command.sh"
-  },
-  "effortLevel": "high",
-  "enableArtifact": false,
-  "feedbackDrafts": "off",
-  "skipDangerousModePermissionPrompt": true,
-  "remoteControlAtStartup": false,
   "disableClaudeAiConnectors": true,
   "skillOverrides": {
     "artifact-design": "off",
@@ -58,6 +48,19 @@
     "schedule": "name-only",
     "anthropic-skills:deep-research": "name-only"
   },
+  "enableArtifact": false,
+  "respondToBashCommands": false,
+  "statusLine": {
+    "type": "command",
+    "command": "sh /Users/zijin/.claude/statusline-command.sh"
+  },
+  "enabledPlugins": {
+    "cc-plugin-telemetry@builtin": true
+  },
+  "feedbackDrafts": "off",
+  "effortLevel": "high",
+  "skipDangerousModePermissionPrompt": true,
   "theme": "auto",
+  "remoteControlAtStartup": false,
   "agentPushNotifEnabled": true
 }
