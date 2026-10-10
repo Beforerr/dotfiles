@@ -156,7 +156,16 @@ bump bump_type="":
     if [ -z "$bump_type" ]; then
         bump_type=$(just --justfile ~/justfile _bump-type)
     fi
+    # The version bump lands in @ (which may carry release edits, e.g. changelog), so @ must stay
+    # the same change, a child of the CI-checked commit on main's line.
     parent=$(jj log -r @- --no-graph -T commit_id)
+    release=$(jj log -r @ --no-graph -T change_id)
+    check_wc() {
+        [ -n "$(jj log -r "$parent & main::" --no-graph -T commit_id)" ] || { echo "❌ @- is not main or a descendant of it"; exit 1; }
+        [ "$(jj log -r @ --no-graph -T change_id)" = "$release" ] || { echo "❌ @ switched away from the release change"; exit 1; }
+        [ "$(jj log -r @- --no-graph -T commit_id)" = "$parent" ] || { echo "❌ @- changed while waiting for CI"; exit 1; }
+    }
+    check_wc
     repo=$(gh repo view --json nameWithOwner -q .nameWithOwner)
     ci=$(gh run list -R "$repo" -c "$parent" --json databaseId,workflowName,status,conclusion \
         -q '[.[] | select(.workflowName == "CI")][0]')
@@ -171,6 +180,7 @@ bump bump_type="":
             exit 1
         fi
     fi
+    check_wc
     version=$(sed -n 's/^version = "\(.*\)"$/\1/p' Project.toml)
     IFS=. ; set -- ${version%%[-+]*}; unset IFS
     major=$1 minor=$2 patch=$3
