@@ -5,7 +5,7 @@ description: Load BEFORE any `julia` command, especially tests. Test invocation,
 
 - Global: `Revise`; `Chairmarks` (`display(@b rand(1000) sort)`); `CodeTracking` (`@code_string f(x)`);
   `ReferenceRevision` (`head = open_process(rev = "HEAD"); head.func()`); `JET`;
-  `DispatchDoctor` (inference loss: `@stable default_mode="warn" begin … end` around suspects, call once; deepest warning is the culprit).
+  `DispatchDoctor` (inference loss: `@stable default_mode="warn" begin … end` around suspects, call once).
 - `@run_package_tests` from `test/`; from the repo root it scans all sibling packages.
 - Iterate via the `repld` skill, not repeated `julia -e`; go fresh only when session state could affect the result.
   Tests: `just --justfile ~/justfile julia fast-test [regex]` (repld-backed; regex matches `@testitem`/`@testset` names).
