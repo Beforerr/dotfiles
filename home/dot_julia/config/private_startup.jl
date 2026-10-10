@@ -52,6 +52,8 @@ if isinteractive()
                         :(using Test),
                     ["@testitem"] => :(using TestItems),
                     ["@report_opt", "@report_call", "@test_call", "@test_opt"] => :(using JET),
+                    ["@stable"] => :(using DispatchDoctor),
+                    ["@code_string", "@code_expr"] => :(using CodeTracking),
                     ["@descend"] => :(using Cthulhu),
                     ["@about"] => :(
                         using About;
