@@ -48,7 +48,8 @@ Comments:
 - Keep: non-derivable WHY. Hidden constraints, undocumented data quirks,
   invariants and deliberate tradeoffs.
 - Cut: section dividers, headers restating the task, docstrings that restate signatures,
-  incident history (versions, past failures), and constraints a test already enforces.
+  incident history (versions, past failures), constraints a test already enforces, and
+  measured numbers (timings, speedups) that go stale silently; they belong in the commit message or PR.
 - A contradicting comment is a bug. Fix or delete it — never route around it.
 
 Tests: Only add tests that would fail if the implementation were subtly wrong. A trivial test is deleted, not written.
