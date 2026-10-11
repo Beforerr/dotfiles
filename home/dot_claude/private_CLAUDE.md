@@ -26,7 +26,9 @@ Every fact has exactly one home. Elsewhere, link.
 
 Install with `brew`/`uv` as needed. Python deps: `uv`. VCS: Jujutsu (`jj`) + Git.
 Issues, comments: no agent attribution.
+PRs: don't open them; give me the `gh pr create ...` command to run.
 `just --justfile ~/justfile`: user recipes (`--list`; modules hide behind `julia ...`).
+GNU `sed` (not BSD) and `timeout` on PATH.
 `rga`: rg inside PDFs/docx/archives; not under `~/Library/CloudStorage` (files-on-demand, it downloads everything).
 
 ## Dotfiles
