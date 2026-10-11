@@ -1,40 +1,8 @@
 {
-  "attribution": {
-    "commit": "",
-    "pr": "",
-    "sessionUrl": false
-  },
-  "permissions": {
-    "deny": [
-      "ScheduleWakeup"
-    ],
-    "ask": [],
-    "defaultMode": "auto"
-  },
   "model": "opus",
-  "disableClaudeAiConnectors": true,
   "skillOverrides": {
     "humanizer": "off",
-    "plugin-authoring": "off",
-    "dataviz": "off",
-    "keybindings-help": "off",
-    "caveman-compress": "off",
-    "caveman-review": "off",
-    "docs": "off",
-    "google-workspace": "off",
-    "morning": "off",
-    "import-memory": "off",
-    "xlsx": "off",
-    "docx": "off",
-    "pptx": "off",
-    "anthropic-skills:built-in-browser": "off",
-    "anthropic-skills:computer-use": "off",
-    "anthropic-skills:chrome-browser": "off",
-    "anthropic-skills:skill-creator": "off",
-    "artifact-design": "off",
-    "artifact-diagramming": "off",
-    "artifact-capabilities": "off",
-    "claude-api": "off"
+    "keybindings-help": "off"
   },
   "hooks": {
     "PreToolUse": [
@@ -193,21 +161,12 @@
       }
     ]
   },
-  "enableArtifact": false,
-  "enableWorkflows": false,
-  "respondToBashCommands": false,
-  "statusLine": {
-    "type": "command",
-    "command": "sh /Users/zijin/.claude/statusline-command.sh"
-  },
   "enabledPlugins": {
     "skill-creator@claude-plugins-official": false,
     "finance@synced": false,
     "cowork-plugin-management@synced": false,
-    "pdf-viewer@synced": false,
-    "cc-plugin-telemetry@builtin": false
+    "pdf-viewer@synced": false
   },
-  "feedbackDrafts": "off",
   "effortLevel": "high",
   "modelSettings": {
     "claude-opus-5-5": {
@@ -219,10 +178,5 @@
     "enabled": false,
     "mode": "hold"
   },
-  "skipDangerousModePermissionPrompt": true,
-  "remoteControlAtStartup": false,
-  "agentPushNotifEnabled": true,
-  "env": {
-    "JJ_EDITOR": "false"
-  }
+  "agentPushNotifEnabled": true
 }

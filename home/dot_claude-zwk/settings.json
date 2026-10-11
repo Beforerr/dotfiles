@@ -1,71 +1,33 @@
 {
-  "attribution": {
-    "commit": "",
-    "pr": "",
-    "sessionUrl": false
-  },
   "permissions": {
     "deny": [
-      "ScheduleWakeup",
       "AskUserQuestion",
       "Agent(claude-code-guide)",
       "Agent(statusline-setup)"
-    ],
-    "defaultMode": "auto"
+    ]
   },
   "model": "opus",
-  "disableClaudeAiConnectors": true,
   "skillOverrides": {
-    "artifact-design": "off",
-    "artifact-diagramming": "off",
-    "artifact-capabilities": "off",
-    "anthropic-skills:docs": "off",
-    "anthropic-skills:docx": "off",
-    "computer-use": "off",
-    "chrome-browser": "off",
-    "built-in-browser": "off",
     "claude-in-chrome": "off",
-    "claude-api": "off",
-    "plugin-authoring": "off",
-    "dataviz": "off",
     "security-review": "off",
     "loop": "off",
     "fewer-permission-prompts": "off",
-    "anthropic-skills:google-workspace": "off",
-    "anthropic-skills:import-memory": "off",
     "anthropic-skills:my-writing-style": "off",
-    "anthropic-skills:pptx": "off",
     "anthropic-skills:setup-writing-style": "off",
-    "anthropic-skills:skill-creator": "off",
-    "anthropic-skills:xlsx": "off",
-    "anthropic-skills:morning": "off",
     "anthropic-skills:pdf": "off",
-    "caveman-compress": "off",
-    "caveman-review": "off",
     "caveman": "off"
-  },
-  "enableArtifact": false,
-  "enableWorkflows": false,
-  "respondToBashCommands": false,
-  "statusLine": {
-    "type": "command",
-    "command": "sh /Users/zijin/.claude/statusline-command.sh"
   },
   "enabledPlugins": {
     "cc-plugin-plugin-authoring@builtin": false,
-    "cc-plugin-telemetry@builtin": false,
     "cc-plugin-diff@builtin": true,
     "cc-plugin-you-should-know@builtin": true
   },
-  "feedbackDrafts": "off",
   "modelSettings": {
     "claude-opus-5-5": {
       "effortLevel": "high"
     }
   },
-  "skipDangerousModePermissionPrompt": true,
   "theme": "auto",
   "switchModelsOnFlag": false,
-  "remoteControlAtStartup": false,
   "agentPushNotifEnabled": false
 }

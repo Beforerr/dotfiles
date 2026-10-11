@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "deny": [
+      "AskUserQuestion",
+      "Agent(claude-code-guide)",
+      "Agent(statusline-setup)"
+    ]
+  },
+  "model": "opus[1m]",
+  "skillOverrides": {
+    "claude-in-chrome": "off",
+    "security-review": "off",
+    "loop": "off",
+    "fewer-permission-prompts": "off",
+    "anthropic-skills:my-writing-style": "off",
+    "anthropic-skills:setup-writing-style": "off",
+    "anthropic-skills:pdf": "off",
+    "caveman": "off",
+    "code-review": "name-only",
+    "update-config": "name-only",
+    "schedule": "name-only",
+    "anthropic-skills:deep-research": "name-only"
+  },
+  "effortLevel": "high",
+  "theme": "auto",
+  "agentPushNotifEnabled": true
+}
