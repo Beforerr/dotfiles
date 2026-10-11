@@ -5,9 +5,9 @@ mod? latex
 bump bump_type="":
     #!/usr/bin/env sh
     if [ -f Project.toml ]; then
-        just --justfile ~/justfile julia bump "{{ bump_type }}"
+        just -g julia bump "{{ bump_type }}"
     elif [ -f Cargo.toml ]; then
-        just --justfile ~/justfile rust bump "{{ bump_type }}"
+        just -g rust bump "{{ bump_type }}"
     else
         echo "Unknown project language" && exit 1
     fi
@@ -44,7 +44,7 @@ _bump-type:
 [no-cd]
 check-bump:
     #!/usr/bin/env sh
-    bump_type=$(just --justfile ~/justfile _bump-type)
+    bump_type=$(just -g _bump-type)
     if [ "$bump_type" = "minor" ]; then
         last_tag=$(git tag --sort=-version:refname | grep -E '^v[0-9]' | head -1)
         git log "${last_tag:+${last_tag}..}HEAD" --format="%s%n%b" \

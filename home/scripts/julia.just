@@ -115,25 +115,36 @@ test filter="" flags="":
 fast-test filter="" flags="":
     repld julia {{ flags }} --project=test -- ~/scripts/focused_test.jl "{{ filter }}"
 
+# Prints "<name> <dir>" of the package at or above cwd. `@.` searches upward; `--project=.` would
+# create an environment in whatever non-package dir it runs from.
+[no-cd]
+_project:
+    #!/usr/bin/env sh
+    julia --threads=auto --project=@. --startup-file=no -e 'using Pkg; p = Pkg.project()
+        p.name === nothing && (println(stderr, "error: no Julia package at or above ", pwd()); exit(1))
+        Pkg.resolve(); Pkg.instantiate(); print(p.name, " ", dirname(p.path))'
+
 [no-cd]
 time-import:
     #!/usr/bin/env sh
-    name=$(julia --threads=auto --project=. --startup-file=no -e 'using Pkg; Pkg.resolve(); Pkg.instantiate(); print(Pkg.project().name)')
-    julia --project=. --startup-file=no -e "@time Base.@time_imports using $name"
+    set -e
+    out=$(just -g julia _project); name=${out%% *}; dir=${out#* }
+    julia --project="$dir" --startup-file=no -e "@time Base.@time_imports using $name"
 
 # Compare import time against another revision (default: parent `HEAD~1`).
 [no-cd]
 time-import-compare rev="HEAD~1" warmup="2" runs="5":
     #!/usr/bin/env sh
     set -e
-    name=$(julia --threads=auto --project=. --startup-file=no -e 'using Pkg; Pkg.resolve(); Pkg.instantiate(); print(Pkg.project().name)')
+    out=$(just -g julia _project); name=${out%% *}; dir=${out#* }
     wt=$(mktemp -d -t jl-time-import-XXXXXX)
     trap 'git worktree remove --force "$wt" 2>/dev/null || true; rm -rf "$wt"' EXIT
-    git worktree add --detach "$wt" {{ rev }}
-    julia --threads=auto --project="$wt" --startup-file=no -e 'using Pkg; Pkg.resolve(); Pkg.instantiate()' >/dev/null
+    git -C "$dir" worktree add --detach "$wt" {{ rev }}
+    old="$wt${dir#"$(git -C "$dir" rev-parse --show-toplevel)"}"
+    julia --threads=auto --project="$old" --startup-file=no -e 'using Pkg; Pkg.resolve(); Pkg.instantiate()' >/dev/null
     hyperfine --warmup {{ warmup }} --runs {{ runs }} \
-        -n "{{ rev }}" "julia --project='$wt' --startup-file=no -e 'using $name'" \
-        -n "HEAD"      "julia --project=.    --startup-file=no -e 'using $name'"
+        -n "{{ rev }}" "julia --project='$old' --startup-file=no -e 'using $name'" \
+        -n "HEAD"      "julia --project='$dir' --startup-file=no -e 'using $name'"
 
 [private]
 clean:
@@ -154,7 +165,7 @@ bump bump_type="":
     set -e
     bump_type="{{ bump_type }}"
     if [ -z "$bump_type" ]; then
-        bump_type=$(just --justfile ~/justfile _bump-type)
+        bump_type=$(just -g _bump-type)
     fi
     # The version bump lands in @ (which may carry release edits, e.g. changelog), so @ must stay
     # the same change, a child of the CI-checked commit on main's line.
@@ -196,7 +207,7 @@ bump bump_type="":
     jj bookmark move main --to=@
     jj git push
     if [ "$bump_type" = "patch" ]; then
-        just --justfile ~/justfile julia register
+        just -g julia register
     else
         REPO_INFO=$(gh repo view --json owner,name)
         OWNER=$(echo "$REPO_INFO" | jq -r '.owner.login')

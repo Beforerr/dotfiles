@@ -8,6 +8,7 @@ When it's cheap to undo, understand the motivation, pick the likely reading, sta
 ## Response style
 
 - Minimize repetition across progress updates, tool uses, and final response. Do not restate command contents or patch text visible in context.
+- Text posted under my name (issues, comments, reviews): no agent attribution.
 
 ## Efficiency
 
@@ -25,9 +26,8 @@ Every fact has exactly one home. Elsewhere, link.
 ## Tools
 
 Install with `brew`/`uv` as needed. Python deps: `uv`. VCS: Jujutsu (`jj`) + Git.
-Issues, comments: no agent attribution.
-`just --justfile ~/justfile`: user recipes (`--list`; modules hide behind `julia ...`).
 GNU `sed` (not BSD) and `timeout` on PATH.
+`GIT_EXTERNAL_DIFF='difft --display inline' git diff`: syntax-aware. "No syntactic changes." ⇒ formatting-only.
 `rga`: rg inside PDFs/docx/archives; not under `~/Library/CloudStorage` (files-on-demand, it downloads everything).
 
 ## Dotfiles

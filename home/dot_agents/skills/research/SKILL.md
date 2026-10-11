@@ -13,6 +13,7 @@ description: Zotero lookup/full-text grep/import, OpenAlex literature search, pa
   Read it before re-reading a paper. Create/extend: `~/scripts/extract_figures.py <citekey> [--figures "1,3,5-7"]`
   (also symlinks `./sources/papers/<citekey>` into cwd).
 - `research.bib`: master at `~/projects/share/bibliography/research.bib` (Better BibTeX auto-export).
+- PDF plain text: `pdftotext -layout in.pdf -` (instant; `-f N -l M` for pages).
 - PDF equations/tables/figures: `uvx --from marker-pdf marker_single in.pdf
   --output_dir out --output_format markdown` → `out/<stem>/<stem>.md`, ~30 s.
-- `just --justfile ~/justfile latex strip f.tex` drops trackchanges + comments; `~/scripts/latex/clean_unicode.py` unicode → LaTeX.
+- `just -g latex strip f.tex` drops trackchanges + comments; `~/scripts/latex/clean_unicode.py` unicode → LaTeX.

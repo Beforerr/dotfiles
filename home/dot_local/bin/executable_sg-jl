@@ -1,0 +1,12 @@
+#!/bin/sh
+# ast-grep has no built-in Julia (ast-grep/ast-grep#571), so load tree-sitter-julia
+# as a custom language. Built on first use; `rm -rf` the cache dir to rebuild.
+set -e
+dir="${XDG_CACHE_HOME:-$HOME/.cache}/sg-jl"
+if [ ! -f "$dir/sgconfig.yml" ]; then
+  rm -rf "$dir" && mkdir -p "$dir"
+  git clone -q --depth 1 https://github.com/tree-sitter/tree-sitter-julia "$dir/grammar"
+  cc -O2 -shared -fPIC -I "$dir/grammar/src" "$dir/grammar/src/parser.c" "$dir/grammar/src/scanner.c" -o "$dir/julia.so"
+  printf 'customLanguages:\n  julia:\n    libraryPath: %s\n    extensions: [jl]\n    expandoChar: _\n' "$dir/julia.so" >"$dir/sgconfig.yml"
+fi
+exec ast-grep run --custom-languages allow -c "$dir/sgconfig.yml" -l julia "$@"
