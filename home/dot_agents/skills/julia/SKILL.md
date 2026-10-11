@@ -6,7 +6,7 @@ description: Load BEFORE any `julia` command, especially tests. Test invocation,
 - Global: `Revise`; `Chairmarks` (`display(@b rand(1000) sort)`); `CodeTracking` (`@code_string f(x)`);
   `ReferenceRevision` (`head = open_process(rev = "HEAD"); head.func()`); `JET`;
   `DispatchDoctor` (inference loss: `@stable default_mode="warn" begin … end` around suspects, call once).
-- Fresh checkouts (clone, worktree, jj workspace, `git archive`, scratch env) have no Manifest: `Pkg.instantiate()` before `using`, else "Package X is required but does not seem to be installed".
+- Fresh checkouts (clone, worktree, jj workspace...) have no Manifest: `Pkg.instantiate()` before `using`.
 - `@run_package_tests` from `test/`; from the repo root it scans all sibling packages.
 - Iterate via the `repld` skill, not repeated `julia -e`: one session per variant (baseline vs patched, version A vs B);
   go fresh only when session state could affect the result.
