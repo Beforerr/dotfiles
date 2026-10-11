@@ -71,20 +71,14 @@ alias js="jj status"
 alias jjs="jj squash"
 
 # Claude
-# Settings shared by all CLAUDE_CONFIG_DIR profiles live in ~/.claude/shared-settings.json.
-# Claude Code only reads .claude/settings.json at the project root; also apply the nearest ancestor's (below $HOME).
-# --settings takes one value, so merge both: objects recursively, arrays concatenated.
+# Claude Code only reads .claude/settings.json at the project root; pass the nearest ancestor's (below $HOME) too.
 claude() {
-  local s=~/.claude/shared-settings.json d=${PWD:h}
+  local d=${PWD:h}
   while [[ $d == $HOME/?* ]]; do
-    if [[ -f $d/.claude/settings.json ]]; then
-      s=$(jq -cs 'def m($a; $b): if ($a|type) == "object" and ($b|type) == "object" then reduce ($b|keys[]) as $k ($a; .[$k] = m(.[$k]; $b[$k]))
-        elif ($a|type) == "array" and ($b|type) == "array" then $a + $b | unique else $b end; m(.[0]; .[1])' $s $d/.claude/settings.json) || return
-      break
-    fi
+    [[ -f $d/.claude/settings.json ]] && { command claude --settings $d/.claude/settings.json "$@"; return }
     d=${d:h}
   done
-  command claude --settings $s "$@"
+  command claude "$@"
 }
 alias c="claude --dangerously-skip-permissions"
 alias cc="claude --dangerously-skip-permissions -c"
