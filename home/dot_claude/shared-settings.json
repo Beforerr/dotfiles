@@ -1,0 +1,51 @@
+{
+  "attribution": {
+    "commit": "",
+    "pr": "",
+    "sessionUrl": false
+  },
+  "permissions": {
+    "deny": [
+      "ScheduleWakeup"
+    ],
+    "defaultMode": "auto"
+  },
+  "env": {
+    "JJ_EDITOR": "false"
+  },
+  "disableClaudeAiConnectors": true,
+  "enableArtifact": false,
+  "enableWorkflows": false,
+  "respondToBashCommands": false,
+  "feedbackDrafts": "off",
+  "skipDangerousModePermissionPrompt": true,
+  "remoteControlAtStartup": false,
+  "statusLine": {
+    "type": "command",
+    "command": "sh /Users/zijin/.claude/statusline-command.sh"
+  },
+  "enabledPlugins": {
+    "cc-plugin-telemetry@builtin": false
+  },
+  "skillOverrides": {
+    "artifact-capabilities": "off",
+    "artifact-design": "off",
+    "artifact-diagramming": "off",
+    "built-in-browser": "off",
+    "caveman-compress": "off",
+    "caveman-review": "off",
+    "chrome-browser": "off",
+    "claude-api": "off",
+    "computer-use": "off",
+    "dataviz": "off",
+    "docs": "off",
+    "docx": "off",
+    "google-workspace": "off",
+    "import-memory": "off",
+    "morning": "off",
+    "plugin-authoring": "off",
+    "pptx": "off",
+    "skill-creator": "off",
+    "xlsx": "off"
+  }
+}
