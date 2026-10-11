@@ -9,6 +9,11 @@ When it's cheap to undo, understand the motivation, pick the likely reading, sta
 
 - Minimize repetition across progress updates, tool uses, and final response. Do not restate command contents or patch text visible in context.
 
+## Efficiency
+
+- Probe every observable the next likely questions need (output, types, stderr, all frames of a call chain) in one turn, not one question per round; compare variants in the same command.
+- A negative result counts only if the probe also asserts the bug's precondition held.
+
 ## One source of truth
 
 Every fact has exactly one home. Elsewhere, link.
