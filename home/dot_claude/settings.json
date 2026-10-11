@@ -221,5 +221,8 @@
   },
   "skipDangerousModePermissionPrompt": true,
   "remoteControlAtStartup": false,
-  "agentPushNotifEnabled": true
+  "agentPushNotifEnabled": true,
+  "env": {
+    "JJ_EDITOR": "false"
+  }
 }
