@@ -106,14 +106,23 @@ new-package-sph name dir="~/src/JuliaSpacePhysics":
     )("{{ name }}")
 
 # Focused tests, plain julia (cold start). Filters @testitem/@testset by name.
+# Full output is always kept in the log (path printed last), so piping the recipe through a filter loses nothing.
 [no-cd]
 test filter="" flags="":
-    julia {{ flags }} --project=test ~/scripts/focused_test.jl "{{ filter }}"
+    #!/usr/bin/env bash
+    set -o pipefail
+    log="${TMPDIR:-/tmp}"; log="${log%/}/jl-test-$(basename "$PWD").log"
+    julia {{ flags }} --project=test ~/scripts/focused_test.jl "{{ filter }}" 2>&1 | tee "$log"
+    s=$?; echo "full log: $log"; exit $s
 
 # Focused tests via repld (persistent session — fast re-runs). Same script, layered.
 [no-cd]
 fast-test filter="" flags="":
-    repld julia {{ flags }} --project=test -- ~/scripts/focused_test.jl "{{ filter }}"
+    #!/usr/bin/env bash
+    set -o pipefail
+    log="${TMPDIR:-/tmp}"; log="${log%/}/jl-test-$(basename "$PWD").log"
+    repld julia {{ flags }} --project=test -- ~/scripts/focused_test.jl "{{ filter }}" 2>&1 | tee "$log"
+    s=$?; echo "full log: $log"; exit $s
 
 # Prints "<name> <dir>" of the package at or above cwd. `@.` searches upward; `--project=.` would
 # create an environment in whatever non-package dir it runs from.

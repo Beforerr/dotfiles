@@ -14,6 +14,7 @@ When it's cheap to undo, understand the motivation, pick the likely reading, sta
 
 - Probe every observable the next likely questions need (output, types, stderr, all frames of a call chain) in one turn, not one question per round; compare variants in the same command.
 - A negative result counts only if the probe also asserts the bug's precondition held.
+- Slow commands (tests, builds): don't pipe through head/tail/grep; a filter assumes the outcome before it's known. Redirect to a file, then inspect it. Rerun only after changing code.
 
 ## One source of truth
 
