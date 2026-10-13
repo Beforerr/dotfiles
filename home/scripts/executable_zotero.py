@@ -124,10 +124,6 @@ def query_item(zot, query, seen, first):
 
 
 def cmd_query(argv):
-    if not argv:
-        print("Usage: zotero.py <citekey|DOI|partial title> [...]", file=sys.stderr)
-        sys.exit(1)
-
     zot = zotero.Zotero(0, "user", local=True)
 
     seen = set()
@@ -174,7 +170,9 @@ def test_not_found():
 
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1 and sys.argv[1] == "--test":
+    if len(sys.argv) < 2 or sys.argv[1] in ("-h", "--help"):
+        print(__doc__.strip())
+    elif sys.argv[1] == "--test":
         import pytest
         sys.exit(pytest.main([__file__, "-v"]))
     elif len(sys.argv) > 1 and sys.argv[1] == "add":

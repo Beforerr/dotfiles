@@ -61,12 +61,12 @@ def works(**params):
 
 
 def cmd_search(a):
-    p = {"search": a.query, "per_page": a.n}
+    # Not `search=`: it also matches full text, so sort-by-cites surfaces off-topic instrument/review papers.
+    f = [f"title_and_abstract.search:{a.query.replace(',', ' ')}"]
     if a.since:
-        p["filter"] = f"from_publication_date:{a.since}-01-01"
-    if a.sort == "cites":
-        p["sort"] = "cited_by_count:desc"
-    for w in works(**p):
+        f.append(f"from_publication_date:{a.since}-01-01")
+    sort = "cited_by_count:desc" if a.sort == "cites" else "relevance_score:desc"
+    for w in works(filter=",".join(f), sort=sort, per_page=a.n):
         print(line(w))
 
 
