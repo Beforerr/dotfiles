@@ -9,7 +9,7 @@ description: Load BEFORE any `julia` command, especially tests. Test invocation,
 - Fresh checkouts (clone, worktree, jj workspace...) have no Manifest: `Pkg.instantiate()` before `using`.
 - Iterate via the `repld` skill, not repeated `julia -e`: one session per variant (baseline vs patched, version A vs B);
   go fresh only when session state could affect the result.
-  Tests: `just -g julia fast-test [regex]` (repld-backed; regex matches `@testitem`/`@testset` names; full output goes to the log path printed last — read it instead of rerunning). For ad-hoc julia -e '@run_package_tests …', cd test first as the macro resolves .. from the current directory.
+  Tests: `just -g julia fast-test [regex]` (repld-backed; regex matches `@testitem`/`@testset` names; prints only the summary and capped failure blocks; full output goes to the log path printed last). For ad-hoc julia -e '@run_package_tests …', cd test first as the macro resolves .. from the current directory.
   `@testset` files only — one file / line range: `testrunner [--project=test --] test/foo.jl "testset name" L10:20 ':(@test f(x_) == y_)'` (`--json` for structured results).
   Load latency: `just -g julia time-import` (`time-import-compare [rev]` vs a revision); invalidations: `just -g julia snoop`; JET: `just -g julia jet`.
 - Structural search/rewrite: `sg-jl -p '@views $E' [paths] [--json] [-r 'repl' [-U]]` (`ast-grep run` flags, Julia preset; `-r` previews a diff, `-U` writes); prefer over regex for multi-line or nested refactors.

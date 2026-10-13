@@ -106,23 +106,37 @@ new-package-sph name dir="~/src/JuliaSpacePhysics":
     )("{{ name }}")
 
 # Focused tests, plain julia (cold start). Filters @testitem/@testset by name.
-# Full output is always kept in the log (path printed last), so piping the recipe through a filter loses nothing.
 [no-cd]
-test filter="" flags="":
-    #!/usr/bin/env bash
-    set -o pipefail
-    log="${TMPDIR:-/tmp}"; log="${log%/}/jl-test-$(basename "$PWD").log"
-    julia {{ flags }} --project=test ~/scripts/focused_test.jl "{{ filter }}" 2>&1 | tee "$log"
-    s=$?; echo "full log: $log"; exit $s
+test filter="" flags="": (_test "julia" filter flags)
 
-# Focused tests via repld (persistent session — fast re-runs). Same script, layered.
+# Focused tests via repld persistent sessions
 [no-cd]
-fast-test filter="" flags="":
+fast-test filter="" flags="": (_test "repld julia" filter flags)
+
+# The full stream goes only to the log: inline, failures are buried among logs and type-heavy stack traces. 
+# Prints the summary and each failure block (frames and lines capped), or the log's tail when
+# the run died before a summary.
+[private, no-cd]
+_test runner filter flags:
     #!/usr/bin/env bash
-    set -o pipefail
     log="${TMPDIR:-/tmp}"; log="${log%/}/jl-test-$(basename "$PWD").log"
-    repld julia {{ flags }} --project=test -- ~/scripts/focused_test.jl "{{ filter }}" 2>&1 | tee "$log"
-    s=$?; echo "full log: $log"; exit $s
+    {{ runner }} {{ flags }} --project=test -- ~/scripts/focused_test.jl "{{ filter }}" > "$log" 2>&1
+    s=$?
+    if grep -q '^Test Summary' "$log"; then
+        sed -n '/^Test Summary/,$p' "$log" | cut -c1-300
+    else
+        tail -n 40 "$log" | cut -c1-300
+    fi
+    if [ $s -ne 0 ]; then
+        awk '/(Error During Test|Test Failed|JET-test failed) at /{p=1; n=0; st=0; fr=0; print "•"}
+            p && (/^[[:space:]]*$/ || /^Test Summary/) {p=0}
+            p {
+                if (/Stacktrace:/) st=1; else if (st && /^[[:space:]]*\[[0-9]+\]/ && ++fr > 6) next
+                if (++n > 40) {p=0; print "  …"; next}
+                print substr($0, 1, 300)
+            }' "$log"
+    fi
+    echo "full log: $log"; exit $s
 
 # Prints "<name> <dir>" of the package at or above cwd. `@.` searches upward; `--project=.` would
 # create an environment in whatever non-package dir it runs from.
