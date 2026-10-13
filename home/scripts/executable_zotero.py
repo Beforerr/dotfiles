@@ -10,8 +10,8 @@
   zotero.py rm <itemKey> ...                 # permanently delete items
   zotero.py grep <regex> [-n 20]             # full-text search over Zotero's index -> citekeys + snippets
 
-`add`/`rm` drive Zotero's native machinery through the debug bridge (see zotero_lib);
-Zotero must be running with the debug-bridge password pref set.
+Lookup, `add` and `rm` need Zotero running; `add`/`rm` also need the debug-bridge
+password (setup: zotero_lib.py).
 """
 
 import sys
