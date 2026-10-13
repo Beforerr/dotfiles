@@ -8,3 +8,6 @@ default-command = "log"
 [user]
 email = "zzj956959688@gmail.com"
 name = "Beforerr"
+
+[remotes.origin]
+auto-track-bookmarks = "* ~ gh-pages"
