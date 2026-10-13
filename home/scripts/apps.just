@@ -1,6 +1,3 @@
-zotero-link:
-    ln -s ~/Library/CloudStorage/Box-Box/storage ~/Zotero/storage
-
 zotero-addons:
     curl -LOJ https://github.com/syt2/zotero-addons/releases/latest/download/zotero-addons.xpi
 
