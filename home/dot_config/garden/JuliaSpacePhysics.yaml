@@ -39,6 +39,8 @@ trees:
   TsyganenkoModels.jl: {templates: jsp}
   VelocityDistributionFunctions.jl: {templates: jsp}
   VlasovMaxwellDispersion.jl: {templates: jsp}
+  TimeseriesUtilities.jl:
+    url: "https://github.com/Beforerr/TimeseriesUtilities.jl"
   ~/.julia/dev/CDAWeb: {symlink: CDAWeb.jl}
   ~/.julia/dev/CDFDatasets: {symlink: CDFDatasets.jl}
   ~/.julia/dev/CommonDataFormat: {symlink: CommonDataFormat.jl}
@@ -68,3 +70,4 @@ trees:
   ~/.julia/dev/TsyganenkoModels: {symlink: TsyganenkoModels.jl}
   ~/.julia/dev/VelocityDistributionFunctions: {symlink: VelocityDistributionFunctions.jl}
   ~/.julia/dev/VlasovMaxwellDispersion: {symlink: VlasovMaxwellDispersion.jl}
+  ~/.julia/dev/TimeseriesUtilities: {symlink: TimeseriesUtilities.jl}

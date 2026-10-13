@@ -18,7 +18,6 @@ groups:
   julia:
     - ~/src/contrib/TestParticle.jl
     - ~/src/JuliaPlasma/PlasmaFormulary.jl
-    - ~/src/TimeseriesUtilities.jl
   julia-dev:
     - ~/.julia/dev/*
   src:
@@ -72,9 +71,6 @@ trees:
     url: "https://github.com/Beforerr/homebrew-beforerr"
   ~/src/contrib/TestParticle.jl:
     url: "https://github.com/henry2004y/TestParticle.jl"
-  ~/src/TimeseriesUtilities.jl:
-    url: "https://github.com/Beforerr/TimeseriesUtilities.jl"
   ~/src/JuliaPlasma/PlasmaFormulary.jl:
     url: "https://github.com/JuliaPlasma/PlasmaFormulary.jl"
-  ~/.julia/dev/TimeseriesUtilities: {symlink: ~/src/TimeseriesUtilities.jl}
   ~/.julia/dev/PlasmaFormulary: {symlink: ~/src/JuliaPlasma/PlasmaFormulary.jl}
