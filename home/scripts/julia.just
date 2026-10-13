@@ -226,7 +226,7 @@ bump bump_type="":
     esac
     sed -i "s/^version = \"$version\"$/version = \"$new_version\"/" Project.toml
     echo "Bumped to v$new_version ($bump_type)"
-    jj desc -m "build(release): 🔖 $new_version"
+    jj desc -m "chore(release): 🔖 $new_version"
     jj bookmark move main --to=@
     jj git push
     if [ "$bump_type" = "patch" ]; then
