@@ -22,7 +22,7 @@ sync-projects:
     for cfg in ~/.config/garden/{garden,JuliaSpacePhysics}.yaml; do
         garden -c "$cfg" grow "*"
         garden -c "$cfg" cmd "*" pull -j4
-        garden -c "$cfg" cmd "*" status
+        garden -c "$cfg" cmd -q "*" status
     done
 
 

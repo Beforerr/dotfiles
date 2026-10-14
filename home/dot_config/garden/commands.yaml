@@ -2,5 +2,7 @@ commands:
   pull:
     - "[ -d .jj ] && jj git fetch --quiet || git pull --quiet"
     - git submodule update --init --recursive
-  status:
-    - "[ -d .jj ] && (jj st | grep -E '^(Working copy changes:|Parent commit changes:)' || true) || git status -s"
+  # Run with -q: garden's own per-tree header would print even for clean trees.
+  status: |
+    out=$([ -d .jj ] && (jj st | grep -E '^(Working copy changes:|Parent commit changes:)' || true) || git status -s)
+    [ -z "$out" ] || printf '# %s\n%s\n' "${TREE_NAME}" "$out"
