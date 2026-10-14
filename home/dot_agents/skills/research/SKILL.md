@@ -16,4 +16,5 @@ description: Zotero lookup/full-text grep/import, OpenAlex literature search, pa
 - PDF plain text: `pdftotext -layout in.pdf -` (instant; `-f N -l M` for pages).
 - PDF equations/tables/figures: `uvx --from marker-pdf marker_single in.pdf
   --output_dir out --output_format markdown` → `out/<stem>/<stem>.md`, ~30 s.
+- comments + highlighted: `pdfannots in.pdf` (`-f json` for structured verbose output).
 - `just -g latex strip f.tex` drops trackchanges + comments; `~/scripts/latex/clean_unicode.py` unicode → LaTeX.
