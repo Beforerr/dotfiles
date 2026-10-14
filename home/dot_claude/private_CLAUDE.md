@@ -30,6 +30,7 @@ Install with `brew`/`uv` as needed. Python deps: `uv`. VCS: Jujutsu (`jj`) + Git
 GNU `sed` (not BSD) and `timeout` on PATH.
 `GIT_EXTERNAL_DIFF='difft --display inline' git diff`: syntax-aware. "No syntactic changes." ⇒ formatting-only.
 `rga`: rg inside PDFs/docx/archives; not under `~/Library/CloudStorage` (files-on-demand, it downloads everything).
+`pdfannots in.pdf`: PDF comments + highlighted text (`-f json` for structured). Zotero-reader annotations live in Zotero DB, not the PDF.
 
 ## Dotfiles
 

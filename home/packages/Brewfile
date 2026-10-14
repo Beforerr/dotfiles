@@ -43,6 +43,7 @@ brew "openclaw/tap/gogcli", trusted: true
 brew "yqrashawn/goku/goku", trusted: true
 # goku runtime dep, but `brew autoremove` drops it anyway
 brew "joker"
+uv "pdfannots"
 
 # Tier-1
 cask "zen"
