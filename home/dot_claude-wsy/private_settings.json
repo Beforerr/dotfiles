@@ -6,7 +6,7 @@
       "Agent(statusline-setup)"
     ]
   },
-  "model": "opus[1m]",
+  "model": "opus",
   "skillOverrides": {
     "claude-in-chrome": "off",
     "security-review": "off",
@@ -22,6 +22,11 @@
     "anthropic-skills:deep-research": "name-only"
   },
   "effortLevel": "high",
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    }
+  },
   "theme": "auto",
   "agentPushNotifEnabled": true
 }
