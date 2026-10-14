@@ -5,6 +5,9 @@
     "sessionUrl": false
   },
   "permissions": {
+    "allow": [
+      "Read(~/src/Beforerr/repld/skills/**)"
+    ],
     "deny": [
       "ScheduleWakeup"
     ],
