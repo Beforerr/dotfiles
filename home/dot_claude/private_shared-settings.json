@@ -9,7 +9,8 @@
       "Read(~/src/Beforerr/repld/skills/**)"
     ],
     "deny": [
-      "ScheduleWakeup"
+      "ScheduleWakeup",
+      "Monitor"
     ],
     "defaultMode": "auto"
   },
