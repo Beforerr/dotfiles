@@ -9,5 +9,6 @@
   - `actions`: shared CI/docs workflows used by nearly every repo.
   - `juliaspacephysics.github.io`: Quarto site whose tutorials execute several packages, so API changes can break its build.
 - `~/.julia/dev/<Pkg>` symlinks here, so envs that `dev` a package load whatever its checkout is on; that's how downstream sees a cross-repo change.
+  Don't `dev` into a tracked project (Pkg writes `[sources]`); `dev` into `@jsp-dev` and stack it: `JULIA_LOAD_PATH="@jsp-dev:@:@v#.#:@stdlib"`. It overrides the package for every dependent, so leave it unset in repos pinning older versions (SPEDAS, TRACERSData).
 - Once your work lands on `main`, abandon leftover commits and bookmarks; rebase your remaining unlanded commits onto `main` if conflict-free, and move touched checkouts there.
 - jj: when tasks' edits are done, `jj desc` with conventional-commit style, terse.
