@@ -183,7 +183,8 @@ clean:
     done
 
 [no-cd]
-bump bump_type="":
+[arg("skip_ci", long="skip-ci", value="1")]
+bump bump_type="" skip_ci="":
     #!/usr/bin/env sh
     set -e
     bump_type="{{ bump_type }}"
@@ -201,17 +202,21 @@ bump bump_type="":
     }
     check_wc
     repo=$(gh repo view --json nameWithOwner -q .nameWithOwner)
-    ci=$(gh run list -R "$repo" -c "$parent" --json databaseId,workflowName,status,conclusion \
-        -q '[.[] | select(.workflowName == "CI")][0]')
-    if [ -z "$ci" ]; then
-        echo "⚠️  No CI run for $(echo "$parent" | cut -c1-8); releasing unchecked"
+    if [ -n "{{ skip_ci }}" ]; then
+        echo "⚠️  Skipping CI check; releasing unchecked"
     else
-        id=$(echo "$ci" | jq -r .databaseId)
-        [ "$(echo "$ci" | jq -r .status)" = completed ] || gh run watch -R "$repo" "$id" --exit-status >/dev/null || true
-        conclusion=$(gh run view -R "$repo" "$id" --json conclusion -q .conclusion)
-        if [ "$conclusion" != success ]; then
-            echo "❌ CI $conclusion on release base: https://github.com/$repo/actions/runs/$id"
-            exit 1
+        ci=$(gh run list -R "$repo" -c "$parent" --json databaseId,workflowName,status,conclusion \
+            -q '[.[] | select(.workflowName == "CI")][0]')
+        if [ -z "$ci" ]; then
+            echo "⚠️  No CI run for $(echo "$parent" | cut -c1-8); releasing unchecked"
+        else
+            id=$(echo "$ci" | jq -r .databaseId)
+            [ "$(echo "$ci" | jq -r .status)" = completed ] || gh run watch -R "$repo" "$id" --exit-status >/dev/null || true
+            conclusion=$(gh run view -R "$repo" "$id" --json conclusion -q .conclusion)
+            if [ "$conclusion" != success ]; then
+                echo "❌ CI $conclusion on release base: https://github.com/$repo/actions/runs/$id"
+                exit 1
+            fi
         fi
     fi
     check_wc

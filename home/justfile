@@ -49,10 +49,6 @@ migrate:
     rclone sync GoogleDriveUCLA:library BoxUCLA:library --progress
     ln -s "/Volumes/My Passport for Mac/data" ~/data
 
-clean:
-    -brew cleanup
-    -pixi clean cache --yes
-
 [private]
 disk-usage:
     gdu-go --ignore-dirs-pattern '.*CloudStorage'

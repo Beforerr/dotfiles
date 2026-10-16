@@ -178,5 +178,6 @@
     "enabled": false,
     "mode": "hold"
   },
+  "autoMemoryEnabled": false,
   "agentPushNotifEnabled": true
 }

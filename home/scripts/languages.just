@@ -2,10 +2,11 @@ mod? julia
 mod? latex
 
 [no-cd]
-bump bump_type="":
+[arg("skip_ci", long="skip-ci", value="1")]
+bump bump_type="" skip_ci="":
     #!/usr/bin/env sh
     if [ -f Project.toml ]; then
-        just -g julia bump "{{ bump_type }}"
+        just -g julia bump {{ if skip_ci != "" { "--skip-ci" } else { "" } }} "{{ bump_type }}"
     elif [ -f Cargo.toml ]; then
         just -g rust bump "{{ bump_type }}"
     else
