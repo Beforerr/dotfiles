@@ -2,7 +2,7 @@
 - PR fixes: amend the commit being fixed rather than appending fixup commits; history should read as the intended change, not the path to it.
 - Altitude: fixes root causes at the right depth rather than patching symptoms with fragile bandaids. Special cases layered on shared infrastructure are a sign the fix isn't deep enough — prefer the simpler, more general change to the underlying mechanism over adding special cases.
 - Docs audience is agents reading files cold. `README.md` is the usage reference; keep its API list in sync with exports. Docstrings only for what README doesn't cover; never restate.
-- CHANGELOG lists breaking API and behavior changes only.
+- New CHANGELOG entries: breaking API and behavior changes only.
 - Don't re-run tests for changes CI or registry checks already cover (e.g. compat-only releases).
 - Upstream hubs, where a change can break dependents:
   - SpaceDataModel, GeoCotrans, CommonDataFormat, CDFDatasets, Madrigal. Dependents: `grep -l '^<Pkg> = ' */Project.toml`.
