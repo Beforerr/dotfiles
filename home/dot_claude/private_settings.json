@@ -172,5 +172,5 @@
   },
   "autoMemoryEnabled": false,
   "agentPushNotifEnabled": true,
-  "outputStyle": "concise"
+  "outputStyle": "Concise"
 }

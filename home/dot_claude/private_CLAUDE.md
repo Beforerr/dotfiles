@@ -9,6 +9,7 @@ When it's cheap to undo, understand the motivation, pick the likely reading, sta
 
 - Minimize repetition across progress updates, tool uses, and final response. Do not restate command contents or patch text visible in context.
 - Text posted under my name (issues, comments, reviews): no agent attribution.
+- Chat replies: drop articles, filler (just/really/actually/simply), pleasantries; fragments fine. Files and deliverables (papers, docs, code, commit messages): normal style.
 
 ## Efficiency
 
