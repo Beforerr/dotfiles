@@ -5,8 +5,8 @@
 # snapshots jj working copies that agents are mid-edit in.
 # Activity time t = max(last agent jj op, newest dirty-file mtime): agents edit
 # files long before their next jj command. Fetch/import ops are ours, not agents'.
-# Fetch and CI lookups are slow, so they run in the background and land in
-# $cache for a later refresh; Orca and CI are only queried for repos with work.
+# Fetch and CI/PR lookups are slow, so they run in the background and land in
+# $cache for a later refresh; Orca, CI and PRs are only queried for repos with work.
 export PATH=$HOME/.cargo/bin:/opt/homebrew/bin:/usr/bin:/bin:$PATH
 export GIT_OPTIONAL_LOCKS=0
 setopt extendedglob
@@ -30,16 +30,18 @@ ago() {
   else echo "$(( s / 86400 ))d ago"; fi
 }
 
-# $1 repo dir, $2 sha → $cache/$1.ci = "sha<TAB>state<TAB>url"
+# $1 repo dir, $2 sha → $cache/$1.ci = "sha<TAB>state<TAB>url<TAB>pr<TAB>prurl<TAB>prstate"
 ci_refresh() {
-  local out
+  local out prs
   out=$(cd $root/$1 && gh run list --commit $2 --json status,conclusion,url -L 30) || return
-  jq -r --arg sha $2 '
+  prs=$(cd $root/$1 && gh pr list --search $2 --state all --json number,url,state -L 1) || return
+  jq -r --arg sha $2 --argjson prs $prs '
     (map(select(.conclusion | IN("failure","timed_out","cancelled","startup_failure")))) as $bad
     | [$sha,
        (if length == 0 then "none" elif ($bad | length) > 0 then "failure"
         elif any(.[]; .status != "completed") then "pending" else "success" end),
-       ($bad[0].url // .[0].url // "")] | @tsv' <<< $out > $cache/$1.ci.tmp &&
+       ($bad[0].url // .[0].url // ""),
+       ($prs[0].number // ""), ($prs[0].url // ""), ($prs[0].state // "" | ascii_downcase)] | @tsv' <<< $out > $cache/$1.ci.tmp &&
     mv $cache/$1.ci.tmp $cache/$1.ci
 }
 
@@ -74,20 +76,24 @@ for d in */(N); do d=${d%/}; [[ -d $d/.jj ]] || continue
   ci=() sha=$(jj -R $d --ignore-working-copy log -r 'heads((trunk()..@) & remote_bookmarks(remote=exact:"origin"))' --no-graph -T 'commit_id')
   if [[ -n $sha ]]; then
     cif=$cache/$d.ci
-    [[ -e $cif ]] && IFS=$'\t' read -r csha cstate curl < $cif || csha=
+    # read would collapse empty tab-separated fields
+    c=(); [[ -e $cif ]] && c=("${(@ps:\t:)$(<$cif)}")
     a=$(age $cif)
-    if [[ $csha != $sha ]] || { [[ $cstate == (pending|none) ]] && (( a > CI_PENDING_SECS )) } || (( a > CI_DONE_SECS )); then
+    # A pushed branch without a PR is usually about to get one, so poll it like pending CI.
+    if [[ $c[1] != $sha ]] || { [[ $c[2] == (pending|none) || -z $c[4] ]] && (( a > CI_PENDING_SECS )) } || (( a > CI_DONE_SECS )); then
       [[ -e $cif ]] && touch $cif
       ci_refresh $d $sha >/dev/null 2>&1 &!
     fi
-    [[ $csha == $sha && $cstate != none ]] && ci=($cstate $curl)
+    [[ $c[1] == $sha ]] && ci=("${(@)c[2,6]}")
+    [[ $ci[1] == none ]] && ci[1]=
   fi
 
-  jq -cn --arg repo $d --arg path $root/$d --arg desc $desc --argjson t $t --arg files $files \
+  jq -cn --arg repo $d --arg path $root/$d --arg desc $desc --argjson t $t --arg files "$files" \
     --argjson ahead $ahead --argjson behind $behind --argjson conflict $conflict --argjson divergent $divergent \
-    --arg ci "${ci[1]-}" --arg ciurl "${ci[2]-}" \
+    --arg ci "${ci[1]-}" --arg ciurl "${ci[2]-}" --arg pr "${ci[3]-}" --arg prurl "${ci[4]-}" --arg prstate "${ci[5]-}" \
     '{repo:$repo, path:$path, desc:$desc, t:$t, files:($files|split("\n")|map(select(. != ""))),
-      ahead:$ahead, behind:$behind, conflict:$conflict, divergent:$divergent, ci:$ci, ciurl:$ciurl}'
+      ahead:$ahead, behind:$behind, conflict:$conflict, divergent:$divergent, ci:$ci, ciurl:$ciurl,
+      pr:$pr, prurl:$prurl, prstate:$prstate}'
 done | jq -cs 'sort_by(-.t)' > $cache/repos.json
 
 # One Orca call covers every repo; agents are matched by worktree path.
@@ -106,6 +112,7 @@ if (( json )); then cat; else
       ([if .ahead > 0 then "↑\(.ahead)" else empty end, if .behind > 0 then "↓\(.behind)" else empty end,
         if .conflict > 0 then "conflict" else empty end, if .divergent > 0 then "divergent" else empty end,
         if .working > 0 then "⚙\(.working)" else empty end, if .waiting > 0 then "✋\(.waiting)" else empty end,
+        if .pr != "" then "#\(.pr)" + (if .prstate != "open" then " \(.prstate)" else "" end) else empty end,
         if .ci != "" then "CI:\(.ci)" else empty end] | join(" "))] | @tsv' |
     while IFS=$'\t' read -r d n desc t flags; do
       printf "%-28s %3s files  @ %-45.45s | %-8s %s\n" $d $n $desc "$(ago $t)" $flags

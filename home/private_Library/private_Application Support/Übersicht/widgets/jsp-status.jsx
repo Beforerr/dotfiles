@@ -22,6 +22,8 @@ const openCode = (p) => `open -a "Visual Studio Code" "${p}"`;
 const openOrca = (p) => `$HOME/.local/bin/orca-focus "${p}"`;
 
 const CI = { success: ["✓", "good"], failure: ["✗", "bad"], pending: ["…", "warn"] };
+const link = (url) => (e) => { e.stopPropagation(); url && run(`open "${url}"`); };
+const [ciMark, ciClass] = [(r) => (CI[r.ci] || [""])[0], (r) => (CI[r.ci] || [])[1]];
 
 const badges = (r) => [
   r.ahead > 0 && <span key="a" title="commits off main">↑{r.ahead}</span>,
@@ -30,8 +32,10 @@ const badges = (r) => [
   r.divergent > 0 && <span key="d" className="bad">divergent</span>,
   r.working > 0 && <span key="w" className="good" title="agents working">⚙{r.working}</span>,
   r.waiting > 0 && <span key="q" className="bad" title="agents waiting on you">✋{r.waiting}</span>,
-  r.ci && <span key="ci" className={CI[r.ci][1]}
-    onClick={(e) => { e.stopPropagation(); r.ciurl && run(`open "${r.ciurl}"`); }}>CI {CI[r.ci][0]}</span>,
+  r.pr
+    ? <span key="pr" className={ciClass(r)} onClick={link(r.ci && r.ci !== "success" ? r.ciurl : r.prurl)}>
+        #{r.pr}{r.prstate !== "open" && ` ${r.prstate}`} {ciMark(r)}</span>
+    : r.ci && <span key="ci" className={ciClass(r)} onClick={link(r.ciurl)}>CI {ciMark(r)}</span>,
 ];
 
 const ago = (s) =>
