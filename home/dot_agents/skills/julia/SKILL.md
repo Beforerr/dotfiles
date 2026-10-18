@@ -7,8 +7,7 @@ description: Load BEFORE any `julia` command, especially tests. Test invocation,
   `ReferenceRevision` (`head = open_process(rev = "HEAD"); head.func()`); `JET`;
   `DispatchDoctor` (inference loss: `@stable default_mode="warn" begin … end` around suspects, call once).
 - Fresh checkouts (clone, worktree, jj workspace...) have no Manifest: `Pkg.instantiate()` before `using`.
-- Minimize rounds, not load time: fresh `julia --project=… script.jl`; 
-  `repld` when rebuilding state would cost extra rounds (i.e slow setup for one foreground call, chained exploration where each query depends on previous results).
+- Minimize rounds. One-shot: `julia --project=… script.jl`. Use `repld` when calls reuse state: slow setup, or exploration where each query builds on the last.
 - Tests: `just -g julia fast-test [regex]` (repld-backed; regex matches `@testitem`/`@testset` names; prints only the summary and capped failure blocks; full output goes to the log path printed last). For ad-hoc julia -e '@run_package_tests …', cd test first as the macro resolves .. from the current directory.
   `@testset` files only — one file / line range: `testrunner [--project=test --] test/foo.jl "testset name" L10:20 ':(@test f(x_) == y_)'` (`--json` for structured results).
   Load latency: `just -g julia time-import` (`time-import-compare [rev]` vs a revision); invalidations: `just -g julia snoop`; JET: `just -g julia jet`.
