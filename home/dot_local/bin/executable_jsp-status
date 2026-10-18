@@ -1,23 +1,41 @@
 #!/usr/bin/env zsh
-# Dirty jj repos under $1 (default ~/src/JuliaSpacePhysics); --json for widgets.
+# Dirty jj repos under $1 (default ~/src/JuliaSpacePhysics), most recently
+# active first; --json for widgets.
 # Read-only: --ignore-working-copy + git status, so it never snapshots jj
 # working copies that agents are mid-edit in.
+# Activity time t = max(last jj op, newest dirty-file mtime): agents edit
+# files long before their next jj command.
 export PATH=$HOME/.cargo/bin:/opt/homebrew/bin:/usr/bin:/bin:$PATH
 export GIT_OPTIONAL_LOCKS=0
+zmodload zsh/datetime
+zmodload -F zsh/stat b:zstat
 json=0; [[ $1 == --json ]] && { json=1; shift }
 root=${1:-$HOME/src/JuliaSpacePhysics}
 cd $root || exit 1
+
+ago() {
+  local s=$(( EPOCHSECONDS - $1 ))
+  if (( s < 60 )); then echo "${s}s ago"
+  elif (( s < 3600 )); then echo "$(( s / 60 ))m ago"
+  elif (( s < 86400 )); then echo "$(( s / 3600 ))h ago"
+  else echo "$(( s / 86400 ))d ago"; fi
+}
+
 for d in */(N); do d=${d%/}; [[ -d $d/.jj ]] || continue
   files=$(git -C $d status --porcelain)
   [[ -n $files ]] || continue
   desc=$(jj -R $d --ignore-working-copy log -r @ --no-graph -T 'coalesce(description.first_line(), "(no desc)")')
-  op=$(jj -R $d --ignore-working-copy op log -n1 --no-graph -T 'time.end().format("%s") ++ "\t" ++ time.end().ago()')
-  IFS=$'\t' read -r opt ago <<< $op
-  if (( json )); then
-    jq -cn --arg repo $d --arg path $root/$d --arg desc $desc --argjson opt $opt \
-      --arg ago $ago --arg files $files \
-      '{repo:$repo, path:$path, desc:$desc, opt:$opt, ago:$ago, files:($files|split("\n"))}'
-  else
-    printf "%-28s %3s files  @ %-45.45s | %s\n" $d ${#${(f)files}} $desc $ago
-  fi
-done | if (( json )); then jq -cs .; else cat; fi
+  t=$(jj -R $d --ignore-working-copy op log -n1 --no-graph -T 'time.end().format("%s")')
+  for f in ${(f)files}; do
+    f=${${f[4,-1]}##* -> }; f=${${f#\"}%\"}
+    [[ -e $d/$f ]] || continue
+    m=$(zstat +mtime -- $d/$f); (( m > t )) && t=$m
+  done
+  jq -cn --arg repo $d --arg path $root/$d --arg desc $desc --argjson t $t --arg files $files \
+    '{repo:$repo, path:$path, desc:$desc, t:$t, files:($files|split("\n"))}'
+done | jq -cs 'sort_by(-.t)' | if (( json )); then cat; else
+  jq -r '.[] | [.repo, (.files|length), .desc, .t] | @tsv' |
+    while IFS=$'\t' read -r d n desc t; do
+      printf "%-28s %3s files  @ %-45.45s | %s\n" $d $n $desc "$(ago $t)"
+    done
+fi

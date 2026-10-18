@@ -16,6 +16,10 @@ export const className = `
   .files { color: #bbb; padding-left: 10px; }
 `;
 
+const ago = (s) =>
+  s < 60 ? `${Math.round(s)}s ago` : s < 3600 ? `${Math.floor(s / 60)}m ago`
+  : s < 86400 ? `${Math.floor(s / 3600)}h ago` : `${Math.floor(s / 86400)}d ago`;
+
 export const render = ({ output, error }) => {
   if (error) return <div>jsp-status: {String(error)}</div>;
   let repos;
@@ -25,10 +29,10 @@ export const render = ({ output, error }) => {
     <div>
       <div className="meta">{repos.length} dirty · {new Date().toLocaleTimeString()}</div>
       {repos.map((r) => (
-        <div key={r.repo} className={now - r.opt < LIVE_SECS ? "live" : ""}
+        <div key={r.repo} className={now - r.t < LIVE_SECS ? "live" : ""}
              onClick={() => run(`open -a "Visual Studio Code" "${r.path}"`)}>
           <div className="repo"><span className="name">{r.repo}</span> ({r.files.length}) {r.desc}</div>
-          <div className="meta">{r.ago}</div>
+          <div className="meta">{ago(now - r.t)}</div>
           {r.files.slice(0, 5).map((f) => <div className="files" key={f}>{f}</div>)}
           {r.files.length > 5 && <div className="files">… +{r.files.length - 5}</div>}
         </div>
