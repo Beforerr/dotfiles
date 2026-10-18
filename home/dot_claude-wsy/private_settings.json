@@ -21,13 +21,13 @@
     "schedule": "name-only",
     "anthropic-skills:deep-research": "name-only"
   },
+  "outputStyle": "Concise",
   "effortLevel": "high",
   "modelSettings": {
     "claude-opus-5-5": {
-      "effortLevel": "high"
+      "effortLevel": "medium"
     }
   },
   "theme": "auto",
-  "agentPushNotifEnabled": true,
-  "outputStyle": "Concise"
+  "agentPushNotifEnabled": true
 }

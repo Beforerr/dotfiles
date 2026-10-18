@@ -1,5 +1,10 @@
 {
   "model": "opus",
+  "permissions": {
+    "deny": [
+      "AskUserQuestion"
+    ]
+  },
   "skillOverrides": {
     "humanizer": "off",
     "keybindings-help": "off"
