@@ -1,17 +1,26 @@
 #!/usr/bin/env zsh
-# Dirty jj repos under $1 (default ~/src/JuliaSpacePhysics), most recently
-# active first; --json for widgets.
-# Read-only: --ignore-working-copy + git status, so it never snapshots jj
-# working copies that agents are mid-edit in.
-# Activity time t = max(last jj op, newest dirty-file mtime): agents edit
-# files long before their next jj command.
+# Repos under $1 (default ~/src/JuliaSpacePhysics) with local work (dirty, or
+# non-empty commits off trunk), most recently active first; --json for widgets.
+# Read-only on working copies: --ignore-working-copy + git status, so it never
+# snapshots jj working copies that agents are mid-edit in.
+# Activity time t = max(last agent jj op, newest dirty-file mtime): agents edit
+# files long before their next jj command. Fetch/import ops are ours, not agents'.
+# Fetch and CI lookups are slow, so they run in the background and land in
+# $cache for a later refresh; Orca and CI are only queried for repos with work.
 export PATH=$HOME/.cargo/bin:/opt/homebrew/bin:/usr/bin:/bin:$PATH
 export GIT_OPTIONAL_LOCKS=0
+setopt extendedglob
 zmodload zsh/datetime
 zmodload -F zsh/stat b:zstat
 json=0; [[ $1 == --json ]] && { json=1; shift }
 root=${1:-$HOME/src/JuliaSpacePhysics}
+cache=$HOME/.cache/jsp-status
+mkdir -p $cache
 cd $root || exit 1
+
+FETCH_SECS=600 CI_PENDING_SECS=60 CI_DONE_SECS=1800
+
+age() { local m; m=$(zstat +mtime -- $1 2>/dev/null) || { echo 999999; return }; echo $(( EPOCHSECONDS - m )) }
 
 ago() {
   local s=$(( EPOCHSECONDS - $1 ))
@@ -21,21 +30,84 @@ ago() {
   else echo "$(( s / 86400 ))d ago"; fi
 }
 
+# $1 repo dir, $2 sha → $cache/$1.ci = "sha<TAB>state<TAB>url"
+ci_refresh() {
+  local out
+  out=$(cd $root/$1 && gh run list --commit $2 --json status,conclusion,url -L 30) || return
+  jq -r --arg sha $2 '
+    (map(select(.conclusion | IN("failure","timed_out","cancelled","startup_failure")))) as $bad
+    | [$sha,
+       (if length == 0 then "none" elif ($bad | length) > 0 then "failure"
+        elif any(.[]; .status != "completed") then "pending" else "success" end),
+       ($bad[0].url // .[0].url // "")] | @tsv' <<< $out > $cache/$1.ci.tmp &&
+    mv $cache/$1.ci.tmp $cache/$1.ci
+}
+
 for d in */(N); do d=${d%/}; [[ -d $d/.jj ]] || continue
   files=$(git -C $d status --porcelain)
-  [[ -n $files ]] || continue
+  # A = in @'s history (ahead), B = only in trunk (behind); e/c/d = empty/conflict/divergent
+  marks=$(jj -R $d --ignore-working-copy log -r 'trunk()..@ | @..trunk()' --no-graph \
+    -T 'if(self.contained_in("::@"), "A", "B") ++ if(empty, "e") ++ if(conflict, "c") ++ if(divergent, "d") ++ "\n"')
+  a=(${(M)${(f)marks}:#A[^e]#}); ahead=$#a
+  [[ -n $files ]] || (( ahead )) || continue
+  a=(${(M)${(f)marks}:#B*}); behind=$#a
+  a=(${(M)${(f)marks}:#A*c*}); conflict=$#a
+  a=(${(M)${(f)marks}:#A*d*}); divergent=$#a
+
+  if (( $(age $cache/$d.fetch) > FETCH_SECS )); then
+    touch $cache/$d.fetch
+    jj -R $d --ignore-working-copy git fetch --quiet >/dev/null 2>&1 &!
+  fi
+
   desc=$(jj -R $d --ignore-working-copy log -r @ --no-graph -T 'coalesce(description.first_line(), "(no desc)")')
-  t=$(jj -R $d --ignore-working-copy op log -n1 --no-graph -T 'time.end().format("%s")')
+  t=0
+  for op in ${(f)"$(jj -R $d --ignore-working-copy op log -n 20 --no-graph -T 'time.end().format("%s") ++ "\t" ++ description.first_line() ++ "\n"')"}; do
+    [[ ${op#*$'\t'} == (import git refs|fetch from git remote*) ]] && continue
+    t=${op%%$'\t'*}; break
+  done
   for f in ${(f)files}; do
     f=${${f[4,-1]}##* -> }; f=${${f#\"}%\"}
     [[ -e $d/$f ]] || continue
     m=$(zstat +mtime -- $d/$f); (( m > t )) && t=$m
   done
+
+  ci=() sha=$(jj -R $d --ignore-working-copy log -r 'heads((trunk()..@) & remote_bookmarks(remote=exact:"origin"))' --no-graph -T 'commit_id')
+  if [[ -n $sha ]]; then
+    cif=$cache/$d.ci
+    [[ -e $cif ]] && IFS=$'\t' read -r csha cstate curl < $cif || csha=
+    a=$(age $cif)
+    if [[ $csha != $sha ]] || { [[ $cstate == (pending|none) ]] && (( a > CI_PENDING_SECS )) } || (( a > CI_DONE_SECS )); then
+      [[ -e $cif ]] && touch $cif
+      ci_refresh $d $sha >/dev/null 2>&1 &!
+    fi
+    [[ $csha == $sha && $cstate != none ]] && ci=($cstate $curl)
+  fi
+
   jq -cn --arg repo $d --arg path $root/$d --arg desc $desc --argjson t $t --arg files $files \
-    '{repo:$repo, path:$path, desc:$desc, t:$t, files:($files|split("\n"))}'
-done | jq -cs 'sort_by(-.t)' | if (( json )); then cat; else
-  jq -r '.[] | [.repo, (.files|length), .desc, .t] | @tsv' |
-    while IFS=$'\t' read -r d n desc t; do
-      printf "%-28s %3s files  @ %-45.45s | %s\n" $d $n $desc "$(ago $t)"
+    --argjson ahead $ahead --argjson behind $behind --argjson conflict $conflict --argjson divergent $divergent \
+    --arg ci "${ci[1]-}" --arg ciurl "${ci[2]-}" \
+    '{repo:$repo, path:$path, desc:$desc, t:$t, files:($files|split("\n")|map(select(. != ""))),
+      ahead:$ahead, behind:$behind, conflict:$conflict, divergent:$divergent, ci:$ci, ciurl:$ciurl}'
+done | jq -cs 'sort_by(-.t)' > $cache/repos.json
+
+# One Orca call covers every repo; agents are matched by worktree path.
+orca='{"result":{"worktrees":[]}}'
+if [[ $(<$cache/repos.json) != '[]' ]]; then
+  orca=$(timeout 3 orca worktree ps --json 2>/dev/null) || orca='{"result":{"worktrees":[]}}'
+fi
+jq -c --argjson orca $orca '
+  ($orca.result.worktrees | map({key: .path, value: .}) | from_entries) as $wt
+  | map(. + ($wt[.path] as $w | {
+      working: ([$w.agents[]? | select(.state == "working")] | length),
+      waiting: ([$w.agents[]? | select(.state | IN("waiting", "blocked"))] | length),
+      unread: ($w.unread // false)}))' $cache/repos.json |
+if (( json )); then cat; else
+  jq -r '.[] | [.repo, (.files|length), .desc, .t,
+      ([if .ahead > 0 then "↑\(.ahead)" else empty end, if .behind > 0 then "↓\(.behind)" else empty end,
+        if .conflict > 0 then "conflict" else empty end, if .divergent > 0 then "divergent" else empty end,
+        if .working > 0 then "⚙\(.working)" else empty end, if .waiting > 0 then "✋\(.waiting)" else empty end,
+        if .ci != "" then "CI:\(.ci)" else empty end] | join(" "))] | @tsv' |
+    while IFS=$'\t' read -r d n desc t flags; do
+      printf "%-28s %3s files  @ %-45.45s | %-8s %s\n" $d $n $desc "$(ago $t)" $flags
     done
 fi
