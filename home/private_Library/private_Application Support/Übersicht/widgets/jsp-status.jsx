@@ -1,7 +1,7 @@
 import { run } from "uebersicht";
 
 export const command = "$HOME/.local/bin/jsp-status --json";
-export const refreshFrequency = 15000;
+export const refreshFrequency = 30000;
 const LIVE_SECS = 300;
 
 export const className = `
