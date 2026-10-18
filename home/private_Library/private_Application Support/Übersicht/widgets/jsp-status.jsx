@@ -26,7 +26,7 @@ export const render = ({ output, error }) => {
       <div className="meta">{repos.length} dirty · {new Date().toLocaleTimeString()}</div>
       {repos.map((r) => (
         <div key={r.repo} className={now - r.opt < LIVE_SECS ? "live" : ""}
-             onClick={() => run(`open "${r.path}"`)}>
+             onClick={() => run(`open -a "Visual Studio Code" "${r.path}"`)}>
           <div className="repo"><span className="name">{r.repo}</span> ({r.files.length}) {r.desc}</div>
           <div className="meta">{r.ago}</div>
           {r.files.slice(0, 5).map((f) => <div className="files" key={f}>{f}</div>)}
