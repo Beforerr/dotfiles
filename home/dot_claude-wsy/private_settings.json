@@ -28,5 +28,6 @@
     }
   },
   "theme": "auto",
-  "agentPushNotifEnabled": true
+  "agentPushNotifEnabled": true,
+  "outputStyle": "Concise"
 }
