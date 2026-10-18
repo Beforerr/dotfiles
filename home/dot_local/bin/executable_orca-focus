@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Show repo $1 in Orca: focus its most recently active terminal, else open a new one.
+# Orca has no "activate worktree" command, and only opens registered repos.
+set -euo pipefail
+export PATH=/opt/homebrew/bin:/usr/bin:/bin:$PATH
+p=$(cd "$1" && pwd)
+orca open >/dev/null
+orca worktree show --worktree "path:$p" >/dev/null 2>&1 || orca repo add --path "$p" >/dev/null
+h=$(orca terminal list --worktree "path:$p" --json |
+  jq -r '.result.terminals | max_by(.lastOutputAt) | .handle // empty')
+if [[ -n $h ]]; then
+  orca terminal switch --terminal "$h" >/dev/null
+else
+  orca terminal create --worktree "path:$p" --focus >/dev/null
+fi
+open -a Orca
