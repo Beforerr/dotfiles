@@ -76,6 +76,7 @@ cask "obsidian"
 cask "codex"
 cask "stablyai/orca/orca", trusted: true
 cask "stats"
+cask "ubersicht"
 cask "qlmarkdown"
 cask "zotero"
 cask "beforerr/beforerr/quarto-pre", trusted: true
