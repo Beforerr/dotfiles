@@ -5,7 +5,7 @@
 - New CHANGELOG entries: breaking API and behavior changes only.
 - Don't re-run tests for changes CI or registry checks already cover (e.g. compat-only releases).
 - Upstream hubs, where a change can break dependents:
-  - SpaceDataModel, GeoCotrans, CommonDataFormat, CDFDatasets, Madrigal. Dependents: `grep -l '^<Pkg> = ' */Project.toml`.
+  - SpaceDataModel, GeoCotrans, CommonDataFormat, CDFDatasets, Madrigal. Dependents: `grep -l '^<Pkg> = ' */Project.toml */test/Project.toml */docs/Project.toml`.
   - `actions`: shared CI/docs workflows used by nearly every repo.
   - `juliaspacephysics.github.io`: Quarto site whose tutorials execute several packages, so API changes can break its build.
 - `~/.julia/dev/<Pkg>` symlinks here, so envs that `dev` a package load whatever its checkout is on.
