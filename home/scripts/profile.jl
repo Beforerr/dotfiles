@@ -31,11 +31,12 @@ println("time: ", b)
 
 # A frame counts once per sample (inclusive) up to the outermost frame of `expr`; self time includes
 # C callees (e.g. libpython), so a Julia line that calls into Python owns that Python time.
-# Short bursts with a full GC between them: objects awaiting finalizers (e.g. PythonCall handles)
-# otherwise pile up over a long loop and slow every call, inflating whichever lines allocate.
-burst = max(1, ceil(Int, 0.02 / max(b.time, 1e-9)))
-bursts = 100
-Profile.init(n = 10^7, delay = 1e-3)
+# ~2 ms bursts with a young-generation GC between them: objects awaiting finalizers (e.g. PythonCall
+# handles, whose Python objects live until then) otherwise pile up, slow every call, and inflate
+# whichever lines allocate (Python's own GC rescans them all).
+burst = max(1, ceil(Int, 0.002 / max(b.time, 1e-9)))
+bursts = 1000
+Profile.init(n = 10^6, delay = 1e-3)  # also shrinks a buffer an earlier run in the session enlarged
 Profile.clear()
 run, gctime = 0.0, 0.0
 for _ in 1:bursts
@@ -46,11 +47,12 @@ for _ in 1:bursts
         end
     end
     run += st.time; gctime += st.gctime
-    GC.gc()
+    GC.gc(false)
 end
 n = burst * bursts
 data = Profile.fetch(include_meta = false)
 lidict = Profile.getdict(data)
+Profile.clear()
 key(sf) = string(sf.func, " ", basename(string(sf.file)), ":", sf.line)
 incl, self = Dict{String, Int}(), Dict{String, Int}()
 total = 0
@@ -98,3 +100,7 @@ println("runtime dispatch in $(isempty(targets) ? "all modules" : join(targets, 
 for (k, c) in first(sort!(collect(sites); by = first), top)  # by file, then line
     println("  ", c > 1 ? "×$c " : "", first(k, 200))
 end
+
+# A warm session outlives this run: release what it allocated (and the Python objects behind it).
+data = lidict = r = nothing
+GC.gc()
