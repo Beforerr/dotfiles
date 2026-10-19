@@ -1,5 +1,10 @@
-// Zotero's default (15) leaves plugins sideloaded into extensions/ disabled.
+// Plugins sideloaded into extensions/ are otherwise never detected (startupScanScopes)
+// or left disabled (autoDisableScopes, Zotero default 15).
+user_pref("extensions.startupScanScopes", 1);
 user_pref("extensions.autoDisableScopes", 0);
 // Attachments live in Box (Zotero/storage symlink). Zotero file sync would hash every
 // attachment lacking a stored mtime, forcing Box to download the whole library.
 user_pref("extensions.zotero.sync.storage.enabled", false);
+// Public on purpose: Zotero's server drops browser requests without custom headers,
+// so only local processes can reach the bridge.
+user_pref("extensions.zotero.debug-bridge.token", "claude-bridge");

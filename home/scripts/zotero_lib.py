@@ -2,12 +2,10 @@
 from __future__ import annotations
 
 import json
-import os
 import re
 import sqlite3
-import tempfile
-import time
-import urllib.parse
+import urllib.error
+import urllib.request
 from pathlib import Path
 
 _DOI_RE   = re.compile(r'^(https?://doi\.org/|doi:)?10\.\d{4,}/', re.I)
@@ -177,21 +175,16 @@ def find_attachment(
 find_local_pdf = find_attachment
 
 
-# ── Debug bridge: run JS inside Zotero ───────────────────────────────────────
-# zotero-plugin-toolkit (bundled in Better BibTeX) registers a `zotero://ztoolkit-debug`
-# URL handler that runs arbitrary async JS with `Zotero` in scope. This is the ONLY
-# headless route to Zotero's native "Add by Identifier" (Zotero.Translate.Search),
-# "Find Available PDF" (Zotero.Attachments.addAvailablePDF) and item deletion — the
-# connector saves only what you hand it, and the local /api is read-only (DELETE → 501).
-#
-# Setup (once): set pref `extensions.zotero.debug-bridge.password` (Zotero closed,
-# edit prefs.js, or accept the one-time confirm dialog) and export the same value as
-# ZOTERO_BRIDGE_PASSWORD. The channel is fire-and-forget (noContent), so results come
-# back via a temp file the injected JS writes.
+# Debug bridge (plugin debug-bridge@iris-advies.com, installed and configured by
+# chezmoi): POST /debug-bridge/execute runs the body as async JS with `Zotero` in
+# scope. The only headless route to native Add by Identifier, Find Available PDF and
+# item deletion: the connector saves only what you hand it, and the local /api is
+# read-only (DELETE → 501).
 
 _DOI_FIND = re.compile(r"10\.\d{4,9}/[^\s\"<>]+")
 _ARXIV_RE = re.compile(r"(?:arxiv:)?(\d{4}\.\d{4,5}(?:v\d+)?|[a-z-]+/\d{7})", re.I)
-_BRIDGE_PW = os.environ.get("ZOTERO_BRIDGE_PASSWORD", "claude-bridge")
+_BRIDGE_URL = "http://127.0.0.1:23119/debug-bridge/execute"
+_ZOTERO_USER_JS = Path.home() / "Library/Application Support/Zotero/Profiles/default/user.js"
 
 
 def parse_identifier(s: str) -> tuple[str, str]:
@@ -204,43 +197,27 @@ def parse_identifier(s: str) -> tuple[str, str]:
         return "arXiv", m.group(1)
     raise ValueError(f"unrecognized identifier: {s!r}")
 
-# JS template: params arrive as one `ARGS` literal, result/errors go out via a temp
-# file. Token-replace (not .format/f-string) so the JS bodies below stay plain — no
-# brace-escaping. Each body is ordinary JS that reads `ARGS` and `return`s a value.
-_WRAP = """\
-const ARGS = __ARGS__;
-async function __run(){ __BODY__ }
-__run().then(
-  r => Zotero.File.putContentsAsync(__OUT__, JSON.stringify(r === undefined ? null : r)),
-  e => Zotero.File.putContentsAsync(__OUT__, JSON.stringify({__error: String(e), stack: (e && e.stack) || ""}))
-);"""
+
+def _bridge_token() -> str:
+    m = re.search(r'user_pref\("extensions\.zotero\.debug-bridge\.token",\s*"([^"]*)"\)',
+                  _ZOTERO_USER_JS.read_text())
+    if not m:
+        raise RuntimeError(f"debug-bridge token pref missing from {_ZOTERO_USER_JS}")
+    return m.group(1)
 
 
 def bridge_exec(body: str, args: dict | None = None, timeout=90):
-    """Run async JS `body` inside Zotero with `ARGS` bound to *args*; return its value.
-
-    `body` reads `ARGS.<key>` and `return`s a JSON-serializable value. Raises
-    TimeoutError if Zotero isn't running / the password pref isn't set, RuntimeError
-    on a JS exception.
-    """
-    import subprocess
-
-    fd, out = tempfile.mkstemp(suffix=".json", prefix="zbridge_")
-    os.close(fd); os.unlink(out)
-    js = (_WRAP.replace("__ARGS__", json.dumps(args or {}))
-               .replace("__OUT__", json.dumps(out))
-               .replace("__BODY__", body))
-    url = "zotero://ztoolkit-debug?password=" + urllib.parse.quote(_BRIDGE_PW) + "&run=" + urllib.parse.quote(js)
-    subprocess.run(["open", "-g", url], check=True)
-    deadline = time.time() + timeout
-    while time.time() < deadline:
-        if os.path.exists(out):
-            r = json.loads(open(out).read()); os.unlink(out)
-            if isinstance(r, dict) and "__error" in r:
-                raise RuntimeError(f"bridge JS error: {r['__error']}")
-            return r
-        time.sleep(0.4)
-    raise TimeoutError("debug-bridge timed out — Zotero running and password pref set?")
+    """Run async JS *body* inside Zotero with `ARGS` = *args*; return its JSON result."""
+    req = urllib.request.Request(
+        _BRIDGE_URL,
+        data=f"const ARGS = {json.dumps(args or {})};\n{body}".encode(),
+        headers={"Content-Type": "text/plain", "Authorization": f"Bearer {_bridge_token()}"},
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            return json.loads(r.read())
+    except urllib.error.HTTPError as e:
+        raise RuntimeError(f"debug-bridge HTTP {e.code}: {e.read().decode()}") from None
 
 
 _JS_ADD = """
