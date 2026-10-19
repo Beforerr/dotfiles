@@ -1,0 +1,27 @@
+#!/bin/bash
+# Usage: pr-merge [pr] [squash|rebase|merge]   (run inside the repo)
+# pr defaults to the latest open PR. method defaults to rebase when the PR has
+# several distinct commits and none look like review churn (fixup!/wip/typo/
+# GitHub web edits), else squash.
+set -e
+PR_NUMBER=$1
+METHOD=$2
+if [ -z "$PR_NUMBER" ]; then
+    PR_NUMBER=$(gh pr list --state open --limit 1 --json number --jq '.[0].number')
+    [ -z "$PR_NUMBER" ] && { echo "No open PRs found"; exit 0; }
+fi
+if [ -z "$METHOD" ]; then
+    METHOD=$(gh pr view $PR_NUMBER --json commits --jq '
+        [.commits[].messageHeadline] as $s
+        | if ($s | length) > 1 and ($s | unique | length) == ($s | length)
+             and all($s[]; test("^(fixup|squash|amend)!|^(wip|fixup|address|apply suggestions|merge branch|fmt|format|fix (typo|lint|ci|tests?))\\b|^update \\S+$"; "i") | not)
+          then "rebase" else "squash" end')
+fi
+echo "Merging #$PR_NUMBER with --$METHOD"
+gh pr merge $PR_NUMBER --$METHOD
+# Not gh --delete-branch: it also switches the local git HEAD, which fights jj
+BRANCH_NAME=$(gh pr view $PR_NUMBER --json headRefName --jq '.headRefName')
+git push origin --delete "$BRANCH_NAME"
+jj git fetch
+# squash/rebase merges rewrite the PR commits; the local originals become empty on rebase
+jj rebase -d 'trunk()' --skip-emptied

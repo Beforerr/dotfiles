@@ -30,7 +30,7 @@ const merge = (r) => (e) => {
   const log = `$HOME/.cache/jsp-status/${r.repo}.merge.log`;
   run(`osascript -e 'display dialog "Merge ${r.repo} #${r.pr}?"' >/dev/null || exit 0
     export PATH=$HOME/.cargo/bin:/opt/homebrew/bin:$PATH
-    cd "${r.path}" && just -g merge ${r.pr} > "${log}" 2>&1 \
+    cd "${r.path}" && $HOME/.local/bin/pr-merge ${r.pr} > "${log}" 2>&1 \
       && osascript -e 'display notification "${r.repo} #${r.pr} merged"' || open -t "${log}"
     osascript -e 'tell application id "tracesOf.Uebersicht" to refresh widget id "jsp-status-jsx"'`);
 };
@@ -47,7 +47,7 @@ const badges = (r) => [
         #{r.pr}{r.prstate !== "open" && ` ${r.prstate}`} {ciMark(r)}</span>
     : r.ci && <span key="ci" className={ciClass(r)} onClick={link(r.ciurl)}>CI {ciMark(r)}</span>,
   r.pr && r.prstate === "open" && r.ci === "success" &&
-    <span key="m" className="good" title="merge PR (just -g merge)" onClick={merge(r)}>⇲ merge</span>,
+    <span key="m" className="good" title="merge PR (pr-merge)" onClick={merge(r)}>⇲ merge</span>,
 ];
 
 const ago = (s) =>
