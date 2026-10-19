@@ -16,8 +16,7 @@ description: Load BEFORE any `julia` command, especially tests. Test invocation,
 
 ## Performance
 
-- Where one call spends its time: `[repld] julia --project=… ~/scripts/profile.jl '<setup>' '<expr>' [frame-regex] [top=25]` prints `@b`, inclusive/self % per frame up to `expr` (C/Python time on the calling Julia line), and JET runtime-dispatch sites in the packages `setup` imports. Start here instead of hand-written per-step `@b` scripts.
-- PythonCall handles free their Python objects only on Julia GC, so long loops pile up Python objects and slow every later call in the session (`get_data` 4 → 9 μs in-loop, 49 μs after); `GC.gc()` between timing runs.
+- One call's hot spots: `[repld] julia --project=… ~/scripts/profile.jl '<setup>' '<expr>'` prints `@b`, per-frame inclusive/self %, and JET runtime-dispatch sites.
 - Profile line attribution inside inlined code misleads (both ways): A/B-benchmark speedups that cost readability before keeping them.
 - `@b` on literal arguments constant-folds; interpolate non-constant values.
 - Generic Base calls (broadcast, reductions, `tr`, folds over tuples) carry a few ns of fixed overhead; on tiny arrays in hot loops that rivals the math, so write explicit loops there.
