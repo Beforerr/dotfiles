@@ -31,25 +31,26 @@ println("time: ", b)
 
 # A frame counts once per sample (inclusive) up to the outermost frame of `expr`; self time includes
 # C callees (e.g. libpython), so a Julia line that calls into Python owns that Python time.
-# ~2 ms bursts with a young-generation GC between them: objects awaiting finalizers (e.g. PythonCall
+# ~20 ms bursts with a young-generation GC between them: objects awaiting finalizers (e.g. PythonCall
 # handles, whose Python objects live until then) otherwise pile up, slow every call, and inflate
-# whichever lines allocate (Python's own GC rescans them all).
-burst = max(1, ceil(Int, 0.002 / max(b.time, 1e-9)))
-bursts = 1000
+# whichever lines allocate (Python's own GC rescans them all). One `@profile` spans all bursts:
+# restarting it per burst multiplies the sample rate (seen ~8× on Julia 1.13, macOS). Samples taken
+# in the forced GC never reach `expr`'s frame, so they drop out below.
+burst = max(1, ceil(Int, 0.02 / max(b.time, 1e-9)))
+bursts = 100
 Profile.init(n = 10^6, delay = 1e-3)  # also shrinks a buffer an earlier run in the session enlarged
 Profile.clear()
-run, gctime = 0.0, 0.0
-for _ in 1:bursts
-    global run, gctime
-    st = Base.invokelatest() do
-        @timed @profile for _ in 1:burst
+forced = Ref(0.0)
+st = Base.invokelatest() do
+    @timed @profile for _ in 1:bursts
+        for _ in 1:burst
             g()
         end
+        forced[] += @elapsed GC.gc(false)
     end
-    run += st.time; gctime += st.gctime
-    GC.gc(false)
 end
 n = burst * bursts
+gcpct = round(100 * max(0.0, st.gctime - forced[]) / (st.time - forced[]); digits = 1)
 data = Profile.fetch(include_meta = false)
 lidict = Profile.getdict(data)
 Profile.clear()
@@ -78,7 +79,7 @@ for ip in data
     end
 end
 # GC pauses land on whichever line allocates, so a high share blurs line attribution.
-println("profile: $total samples over $n calls; GC $(round(100gctime / run; digits = 1))%")
+println("profile: $total samples over $n calls; GC $gcpct%")
 rows = sort!([k => v for (k, v) in incl if isnothing(focus) || occursin(focus, k)]; by = last, rev = true)
 pct(v) = lpad(string(round(100v / max(total, 1); digits = 1)), 5)
 println("  incl%  self%  frame")
