@@ -24,6 +24,16 @@ const openOrca = (p) => `$HOME/.local/bin/orca-focus "${p}"`;
 const CI = { success: ["✓", "good"], failure: ["✗", "bad"], pending: ["…", "warn"] };
 const link = (url) => (e) => { e.stopPropagation(); url && run(`open "${url}"`); };
 const [ciMark, ciClass] = [(r) => (CI[r.ci] || [""])[0], (r) => (CI[r.ci] || [])[1]];
+// Übersicht's shell lacks the brew/cargo PATH; failures open the log.
+const merge = (r) => (e) => {
+  e.stopPropagation();
+  const log = `$HOME/.cache/jsp-status/${r.repo}.merge.log`;
+  run(`osascript -e 'display dialog "Merge ${r.repo} #${r.pr}?"' >/dev/null || exit 0
+    export PATH=$HOME/.cargo/bin:/opt/homebrew/bin:$PATH
+    cd "${r.path}" && just -g merge ${r.pr} > "${log}" 2>&1 \
+      && osascript -e 'display notification "${r.repo} #${r.pr} merged"' || open -t "${log}"
+    osascript -e 'tell application id "tracesOf.Uebersicht" to refresh widget id "jsp-status-jsx"'`);
+};
 
 const badges = (r) => [
   r.ahead > 0 && <span key="a" title="commits off main">↑{r.ahead}</span>,
@@ -36,6 +46,8 @@ const badges = (r) => [
     ? <span key="pr" className={ciClass(r)} onClick={link(r.ci && r.ci !== "success" ? r.ciurl : r.prurl)}>
         #{r.pr}{r.prstate !== "open" && ` ${r.prstate}`} {ciMark(r)}</span>
     : r.ci && <span key="ci" className={ciClass(r)} onClick={link(r.ciurl)}>CI {ciMark(r)}</span>,
+  r.pr && r.prstate === "open" && r.ci === "success" &&
+    <span key="m" className="good" title="merge PR (just -g merge)" onClick={merge(r)}>⇲ merge</span>,
 ];
 
 const ago = (s) =>
