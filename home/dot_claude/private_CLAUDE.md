@@ -35,7 +35,7 @@ GNU `sed` (not BSD) and `timeout` on PATH.
 
 ## Dotfiles
 
-- chezmoi-managed, incl. `~/.agents` and `~/.claude*` (`chezmoi managed <path>` to check). Edit in place, then `chezmoi re-add <path>` (auto-commits + pushes) or next `apply` reverts.
+- chezmoi-managed, incl. `~/.agents` and `~/.claude*`.
 - Skills: `~/.agents/skills/<name>/`, symlinked into `~/.claude/skills/`; `~/.claude-*/skills` symlink there.
 
 ## Code Style
