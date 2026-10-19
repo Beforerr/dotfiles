@@ -1,5 +1,5 @@
 #!/bin/bash
-# Usage: pr-merge [pr] [squash|rebase|merge]   (run inside the repo)
+# Usage: pr-merge [pr] [squash|rebase|merge]
 # pr defaults to the latest open PR. method defaults to rebase when the PR has
 # several distinct commits and none look like review churn (fixup!/wip/typo/
 # GitHub web edits), else squash.
@@ -19,7 +19,6 @@ if [ -z "$METHOD" ]; then
 fi
 echo "Merging #$PR_NUMBER with --$METHOD"
 gh pr merge $PR_NUMBER --$METHOD
-# Not gh --delete-branch: it also switches the local git HEAD, which fights jj
 BRANCH_NAME=$(gh pr view $PR_NUMBER --json headRefName --jq '.headRefName')
 git push origin --delete "$BRANCH_NAME"
 jj git fetch
