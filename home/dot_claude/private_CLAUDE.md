@@ -31,7 +31,7 @@ Every fact has exactly one home. Elsewhere, link.
 Install with `brew`/`uv` as needed. Python deps: `uv`. VCS: Jujutsu (`jj`) + Git.
 GNU `sed` (not BSD) and `timeout` on PATH.
 `GIT_EXTERNAL_DIFF='difft --display inline' git diff`: syntax-aware. "No syntactic changes." ⇒ formatting-only.
-`rga`: rg inside PDFs/docx/archives; not under `~/Library/CloudStorage` (files-on-demand, it downloads everything).
+`rga`: rg inside PDFs/docx/archives; not under `~/Library/CloudStorage` or `~/Zotero/storage` (symlink into Box) — files-on-demand, it downloads everything.
 
 ## Dotfiles
 
