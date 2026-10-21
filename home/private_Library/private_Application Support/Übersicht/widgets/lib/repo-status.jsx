@@ -13,6 +13,8 @@ export const style = `
   .name { font-weight: bold; }
   .meta, .files { color: #999; font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .files { color: #bbb; padding-left: 10px; }
+  .behind { color: #999; font-size: 11px; margin-top: 8px; }
+  .behind > span { margin-left: 8px; cursor: pointer; white-space: nowrap; }
   .meta span { margin-left: 8px; }
   .warn { color: #ffd43b; } .bad { color: #ff6b6b; } .good { color: #69db7c; }
 `;
@@ -30,6 +32,14 @@ const merge = (r, id) => (e) => {
     export PATH=$HOME/.cargo/bin:/opt/homebrew/bin:$PATH
     cd "${r.path}" && $HOME/.local/bin/pr-merge ${r.pr} > "${r.log}" 2>&1 \
       && osascript -e 'display notification "${r.repo} #${r.pr} merged"' || open -t "${r.log}"
+    osascript -e 'tell application id "tracesOf.Uebersicht" to refresh widget id "${id}"'`);
+};
+
+// Only offered for clean repos (nothing ahead of trunk), so `jj new` drops no work.
+const advance = (r, id) => (e) => {
+  e.stopPropagation();
+  run(`export PATH=$HOME/.cargo/bin:/opt/homebrew/bin:$PATH
+    jj -R "${r.path}" new 'trunk()' > "${r.log}" 2>&1 || open -t "${r.log}"
     osascript -e 'tell application id "tracesOf.Uebersicht" to refresh widget id "${id}"'`);
 };
 
@@ -61,21 +71,25 @@ export const widget = (root, id) => ({
 
 const render = (output, error, name, id) => {
   if (error) return <div>repo-status: {String(error)}</div>;
-  let repos;
-  try { repos = JSON.parse(output); } catch { return <div>{output}</div>; }
+  let all;
+  try { all = JSON.parse(output); } catch { return <div>{output}</div>; }
+  const repos = all.filter((r) => !r.clean), behind = all.filter((r) => r.clean);
+  const open = (r) => (e) => run((e.altKey ? openOrca : openCode)(r.path));
   const now = Date.now() / 1000;
   return (
     <div>
       <div className="meta">{name}: {repos.length} with work · {new Date().toLocaleTimeString()} · click VS Code, ⌥-click Orca</div>
       {repos.map((r) => (
         <div key={r.repo} className={now - r.t < LIVE_SECS ? "live" : ""}
-             onClick={(e) => run((e.altKey ? openOrca : openCode)(r.path))}>
+             onClick={open(r)}>
           <div className="repo"><span className="name">{r.repo}</span> ({r.files.length}) {r.desc}</div>
           <div className="meta">{ago(now - r.t)}{badges(r, id)}</div>
           {r.files.slice(0, 5).map((f) => <div className="files" key={f}>{f}</div>)}
           {r.files.length > 5 && <div className="files">… +{r.files.length - 5}</div>}
         </div>
       ))}
+      {behind.length > 0 && <div className="behind" title="clean, @ behind main">behind:
+        {behind.map((r) => <span key={r.repo} onClick={open(r)}>{r.repo}<span className="warn" title="jj new trunk()" onClick={advance(r, id)}>↓{r.behind}</span></span>)}</div>}
     </div>
   );
 };

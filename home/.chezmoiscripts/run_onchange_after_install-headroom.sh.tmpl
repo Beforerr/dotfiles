@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# plist hash: {{ include "private_Library/LaunchAgents/local.headroom.plist.tmpl" | sha256sum }}
+export PATH="$HOME/.local/bin:$PATH"
+
+# --python 3.13: headroom wheels lag behind newest CPython.
+command -v headroom >/dev/null || uv tool install --python 3.13 "headroom-ai[proxy,code]"
+
+svc="gui/$UID/local.headroom"
+# Open `hr` sessions retry against the proxy, so bring it back if it was up.
+launchctl print "$svc" 2>/dev/null | grep -q 'state = running' && was_running=1
+launchctl bootout "$svc" 2>/dev/null
+# bootout returns before a running proxy exits; bootstrapping then fails with EIO.
+while launchctl print "$svc" &>/dev/null; do sleep 0.2; done
+launchctl bootstrap "gui/$UID" "$HOME/Library/LaunchAgents/local.headroom.plist"
+[ -n "$was_running" ] && launchctl kickstart "$svc"
+exit 0

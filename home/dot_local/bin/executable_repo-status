@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 # Repos under $1 (default $PWD) with local work (dirty, or
 # non-empty commits off trunk), most recently active first; --json for widgets.
+# Clean repos whose @ lags trunk are listed too, as {clean:true}, sorted last.
 # Read-only on working copies: --ignore-working-copy + git status, so it never
 # snapshots jj working copies that agents are mid-edit in.
 # Activity time t = max(last agent jj op, newest dirty-file mtime): agents edit
@@ -51,15 +52,20 @@ for d in */(N); do d=${d%/}; [[ -d $d/.jj ]] || continue
   marks=$(jj -R $d --ignore-working-copy log -r 'trunk()..@ | @..trunk()' --no-graph \
     -T 'if(self.contained_in("::@"), "A", "B") ++ if(empty, "e") ++ if(conflict, "c") ++ if(divergent, "d") ++ "\n"')
   a=(${(M)${(f)marks}:#A[^e]#}); ahead=$#a
-  [[ -n $files ]] || (( ahead )) || continue
   a=(${(M)${(f)marks}:#B*}); behind=$#a
-  a=(${(M)${(f)marks}:#A*c*}); conflict=$#a
-  a=(${(M)${(f)marks}:#A*d*}); divergent=$#a
 
   if (( $(age $cache/$d.fetch) > FETCH_SECS )); then
     touch $cache/$d.fetch
     jj -R $d --ignore-working-copy git fetch --quiet >/dev/null 2>&1 &!
   fi
+
+  if [[ -z $files ]] && (( ! ahead )); then
+    (( behind )) && jq -cn --arg repo $d --arg path $root/$d --arg log $cache/$d.merge.log --argjson behind $behind \
+      '{repo:$repo, path:$path, log:$log, behind:$behind, clean:true, t:0}'
+    continue
+  fi
+  a=(${(M)${(f)marks}:#A*c*}); conflict=$#a
+  a=(${(M)${(f)marks}:#A*d*}); divergent=$#a
 
   desc=$(jj -R $d --ignore-working-copy log -r @ --no-graph -T 'coalesce(description.first_line(), "(no desc)")')
   t=0
@@ -98,7 +104,7 @@ done | jq -cs 'sort_by(-.t)' > $cache/repos.json
 
 # One Orca call covers every repo; agents are matched by worktree path.
 orca='{"result":{"worktrees":[]}}'
-if [[ $(<$cache/repos.json) != '[]' ]]; then
+if [[ $(jq 'any(.clean | not)' $cache/repos.json) == true ]]; then
   orca=$(timeout 3 orca worktree ps --json 2>/dev/null) || orca='{"result":{"worktrees":[]}}'
 fi
 jq -c --argjson orca $orca '
@@ -108,7 +114,7 @@ jq -c --argjson orca $orca '
       waiting: ([$w.agents[]? | select(.state | IN("waiting", "blocked"))] | length),
       unread: ($w.unread // false)}))' $cache/repos.json |
 if (( json )); then cat; else
-  jq -r '.[] | [.repo, (.files|length), .desc, .t,
+  jq -r '.[] | select(.clean | not) | [.repo, (.files|length), .desc, .t,
       ([if .ahead > 0 then "↑\(.ahead)" else empty end, if .behind > 0 then "↓\(.behind)" else empty end,
         if .conflict > 0 then "conflict" else empty end, if .divergent > 0 then "divergent" else empty end,
         if .working > 0 then "⚙\(.working)" else empty end, if .waiting > 0 then "✋\(.waiting)" else empty end,
@@ -117,4 +123,5 @@ if (( json )); then cat; else
     while IFS=$'\t' read -r d n desc t flags; do
       printf "%-28s %3s files  @ %-45.45s | %-8s %s\n" $d $n $desc "$(ago $t)" $flags
     done
+  jq -r 'map(select(.clean) | "\(.repo)↓\(.behind)") | select(length > 0) | "behind: " + join(" ")' $cache/repos.json
 fi

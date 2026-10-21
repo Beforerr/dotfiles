@@ -84,3 +84,13 @@ alias c="claude --dangerously-skip-permissions"
 alias cc="claude --dangerously-skip-permissions -c"
 alias csy="CLAUDE_CONFIG_DIR=~/.claude-wsy claude --dangerously-skip-permissions"
 alias cwk="CLAUDE_CONFIG_DIR=~/.claude-zwk claude --dangerously-skip-permissions"
+
+_headroom_up() {
+  local url=http://127.0.0.1:8787/livez
+  curl -sf -o /dev/null --max-time 1 $url && return
+  launchctl kickstart gui/$UID/local.headroom || return
+  repeat 60 { sleep 0.5; curl -sf -o /dev/null --max-time 1 $url && return }
+  print -u2 "headroom proxy not ready; see ~/Library/Logs/headroom.log"
+  return 1
+}
+alias hr='_headroom_up && ANTHROPIC_BASE_URL=http://127.0.0.1:8787 '

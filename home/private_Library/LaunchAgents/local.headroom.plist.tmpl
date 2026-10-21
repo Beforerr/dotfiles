@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>local.headroom</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>{{ .chezmoi.homeDir }}/.local/bin/headroom</string>
+        <string>proxy</string>
+        <string>--port</string>
+        <string>8787</string>
+    </array>
+    <!-- Started on demand by `hr` (aliases.zsh), not at login. -->
+    <key>RunAtLoad</key>
+    <false/>
+    <key>WorkingDirectory</key>
+    <string>{{ .chezmoi.homeDir }}</string>
+    <key>EnvironmentVariables</key>
+    <dict>
+        <!-- Beacon is on by default; update check phones PyPI. -->
+        <key>DO_NOT_TRACK</key>
+        <string>1</string>
+        <key>HEADROOM_UPDATE_CHECK</key>
+        <string>off</string>
+        <!-- Kompress garbled skill text; lossless = byte-exact folds or verbatim passthrough. -->
+        <key>HEADROOM_LOSSLESS</key>
+        <string>1</string>
+    </dict>
+    <key>StandardOutPath</key>
+    <string>{{ .chezmoi.homeDir }}/Library/Logs/headroom.log</string>
+    <key>StandardErrorPath</key>
+    <string>{{ .chezmoi.homeDir }}/Library/Logs/headroom.log</string>
+</dict>
+</plist>

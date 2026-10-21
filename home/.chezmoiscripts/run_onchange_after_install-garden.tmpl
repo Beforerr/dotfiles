@@ -6,14 +6,14 @@ export GIT_TERMINAL_PROMPT=0
 gh auth status &>/dev/null || gh auth login --web --git-protocol https
 command -v garden &>/dev/null || cargo install garden-tools
 
-# garden grow clones serially and can't do blobless clones; it then only adds symlinks and remotes.
+# garden grow clones serially; it then only adds symlinks and remotes.
 # garden takes one config per run, so each top-level garden is grown separately.
 for cfg in "$HOME/.config/garden/garden.yaml" "$HOME/.config/garden/JuliaSpacePhysics.yaml"; do
     root=$(yq '.garden.root' "$cfg")
     yq '.templates as $t | .trees | to_entries[] | .key as $k |
         (.value.url // $t[.value.templates].url // "") | select(. != "") | $k + " " + sub("\$\{TREE_NAME\}"; $k)' "$cfg" |
         sed -e "s|^~|$HOME|" -e "s|^\([^/]\)|${root/#\~/$HOME}/\1|" |
-        xargs -P8 -n2 sh -c '[ -e "$0" ] || git clone --quiet --filter=blob:none "$1" "$0"'
+        xargs -P8 -n2 sh -c '[ -e "$0" ] || git clone --quiet "$1" "$0"'
     garden -c "$cfg" grow "*"
 done
 # garden has no post-grow hook.
