@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+# Pre-release snapshot of a Julia package repo (run from its root); injected by the release skill.
+tag=$(git describe --tags --abbrev=0 2>/dev/null)
+print -r -- "Current Project.toml: $(grep -m1 '^version' Project.toml 2>/dev/null || echo 'no Project.toml')"
+print -r -- "Last tag: ${tag:-none}"
+print "\n## Working copy"
+jj st --no-pager 2>/dev/null || git status --short
+print "\n## Commits since ${tag:-root}"
+git log --oneline ${tag:+$tag..}HEAD | head -50
+print "\n## CHANGELOG"
+sed '1{/^# /d};30q' CHANGELOG.md 2>/dev/null || echo none

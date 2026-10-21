@@ -12,8 +12,4 @@ $ARGUMENTS
 
 ## State
 
-- Project.toml: !`grep -m1 '^version' Project.toml`
-- Last tag: !`git describe --tags --abbrev=0 2>/dev/null || echo none`
-- Working copy: !`jj st --no-pager 2>/dev/null || git status --short`
-- Since last tag: !`git log --oneline "$(git describe --tags --abbrev=0 2>/dev/null)"..HEAD 2>/dev/null | head -50`
-- CHANGELOG: !`head -30 CHANGELOG.md 2>/dev/null || echo none`
+!`release-state`
