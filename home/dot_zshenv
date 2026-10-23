@@ -1,3 +1,5 @@
 export JULIA_MAX_NUM_PRECOMPILE_FILES=3
 # Opt out of telemetry beacons (Headroom, others honoring the convention)
 export DO_NOT_TRACK=1 HEADROOM_UPDATE_CHECK=off
+# Pkg app shims otherwise bake the versioned juliaup binary path
+export JULIA_APPS_JULIA_CMD=julia

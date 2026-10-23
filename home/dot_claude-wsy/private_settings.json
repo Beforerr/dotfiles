@@ -29,5 +29,6 @@
     }
   },
   "theme": "auto",
+  "autoMemoryEnabled": false,
   "agentPushNotifEnabled": true
 }
