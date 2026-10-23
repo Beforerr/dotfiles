@@ -11,3 +11,6 @@ name = "Beforerr"
 
 [remotes.origin]
 auto-track-bookmarks = "* ~ gh-pages"
+
+[remotes.fork]
+auto-track-bookmarks = "* ~ gh-pages"
