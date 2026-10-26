@@ -1,12 +1,11 @@
-- PR fixes: amend the commit being fixed rather than appending fixup commits; history should read as the intended change, not the path to it.
-- Altitude: fixes root causes at the right depth rather than patching symptoms with fragile bandaids. Special cases layered on shared infrastructure are a sign the fix isn't deep enough — prefer the simpler, more general change to the underlying mechanism over adding special cases.
+- PR fixes: amend the commit being fixed rather than appending fixup commits; history should read as intended changes, not the path to it.
+- Altitude: fixes root causes at the right depth rather than patching symptoms with fragile bandaids. Special cases layered on shared infrastructure are a sign the fix isn't deep enough — prefer simpler, more general change to underlying mechanism over adding special cases.
 - Docs audience is agents reading files cold. `README.md` is the usage reference; keep its API list in sync with exports. Docstrings only for what README doesn't cover; never restate.
 - New CHANGELOG entries: breaking API and behavior changes only.
-- Don't re-run tests for changes CI or registry checks already cover (e.g. compat-only releases).
 - Upstream hubs, where a change can break dependents:
   - SpaceDataModel, GeoCotrans, CommonDataFormat, CDFDatasets, Madrigal. Dependents: `grep -l '^<Pkg> = ' */Project.toml */test/Project.toml */docs/Project.toml`.
   - `actions`: shared CI/docs workflows used by nearly every repo.
   - `juliaspacephysics.github.io`: Quarto site whose tutorials execute several packages, so API changes can break its build.
 - `~/.julia/dev/<Pkg>` symlinks here, so envs that `dev` a package load whatever its checkout is on.
-- Once your work lands on `main`, abandon leftover commits and bookmarks; rebase your remaining unlanded commits onto `main` if conflict-free, and move touched checkouts there.
+- Once work lands on `main`, abandon leftover commits and bookmarks; rebase remaining unlanded commits onto `main` if conflict-free, and move touched checkouts there.
 - jj: when tasks' edits are done, `jj desc` with conventional-commit style, terse.

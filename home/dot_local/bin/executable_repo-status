@@ -47,7 +47,9 @@ ci_refresh() {
 }
 
 for d in */(N); do d=${d%/}; [[ -d $d/.jj ]] || continue
-  files=$(git -C $d status --porcelain)
+  if [[ -e $d/.git ]]; then files=$(git -C $d status --porcelain)
+  # Non-colocated: only @ as of its last snapshot; " X path" mimics porcelain "XY path".
+  else files=$(cd $d && jj --ignore-working-copy diff -r @ --summary | sed 's/^/ /'); fi
   # A = in @'s history (ahead), B = only in trunk (behind); e/c/d = empty/conflict/divergent
   marks=$(jj -R $d --ignore-working-copy log -r 'trunk()..@ | @..trunk()' --no-graph \
     -T 'if(self.contained_in("::@"), "A", "B") ++ if(empty, "e") ++ if(conflict, "c") ++ if(divergent, "d") ++ "\n"')

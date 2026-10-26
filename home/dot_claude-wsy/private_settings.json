@@ -28,7 +28,7 @@
       "effortLevel": "high"
     }
   },
-  "theme": "auto",
   "autoMemoryEnabled": false,
+  "theme": "auto",
   "agentPushNotifEnabled": true
 }
