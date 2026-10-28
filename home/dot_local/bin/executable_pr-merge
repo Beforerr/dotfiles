@@ -19,7 +19,4 @@ if [ -z "$METHOD" ]; then
 fi
 echo "Merging #$PR_NUMBER with --$METHOD"
 gh pr merge $PR_NUMBER --$METHOD
-# pr-restack deletes the branch via jj after restacking. Deleting it with git
-# first makes jj's next import abandon the PR commits and rebase work stacked
-# on them onto the PR's old base, where pr-restack can't find it.
 pr-restack "$PR_NUMBER"
