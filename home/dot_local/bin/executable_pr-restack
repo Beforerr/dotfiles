@@ -1,0 +1,53 @@
+#!/bin/bash
+# Usage: pr-restack [pr...]
+# After PRs (default: my recently merged ones) merge by squash, rebase or merge
+# commit, move the work stacked on them onto trunk(), abandon their local
+# copies, and delete their bookmarks locally and on every remote tracking them.
+# A merged PR's commits are found from the head commit GitHub merged, not by
+# patch matching: squash merges share no patch with the originals, and the
+# maintainer may have pushed onto the branch (merge master, formatting) first.
+set -euo pipefail
+jj git fetch --all-remotes
+
+tracking=$(jj bookmark list --tracked -T 'if(remote && present && remote != "git", name ++ " " ++ remote ++ "\n")')
+trunk_names=" $(jj log -r 'trunk()' --no-graph -T 'remote_bookmarks.map(|b| b.name()).join(" ")') "
+push_tracked() { # push each bookmark (or its deletion) to the remotes tracking it
+    local b r
+    for b in "$@"; do
+        for r in $(awk -v b="$b" '$1 == b { print $2 }' <<<"$tracking"); do
+            jj git push --remote "$r" -b "exact:$b"
+        done
+    done
+}
+merged_prs() { # num branch head
+    local q='select(.state == "MERGED") | "\(.number) \(.headRefName) \(.headRefOid)"' n
+    if [ $# -eq 0 ]; then
+        gh pr list --author @me --state merged --limit 30 --json number,headRefName,headRefOid,state --jq ".[] | $q"
+    fi
+    for n in "$@"; do gh pr view "$n" --json number,headRefName,headRefOid,state --jq "$q"; done
+}
+nonempty() { [ -n "$(jj log -r "$1" --no-graph -T 'commit_id')" ]; }
+
+while read -r num branch head <&3; do
+    [[ $trunk_names != *" $branch "* ]] || continue # e.g. an old PR from my fork's master
+    jj log -r "$head" -T '' >/dev/null 2>&1 || continue # never fetched here
+    old="(::$head ~ ::trunk()) & ::visible_heads()" # empty after a merge commit
+    mine="bookmarks(exact:\"$branch\")"
+    nonempty "$old | (($mine | remote_bookmarks(exact:\"$branch\")) & ::$head)" || continue # already cleaned
+    if nonempty "$mine ~ ::$head"; then
+        echo "#$num: $branch has commits GitHub did not merge; skipping" >&2
+        continue
+    fi
+    echo "#$num ($branch) merged"
+    stacked="children(($old) | $head) ~ ($old) ~ ::trunk()"
+    moved="$(jj log -r "$stacked" --no-graph -T 'change_id ++ "|"')none()"
+    [ "$moved" = "none()" ] || jj rebase -s "$stacked" -d 'trunk()'
+    ! nonempty "$old" || jj abandon "$old"
+    ! nonempty "$mine" || jj bookmark delete "exact:$branch"
+    push_tracked "$branch"
+    [ "$moved" != "none()" ] || continue
+    broken="(conflicts() & ($moved)::)::"
+    push_tracked $(jj bookmark list -r "($moved):: ~ $broken" -T 'if(!remote, name ++ " ")')
+    held=$(jj bookmark list -r "$broken" -T 'if(!remote, name ++ " ")')
+    [ -z "$held" ] || echo "#$num: conflicts after restacking; resolve, then push $held" >&2
+done 3< <(merged_prs "$@")

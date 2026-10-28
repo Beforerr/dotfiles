@@ -19,8 +19,7 @@ if [ -z "$METHOD" ]; then
 fi
 echo "Merging #$PR_NUMBER with --$METHOD"
 gh pr merge $PR_NUMBER --$METHOD
-BRANCH_NAME=$(gh pr view $PR_NUMBER --json headRefName --jq '.headRefName')
-git push origin --delete "$BRANCH_NAME"
-jj git fetch
-# squash/rebase merges rewrite the PR commits; the local originals become empty on rebase
-jj rebase -d 'trunk()' --skip-emptied
+# pr-restack deletes the branch via jj after restacking. Deleting it with git
+# first makes jj's next import abandon the PR commits and rebase work stacked
+# on them onto the PR's old base, where pr-restack can't find it.
+pr-restack "$PR_NUMBER"
