@@ -7,7 +7,7 @@
 
   conjunctions --time 2021-05-02T02:34:49 --ref elfinb
   conjunctions --start 2021-05-01 --stop 2021-06-01 --ref 54.60,246.36 --sc themisa,themise --radius 500
-  conjunctions --events ev.csv --out passes.csv --tracks tracks.csv
+  conjunctions --events ev.csv --tracks tracks.csv > passes.csv
 
 Snapshot (--time, or --events rows with `time`), for "what else saw where X observed": the
 reference's footprint at that time is fixed; each candidate's footprint is compared with it over
@@ -28,6 +28,7 @@ marginal cases with another model.
 
 import argparse
 import csv
+import difflib
 import json
 import math
 import sys
@@ -274,7 +275,13 @@ def run_range(r, a):
     else:
         t, t0, t1 = None, parse_time(r["start"]), parse_time(r["stop"])
         windows = [(t0, t1)] if t1 - t0 <= timedelta(days=1) else None
+    if ref_sc and not has_ephemeris(ref_sc, t0, t1):
+        print(f"# {r['id']}: no {ref_sc} ephemeris over {iso(t0)}..{iso(t1)}", file=sys.stderr)
+        return [], []
     cands = [s for s in a.sc if s != ref_sc and has_ephemeris(s, t0, t1)]
+    # The default list always has missions outside their lifetime
+    if a.sc_given and (gone := [s for s in a.sc if s != ref_sc and s not in cands]):
+        print(f"# {r['id']}: no ephemeris for {', '.join(gone)}", file=sys.stderr)
     if windows is None:
         windows = survey_windows(ref, cands, t0, t1, a)
     rows, tracks, nearest = [], [], {}
@@ -359,9 +366,9 @@ def main():
                    help="sc=CDAWEB_ID for the data column; overrides the built-in map")
     p.add_argument("--data-pad", type=float, default=30, help="data check half window around t_min, min")
     p.add_argument("--no-data-check", action="store_true")
-    p.add_argument("--out", help="passes CSV (stdout otherwise)")
     p.add_argument("--tracks", help="per-sample tracks CSV of every candidate in each window")
     a = p.parse_args()
+    a.sc_given = a.sc != p.get_default("sc")
     a.sc = [x.strip() for x in a.sc.split(",") if x.strip()]
     a.dataset = dict(x.split("=", 1) for x in a.dataset)
     if a.events:
@@ -377,6 +384,11 @@ def main():
         r["kp"] = r.get("kp") or a.kp
         if not r["ref"]:
             p.error(f"{r['id']}: no ref (column or --ref)")
+    known = coverage()
+    unknown = sorted({*a.sc, *(r["ref"] for r in ranges if not parse_point(r["ref"]))} - known.keys())
+    if unknown:
+        p.error("; ".join(f"unknown SSCWeb id '{x}' (close: {', '.join(difflib.get_close_matches(x.lower(), known, 4)) or 'none'})"
+                          for x in unknown))
     rows, tracks = [], []
     for r in ranges:
         pr, tr = run_range(r, a)
@@ -385,11 +397,7 @@ def main():
     if a.tracks:
         with open(a.tracks, "w", newline="") as f:
             write(f, tracks)
-    if a.out:
-        with open(a.out, "w", newline="") as f:
-            write(f, rows)
-    else:
-        write(sys.stdout, rows)
+    write(sys.stdout, rows)
     print(f"# {len(rows)} passes within {a.radius:.0f} km", file=sys.stderr)
 
 
