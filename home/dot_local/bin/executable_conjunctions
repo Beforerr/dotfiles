@@ -1,0 +1,397 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.10"
+# dependencies = ["sscws"]
+# ///
+"""Magnetic conjunctions of spacecraft with a reference spacecraft or ground point (NASA SSCWeb).
+
+  conjunctions --time 2021-05-02T02:34:49 --ref elfinb
+  conjunctions --start 2021-05-01 --stop 2021-06-01 --ref 54.60,246.36 --sc themisa,themise --radius 500
+  conjunctions --events ev.csv --out passes.csv --tracks tracks.csv
+
+Snapshot (--time, or --events rows with `time`), for "what else saw where X observed": the
+reference's footprint at that time is fixed; each candidate's footprint is compared with it over
+time +- --window.
+Survey (--start/--stop, or --events rows with `start,stop`), for "when were both there": candidate
+and reference footprints are compared simultaneously. Spans > 1 day go through SSCWeb's
+conjunction query, then 1 min tracks (interpolated to 10 s) refine the intervals.
+
+Output: one row per pass, a run of samples with footprint separation <= --radius km, summarised at
+its minimum; `data` is whether the CDAWeb magnetometer inventory covers t_min +- --data-pad.
+stderr gives the nearest misses when nothing passes.
+
+Footprints: IGRF + T89c(Kp) at 100 km, compared in the reference's hemisphere (station latitude,
+or the reference spacecraft's SM z), so a LEO reference is never traced across the equator.
+
+Limits:
+- T89 at integer Kp can misplace storm/substorm dusk-night footprints by degrees. For marginal or
+  published cases, cross-check with independent ephemerides (CDAWeb THx_L1_STATE,
+  MMS1_MEC_SRVY_L2_EPHT89D, ERG_ORB_L2, NCEI GOES-R ephemeris) traced with another model.
+- SSCWeb's conjunction query `Distance` is not the footprint separation; separations here are
+  recomputed.
+- Ephemeris outlives instruments: GOES-13/14/15 are tracked in storage with no public MAG data
+  after 2020-03 (CDAWeb hires ends 2017-12, NCEI legacy archive 2020-03). `data` covers only the
+  mapped magnetometer datasets; give others with --dataset sc=ID.
+- MMS MEC position VALIDMAX +-1e5 km is below apogee; readers honouring it blank real positions.
+"""
+
+import argparse
+import csv
+import json
+import math
+import sys
+import urllib.request
+from datetime import datetime, timedelta, timezone
+from functools import cache
+
+from sscws.bfieldmodels import (BFieldModel, InternalBFieldModel,
+                                Tsyganenko89cBFieldModel, Tsyganenko89cKp)
+from sscws.conjunctions import (ConditionOperator, DistanceConjunctionArea,
+                                GroundStationCondition, GroundStationConjunction,
+                                LeadSatelliteCondition, Satellite, SatelliteCondition)
+from sscws.coordinates import (CoordinateComponent as C, CoordinateSystem as S,
+                               SurfaceGeographicCoordinates)
+from sscws.outputoptions import (BFieldTraceOptions, CoordinateOptions,
+                                 OutputOptions, ValueOptions)
+from sscws.regions import Hemisphere
+from sscws.request import DataRequest, QueryRequest, SatelliteSpecification
+from sscws.sscws import SscWs
+from sscws.timeinterval import TimeInterval
+from sscws.tracing import BFieldTraceDirection, TraceCoordinateSystem, TraceType
+
+RE_KM = 6371.2
+KM_PER_DEG = math.pi * (RE_KM + 100) / 180
+STEP = timedelta(seconds=10)
+MAGNETOSPHERE = ["arase", "themisa", "themisd", "themise", "rbspa", "rbspb", "mms1", "geotail",
+                 "cluster1", "goes13", "goes14", "goes15", "goes16", "goes17", "goes18", "goes19"]
+# Magnetometer dataset on CDAWeb per spacecraft; SSCWeb ephemeris outlives instruments
+MAG = {"arase": "ERG_MGF_L2_8SEC", "themisa": "THA_L2_FGM", "themisd": "THD_L2_FGM",
+       "themise": "THE_L2_FGM", "rbspa": "RBSP-A_MAGNETOMETER_1SEC-GSM_EMFISIS-L3",
+       "rbspb": "RBSP-B_MAGNETOMETER_1SEC-GSM_EMFISIS-L3", "mms1": "MMS1_FGM_SRVY_L2",
+       "geotail": "GE_K0_MGF", "cluster1": "C1_CP_FGM_SPIN", "elfina": "ELA_L1_FGF",
+       "elfinb": "ELB_L1_FGF", "swarma": "SWARM-A_MAG_LR", "swarmb": "SWARM-B_MAG_LR",
+       "swarmc": "SWARM-C_MAG_LR", **{f"goes{n}": f"DN_MAGN-L2-HIRES_G{n}" for n in range(8, 20)}}
+CDAS = "https://cdaweb.gsfc.nasa.gov/WS/cdasr/1/dataviews/sp_phys/datasets"
+# SSCWeb's T89c accepts only these Kp bins
+KP_BINS = ["KP_0_0", "KP_1_1_1", "KP_2_2_2", "KP_3_3_3", "KP_4_4_4", "KP_5_5_5", "KP_6"]
+SURVEY_KP = 2.0  # one model per conjunction query; refinement uses each pass's own Kp
+SURVEY_CHUNK = timedelta(days=30)
+
+
+def parse_time(s):
+    t = datetime.fromisoformat(s.replace("Z", "+00:00"))
+    return t if t.tzinfo else t.replace(tzinfo=timezone.utc)
+
+
+def iso(t):
+    return t.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def parse_point(s):
+    """'lat,lon' geographic degrees, else None (an SSCWeb id)."""
+    if "," not in s:
+        return None
+    lat, lon = map(float, s.split(",")[:2])
+    return lat, lon % 360
+
+
+@cache
+def gfz_kp(day):
+    url = f"https://kp.gfz.de/app/json/?start={day}T00:00:00Z&end={day}T23:59:59Z&index=Kp"
+    with urllib.request.urlopen(url, timeout=60) as r:
+        d = json.load(r)
+    return dict(zip(d["datetime"], d["Kp"]))
+
+
+def kp_at(t):
+    b = t.replace(hour=t.hour - t.hour % 3, minute=0, second=0, microsecond=0)
+    return gfz_kp(b.date().isoformat())[iso(b)]
+
+
+def t89(kp):
+    return BFieldModel(InternalBFieldModel.IGRF, Tsyganenko89cBFieldModel(
+        getattr(Tsyganenko89cKp, KP_BINS[min(6, round(kp))])), 100)
+
+
+@cache
+def coverage():
+    return {o["Id"]: (o["StartTime"], o["EndTime"]) for o in SscWs().get_observatories()["Observatory"]}
+
+
+def has_ephemeris(sc, t0, t1):
+    c = coverage().get(sc)
+    return c is not None and c[0] <= t0 and c[1] >= t1
+
+
+def compact(t):
+    return t.strftime("%Y%m%dT%H%M%SZ")
+
+
+@cache
+def mag_data(ds, t0, t1):
+    """Whether the CDAWeb inventory of dataset ds overlaps [t0, t1]."""
+    req = urllib.request.Request(f"{CDAS}/{ds}/inventory/{compact(t0)},{compact(t1)}",
+                                 headers={"Accept": "application/json"})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        inv = json.load(r)["InventoryDescription"][0].get("TimeInterval", [])
+    return any(parse_time(i["Start"]) < t1 and parse_time(i["End"]) > t0 for i in inv)
+
+
+def gcdist(lat1, lon1, lat2, lon2):
+    p1, p2, dl = map(math.radians, (lat1, lat2, lon2 - lon1))
+    c = math.sin(p1) * math.sin(p2) + math.cos(p1) * math.cos(p2) * math.cos(dl)
+    return math.degrees(math.acos(max(-1.0, min(1.0, c))))
+
+
+def finite(v):
+    return v is not None and math.isfinite(v) and abs(v) < 1e30
+
+
+def mlt_of(x, y):
+    return (math.degrees(math.atan2(y, x)) / 15 + 12) % 24
+
+
+def hemi_of(z):
+    return Hemisphere.NORTH if z >= 0 else Hemisphere.SOUTH
+
+
+def samples(d):
+    """Per-sample dicts of a SSCWeb location record; fp maps Hemisphere to footprint, None where the trace failed."""
+    co = d["Coordinates"][0]
+    trs = {tr["Hemisphere"]: tr for tr in d["BTraceData"]}
+    out = []
+    for i, ti in enumerate(d["Time"]):
+        x, y, z = (co[k][i] / RE_KM for k in "XYZ")
+        fp = {}
+        for h, tr in trs.items():
+            lat, lon = tr["Latitude"][i], tr["Longitude"][i]
+            fp[h] = (lat, lon % 360) if finite(lat) and finite(lon) else None
+        b = d["MagneticStrength"][i]
+        out.append(dict(t=ti, x=x, y=y, z=z, fp=fp, b=b if finite(b) else None))
+    return out
+
+
+def at(track, t):
+    """Linear interpolation of a 1 min track (footprint longitude unwrapped) at t."""
+    i = max((k for k in range(len(track) - 1) if track[k]["t"] <= t), default=0)
+    a, b = track[i], track[min(i + 1, len(track) - 1)]
+    w = 0.0 if a is b else (t - a["t"]).total_seconds() / (b["t"] - a["t"]).total_seconds()
+    lin = lambda u, v: u + w * (v - u)
+    fp = {}
+    for h, p in a["fp"].items():
+        q = b["fp"][h]
+        fp[h] = None
+        if p and q:
+            dlon = (q[1] - p[1] + 180) % 360 - 180
+            fp[h] = (lin(p[0], q[0]), (p[1] + w * dlon) % 360)
+    return dict(t=t, x=lin(a["x"], b["x"]), y=lin(a["y"], b["y"]), z=lin(a["z"], b["z"]), fp=fp,
+                b=lin(a["b"], b["b"]) if a["b"] is not None and b["b"] is not None else None)
+
+
+def locations(sats, t0, t1, kp):
+    out = OutputOptions([CoordinateOptions(S.SM, c) for c in (C.X, C.Y, C.Z)],
+                        value_options=ValueOptions(b_field_strength=True),
+                        b_field_trace_options=[BFieldTraceOptions(S.GEO, h, True, True, True)
+                                               for h in (Hemisphere.NORTH, Hemisphere.SOUTH)])
+    res = SscWs().get_locations(DataRequest("conjunctions", TimeInterval(t0, t1),
+                                            [SatelliteSpecification(s, 1) for s in sats], t89(kp), out))
+    if res["HttpStatus"] != 200:
+        sys.exit(f"SSCWeb {res['HttpStatus']}: {res.get('ErrorMessage')}")
+    return {d["Id"]: samples(d) for d in res["Data"]}
+
+
+def survey_windows(ref, cands, t0, t1, a):
+    """Candidate intervals from SSCWeb's conjunction query, padded and merged."""
+    # Looser than --radius: the query uses one Kp; refinement applies the radius
+    area = DistanceConjunctionArea(1.5 * a.radius)
+    point = parse_point(ref)
+    # A spacecraft reference may be in either hemisphere; refinement keeps its own end
+    hemis = [hemi_of(point[0])] if point else [Hemisphere.NORTH, Hemisphere.SOUTH]
+    windows = []
+    for h in hemis:
+        direction = (BFieldTraceDirection.NORTH_HEMISPHERE if h == Hemisphere.NORTH
+                     else BFieldTraceDirection.SOUTH_HEMISPHERE)
+        if point:
+            cond = GroundStationCondition([GroundStationConjunction(
+                "REF", ref, SurfaceGeographicCoordinates(*point), area)],
+                TraceCoordinateSystem.GEO, TraceType.B_FIELD)
+            sats = [Satellite(s, direction) for s in cands]
+        else:
+            cond = LeadSatelliteCondition([Satellite(ref, direction)], area, TraceType.B_FIELD)
+            sats = [Satellite(s, direction) for s in [ref] + cands]
+        c0 = t0
+        while c0 < t1:
+            c1 = min(t1, c0 + SURVEY_CHUNK)
+            q = QueryRequest("conjunctions", TimeInterval(c0, c1), ConditionOperator.ALL,
+                             [SatelliteCondition(sats, 1 if point else 2), cond], t89(SURVEY_KP))
+            res = SscWs().get_conjunctions(q)
+            if res["HttpStatus"] != 200:
+                sys.exit(f"SSCWeb {res['HttpStatus']}: {res.get('ErrorMessage')}")
+            for c in res.get("Conjunction", []):
+                windows.append((c["TimeInterval"]["Start"] - timedelta(minutes=3),
+                                c["TimeInterval"]["End"] + timedelta(minutes=3)))
+            c0 = c1
+    merged = []
+    for w in sorted(windows):
+        if merged and w[0] <= merged[-1][1]:
+            merged[-1] = (merged[-1][0], max(merged[-1][1], w[1]))
+        else:
+            merged.append(w)
+    return merged
+
+
+def passes(rid, ref, sc, seps, a, ref_mlt_at):
+    """Runs of (t, sep_deg, state) with sep <= radius, summarised at their minimum."""
+    rows, run = [], []
+    for item in seps + [None]:
+        if item and item[1] * KM_PER_DEG <= a.radius:
+            run.append(item)
+            continue
+        if run:
+            t, sep, s = min(run, key=lambda r: r[1])
+            r = math.sqrt(s["x"] ** 2 + s["y"] ** 2 + s["z"] ** 2)
+            mlt = mlt_of(s["x"], s["y"])
+            rm = ref_mlt_at(t)
+            ds = a.dataset.get(sc, MAG.get(sc))
+            pad = timedelta(minutes=a.data_pad)
+            rows.append(dict(
+                id=rid, ref=ref, sc=sc, start=iso(run[0][0]), stop=iso(run[-1][0]), t_min=iso(t),
+                sep_deg=round(sep, 3), sep_km=round(sep * KM_PER_DEG), fp_lat=round(s["fp"][0], 3),
+                fp_lon=round(s["fp"][1], 3), r_re=round(r, 3), mlt=round(mlt, 2),
+                dmlt=None if rm is None else round((mlt - rm + 12) % 24 - 12, 2),
+                smlat=round(math.degrees(math.asin(s["z"] / r)), 2),
+                b_t89_nT=None if s["b"] is None else round(s["b"], 1), dataset=ds,
+                data=None if a.no_data_check or ds is None else mag_data(ds, t - pad, t + pad)))
+            run = []
+    return rows
+
+
+def grid(t0, t1):
+    n = int((t1 - t0) / STEP)
+    return [t0 + k * STEP for k in range(n + 1)]
+
+
+def run_range(r, a):
+    """Pass rows (and optional tracks) for one events row: snapshot or survey."""
+    ref, point = r["ref"], parse_point(r["ref"])
+    ref_sc = None if point else ref
+    if r.get("time"):
+        t = parse_time(r["time"])
+        t0, t1 = t - timedelta(minutes=a.window), t + timedelta(minutes=a.window)
+        windows = [(t0, t1)]
+    else:
+        t, t0, t1 = None, parse_time(r["start"]), parse_time(r["stop"])
+        windows = [(t0, t1)] if t1 - t0 <= timedelta(days=1) else None
+    cands = [s for s in a.sc if s != ref_sc and has_ephemeris(s, t0, t1)]
+    if windows is None:
+        windows = survey_windows(ref, cands, t0, t1, a)
+    rows, tracks, nearest = [], [], {}
+    for w0, w1 in windows:
+        kp = float(r["kp"]) if r.get("kp") not in (None, "", "auto") else kp_at(w0 + (w1 - w0) / 2)
+        data = locations(cands + ([ref_sc] if ref_sc else []), w0, w1, kp)
+        rtrack = data.pop(ref_sc, None)
+
+        def ref_fp(u):
+            """(hemisphere, footprint) of the reference at u, frozen at t for a snapshot."""
+            if rtrack is None:
+                return (hemi_of(point[0]), point) if point else (None, None)
+            s = at(rtrack, t or u)
+            h = hemi_of(s["z"])
+            return h, s["fp"][h]
+
+        ref_mlt_at = (lambda u: mlt_of(*(lambda s: (s["x"], s["y"]))(at(rtrack, t or u)))) if rtrack else (lambda u: None)
+        for sc, tr in data.items():
+            seps = []
+            for u in grid(tr[0]["t"], tr[-1]["t"]):
+                h, fp = ref_fp(u)
+                s = at(tr, u)
+                s["fp"] = s["fp"].get(h)
+                if s["fp"] and fp:
+                    seps.append((u, gcdist(*fp, *s["fp"]), s))
+            if seps:
+                m = min(seps, key=lambda x: x[1])
+                if sc not in nearest or m[1] < nearest[sc][1]:
+                    nearest[sc] = (m[0], m[1])
+            rows += passes(r["id"], ref, sc, seps, a, ref_mlt_at)
+            if a.tracks:
+                for s in tr:
+                    h, fp = ref_fp(s["t"])
+                    s = dict(s, fp=s["fp"].get(h))
+                    rr = math.sqrt(s["x"] ** 2 + s["y"] ** 2 + s["z"] ** 2)
+                    tracks.append(dict(
+                        id=r["id"], sc=sc, t=iso(s["t"]),
+                        dt_min=None if t is None else round((s["t"] - t).total_seconds() / 60, 2),
+                        x_sm=round(s["x"], 3), y_sm=round(s["y"], 3), z_sm=round(s["z"], 3),
+                        r_re=round(rr, 3), mlt=round(mlt_of(s["x"], s["y"]), 3),
+                        smlat=round(math.degrees(math.asin(s["z"] / rr)), 2),
+                        ref_fp_lat=fp and round(fp[0], 3), ref_fp_lon=fp and round(fp[1], 3),
+                        fp_lat=s["fp"] and round(s["fp"][0], 3), fp_lon=s["fp"] and round(s["fp"][1], 3),
+                        fp_sep_deg=round(gcdist(*fp, *s["fp"]), 3) if s["fp"] and fp else None,
+                        b_t89_nT=None if s["b"] is None else round(s["b"], 2)))
+    if not rows:
+        near = ", ".join(f"{sc} {d * KM_PER_DEG:.0f} km at {iso(u)}"
+                         for sc, (u, d) in sorted(nearest.items(), key=lambda x: x[1][1])[:3])
+        print(f"# {r['id']}: no pass within {a.radius:.0f} km" + (f"; nearest: {near}" if near else ""),
+              file=sys.stderr)
+    return rows, tracks
+
+
+def write(path, rows):
+    if path and rows:
+        with open(path, "w", newline="") as f:
+            w = csv.DictWriter(f, fieldnames=list(rows[0]))
+            w.writeheader()
+            w.writerows(rows)
+
+
+def main():
+    p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    g = p.add_mutually_exclusive_group(required=True)
+    g.add_argument("--time", help="snapshot time (ISO, UTC)")
+    g.add_argument("--start", help="survey start; needs --stop")
+    g.add_argument("--events", help="CSV: id plus time, or start,stop; optional ref, kp columns")
+    p.add_argument("--stop")
+    p.add_argument("--ref", help="SSCWeb id, or 'lat,lon' geographic point (station)")
+    p.add_argument("--sc", default=",".join(MAGNETOSPHERE),
+                   help="candidate SSCWeb ids (default: magnetospheric missions)")
+    p.add_argument("--radius", type=float, default=1000, help="footprint separation, km")
+    p.add_argument("--window", type=float, default=90, help="snapshot half window, min")
+    p.add_argument("--kp", default="auto", help="T89 Kp; 'auto' = GFZ 3-hourly at each window")
+    p.add_argument("--dataset", action="append", default=[], help="sc=CDAWEB_ID for the data column")
+    p.add_argument("--data-pad", type=float, default=30, help="data check half window around t_min, min")
+    p.add_argument("--no-data-check", action="store_true")
+    p.add_argument("--out", help="passes CSV (stdout otherwise)")
+    p.add_argument("--tracks", help="per-sample tracks CSV of every candidate in each window")
+    a = p.parse_args()
+    a.sc = [x.strip() for x in a.sc.split(",") if x.strip()]
+    a.dataset = dict(x.split("=", 1) for x in a.dataset)
+    if a.events:
+        ranges = list(csv.DictReader(open(a.events)))
+    elif a.time:
+        ranges = [dict(id=a.time, time=a.time)]
+    else:
+        if not a.stop:
+            p.error("--start needs --stop")
+        ranges = [dict(id=f"{a.start}/{a.stop}", start=a.start, stop=a.stop)]
+    for r in ranges:
+        r["ref"] = r.get("ref") or a.ref
+        r["kp"] = r.get("kp") or a.kp
+        if not r["ref"]:
+            p.error(f"{r['id']}: no ref (column or --ref)")
+    rows, tracks = [], []
+    for r in ranges:
+        pr, tr = run_range(r, a)
+        rows += pr
+        tracks += tr
+    write(a.tracks, tracks)
+    if a.out:
+        write(a.out, rows)
+    elif rows:
+        w = csv.DictWriter(sys.stdout, fieldnames=list(rows[0]))
+        w.writeheader()
+        w.writerows(rows)
+    print(f"# {len(rows)} passes within {a.radius:.0f} km", file=sys.stderr)
+
+
+if __name__ == "__main__":
+    main()
