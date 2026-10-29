@@ -22,17 +22,8 @@ stderr gives the nearest misses when nothing passes.
 
 Footprints: IGRF + T89c(Kp) at 100 km, compared in the reference's hemisphere (station latitude,
 or the reference spacecraft's SM z), so a LEO reference is never traced across the equator.
-
-Limits:
-- T89 at integer Kp can misplace storm/substorm dusk-night footprints by degrees. For marginal or
-  published cases, cross-check with independent ephemerides (CDAWeb THx_L1_STATE,
-  MMS1_MEC_SRVY_L2_EPHT89D, ERG_ORB_L2, NCEI GOES-R ephemeris) traced with another model.
-- SSCWeb's conjunction query `Distance` is not the footprint separation; separations here are
-  recomputed.
-- Ephemeris outlives instruments: GOES-13/14/15 are tracked in storage with no public MAG data
-  after 2020-03 (CDAWeb hires ends 2017-12, NCEI legacy archive 2020-03). `data` covers only the
-  mapped magnetometer datasets; give others with --dataset sc=ID.
-- MMS MEC position VALIDMAX +-1e5 km is below apogee; readers honouring it blank real positions.
+T89 at integer Kp can misplace storm/substorm dusk-night footprints by degrees; cross-check
+marginal cases with another model.
 """
 
 import argparse
@@ -202,7 +193,8 @@ def locations(sats, t0, t1, kp):
 
 def survey_windows(ref, cands, t0, t1, a):
     """Candidate intervals from SSCWeb's conjunction query, padded and merged."""
-    # Looser than --radius: the query uses one Kp; refinement applies the radius
+    # Looser than --radius: the query uses one Kp; refinement applies the radius. Only the
+    # intervals are kept: the query's Distance is not the footprint separation.
     area = DistanceConjunctionArea(1.5 * a.radius)
     point = parse_point(ref)
     # A spacecraft reference may be in either hemisphere; refinement keeps its own end
@@ -299,7 +291,12 @@ def run_range(r, a):
             h = hemi_of(s["z"])
             return h, s["fp"][h]
 
-        ref_mlt_at = (lambda u: mlt_of(*(lambda s: (s["x"], s["y"]))(at(rtrack, t or u)))) if rtrack else (lambda u: None)
+        def ref_mlt_at(u):
+            if rtrack is None:
+                return None
+            s = at(rtrack, t or u)
+            return mlt_of(s["x"], s["y"])
+
         for sc, tr in data.items():
             seps = []
             for u in grid(tr[0]["t"], tr[-1]["t"]):
@@ -336,16 +333,17 @@ def run_range(r, a):
     return rows, tracks
 
 
-def write(path, rows):
-    if path and rows:
-        with open(path, "w", newline="") as f:
-            w = csv.DictWriter(f, fieldnames=list(rows[0]))
-            w.writeheader()
-            w.writerows(rows)
+def write(f, rows):
+    if rows:
+        w = csv.DictWriter(f, fieldnames=list(rows[0]))
+        w.writeheader()
+        w.writerows(rows)
 
 
 def main():
-    p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter,
+                                add_help=False)
+    p.add_argument("-h", "--help", action="help", help=argparse.SUPPRESS)
     g = p.add_mutually_exclusive_group(required=True)
     g.add_argument("--time", help="snapshot time (ISO, UTC)")
     g.add_argument("--start", help="survey start; needs --stop")
@@ -357,7 +355,8 @@ def main():
     p.add_argument("--radius", type=float, default=1000, help="footprint separation, km")
     p.add_argument("--window", type=float, default=90, help="snapshot half window, min")
     p.add_argument("--kp", default="auto", help="T89 Kp; 'auto' = GFZ 3-hourly at each window")
-    p.add_argument("--dataset", action="append", default=[], help="sc=CDAWEB_ID for the data column")
+    p.add_argument("--dataset", action="append", default=[],
+                   help="sc=CDAWEB_ID for the data column; overrides the built-in map")
     p.add_argument("--data-pad", type=float, default=30, help="data check half window around t_min, min")
     p.add_argument("--no-data-check", action="store_true")
     p.add_argument("--out", help="passes CSV (stdout otherwise)")
@@ -383,13 +382,14 @@ def main():
         pr, tr = run_range(r, a)
         rows += pr
         tracks += tr
-    write(a.tracks, tracks)
+    if a.tracks:
+        with open(a.tracks, "w", newline="") as f:
+            write(f, tracks)
     if a.out:
-        write(a.out, rows)
-    elif rows:
-        w = csv.DictWriter(sys.stdout, fieldnames=list(rows[0]))
-        w.writeheader()
-        w.writerows(rows)
+        with open(a.out, "w", newline="") as f:
+            write(f, rows)
+    else:
+        write(sys.stdout, rows)
     print(f"# {len(rows)} passes within {a.radius:.0f} km", file=sys.stderr)
 
 
