@@ -68,8 +68,6 @@ push-and-pr revision="@":
         echo "Cannot create PR from main branch"
         exit 1
     fi
-    # Create PR using the remote branch
-    echo "Creating PR from branch: $BRANCH_NAME"
     gh pr create --head "$BRANCH_NAME" --fill
     jj new
 
