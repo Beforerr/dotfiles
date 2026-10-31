@@ -16,6 +16,7 @@ When it's cheap to undo, understand the motivation, pick the likely reading, sta
 - Probe every observable the next likely questions need (output, types, stderr, all frames of a call chain) in one turn, not one question per round; compare variants in the same command.
 - Test proportionally to risk; direct fixes are low-risk. Prefer focused checks; widen for cross-cutting changes.
 - Redirect test/build output to a file before filtering; piping presumes the outcome.
+- Continue incrementally across turns. Reuse established context and checks; reread or revalidate only when new changes or uncertainty require.
 
 ## One source of truth
 
