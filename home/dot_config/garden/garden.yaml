@@ -15,6 +15,7 @@ groups:
     - dmsp_elfin
     - SPEDAS_paper
     - AKR
+    - faculty-search
   julia:
     - ~/src/contrib/TestParticle.jl
     - ~/src/JuliaPlasma/PlasmaFormulary.jl
@@ -51,6 +52,8 @@ trees:
     url: "https://github.com/Beforerr/CurrentSheetTestParticle.git"
   AKR:
     url: "https://github.com/Beforerr/AKR"
+  faculty-search:
+    url: "https://github.com/Beforerr/faculty-search"
   ~/src/Beforerr/workflows:
     url: "https://github.com/Beforerr/workflows.git"
   ~/src/Beforerr/Beforerr.m:
