@@ -14,6 +14,7 @@ Lookup, `add` and `rm` need Zotero running; `add`/`rm` go through the debug brid
 (see zotero_lib.py).
 """
 
+import re
 import sys
 import os
 from pyzotero import zotero
@@ -64,7 +65,9 @@ def add(identifier, collection="research", force=False) -> dict:
     (no duplicate created) rather than re-adding.
     """
     idtype, value = parse_identifier(identifier)
-    if not force and idtype == "DOI" and (existing := sqlite_lookup_doi(value)):
+    # Zotero stores arXiv preprints with their DataCite DOI (version-less).
+    doi = value if idtype == "DOI" else "10.48550/arXiv." + re.sub(r"v\d+$", "", value)
+    if not force and (existing := sqlite_lookup_doi(doi)):
         result = {"status": "exists", "key": existing, "identifier": value}
         if collection:
             result["filed"] = file_into_collection([existing], collection)

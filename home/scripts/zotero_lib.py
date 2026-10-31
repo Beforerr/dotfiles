@@ -3,9 +3,13 @@ from __future__ import annotations
 
 import json
 import re
+import shutil
 import sqlite3
+import subprocess
+import tempfile
 import urllib.error
 import urllib.request
+import weakref
 from pathlib import Path
 
 _DOI_RE   = re.compile(r'^(https?://doi\.org/|doi:)?10\.\d{4,}/', re.I)
@@ -13,8 +17,20 @@ _ZOTERO_DB = Path.home() / "Zotero" / "zotero.sqlite"
 ZOTERO_STORAGE = Path.home() / "Zotero" / "storage"
 
 
+class _Connection(sqlite3.Connection):
+    """Subclass only to make connections weak-referenceable."""
+
+
 def _sqlite_connect():
-    return sqlite3.connect(f"file:{_ZOTERO_DB}?mode=ro&immutable=1", uri=True)
+    # Zotero holds an exclusive lock in WAL mode. So query an APFS clone of db+WAL
+    d = tempfile.mkdtemp(prefix="zotero-db-")
+    copy = f"{d}/{_ZOTERO_DB.name}"
+    for suffix in ("", "-wal"):
+        if Path(f"{_ZOTERO_DB}{suffix}").exists():
+            subprocess.run(["cp", "-c", f"{_ZOTERO_DB}{suffix}", f"{copy}{suffix}"], check=True)
+    con = sqlite3.connect(f"file:{copy}?mode=ro", uri=True, factory=_Connection)
+    weakref.finalize(con, shutil.rmtree, d, ignore_errors=True)
+    return con
 
 
 def local_zotero():
@@ -53,7 +69,8 @@ def sqlite_lookup_doi(doi) -> str | None:
             "JOIN itemDataValues ON itemData.valueID = itemDataValues.valueID "
             "JOIN items ON itemData.itemID = items.itemID "
             "WHERE fields.fieldName = 'DOI' "
-            "AND LOWER(itemDataValues.value) = LOWER(?)",
+            "AND LOWER(itemDataValues.value) = LOWER(?) "
+            "AND items.itemID NOT IN (SELECT itemID FROM deletedItems)",
             (doi,),
         ).fetchone()
         con.close()
