@@ -15,6 +15,7 @@
     "defaultMode": "auto"
   },
   "env": {
+    "CLAUDE_CODE_IDE_SKIP_AUTO_INSTALL": "1",
     "JJ_EDITOR": "false"
   },
   "disableClaudeAiConnectors": true,
