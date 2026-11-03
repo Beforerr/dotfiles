@@ -16,7 +16,7 @@ description: Load BEFORE any `julia` command, especially tests. Test invocation,
 
 ## Performance
 
-- One call's hot spots: `[repld] julia --project=… ~/scripts/profile.jl '<setup>' '<expr>'` prints `@b`, per-frame inclusive/self %, and JET runtime-dispatch sites.
+- One call's hot spots: `[repld] julia --project=… ~/scripts/profile.jl '<setup>' '<expr>' [focus-regex] [top] [lines-regex]` prints `@b`, per-frame inclusive/self %, time and allocations by source line (innermost frame in a file matching `lines-regex`, default any outside Base/stdlib), and JET runtime-dispatch sites.
 - Profile line attribution inside inlined code misleads (both ways): A/B-benchmark speedups that cost readability before keeping them.
 - `@b` on literal arguments constant-folds; interpolate non-constant values.
 - Generic Base calls (broadcast, reductions, `tr`, folds over tuples) carry a few ns of fixed overhead; on tiny arrays in hot loops that rivals the math, so write explicit loops there.
