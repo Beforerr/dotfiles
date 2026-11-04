@@ -42,13 +42,6 @@ servedocs:
     servedocs(include_dirs=["src/"])
 
 [no-cd]
-jet:
-    #!/usr/bin/env -S julia --threads=auto --project=. -i
-    using JET: report_package
-    using Pkg: project
-    report_package(project().name)
-
-[no-cd]
 snoop:
     #!/usr/bin/env -S julia --threads=auto --project=. --startup-file=no -i
     using SnoopCompileCore, TOML

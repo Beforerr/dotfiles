@@ -10,7 +10,7 @@ description: Load BEFORE any `julia` command, especially tests. Test invocation,
 - Minimize rounds. Use `repld` when calls reuse state: slow setup, or exploration where each query builds on the last. Fresh process (julia --project=… script.jl or repld --fresh) when the check needs one.
 - Tests: `just -g julia fast-test [regex]` (repld-backed; regex matches `@testitem`/`@testset` names; prints only the summary and capped failure blocks; full output goes to the log path printed last). Ad-hoc: `TestItemRunner.run_tests(pkgdir)`; `@run_package_tests` scans `..` of the calling file.
   `@testset` files only — one file / line range: `testrunner [--project=test --] test/foo.jl "testset name" L10:20 ':(@test f(x_) == y_)'` (`--json` for structured results).
-  Load latency: `just -g julia time-import` (`time-import-compare [rev]` vs a revision); invalidations: `just -g julia snoop`; JET: `just -g julia jet`.
+  Load latency: `just -g julia time-import` (`time-import-compare [rev]` vs a revision); invalidations: `just -g julia snoop`.
   No need to overcautiously check compat lower bounds or other Julia versions.
 - Don't over-narrow signatures; users bring their own types.
 
