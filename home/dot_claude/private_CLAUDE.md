@@ -55,7 +55,7 @@ Comments:
   measured numbers (timings, speedups) that go stale silently; they belong in the commit message or PR.
 - A contradicting comment is a bug. Fix or delete it — never route around it.
 
-Tests: Only add tests that would fail if the implementation were subtly wrong. A trivial test is deleted, not written.
+Tests: Prefer the smallest set that protects the required behaviour. Test meaningful outcomes, not implementation restatements. Extend existing tests or skip additions when already covered. Delete redundant tests.
 
 ## Memory
 
