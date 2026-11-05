@@ -17,6 +17,7 @@ description: Load BEFORE any `julia` command, especially tests. Test invocation,
 ## Performance
 
 - One call's hot spots: `[repld] julia --project=… ~/scripts/profile.jl '<setup>' '<expr>' [focus-regex] [top] [lines-regex]` prints `@b`, per-frame inclusive/self %, time and allocations by source line (innermost frame in a file matching `lines-regex`, default any outside Base/stdlib), and JET runtime-dispatch sites.
+- First-call/TTFX timing: `@time`/`@timed`/`@elapsed f()` compile inferrable callees before the timer starts and can report ~0, as can a `time_ns()` pair inside one `let` containing `@trace_compile`, a `ccall` or a loop. Use `@time @eval f()` or `t0 = time_ns()`, `f()`, `t1 = time_ns()` as separate top-level statements, one fresh process per sample. `@time using X` is unaffected.
 - Profile line attribution inside inlined code misleads (both ways): A/B-benchmark speedups that cost readability before keeping them.
 - `@b` on literal arguments constant-folds; interpolate non-constant values.
 - Generic Base calls (broadcast, reductions, `tr`, folds over tuples) carry a few ns of fixed overhead; on tiny arrays in hot loops that rivals the math, so write explicit loops there.
