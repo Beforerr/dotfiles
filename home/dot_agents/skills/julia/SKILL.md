@@ -3,7 +3,7 @@ name: julia
 description: Read this skill once before first `julia` command for test invocation, Revise, package conventions, performance tuning.
 ---
 
-- Global: `Revise`; `Chairmarks` (`display(@b rand(1000) sort)`); `CodeTracking` (`@code_string f(x)`);
+- Global: `Revise`; `Chairmarks` (concise `display(@b rand(1000) sort)`); `CodeTracking` (`@code_string f(x)`);
   `ReferenceRevision` (`head = open_process(rev = "HEAD"); head.func()`); `JET`;
   `DispatchDoctor` (inference loss: `@stable default_mode="warn" begin … end` around suspects, call once).
 - Fresh checkouts (clone, worktree, jj workspace...) have no Manifest: `Pkg.instantiate()` before `using`.

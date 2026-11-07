@@ -7,6 +7,7 @@ groups:
     - Apartar
     - share
     - travel
+    - ELFIN_FLC_Wave
     - cs_theory
     - energetic_particles
     - ion_scattering_by_SWD
@@ -46,6 +47,8 @@ trees:
     url: "https://github.com/Beforerr/psp_conjunction.git"
   dmsp_elfin:
     url: "https://github.com/Beforerr/dmsp_elfin.git"
+  ELFIN_FLC_Wave:
+    url: https://github.com/Beforerr/ELFIN_FLC_Wave
   SPEDAS_paper:
     url: https://github.com/Beforerr/SPEDAS_paper
   CurrentSheetTestParticle:
