@@ -37,6 +37,7 @@ brew "tectonic"
 brew "tmux"
 brew "ugrep"
 brew "watchexec"
+brew "wordcraft-cli"
 brew "yazi"
 brew "yq"
 brew "zoxide"
@@ -83,7 +84,7 @@ cask "zotero"
 cask "beforerr/beforerr/quarto-pre", trusted: true
 cask "mathpix-snipping-tool"
 cask "microsoft-powerpoint"
-cask "microsoft-word"
+cask "wordcraft"
 cask "adobe-acrobat-reader"
 
 # Communication Tools
