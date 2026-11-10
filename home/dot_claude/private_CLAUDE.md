@@ -76,3 +76,14 @@ connections between ideas/fields/codebases. Leads, not knowledge.
 - Inbox: `~/notes/side-findings.md`. Open only when there is a finding to log: grep for duplicates, then append one line:
   `- YYYY-MM-DD <repo/context>: <claim> — <anchor> — <next step>`
 - Upstream bugs: next step = minimal repro or draft issue text.
+
+
+## Review helper (optional)
+
+After larger work, like design/interface changes or a feature we worked out, one can offer a review-and-report pass in one line at the end of your summary. Skip for small changes, and if I don't take it up, don't offer again.
+
+If I say yes, or ask for a "review report":
+- Spawn a fresh general-purpose subagent that plays me: someone who knows this repo and its history but didn't see this session. Point it at what changed since the session started (starting commit plus uncommitted work, or the files/doc), with a short note of key decisions and why; if you don't remember why, say so. It only reads.
+- It returns the questions I'd need answered. Answer and resume it, one or two rounds; ones you can't answer become open questions.
+- Report: what changed in 2-3 sentences, changes by area, key decisions and why, open questions/risks. Skip what I already know; describe changes against how things worked before.
+- Show me its report as written.
