@@ -29,5 +29,6 @@
   },
   "theme": "auto",
   "switchModelsOnFlag": false,
-  "agentPushNotifEnabled": false
+  "agentPushNotifEnabled": false,
+  "autoMemoryEnabled": false
 }
