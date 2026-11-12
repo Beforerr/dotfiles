@@ -14,7 +14,8 @@ When it's cheap to undo, understand the motivation, pick the likely reading, sta
 
 ## Efficiency
 
-- Probe every observable the next likely questions need (output, types, stderr, all frames of a call chain) in one turn, not one question per round; compare variants in the same command.
+- Every tool round re-sends the whole context, so rounds cost more than commands. Gather what the next likely questions need in one round, not one question per round: probe every observable, compare variants in the same command, chain steps whose outcome you can predict.
+- Subagents: choose each one's model and effort yourself to fit the task; you are authorized to set both. They start cold: brief them with whatever would cost them tool rounds to rediscover.
 - Test proportionally to risk; direct fixes are low-risk. Prefer focused checks; widen for cross-cutting changes.
 - Redirect test/build output to a file before filtering; piping presumes the outcome.
 - Continue incrementally across turns. Reuse established context and checks; reread or revalidate only when new changes or uncertainty require.
@@ -63,6 +64,10 @@ Tests: Prefer the smallest set that protects the required behaviour. Test meanin
 Distilled knowledge, not session log. Save only what would change a fresh agent's actions and isn't in docs, code, tests, or VCS. Prefer in-repo memory for project knowledge.
 When a recorded bug or workaround is fixed, cleanup (CLAUDE.md, docs, memory); never keep it as "now fixed".
 
+## Small fixes outside the task
+
+A defect outside the task whose fix is unambiguous and cheap to check, while all such fixes together stay reviewable at a glance: fix it within the task's own edit and test rounds, in one commit separate from the task's, and mention it. Otherwise report it.
+
 ## Side findings
 
 Outside-scope things worth my attention later: workflow/tool improvements,
@@ -82,8 +87,4 @@ connections between ideas/fields/codebases. Leads, not knowledge.
 
 After larger work, like design/interface changes or a feature we worked out, one can offer a review-and-report pass in one line at the end of your summary. Skip for small changes, and if I don't take it up, don't offer again.
 
-If I say yes, or ask for a "review report":
-- Spawn a fresh general-purpose subagent that plays me: someone who knows this repo and its history but didn't see this session. Point it at what changed since the session started (starting commit plus uncommitted work, or the files/doc), with a short note of key decisions and why; if you don't remember why, say so. It only reads.
-- It returns the questions I'd need answered. Answer and resume it, one or two rounds; ones you can't answer become open questions.
-- Report: what changed in 2-3 sentences, changes by area, key decisions and why, open questions/risks. Skip what I already know; describe changes against how things worked before.
-- Show me its report as written.
+If I say yes, or ask for a "review report", follow the `orchestrate` skill.
