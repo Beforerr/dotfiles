@@ -5,9 +5,9 @@ description: Coordinate review and multi-part work through subagents while the m
 
 The main session coordinates: it holds decisions and status, and subagents do the reading. Every model call re-reads the caller's whole context, so wide reading belongs where it is used once, and each piece of work should get the  context that suffices. Decide splits by that tradeoff. A small task whose context is already loaded is cheapest done in place; a long task that needs a fraction of a large context is cheapest done fresh.
 
-## Reports are files
+## Report files
 
-Subagents write reports outside, e.g. `~/.cache/agent-reports/<repo>-<topic>.md`, and return the path plus a short gist. Give me and hand workers the path so the report keeps unfiltered. The file doubles as the status ledger: record each finding's outcome there as work proceeds (change id, dropped and why, open).
+An inline reply reaches other readers only through the main session's retelling; a file reaches each directly. When a subagent's output is long or has readers beyond the main session, have it write a file outside the repo, e.g. `~/.cache/agent-reports/<repo>-<topic>.md`, and return the path plus a gist. Pass on the path, not a summary.
 
 ## Review
 
