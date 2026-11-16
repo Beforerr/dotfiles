@@ -61,7 +61,7 @@ GNU `sed` (not BSD) and `timeout` on PATH.
 Readers, often future agents, arrive cold. Prose restating code or other
 docs inflates diffs, and once stale, readers take it as constraints and bend to match false claims.
 
-Write for a named reader and the question they arrive with, not about what is built:
+Each layer has one reader. When writing in it, answer that reader's question, not what was built:
 
 - caller (docstring): how to use it correctly.
 - user (doc page): the ideas, methods and background needed to use well, including its limits.
@@ -69,7 +69,7 @@ Write for a named reader and the question they arrive with, not about what is bu
 - maintainer (comment): non-derivable why — hidden constraints, data quirks, invariants, deliberate tradeoffs.
 - reviewer (commit/PR): what changed and why, incident history, measured numbers (timings, speedups), which go stale silently in source.
 
-For each part, largest first (section, paragraph, sentence): would this reader act differently without it, and can't
+For each layer, then each part largest first (section, paragraph, sentence): would this reader act differently without it, and can't
 they get it more cheaply from the code, a test, or another layer? Otherwise cut. Typical cuts: signature-restating docstrings, incident history, test-enforced constraints. Density tracks surprise.
 
 Prefer math notation where it is clearer to the reader than prose.
