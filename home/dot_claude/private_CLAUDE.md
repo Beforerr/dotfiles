@@ -56,24 +56,30 @@ GNU `sed` (not BSD) and `timeout` on PATH.
 - chezmoi-managed, incl. `~/.agents` and `~/.claude*`.
 - Skills: `~/.agents/skills/<name>/`, symlinked into `~/.claude/skills/`; `~/.claude-*/skills` symlink there.
 
-## Code Style
+## Writing for readers
 
-Optimize for future agents reading cold. Prose restating code or other
-docs is worse than nothing: it inflates diffs, and once stale, future
-agents read it as constraints and bend to match false claims.
+Readers, often future agents, arrive cold. Prose restating code or other
+docs inflates diffs, and once stale, readers take it as constraints and bend to match false claims.
 
-Comments:
+Write for a named reader and the question they arrive with, not about what is built:
 
-- Deletion test - if the content is cheaply reconstructable from the repo
-  alone, delete it. Density tracks surprise.
-- Keep: non-derivable WHY. Hidden constraints, undocumented data quirks,
-  invariants and deliberate tradeoffs.
-- Cut: section dividers, headers restating the task, docstrings that restate signatures,
-  incident history (versions, past failures), constraints a test already enforces, and
-  measured numbers (timings, speedups) that go stale silently; they belong in the commit message or PR.
-- A contradicting comment is a bug. Fix or delete it — never route around it.
+- caller (docstring): how to use it correctly.
+- user (doc page): the ideas, methods and background needed to use well, including its limits.
+- newcomer (README): what it is and where to start.
+- maintainer (comment): non-derivable why — hidden constraints, data quirks, invariants, deliberate tradeoffs.
+- reviewer (commit/PR): what changed and why, incident history, measured numbers (timings, speedups), which go stale silently in source.
 
-Tests: Prefer the smallest set that protects the required behaviour. Test meaningful outcomes, not implementation restatements. Extend existing tests or skip additions when already covered. Delete redundant tests.
+For each part, largest first (section, paragraph, sentence): would this reader act differently without it, and can't
+they get it more cheaply from the code, a test, or another layer? Otherwise cut. Typical cuts: signature-restating docstrings, incident history, test-enforced constraints. Density tracks surprise.
+
+Prefer math notation where it is clearer to the reader than prose.
+
+A wrong comment or doc is worse than a missing one. When code or docs change, fix or delete the claims elsewhere that
+no longer hold; never route around a contradiction.
+
+## Tests
+
+Prefer a small set that protects the required behaviour. Test meaningful outcomes, not implementation restatements. Extend existing tests or skip additions when already covered. Delete redundant tests.
 
 ## Memory
 
