@@ -26,8 +26,8 @@ Give me the report path and what needs my decision.
 
 ## Work
 
-Use a fresh worker per independent finding or coupled cluster. Run workers in parallel when they don't collide with worktree isolation. The prompt gives the report path and which findings to address, the constraints from triage, and how to verify. The worker checks each finding first, and if the premise is wrong it reports back rather than forcing a fix.
+Use a fresh worker per independent finding or coupled cluster. Run workers in parallel when they don't collide with worktree isolation. The prompt gives which findings to address and the constraints from triage. If the premise is wrong the worker reports back rather than forcing a fix.
 
 ## Verify
 
-Check each diff, in proportion to its risk; `/code-review` may fits.
+Check each diff in proportion to its risk, quickly: not a sweep. `/code-review` may fit.

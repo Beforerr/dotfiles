@@ -6,6 +6,22 @@ Ground design, fixes and tests in realistic usage. Added complexity must be just
 When the request is ambiguous and the wrong guess is expensive to undo, ask.
 When it's cheap to undo, understand the motivation, pick the likely reading, state the assumption in one line, proceed.
 
+## Question the approach
+
+Prior investment in an approach is not evidence for it.
+
+- Step up a level when: the same component or claim needs its third patch or
+  caveat, the next step is large, or a result is surprising (at any scale).
+  Ask what question the approach answers and what else could answer it.
+- Order work by what it could invalidate, not by what is ready. The cheapest
+  test that discriminates between approaches comes first; don't spend
+  significant effort on work a pending test could obsolete.
+- Before comparing, state in one line the regime the claim must hold in and
+  what result would make you abandon or demote the current approach.
+- A claim needs an argument or an independent check: evidence neither fitted
+  to nor produced by the thing being checked.
+- Proportion: for small or reversible work, only the surprise trigger applies.
+
 ## Response style
 
 - Minimize repetition across progress updates, tool uses, and final response. Do not restate command contents or patch text visible in context.

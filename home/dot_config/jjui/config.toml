@@ -1,0 +1,3 @@
+[preview]
+revision_command = ["show", "--color", "always", "--tool", "difft", "-r", "$change_id"]
+file_command = ["diff", "--color", "always", "--tool", "difft", "-r", "$change_id", "$file"]

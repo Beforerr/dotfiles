@@ -6,6 +6,7 @@
       "Agent(statusline-setup)"
     ]
   },
+  "model": "claude-fable-5-2[1m]",
   "skillOverrides": {
     "claude-in-chrome": "off",
     "security-review": "off",
@@ -25,6 +26,9 @@
   "modelSettings": {
     "claude-opus-5-5": {
       "effortLevel": "high"
+    },
+    "claude-fable-5-2": {
+      "effortLevel": "medium"
     }
   },
   "autoMemoryEnabled": false,

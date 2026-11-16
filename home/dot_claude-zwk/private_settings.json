@@ -6,7 +6,7 @@
       "Agent(statusline-setup)"
     ]
   },
-  "model": "fable",
+  "model": "opus",
   "skillOverrides": {
     "claude-in-chrome": "off",
     "security-review": "off",
@@ -24,11 +24,14 @@
   },
   "modelSettings": {
     "claude-opus-5-5": {
-      "effortLevel": "high"
+      "effortLevel": "medium"
+    },
+    "claude-fable-5-2": {
+      "effortLevel": "medium"
     }
   },
+  "autoMemoryEnabled": false,
   "theme": "auto",
   "switchModelsOnFlag": false,
-  "agentPushNotifEnabled": false,
-  "autoMemoryEnabled": false
+  "agentPushNotifEnabled": false
 }
