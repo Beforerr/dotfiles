@@ -1,6 +1,7 @@
 ---
 name: telegram
 description: The user's own Telegram account — unread chats, chat history, search, Saved Messages, downloading files; sending only with confirmation. Use when the user mentions Telegram messages, chats, or files sent over Telegram.
+disable-model-invocation: true
 ---
 
 # Telegram
