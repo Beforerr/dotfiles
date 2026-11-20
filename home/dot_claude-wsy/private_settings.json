@@ -6,7 +6,7 @@
       "Agent(statusline-setup)"
     ]
   },
-  "model": "claude-fable-5-2[1m]",
+  "model": "opus",
   "skillOverrides": {
     "claude-in-chrome": "off",
     "security-review": "off",

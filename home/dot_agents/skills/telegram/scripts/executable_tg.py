@@ -7,7 +7,6 @@
 
 Secrets live in the macOS Keychain, service "telegram-api": api_id and api_hash
 (from store-credentials.sh) and session (written by `login`).
-Reading never marks messages as read.
 """
 
 import argparse

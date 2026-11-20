@@ -27,6 +27,6 @@ CHAT: `me`/`saved` (Saved Messages), `@username`, `+phone`, the numeric `id` fro
 
 ## Setup and errors
 
-- "api_id/api_hash missing": the user runs `scripts/store-credentials.sh` in Terminal (pulls them from Bitwarden item "Telegram API").
-- "not logged in" / "session expired or revoked": the user runs `tg.py login` in Terminal (needs the login code from Telegram). Interactive prompts don't work through `!`.
+- "api_id/api_hash missing": the user runs `scripts/store-credentials.sh` (pulls them from Bitwarden item "Telegram API").
+- "not logged in" / "session expired or revoked": the user runs `tg.py login` (needs the login code from Telegram).
 - Each machine logs in separately; never copy the session between machines (Telegram may revoke a session used from two places).
