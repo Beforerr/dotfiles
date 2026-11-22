@@ -4,6 +4,7 @@
 editor = "code -w"
 paginate = "never"
 default-command = "log"
+quiet = true
 
 [user]
 email = "zzj956959688@gmail.com"
