@@ -1,6 +1,6 @@
 ---
 name: orchestrate
-description: Coordinate review and multi-part work through subagents while the main session holds decisions and status. Use when the user asks for a review report, a codebase or design review, or to work through a set of findings or tasks with subagents.
+description: Coordinate subagents when a review needs an independent assessment or a task splits into substantial pieces that can proceed independently.
 ---
 
 The main session coordinates: it holds decisions and status, and subagents do the reading. Every model call re-reads the caller's whole context, so wide reading belongs where it is used once, and each piece of work should get the  context that suffices. Decide splits by that tradeoff. A small task whose context is already loaded is cheapest done in place; a long task that needs a fraction of a large context is cheapest done fresh.
