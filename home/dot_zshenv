@@ -3,5 +3,5 @@ export JULIA_MAX_NUM_PRECOMPILE_FILES=3
 export DO_NOT_TRACK=1 HEADROOM_UPDATE_CHECK=off
 # Pkg app shims otherwise bake the versioned juliaup binary path
 export JULIA_APPS_JULIA_CMD=julia
-# Agent prefer bash-style one-liners; give them bash word splitting.
-[[ -n $CLAUDECODE || -n $CODEX_THREAD_ID ]] && setopt SH_WORD_SPLIT
+# Bash-like word splitting and unmatched globs for agent one-liners; -c only, so zsh scripts keep zsh semantics.
+[[ -n $ZSH_EXECUTION_STRING && ( -n $CLAUDECODE || -n $CODEX_THREAD_ID ) ]] && setopt SH_WORD_SPLIT NO_NOMATCH
