@@ -1,32 +1,32 @@
 ---
 name: orchestrate
-description: Coordinate subagents when a review needs an independent assessment or a task splits into substantial pieces that can proceed independently.
+description: Coordinate subagents for an independent second opinion or for substantial tasks that can proceed in parallel.
 ---
 
-The main session coordinates: it holds decisions and status, and subagents do the reading. Every model call re-reads the caller's whole context, so wide reading belongs where it is used once, and each piece of work should get the  context that suffices. Decide splits by that tradeoff. A small task whose context is already loaded is cheapest done in place; a long task that needs a fraction of a large context is cheapest done fresh.
+Weigh the time saved or the value of independently checking a consequential assumption against the effort of briefing another agent, repeating earlier work, and reconciling the results.
 
 ## Report files
 
-An inline reply reaches other readers only through the main session's retelling; a file reaches each directly. When a subagent's output is long or has readers beyond the main session, have it write a file outside the repo, e.g. `~/.cache/agent-reports/<repo>-<topic>.md`, and return the path plus a gist. Pass on the path, not a summary.
+Keep findings inline when the main session is their only reader. When findings need to be handed off or revisited, write a report outside the repo, for example `~/.cache/agent-reports/<repo>-<topic>.md`. Pass the path to later readers.
 
 ## Review
 
-Use a fresh subagent scoped to the target. Brief it only with what it can't recover from the repo: intent, key decisions and why, and what is out of scope.
+Give a fresh reviewer the target, the intention, and any constraints it can't infer from the repo.
 
-- Session handoff: it plays me, someone who knows the repo and its history but didn't see this session, reviewing what changed since the session started (starting commit plus uncommitted work, or the files/doc). It returns the questions I'd need answered. Answer and resume it for a round or two; questions you can't answer become open questions. Report: what changed in 2-3 sentences, changes by area, key decisions and why, open questions/risks. Skip what I already know; describe changes against how things worked before.
+- **Session handoff to me.** The reviewer independently examines the changes and returns its questions to the coordinator. The coordinator investigates and brings answers back to the reviewer until each material question is resolved or has a specific blocker. Brief me as someone who knows the repo but missed the session. Explain what changed and why, identifying any missing evidence or decisions I need to make.
 - Codebase or design review: correctness, contracts, and boundaries, including what belongs in another package.
 
-The structure follows the findings. Each finding needs a file:line anchor, whether it needs my decision or is ready to act on, and confidence when it isn't obvious.
+The structure follows the findings. Anchor each finding to the evidence that supports it. Flag decisions I need to make and explain uncertainty where it matters.
 
 List the small fixes the reviewer made in the report, so I can drop them in triage.
 
 ## Triage
 
-Give me the report path and what needs my decision. 
+Surface decisions that need my input and link the report if one exists.
 
 ## Work
 
-Use a fresh worker per independent finding or coupled cluster. Run workers in parallel when they don't collide with worktree isolation. The prompt gives which findings to address and the constraints from triage. If the premise is wrong the worker reports back rather than forcing a fix.
+When findings warrant separate workers, group coupled changes together. Run independent work in parallel, using separate worktrees where needed. The prompt gives which findings to address and the constraints from triage. If the premise is wrong the worker reports back rather than forcing a fix.
 
 ## Verify
 
