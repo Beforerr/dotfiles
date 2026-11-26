@@ -64,21 +64,23 @@ const ago = (s) =>
 
 // id: Übersicht widget id (file path with "/" and "." as "-"), for refresh after merge.
 export const widget = (root, id) => ({
-  command: `$HOME/.local/bin/repo-status --json "${root}"`,
+  command: `$HOME/.local/bin/repo-status --json "${root}" 2>&1`,
   refreshFrequency: 30000,
   render: ({ output, error }) => render(output, error, root.split("/").pop(), id),
 });
 
 const render = (output, error, name, id) => {
   if (error) return <div>repo-status: {String(error)}</div>;
+  const lines = output.trim().split("\n");
   let all;
-  try { all = JSON.parse(output); } catch { return <div>{output}</div>; }
+  try { all = JSON.parse(lines.pop()); } catch { return <div>{output}</div>; }
   const repos = all.filter((r) => !r.clean), behind = all.filter((r) => r.clean);
   const open = (r) => (e) => run((e.altKey ? openOrca : openCode)(r.path));
   const now = Date.now() / 1000;
   return (
     <div>
       <div className="meta">{name}: {repos.length} with work · {new Date().toLocaleTimeString()} · click VS Code, ⌥-click Orca</div>
+      {lines.map((l, i) => <div key={i} className="meta bad" title={l}>{l}</div>)}
       {repos.map((r) => (
         <div key={r.repo} className={now - r.t < LIVE_SECS ? "live" : ""}
              onClick={open(r)}>
