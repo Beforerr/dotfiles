@@ -2,6 +2,8 @@
     :profiles {
         :goku {
             :default true
+            ;; Karabiner defaults; goku writes null otherwise, which Karabiner warns about
+            :sim 50 :delay 500 :alone 1000 :held 500
         }
     } 
 
