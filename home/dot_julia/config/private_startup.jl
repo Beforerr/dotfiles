@@ -38,32 +38,9 @@ macro autoinfiltrate(cond = true)
 end
 
 if isinteractive()
-    atreplinit() do _
-        @eval Main begin
-            import BasicAutoloads
-            BasicAutoloads.register_autoloads(
-                [
-                    ["@b", "@be"] => :(using Chairmarks),
-                    ["@track"] => :(using RegressionTests),
-                    ["@benchmark", "@btime"] => :(using BenchmarkTools),
-                    [
-                        "@test", "@testset", "@test_broken", "@test_deprecated", "@test_logs",
-                        "@test_nowarn", "@test_skip", "@test_throws", "@test_warn", "@inferred",
-                    ] =>
-                        :(using Test),
-                    ["@testitem"] => :(using TestItems),
-                    ["@report_opt", "@report_call", "@test_call", "@test_opt"] => :(using JET),
-                    ["@stable"] => :(using DispatchDoctor),
-                    ["@code_string", "@code_expr"] => :(using CodeTracking),
-                    ["@descend"] => :(using Cthulhu),
-                    ["@about"] => :(
-                        using About;
-                        macro about(x)
-                            return Expr(:call, About.about, x)
-                        end
-                    ),
-                ]
-            )
-        end
+    try
+        using Autoloads
+    catch e
+        @info "Autoloads not installed. Run `~/.julia/config/packages.jl` to install it."
     end
 end

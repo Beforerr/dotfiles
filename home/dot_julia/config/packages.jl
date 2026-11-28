@@ -28,7 +28,18 @@ Pkg.add([
     # "Infiltrator",
 
     # Interactive
-    "BasicAutoloads",
+    "Autoloads",
+])
+
+# REPL autoloads (`pkg> autoloads status`); Test and other stdlibs autoload by default.
+using Autoloads
+Autoloads.add([
+    "About",
+    "BenchmarkTools",
+    "Chairmarks",
+    "CodeTracking",
+    "DispatchDoctor",
+    "TestItems",
 ])
 
 # `release` branch vendors deps with rewritten UUIDs, so it never conflicts with project envs.
